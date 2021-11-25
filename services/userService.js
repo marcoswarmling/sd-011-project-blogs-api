@@ -54,7 +54,7 @@ const userRegister = async ({ displayName, email, password, image }) => {
   if (!validName(displayName)) {
     return { error: { code: 'invalidName' } };
   }
-  User.insert({ displayName, email, password, image });
+  User.create({ displayName, email, password, image });
   return tokenGenerator(displayName, email, password, image);
 };
 
