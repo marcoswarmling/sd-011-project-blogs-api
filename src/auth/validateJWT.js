@@ -7,21 +7,12 @@ const secret = process.env.JWT_SECRET;
 
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ message: 'Token not found' });
-  }
-
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+  
   try {
     const { data } = jwt.verify(token, secret);
-
     const user = await User.findOne({ where: { email: data } });
-
-    if (!user) {
-      return res
-        .status(401)
-        .json({ message: 'jwt malformed' });
-    }
+    if (!user) return res.status(401).json({ message: 'jwt malformed' });
     req.user = user;
     next();
   } catch (error) {

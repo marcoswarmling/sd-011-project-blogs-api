@@ -13,16 +13,24 @@ const createNewUser = async ({ displayName, email, password, image }) => {
   return { statusCode: 201, response: { token } };
  };
 
- const getAllUsers = async () => {
+const getAllUsers = async () => {
   const user = await User.findAll();
-
   const removePassword = user
     .map(({ id, displayName, email, image }) => ({ id, displayName, email, image }));
 
   return { statusCode: 200, response: removePassword };
- };
+};
+
+const getUserById = async (id) => {
+  if (!id) return { statusCode: 404, erroCode: { message: 'User does not exist' } };
+  const user = await User.findOne({ where: { id } });
+  if (!user) return { statusCode: 404, erroCode: { message: 'User does not exist' } };
+  const { displayName, email, image } = user;
+  return { statusCode: 200, response: { id: Number(id), displayName, email, image } };
+};
 
  module.exports = {
   createNewUser,
   getAllUsers,
+  getUserById,
 };
