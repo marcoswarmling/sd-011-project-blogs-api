@@ -16,6 +16,21 @@ const registerValidate = async (req, res, next) => {
   next();
 };
 
+const loginValidate = async (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+    password: Joi.string().required().length(6),
+  });
+
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ message: error.message });
+  }
+
+  next();
+};
+
 module.exports = {
   registerValidate,
+  loginValidate,
 };

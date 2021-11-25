@@ -9,7 +9,7 @@ const userRegister = async (displayName, email, password, image) => {
   return newUser;
 };
 
-const loginValidate = async (email, password) => {
+const loginRegister = async (email, password) => {
   const userExists = await User.findOne({ where: { email, password } });
   if (!userExists) return ({ message: 'Campos inválidos' });
 
@@ -24,5 +24,5 @@ const loginValidate = async (email, password) => {
 
 module.exports = {
   userRegister,
-  loginValidate,
+  loginRegister,
 };
