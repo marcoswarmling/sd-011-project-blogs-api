@@ -1,18 +1,11 @@
-const { User } = require('../models');
-const { createNewToken } = require('../auth/createJWT');
+const userService = require('../service/userService');
 
 const createUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
-    const user = await User.findOne({ where: { email } });
+    const user = await userService.createNewUser({ displayName, email, password, image });
 
-    if (user) return res.status(409).json({ message: 'User already registered' });
-
-    await User.create({ displayName, email, password, image });
-
-    const token = await createNewToken(email);
-
-    return res.status(201).json({ message: token });
+    return res.status(user.statusCode).json(user.response);
   } catch (e) {
     console.log(e.message);
     res.status(500).json({ message: 'Algo deu errado' });
