@@ -22,7 +22,13 @@ const loginRegister = async (email, password) => {
   return { token: createToken };
 };
 
+const getUsers = async () => {
+  const allUsers = await User.findAll();
+  return allUsers;
+};
+
 module.exports = {
   userRegister,
   loginRegister,
+  getUsers,
 };
