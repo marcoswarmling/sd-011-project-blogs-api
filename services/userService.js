@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const { User } = require('../models');
 
 // lógica adaptada de https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
@@ -14,6 +16,25 @@ const validName = (name) => {
 const validPass = (pass) => {
   if (pass.length === 6) return true;
   return false;
+};
+
+const tokenGenerator = (displayName, email, password, image) => {
+  const secret = process.env.SECRET;
+  
+  const jwtConfig = {
+    expiresIn: '1h',
+    algorithm: 'HS256',
+  };
+
+  const payload = {
+    displayName,
+    email,
+    password,
+    image,
+  };
+
+  const token = jwt.sign({ data: payload }, secret, jwtConfig);
+  return token;
 };
 
 const userRegister = async ({ displayName, email, password, image }) => {
@@ -33,7 +54,8 @@ const userRegister = async ({ displayName, email, password, image }) => {
   if (!validName(displayName)) {
     return { error: { code: 'invalidName' } };
   }
-  return User.insert({ displayName, email, password, image });
+  User.insert({ displayName, email, password, image });
+  return tokenGenerator(displayName, email, password, image);
 };
 
 module.exports = {
