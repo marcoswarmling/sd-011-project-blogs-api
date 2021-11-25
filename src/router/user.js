@@ -1,8 +1,10 @@
 const router = require('express').Router();
-const validUser = require('../validation/userValidation');
+const { 
+  validEmail,
+  validReqUsers,
+} = require('../validation/userValidation');
 const user = require('../controllers/userController');
-const validEmail = require('../validation/emailValidation');
 
-router.post('/user', validUser, validEmail, user.createNewUser);
+router.post('/user', validReqUsers, validEmail, user.createNewUser);
 
 module.exports = router;
