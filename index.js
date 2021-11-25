@@ -17,3 +17,4 @@ app.get('/', (request, response) => {
 });
 
 app.get('/user', UserController.getAll);
+app.post('/user', UserController.createUser);

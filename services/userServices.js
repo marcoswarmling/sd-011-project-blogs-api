@@ -9,6 +9,16 @@ const getAll = async () => {
   }
 };
 
+const createUser = async (displayName, email, password, image) => {
+  try {
+    const createResponse = await User.create({ displayName, email, password, image });
+    return createResponse;
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
 module.exports = {
   getAll,
+  createUser,
 };
