@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Category = sequelize.define('Category', {
+  const Categories = sequelize.define('Categories', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -12,5 +12,5 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  return Category;
+  return Categories;
 };
