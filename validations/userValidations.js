@@ -11,13 +11,17 @@ function emailValidation(email) {
 }
 
 function passwordValidation(password) {
-  if (!password || password.length < 6) {
-    return false;
+  if (!password) {
+    return { error: { message: '"password" is required' } };
+  }
+  if (password.length < 6) {
+    return { error: { message: '"password" lenght must be 6 characters long' } };
   }
   return true;
 }
 
 function validateUserCreation(displayName, email, password) {
+  const passTest = passwordValidation(password);
   if (!displayNameValidation(displayName)) {
     return { error: { message: '"displayName" lenght must be at least 8 characters long' } };
   }
@@ -27,8 +31,8 @@ function validateUserCreation(displayName, email, password) {
   if (!emailValidation(email)) {
     return { error: { message: '"email" must be a valid email' } };
   }
-  if (!passwordValidation(password)) {
-    return { error: { message: '"password" lenght must be 6 characters long' } };
+  if (passTest !== true) {
+    return passTest;
   }
   return true;
 }
