@@ -1,11 +1,14 @@
 const { User } = require('../models');
 const errors = require('../schemas/errorsSchema');
+const { createToken } = require('../helpers/jwt');
 
 const getByEmail = async (email) => {
   const user = User.findOne({ where: { email } });
 
   return user;
 };
+
+const createUserToken = ({ displayName, email }) => createToken({ displayName, email });
 
 const create = async (user) => {
   const userExists = await getByEmail(user.email);
@@ -17,4 +20,14 @@ const create = async (user) => {
   return newUser;
 };
 
-module.exports = { create };
+const signin = async ({ email, password }) => {
+  const user = await getByEmail(email);
+
+  if (!user || user.password !== password) throw errors.login.invalidFields;
+
+  const token = createUserToken(user);
+
+  return token;
+};
+
+module.exports = { create, signin };
