@@ -3,20 +3,20 @@ const { status, loginMessages } = require('./status&messages');
 
 const validEmail = (email) => {
   if (!email) { 
-    createError(status.badRequest, loginMessages.emailRequired );
+    throw createError(status.badRequest, loginMessages.emailRequired);
   }
   if (email.length === 0) {
-    createError(status.badRequest, loginMessages.emailEmpty);
+    throw createError(status.badRequest, loginMessages.emailEmpty);
   }
   return false;
 };
 
 const validPassword = (password) => {
   if (!password) {
-    createError(status.badRequest, loginMessages.passwordRequired);
+    throw createError(status.badRequest, loginMessages.passwordRequired);
   }
   if (password.length === 0) {
-    createError(status.badRequest, loginMessages.passwordEmpty);
+    throw createError(status.badRequest, loginMessages.passwordEmpty);
   }
   return false;
 };

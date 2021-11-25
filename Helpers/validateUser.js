@@ -4,17 +4,17 @@ const { status, usersMessages } = require('./status&messages');
 
 const validPassword = (password) => {
   if (!password) {
-    createError(status.badRequest, usersMessages.passwordRequired);
+    throw createError(status.badRequest, usersMessages.passwordRequired);
   }
   if (password.length !== 6) {
-    createError(status.badRequest, usersMessages.password);
+    throw createError(status.badRequest, usersMessages.password);
   }
   return false;
 };
 
 const validDisplayName = (displayName) => {
   if (displayName.length < 8) {
-    createError(status.badRequest, usersMessages.displayName);
+    throw createError(status.badRequest, usersMessages.displayName);
   }
   return false;
 };
@@ -22,10 +22,10 @@ const validDisplayName = (displayName) => {
 const validEmail = (email) => {
   const regex = /\S+@\S+\.\S+/;
   if (!email) { 
-    createError(status.badRequest, usersMessages.emailRequired);
+    throw createError(status.badRequest, usersMessages.emailRequired);
   }
   if (!regex(email)) {
-    createError(status.badRequest, usersMessages.email);
+    throw createError(status.badRequest, usersMessages.email);
   }
   return false;
 };

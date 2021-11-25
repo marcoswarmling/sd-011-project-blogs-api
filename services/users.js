@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const { status, usersMessages } = require('../Helpers/status&messages');
 
-const { validateUser } = require();
+const { validateUser } = require('../Helpers/validateUser');
 const { User } = require('../models/users');
 
 const create = async (displayName, email, password, image) => {
