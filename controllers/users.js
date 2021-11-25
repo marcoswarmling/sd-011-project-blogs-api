@@ -4,13 +4,13 @@ const { generateToken } = require('../Helpers/authorizations');
 
 const create = async (req, res) => {
   try {
-    const { id, displayName, email, password, image } = req.body;
-    await usersServices.create(id, displayName, email, password, image);
+    const { displayName, email, password, image } = req.body;
+    await usersServices.create(displayName, email, password, image);
     const token = generateToken();
-    return res.status(status.create).json({ token: token });
+    return res.status(status.create).json({ token });
   } catch (error) {
-    return res.status(status.intServerError).json({ message: intServerError.unknown })
+    return res.status(status.intServerError).json({ message: intServerError.unknown });
   }
 };
 
-module.exports = { create }
+module.exports = { create };
