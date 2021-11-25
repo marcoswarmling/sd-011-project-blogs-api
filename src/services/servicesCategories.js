@@ -21,6 +21,7 @@ const allcategories = async () => {
     if (!categories) {
       return { message: 'erro na busca das categories' };
     }
+    console.log(categories);
     return categories;
   } catch (error) {
     console.log(error.message);

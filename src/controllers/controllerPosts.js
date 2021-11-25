@@ -1,7 +1,7 @@
-const servicesCategories = require('../services/servicesCategories');
+const servicesPosts = require('../services/servicesPosts');
 
 const createCategories = async (req, res) => {
-  const newCategorie = await servicesCategories.createCategories(req.body);
+  const newCategorie = await servicesPosts.createCategories(req.body);
   if (newCategorie.message) {
     return res.status(201).json({ message: newCategorie.message });
   }
@@ -9,7 +9,7 @@ const createCategories = async (req, res) => {
 };
 
 const allCategories = async (_req, res) => {
-  const allcategories = await servicesCategories.allcategories();
+  const allcategories = await servicesPosts.allcategories();
   if (allcategories.message) {
     return res.status(400).json({ message: allcategories.message });
   }

@@ -1,5 +1,5 @@
-const User = (sequelize, DataTypes) => {
-  const newUser = sequelize.define('Categorie', {
+const Categorie = (sequelize, DataTypes) => {
+  const newCategorie = sequelize.define('Categorie', {
     name: DataTypes.STRING,
   },
   {
@@ -7,7 +7,7 @@ const User = (sequelize, DataTypes) => {
     tableName: 'Categories',
   });
 
-  return newUser;
+  return newCategorie;
 };
 
-module.exports = User;
+module.exports = Categorie;
