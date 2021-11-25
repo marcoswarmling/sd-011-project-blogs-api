@@ -11,7 +11,7 @@ const userRegister = async (displayName, email, password, image) => {
 
 const loginRegister = async (email, password) => {
   const userExists = await User.findOne({ where: { email, password } });
-  if (!userExists) return ({ message: 'Campos inválidos' });
+  if (!userExists) return ({ message: 'Invalid fields' });
 
   const createToken = jwt.sign({
     id: userExists.id,
