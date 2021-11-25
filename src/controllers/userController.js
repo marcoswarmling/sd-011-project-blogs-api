@@ -30,7 +30,7 @@ const login = async (req, res) => {
 
 const getAllUsers = async (_req, res) => {
   try {
-    const allUsers = await userService.getAllUsers();
+    const allUsers = await userService.getUsers();
     return res.status(200).json(allUsers);
   } catch (error) {
     console.log(error.message);
