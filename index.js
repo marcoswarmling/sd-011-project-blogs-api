@@ -4,9 +4,13 @@ const BodyParser = require('body-parser');
 const app = express();
 app.use(BodyParser.json());
 
-const UsersRouter = require('./routes/UsersRouter');
+const UserRouter = require('./routes/UserRouter');
 
-app.use('/', UsersRouter);
+app.get('/', (req, res) => {
+  res.send('ping');
+});
+
+app.use('/', UserRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
