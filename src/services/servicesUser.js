@@ -47,8 +47,19 @@ const createUser = async (items) => {
   }
 };
 
+const allUsers = async () => {
+  try {
+    const users = await User.findAll();
+    return users;
+  } catch (error) {
+    console.log(error.message);
+    return { message: 'Algo deu errado' };
+  }
+};
+
 module.exports = {
   emailExists,
   createUser,
   loginUser,
+  allUsers,
 };
