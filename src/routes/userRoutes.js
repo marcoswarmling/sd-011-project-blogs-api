@@ -5,7 +5,7 @@ const UserValidate = require('../middlewares/checkUserData');
 const UserUnique = require('../middlewares/checkIfUniqueUser');
 
 route.post(
-  '/', UserUnique.checkUniqueUser, UserValidate.validateUserBodyData, UserController.createUser,
+  '/', UserValidate.validateUserBodyData, UserUnique.checkUniqueUser, UserController.createUser,
   );
 
 module.exports = route;
