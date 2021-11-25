@@ -51,7 +51,7 @@ const userAlreadyExists = async (req, res, next) => {
     try {
     const user = await Users.findOne({ where: { email } });
     if (user) {
-        return res.status(400).json({
+        return res.status(409).json({
         message: 'User already registered',
         });
     } 
