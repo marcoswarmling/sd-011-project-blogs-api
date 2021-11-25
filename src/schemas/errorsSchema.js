@@ -32,5 +32,21 @@ module.exports = {
       statusCode: statusCodes.badRequest,
       message: 'Invalid fields',
     },
+    requiredEmail: {
+      statusCode: statusCodes.badRequest,
+      message: '"email" is required',
+    },
+    emptyEmail: {
+      statusCode: statusCodes.badRequest,
+      message: '"email" is not allowed to be empty',
+    },
+    requiredPassword: {
+      statusCode: statusCodes.badRequest,
+      message: '"password" is required',
+    },
+    emptyPassword: {
+      statusCode: statusCodes.badRequest,
+      message: '"password" is not allowed to be empty',
+    },
   },
 };
