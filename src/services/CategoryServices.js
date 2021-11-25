@@ -14,4 +14,11 @@ module.exports = {
 
     return { category };
   },
+  index: async () => {
+    const users = await Category.findAll();
+
+    if (!users) return { error: true };
+
+    return { users };
+  },
 };

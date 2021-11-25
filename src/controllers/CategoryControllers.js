@@ -14,4 +14,15 @@ module.exports = {
       return next(error);
     }
   },
+  index: async (_req, res, next) => {
+    try {
+      const { users, error } = await CategoryServices.index();
+
+      if (error) return next(error);
+
+      return res.status(200).json(users);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
