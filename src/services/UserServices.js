@@ -1,8 +1,7 @@
-require('dotenv').config();
-const { sign } = require('jsonwebtoken');
 const { User } = require('../models');
 const { validateUniqueEmail } = require('../helpers/validateUniqueEmail');
-const { userSchema } = require('../schemas/UserSchema');
+const { userSchema } = require('../schemas/userSchema');
+const { generateToken } = require('../helpers/token');
 
 module.exports = {
   create: async ({ email, ...userData }) => {
@@ -21,11 +20,7 @@ module.exports = {
 
     if (!created) throw new Error();
 
-    const token = sign(
-      { displayName: userData.displayName, email },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d', algorithm: 'HS256' },
-    );
+    const token = await generateToken(userData.displayName, email);
 
     return { token };
   },

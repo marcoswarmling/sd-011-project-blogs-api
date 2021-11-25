@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { emailAlreadyUsed } = require('../errors/userErrors');
+const { emailAlreadyUsed } = require('../errors');
 
 async function validateUniqueEmail(email) {
   let alreadyInUse = false;
