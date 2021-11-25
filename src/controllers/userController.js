@@ -42,6 +42,9 @@ const getOneUser = async (req, res) => {
   try {
     const { id } = req.params;
     const userOne = await userService.getUserById(id);
+    if (userOne.message) {
+      return res.status(404).json(userOne);
+    }
     return res.status(200).json(userOne);
   } catch (error) {
     console.log(error.message);
