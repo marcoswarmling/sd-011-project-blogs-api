@@ -7,7 +7,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         field: 'post_id',
         references: {
-          model: 'BlogPosts',
+          model: 'BlogPost',
           key: 'id',
         },
         onUpdate: 'CASCADE',
