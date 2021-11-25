@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const userService = require('../services/userService');
+const validateJWT = require('../middlewares/validateJWT');
 
 const router = express.Router();
 
@@ -28,6 +29,11 @@ router.post('/', async (req, res) => {
   const token = jwt.sign({ id, userEmail }, secret, jwtConfig);
 
   return res.status(201).json(token);
+});
+
+router.get('/', validateJWT, async (req, res) => {
+  const response = await userService.getAll();
+  return res.status(200).json(response);
 });
 
 module.exports = router;

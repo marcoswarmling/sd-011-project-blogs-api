@@ -36,7 +36,7 @@ const isEmailValid = (email) => {
   return null;
 };
 
-const isValid = async (displayName, email, password) => {
+const isUserValid = async (displayName, email, password) => {
   if (isDisplayNameValid(displayName)) return isDisplayNameValid(displayName);
   if (isEmailValid(email)) return isEmailValid(email);
   if (await isEmailUnique(email)) return isEmailUnique(email);
@@ -44,15 +44,64 @@ const isValid = async (displayName, email, password) => {
   return null;
 };
 
+const isLoginEmailValid = (email) => {
+  if (email === '') {
+    return ({ message: '"email" is not allowed to be empty' });
+  }
+  if (!email) {
+    return ({ message: '"email" is required' });
+  }
+  return null;
+};
+
+const isLoginPasswordValid = (password) => {
+  if (password === '') {
+    return ({ message: '"password" is not allowed to be empty' });
+  }
+  if (!password) {
+    return ({ message: '"password" is required' });
+  }
+  return null;
+};
+
+const loginEmailExists = async (email) => {
+  const user = await User.findOne({ where: { email } });
+  if (!user) {
+    return ({
+      message: 'Invalid fields',
+    });
+  }
+  return user;
+};
+
+const validateLogin = async (email, password) => {
+  if (isLoginEmailValid(email)) return isLoginEmailValid(email);
+  if (isLoginPasswordValid(password)) return isLoginPasswordValid(password);
+  if (await loginEmailExists(email)) return loginEmailExists(email);
+  return null;
+};
+
 const create = async ({ displayName, email, password, image }) => {
-  const isValidData = await isValid(displayName, email, password);
-  if (isValidData) return isValidData;
+  const userNotValid = await isUserValid(displayName, email, password);
+  if (userNotValid) return userNotValid;
 
   const newUser = await User.create({ displayName, email, password, image });
 
   return newUser;
 };
 
+const login = async (email, password) => {
+  const response = await validateLogin(email, password);
+  return response;
+};
+
+const getAll = async () => {
+  const users = await User.findAll();
+  return users;
+};
+
 module.exports = {
   create,
+  login,
+  getAll,
 };
