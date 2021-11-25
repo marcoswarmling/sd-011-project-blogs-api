@@ -1,4 +1,3 @@
-const { createToken } = require('../helpers/jwt');
 const statusCodes = require('../schemas/statusCodesSchema');
 const userService = require('../services/userService');
 
@@ -7,11 +6,7 @@ module.exports = {
     const { email, password } = request.body;
 
     try {
-      const user = await userService.signin({ email, password });
-
-      const { displayName } = user;
-
-      const token = createToken({ displayName, email });
+      const token = await userService.signin({ email, password });
 
       return response.status(statusCodes.ok).json({ token });
     } catch (error) {
