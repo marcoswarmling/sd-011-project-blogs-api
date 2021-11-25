@@ -24,4 +24,11 @@ module.exports = {
 
     return { token };
   },
+  index: async () => {
+    const users = await User.findAll();
+
+    if (!users) return { error: true };
+
+    return { users };
+  },
 };
