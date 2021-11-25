@@ -3,6 +3,12 @@ const categoriesController = require('../controllers/categories');
 const validateJWT = require('../middlewares/validateJWT');
 const { validateCategoryName } = require('../middlewares/validations');
 
+router.get(
+  '/',
+  validateJWT,
+  categoriesController.getAllCategories,
+);
+
 router.post(
   '/',
   validateJWT,
