@@ -19,6 +19,9 @@ const allUsers = async (_req, res) => {
 const getById = async (req, res) => {
   const { id } = req.params;
   const user = await servicesUser.getById(id);
+  if (user.message) {
+    return res.status(404).json({ message: user.message });
+  }
   return res.status(200).json(user);
 };
 

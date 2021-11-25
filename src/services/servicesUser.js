@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../../models');
 require('dotenv').config();
 
+const errorMessage = 'Algo deu errado';
+
 const emailExists = async (email) => {
   try {
     const userEmailExists = await User.findOne({ where: { email } });
@@ -10,7 +12,7 @@ const emailExists = async (email) => {
     return true;
   } catch (error) {
     console.log(error.message);
-    return { message: 'Algo deu errado' };
+    return { errorMessage };
   }
 };
 
@@ -29,7 +31,7 @@ const loginUser = async (email, password) => {
     return { token: newToken };
   } catch (error) {
     console.log(error.message);
-    return { message: 'Algo deu errado' };
+    return { errorMessage };
   }
 };
 
@@ -43,7 +45,7 @@ const createUser = async (items) => {
     const token = await loginUser(email, password);
     return token;
   } catch (error) {
-    return { message: 'Algo deu errado' };
+    return { errorMessage };
   }
 };
 
@@ -53,7 +55,18 @@ const allUsers = async () => {
     return users;
   } catch (error) {
     console.log(error.message);
-    return { message: 'Algo deu errado' };
+    return { errorMessage };
+  }
+};
+
+const getById = async (id) => {
+  try {
+    const user = await User.findByPk(id);
+    if (!user) return { message: 'User does not exist' };
+    return user;
+  } catch (e) {
+    console.log(e.message);
+    return { errorMessage };
   }
 };
 
@@ -62,4 +75,5 @@ module.exports = {
   createUser,
   loginUser,
   allUsers,
+  getById,
 };
