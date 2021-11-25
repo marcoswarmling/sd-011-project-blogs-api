@@ -13,6 +13,16 @@ const createNewUser = async ({ displayName, email, password, image }) => {
   return { statusCode: 201, response: { token } };
  };
 
+ const getAllUsers = async () => {
+  const user = await User.findAll();
+
+  const removePassword = user
+    .map(({ id, displayName, email, image }) => ({ id, displayName, email, image }));
+
+  return { statusCode: 200, response: removePassword };
+ };
+
  module.exports = {
   createNewUser,
+  getAllUsers,
 };
