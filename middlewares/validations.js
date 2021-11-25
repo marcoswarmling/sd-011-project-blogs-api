@@ -92,10 +92,25 @@ const validatePasswordLogin = (req, _res, next) => {
   next();
 };
 
+const validateCategoryName = async (req, res, next) => {
+  const { name } = req.body;
+
+  if (name === undefined) {
+    // return next({
+    //   code: 'emptyName',
+    //   message: '"name" is required',
+    // });
+    return res.status(400).json({ message: '"name" is required' });
+  }
+
+  next();
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
   validatePassword,
   validateEmailLogin,
   validatePasswordLogin,
+  validateCategoryName,
 };
