@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const emailRegex = /^[a-z][a-z\d_-]+\.?([a-z\d_-]+)?[^-]@[a-z-]{2,12}\.[a-z]{2,3}(\.[a-z]{2})?$/i;
+const emailRegex = /^[a-z][.a-z\d_-]+[^-]@[a-z-]{2,12}\.[a-z]{2,3}(\.[a-z]{2})?$/i;
 
 const userSchema = Joi.object({
   displayName: Joi.string()
