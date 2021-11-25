@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const { validateUniqueEmail } = require('../helpers/validateUniqueEmail');
-const { userSchema } = require('../schemas/userSchema');
+const { userSchema } = require('../schemas/userSchema.js');
 const { generateToken } = require('../helpers/token');
 
 module.exports = {
