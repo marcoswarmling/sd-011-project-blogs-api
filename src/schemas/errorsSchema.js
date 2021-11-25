@@ -27,4 +27,10 @@ module.exports = {
       message: 'User already registered',
     },
   },
+  login: {
+    invalidFields: {
+      statusCode: statusCodes.badRequest,
+      message: 'Invalid fields',
+    },
+  },
 };
