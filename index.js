@@ -1,9 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
-const { User } = require('./models');
-
 const bodyParser = require('body-parser');
+const { User } = require('./models');
 
 const app = express();
 
@@ -39,7 +38,7 @@ const validatePassword = (pass, res) => {
 app.post('/user', async (req, res) => {
   const secret = 'meusegredo';
 
-  const { displayName, email, password, image } = req.body;
+  const { displayName, email, password } = req.body;
 
   if (displayName.length < 8) {
     return res.status(400).json({
