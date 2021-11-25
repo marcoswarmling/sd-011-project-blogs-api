@@ -15,7 +15,7 @@ function passwordValidation(password) {
     return { error: { message: '"password" is required' } };
   }
   if (password.length < 6) {
-    return { error: { message: '"password" lenght must be 6 characters long' } };
+    return { error: { message: '"password" length must be 6 characters long' } };
   }
   return true;
 }
@@ -23,7 +23,7 @@ function passwordValidation(password) {
 function validateUserCreation(displayName, email, password) {
   const passTest = passwordValidation(password);
   if (!displayNameValidation(displayName)) {
-    return { error: { message: '"displayName" lenght must be at least 8 characters long' } };
+    return { error: { message: '"displayName" length must be at least 8 characters long' } };
   }
   if (!email) {
     return { error: { message: '"email" is required' } };

@@ -1,13 +1,24 @@
+const jwt = require('jsonwebtoken');
 const userServices = require('../services/userServices');
+
+const secret = 'seusecretdetoken';
 
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const response = await userServices.createUser(displayName, email, password, image);
-  console.log(response);
   if (response.error) {
-    return res.status(400).json(response.error);
+    const { error } = response;
+    if (error.message === 'User already registered') {
+      return res.status(409).json(error);
+    }
+    return res.status(400).json(error);
   }
-  return res.status(201).json(response);
+  const jwtConfig = {
+    expiresIn: '7d',
+    algorithm: 'HS256',
+  };
+  const token = jwt.sign({ email, password }, secret, jwtConfig);
+  return res.status(201).json({ token });
 };
 
 module.exports = { createUser };
