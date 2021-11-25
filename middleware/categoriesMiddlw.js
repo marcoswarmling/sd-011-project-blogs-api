@@ -1,8 +1,7 @@
 const Joi = require('joi');
 
 const schema = Joi.object({
-  id: Joi.string().required(),
-  name: Joi.string.required(),
+  name: Joi.string().required(),
 });
 
 const validCategories = (req, res, next) => {
@@ -17,4 +16,8 @@ const validCategories = (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+module.exports = {
+  validCategories,
 };
