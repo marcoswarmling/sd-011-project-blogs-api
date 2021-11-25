@@ -8,7 +8,10 @@ const getAll = async (_req, res) => {
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const createResponse = await UserController.createUser(displayName, email, password, image);
-  return res.status(200).json(createResponse);
+  if (createResponse.type === 'error') {
+    return res.status(createResponse.err.code).json(createResponse.err.message);
+  }
+  return res.status(201).json(createResponse.payload);
 };
 
 module.exports = {
