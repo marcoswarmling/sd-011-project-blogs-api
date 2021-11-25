@@ -11,6 +11,8 @@ module.exports = (err, _req, res, _next) => {
     emptyPassword: 400,
     passwordLoginIsEmpty: 400,
     invalidLogin: 400,
+    noToken: 401,
+    jwtMalformed: 401,
   };
 
   if (err.code) {

@@ -72,27 +72,6 @@ const validateEmailLogin = (req, _res, next) => {
   next();
 };
 
-// const loginEntriesExists = (req, _res, next) => {
-//   const { email, password } = req.body;
-
-//   console.log(email.length);
-
-//   if (!email) {
-//     return next({
-//       code: 'emptyEmail',
-//       message: '"email" is required',
-//     });
-//   }
-  
-//   if (!password) {
-//     return next({
-//       code: 'emptyPassword',
-//       message: '"password" is required',
-//     });
-//   }
-//   next();
-// };
-
 const validatePasswordLogin = (req, _res, next) => {
   const { password } = req.body;
 
@@ -119,5 +98,4 @@ module.exports = {
   validatePassword,
   validateEmailLogin,
   validatePasswordLogin,
-  // loginEntriesExists,
 };
