@@ -34,8 +34,17 @@ const getAll = async () => {
   return usersWithoutPassword;
 };
 
+const getById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  
+  if (!user) return { error: 'User does not exist' };
+
+  return user;
+};
+
 module.exports = {
   createUser,
   loginUser,
   getAll,
+  getById,
 };

@@ -1,5 +1,10 @@
 const express = require('express');
-const { createUser, loginUser, getAll } = require('../services/userService');
+const {
+  createUser,
+  loginUser,
+  getAll,
+  getById,
+} = require('../services/userService');
 
 const {
   validateUser,
@@ -28,6 +33,15 @@ router.post('/login', validateLogin, async (req, res) => {
 router.get('/user', validateToken, async (_req, res) => {
   const response = await getAll();
   res.status(200).json(response);
+});
+
+router.get('/user/:id', validateToken, async (req, res) => {
+  const { id } = req.params;
+  const user = await getById(id);
+
+  if (user.error) return res.status(404).json({ message: user.error });
+
+  res.status(200).json(user);
 });
 
 module.exports = router;
