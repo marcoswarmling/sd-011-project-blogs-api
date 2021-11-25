@@ -1,7 +1,7 @@
 const { User } = require('../models');
 
 const { generateToken } = require('../helpers/token');
-const { loginSchema } = require('../schemas/loginSchema');
+const { loginSchema } = require('../validationSchemas/loginSchema');
 const { loginInvalidFields } = require('../errors');
 
 module.exports = {
