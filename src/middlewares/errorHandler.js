@@ -5,5 +5,5 @@ module.exports = (error, _req, res, _next) => {
 
   if (statusCode) return res.status(statusCode).json({ message });
 
-  return res.status(statusCodes.internalServerError).json({ error });
+  return res.status(statusCodes.internalServerError).json({ message: error.message });
 };
