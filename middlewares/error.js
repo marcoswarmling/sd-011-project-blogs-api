@@ -6,8 +6,11 @@ module.exports = (err, _req, res, _next) => {
     invalidEmail: 400,
     emptyEmail: 400,
     emailExists: 409, 
+    emailLoginIsEmpty: 400,
     invalidPassword: 400,
     emptyPassword: 400,
+    passwordLoginIsEmpty: 400,
+    invalidLogin: 400,
   };
 
   if (err.code) {

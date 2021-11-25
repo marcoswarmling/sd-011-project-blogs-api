@@ -52,8 +52,72 @@ const validatePassword = (req, _res, next) => {
   next();
 };
 
+const validateEmailLogin = (req, _res, next) => {
+  const { email } = req.body;
+
+  if (email === undefined) {
+    return next({
+      code: 'emptyEmail',
+      message: '"email" is required',
+    });
+  }
+
+  if (email.length === 0) {
+    return next({
+      code: 'emailLoginIsEmpty',
+      message: '"email" is not allowed to be empty',
+    });
+  }
+
+  next();
+};
+
+// const loginEntriesExists = (req, _res, next) => {
+//   const { email, password } = req.body;
+
+//   console.log(email.length);
+
+//   if (!email) {
+//     return next({
+//       code: 'emptyEmail',
+//       message: '"email" is required',
+//     });
+//   }
+  
+//   if (!password) {
+//     return next({
+//       code: 'emptyPassword',
+//       message: '"password" is required',
+//     });
+//   }
+//   next();
+// };
+
+const validatePasswordLogin = (req, _res, next) => {
+  const { password } = req.body;
+
+  if (password === undefined) {
+    return next({
+      code: 'emptyPassword',
+      message: '"password" is required',
+    });
+  }
+
+  if (password.length === 0) {
+    return next({
+      code: 'passwordLoginIsEmpty',
+      message: '"password" is not allowed to be empty',
+    });
+  }
+
+  next();
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
   validatePassword,
+  validateEmailLogin,
+  validatePasswordLogin,
+  // loginEntriesExists,
 };
