@@ -1,5 +1,5 @@
 const express = require('express');
-const { Users } = require('./models/index.js');
+const UserController = require('./controllers/userController');
 
 require('dotenv').config();
 
@@ -16,7 +16,4 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.get('/user', async (_req, res) => {
-  const allUsers = await Users.findAll();
-  return res.status(200).json(allUsers);
-});
+app.get('/user', UserController.getAll);
