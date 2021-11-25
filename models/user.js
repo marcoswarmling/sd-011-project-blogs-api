@@ -5,9 +5,9 @@ const User = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     image: DataTypes.STRING,
   }, {
-    timeStamps: false,
+    timestamps: false,
     tableName: 'Users',
-    underscored: true,
+    underscored: false,
   });
 
   return newUser;
