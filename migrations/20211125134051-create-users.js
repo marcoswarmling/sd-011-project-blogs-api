@@ -10,12 +10,10 @@ module.exports = {
       displayName: {
         allowNull: false,
         type: Sequelize.STRING,
-        field: 'display_name',
       },
       email: {
         allowNull: false,
         type: Sequelize.UNIQUE,
-        field: 'email',
       },
       password: {
         allowNull: false,
@@ -24,7 +22,6 @@ module.exports = {
       image: {
         allowNull: false,
         type: Sequelize.STRING,
-        field: 'image',
       }
     });
   },
