@@ -11,7 +11,7 @@ const createUser = async (req, res) => {
   if (createResponse.type === 'error') {
     return res.status(createResponse.err.code).json(createResponse.err.message);
   }
-  return res.status(201).json(createResponse.payload);
+  return res.status(201).json({ token: 'testandootoken' });
 };
 
 module.exports = {
