@@ -1,8 +1,8 @@
-require(dotenv).config();
+// require(dotenv).config();
 const jwt = require('jsonwebtoken');
-const { status } = require('../Helpers/status&messages');
+// const { status } = require('../Helpers/status&messages');
 
-const segredo = process.env.JWT;
+const segredo = 'segredo';
 
 const jwtconfig = { 
   expiresIn: '1h',
@@ -27,4 +27,4 @@ const verifyToken = async (req, res, next) => {
   } catch (error) { return res.status(status.unauth).json({ message: authMessages.jwt }); }
 }; */
 
-module.exports = { verifyToken, generateToken };
+module.exports = { /* verifyToken, */ generateToken };
