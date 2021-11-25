@@ -1,16 +1,14 @@
-const User = (sequelize, DataTypes) => {
-  const newUser = sequelize.define('Categorie', {
-    displayName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    image: DataTypes.STRING,
+const Category = (sequelize, DataTypes) => {
+  const newCategory = sequelize.define('Category', {
+    name: DataTypes.STRING,
+    
   }, {
     timestamps: false,
     tableName: 'Categories',
     underscored: false,
   });
 
-  return newUser;
+  return newCategory;
 };
 
-module.exports = User;
+module.exports = Category;
