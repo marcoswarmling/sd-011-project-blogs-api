@@ -5,6 +5,12 @@ const createdUser = async (user) => {
   return result;
 };
 
+const getUser = async () => {
+  const result = await User.findAll();
+  return result;
+};
+
 module.exports = {
   createdUser,
+  getUser,
 };

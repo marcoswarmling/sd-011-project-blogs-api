@@ -16,8 +16,12 @@ const generatedToken = async (user) => {
       message: 'Invalid fields',
     };
   }
+  const jwtConfig = {
+    expiresIn: '7d',
+    algorithm: 'HS256',
+  };
   const secret = process.env.JWT_SECRET;
-  const token = jwt.sign(login.dataValues, secret);
+  const token = jwt.sign(login.dataValues, secret, jwtConfig);
   return token;
 }; 
 
