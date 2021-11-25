@@ -31,8 +31,17 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getUserById = async (id) => {
+  const user = await Users.findByPk(id);
+
+  if (!user) return false;
+
+  return user;
+};
+
 module.exports = {
   createUser,
   isEmailRegistered,
   getAllUsers,
+  getUserById,
 };

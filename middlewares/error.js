@@ -1,6 +1,6 @@
 module.exports = (err, _req, res, _next) => {
   const { code, message } = err;
-  
+
   const codeDictionaryError = {
     invalidDisplayName: 400,
     invalidEmail: 400,
@@ -15,9 +15,7 @@ module.exports = (err, _req, res, _next) => {
     jwtMalformed: 401,
   };
 
-  if (err.code) {
-    return res.status(codeDictionaryError[code]).json({ message });
-  }
+  if (err.code) res.status(codeDictionaryError[code]).json({ message });
 
   return res.status(500).json(err);
 };

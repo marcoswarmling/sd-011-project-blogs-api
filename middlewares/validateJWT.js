@@ -1,11 +1,13 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const validateJWT = async (req, _res, next) => {
+const validateJWT = async (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return next({ code: 'noToken', message: 'Token not found' });
+    return res.status(401).json({ message: 'Token not found' });
+    
+    // next({ code: 'noToken', message: 'missing auth token' });
   }
 
   try {
@@ -13,8 +15,8 @@ const validateJWT = async (req, _res, next) => {
     const { email, password } = payload.data;
     req.user = { email, password };
     next();
-  } catch (e) {
-    return next({ code: 'jwtMalformed', message: 'Expired or invalid token' });
+  } catch (err) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 

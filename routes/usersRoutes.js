@@ -15,6 +15,12 @@ router.post(
 );
 
 router.get(
+  '/:id',
+  validateJWT,
+  usersController.getUserById,
+);
+
+router.get(
   '/',
   validateJWT,
   usersController.getAllUsers,  
