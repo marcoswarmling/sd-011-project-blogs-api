@@ -10,7 +10,13 @@ const getUser = async () => {
   return result;
 };
 
+const getUserId = async (id) => {
+  const result = await User.findByPk(id);
+  return result;
+};
+
 module.exports = {
   createdUser,
   getUser,
+  getUserId,
 };
