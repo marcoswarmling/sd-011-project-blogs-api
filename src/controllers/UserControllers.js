@@ -26,4 +26,17 @@ module.exports = {
       return next(err);
     }
   },
+  getUserById: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+  
+      const { user, error } = await UserServices.getUserById(id);
+  
+      if (error) return next(error);
+  
+      res.status(200).json(user);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };

@@ -1,6 +1,7 @@
 const { User } = require('../models');
 const { validateUniqueEmail } = require('../helpers/validateUniqueEmail');
 const { userSchema } = require('../validationSchemas/userSchema');
+const { userNotFound } = require('../errors');
 const { generateToken } = require('../helpers/token');
 
 module.exports = {
@@ -30,5 +31,16 @@ module.exports = {
     if (!users) return { error: true };
 
     return { users };
+  },
+  getUserById: async (id) => {
+    if (!id) return { error: userNotFound };
+
+    const user = await User.findOne({
+      where: { id },
+    });
+
+    if (!user) return { error: userNotFound };
+
+    return { user };
   },
 };
