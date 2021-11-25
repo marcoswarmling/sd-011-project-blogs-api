@@ -19,7 +19,23 @@ const loginUser = async (email, password) => {
   return token;
 };
 
+const getAll = async () => {
+  const users = await User.findAll();
+
+  const usersWithoutPassword = users.map(
+    ({ dataValues: { id, displayName, email, image } }) => ({
+      id,
+      displayName,
+      email,
+      image,
+    }),
+  );
+
+  return usersWithoutPassword;
+};
+
 module.exports = {
   createUser,
   loginUser,
+  getAll,
 };
