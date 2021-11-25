@@ -1,7 +1,7 @@
 const { User } = require('../models');
 
 const validatePassword = (passsword) => {
-  if (passsword === '') {
+  if (passsword === undefined) {
     return { type: 'error', err: { code: 400, message: '"password" is required' } };
   }
   if (passsword.length !== 6) {
@@ -22,7 +22,7 @@ async function verifyIfEmailAlreadyRegistered(email) {
   if (userFound.length !== 0) {
     return { type: 'error', 
     err: { 
-      code: 400, message: '"email" already registered', 
+      code: 409, message: 'User already registered', 
     } };
   }
   return {
@@ -32,16 +32,12 @@ async function verifyIfEmailAlreadyRegistered(email) {
 
 const validateEmail = (email) => {
   const re = /\S+@\S+\.\S+/;
+  if (email === undefined) {
+    return { type: 'error', err: { code: 400, message: '"email" is required' } };
+  }
   if (!re.test(email)) {
     return { type: 'error', err: { code: 400, message: '"email" must be a valid email' } };
   }
-  if (email === '') {
-    return { type: 'error', err: { code: 400, message: '"email" is required' } };
-  }
-  // const emailAlreadyRegistered = await verifyIfEmailAlreadyRegistered(email);
-  // if (emailAlreadyRegistered !== []) {
-  //   return { type: 'error', err: { code: 400, message: '"email" already registered' } };
-  // }
   return {
     type: 'success',
   };
@@ -60,11 +56,13 @@ const validateDisplayName = (displayName) => {
 };
 
 function validateUser(displayName, email, passsword, _image) {
-  if (validateDisplayName(displayName).type === 'error') {
-    return validateDisplayName(displayName);
+  const isNotValidDisplayName = validateDisplayName(displayName);
+  if (isNotValidDisplayName.type === 'error') {
+    return isNotValidDisplayName;
   }
-  if (validatePassword(passsword).type === 'error') {
-    return validatePassword(passsword);
+  const isNotValidPassword = validatePassword(passsword);
+  if (isNotValidPassword.type === 'error') {
+    return isNotValidPassword;
   }
   if (validateEmail(email).type === 'error') {
     return validateEmail(email); 

@@ -11,8 +11,9 @@ const getAll = async () => {
 };
 
 const createUser = async (displayName, email, password, image) => {
-  if (validateUser(displayName, email, password).type === 'error') {
-    return validateUser(displayName, email, password);
+  const isValidUser = validateUser(displayName, email, password);
+  if (isValidUser.type === 'error') {
+    return isValidUser;
   }
   const emailAlreadyRegistered = await verifyIfEmailAlreadyRegistered(email);
   if (emailAlreadyRegistered.type === 'error') {
