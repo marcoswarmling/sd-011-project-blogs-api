@@ -24,4 +24,12 @@ const usersMessages = {
   emailConflict: 'User already registered',
 };
 
-module.exports = { status, intServerError, usersMessages };
+const loginMessages = {
+  emailRequired: '"email" is required',
+  passwordRequired: '"password" is required',
+  emailEmpty: '"email" is not allowed to be empty',
+  passwordEmpty: '"password" is not allowed to be empty',
+  notRegistered: 'invalid fields',
+};
+
+module.exports = { status, intServerError, usersMessages, loginMessages };
