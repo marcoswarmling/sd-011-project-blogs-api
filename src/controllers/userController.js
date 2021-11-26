@@ -2,12 +2,12 @@ const userService = require('../services/userService');
 
 const addUser = async (req, res) => {
   const result = await userService.addUser(req.body);
+  if (!result) return res.status(409).json({ message: 'User already registered' });
+  
   const { message } = result;
+  if (message) return res.status(400).json({ message });
 
-  if (!result) return res.status(404).send('deu ruim');
-  if (message) res.status(400).json({ message });
-
-  res.status(201).json({ token: result });
+  return res.status(201).json({ token: result });
 };
 
 module.exports = {
