@@ -14,7 +14,7 @@ function generateToken(object) {
 
 const validAuth = (token) => {
   const decode = jwt.verify(token, secret);
-  return decode;
+  return decode.data;
 };
 
 module.exports = {

@@ -1,3 +1,5 @@
+const { validAuth } = require('../auth');
+
 function checkName(req, res, next) {
   const { displayName } = req.body;
 
@@ -33,8 +35,21 @@ function checkPassword(req, res, next) {
   next();
 }
 
+function checkToken(req, res, next) {
+  const { authorization } = req.headers;
+
+  if (authorization === '') {
+    return res.status(401).json({
+      message: 'Token not found',
+    });
+  }
+
+  next();
+}
+
 module.exports = {
   checkName,
   checkEmail,
   checkPassword,
+  checkToken,
 };

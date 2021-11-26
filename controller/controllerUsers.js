@@ -19,6 +19,14 @@ async function addNewUser(req, res) {
   return res.status(201).send({ token });
 }
 
+async function getUsers(req, res) {
+  const result = await Users.findAll()
+    .catch(() =>
+      res.status(500).json({ message: 'Erro Interno' }));
+  res.status(200).json(result);
+}
+
 module.exports = {
   addNewUser,
+  getUsers,
 };

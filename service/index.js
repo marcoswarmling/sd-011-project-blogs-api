@@ -1,4 +1,5 @@
 const { Users } = require('../models');
+const { validAuth } = require('../auth');
 
 function checkfildEmail(req, res, next) {
   const { email } = req.body;
@@ -51,10 +52,27 @@ function checkEmptyEmail(req, res, next) {
   next();
 }
 
+async function checkUserCredencies(req, res, next) {
+  const { authorization } = req.headers;
+
+  try {
+    const { email } = await validAuth(authorization);
+
+    await Users.findOne({
+      where: { email },
+    });
+  } catch (error) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+
+  next();
+}
+
 module.exports = {
   checkUserExist,
   checkfildEmail,
   checkfildPassword,
   checkEmptyPassword,
   checkEmptyEmail,
+  checkUserCredencies,
 };
