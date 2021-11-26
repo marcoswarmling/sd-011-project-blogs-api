@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { validateUser } = require('../validations/validateUser');
 
 const jwtConfig = {
   expiresIn: '10d',
@@ -7,6 +8,10 @@ const jwtConfig = {
 };
 
 const addUser = async (data) => {
+  const { error: validationError } = validateUser(data);
+
+  if (validationError) return { validationError };
+
   const { displayName, email, password, image } = data;
 
   const user = await User.findOne({ where: { email } });
