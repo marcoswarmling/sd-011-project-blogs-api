@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { createError } = require('../middlewares/errors');
 const { User } = require('../models');
 const { validateUser } = require('../validations/validateUser');
 
@@ -10,7 +11,7 @@ const jwtConfig = {
 const addUser = async (data) => {
   const { error: validationError } = validateUser(data);
 
-  if (validationError) return validationError;
+  if (validationError) return createError('badRequest', validationError.message);
 
   const { displayName, email, password, image } = data;
 
@@ -27,7 +28,7 @@ const addUser = async (data) => {
     return token;
   }
 
-  return null;
+  return createError('conflict', 'User already registered');
 };
 
 module.exports = {

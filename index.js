@@ -1,5 +1,6 @@
 const express = require('express');
 const userRoute = require('./src/routes/userRoute');
+const { getErrors } = require('./src/middlewares/errors');
 require('dotenv').config();
 
 const app = express();
@@ -7,6 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/user', userRoute);
+app.use(getErrors);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
