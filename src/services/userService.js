@@ -36,4 +36,12 @@ const getAll = async () => {
   return users;
 };
 
-module.exports = { create, signin, getAll };
+const getById = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) throw errors.user.notFound;
+
+  return user;
+};
+
+module.exports = { create, signin, getAll, getById };
