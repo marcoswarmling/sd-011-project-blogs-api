@@ -21,7 +21,7 @@ const getEmailExist = async (email) => {
 const createUsers = async (displayName, email, password, image) => {
  const emailExist = await getEmailExist(email);
   if (emailExist) {
-    return { msgError: 'MESSAGE_ERROR' };
+    return { msgError: 'msgError' };
   }
 
   await Users.create({ displayName, email, password, image });

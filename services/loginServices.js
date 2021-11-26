@@ -2,6 +2,7 @@ const JWT = require('jsonwebtoken');
 const { Users } = require('../models');
 
 const SECRET = process.env.JWT_SECRET;
+console.log(SECRET, 'SECRET DO LOGIN');
 
 const jwtConfig = {
   expiresIn: '15d',
@@ -15,9 +16,8 @@ const getUserEmail = async (email) => {
 
 const createLogin = async (email, password) => {
   const userExist = await getUserEmail(email);
-  console.log(userExist, 'USUARIO EXISTE');
   if (!userExist || userExist.password !== password) {
-    return { msgError: 'MESSAGE_ERROR' };
+    return { msgError: 'msgError' };
   }
 
   const userWithoutPassword = {
@@ -25,7 +25,6 @@ const createLogin = async (email, password) => {
   };
 
   const token = JWT.sign({ data: userWithoutPassword }, SECRET, jwtConfig);
-  console.log(token, 'TOKEN-SERVICES');
   return token;
 };
 
