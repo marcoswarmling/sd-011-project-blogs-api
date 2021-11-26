@@ -11,6 +11,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+app.use('/categories', routes.CategoriesRoutes);
 app.use('/user', routes.UserRoutes);
 app.use('/login', routes.LoginRoutes);
 
