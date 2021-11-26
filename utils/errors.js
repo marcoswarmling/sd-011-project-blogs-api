@@ -18,6 +18,12 @@ const passwordIsRequired = newError('passwordIsRequired');
 
 const invalidPassword = newError('invalidPassword');
 
+const invalidFields = newError('invalidFields');
+
+const emailNotAllowedEmpty = newError('emailNotAllowedEmpty');
+
+const passwordNotAllowedEmpty = newError('passwordNotAllowedEmpty');
+
 module.exports = {
   userAlreadyRegistered,
   nameIsRequired,
@@ -26,4 +32,7 @@ module.exports = {
   invalidEmail,
   passwordIsRequired,
   invalidPassword,
+  invalidFields,
+  emailNotAllowedEmpty,
+  passwordNotAllowedEmpty,
 };

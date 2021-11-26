@@ -7,22 +7,33 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
+const validations = {
+  email: validate.uniqueEmail,
+  login: validate.user,
+};
+
 const generateToken = ({ id, email }) => (
   jwt.sign({ id, email }, process.env.JWT_SECRET, jwtConfig)
 );
 
-const validateUser = async (payload) => {
-  const { email } = payload;
+const validateUser = async ({ email }, validationType) => {
   const user = await User.findOne({ where: { email } });
-  validate.newUser(user);
+  validations[validationType](user);
+  return user;
 };
 
 const newUser = async (payload) => {
-  await validateUser(payload);
+  await validateUser(payload, 'email');
   const user = await User.create(payload);
+  return generateToken(user);
+};
+
+const login = async (payload) => {
+  const user = await validateUser(payload, 'login');
   return generateToken(user);
 };
 
 module.exports = {
   newUser,
+  login,
 };

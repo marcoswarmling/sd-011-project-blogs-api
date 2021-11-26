@@ -6,6 +6,9 @@ const {
   invalidEmail,
   passwordIsRequired,
   invalidPassword,
+  invalidFields,
+  emailNotAllowedEmpty,
+  passwordNotAllowedEmpty,
 } = require('../utils/errors');
 
 const validDisplayName = (name) => {
@@ -14,6 +17,7 @@ const validDisplayName = (name) => {
 };
 
 const validEmail = (email) => {
+  if (email === '') throw emailNotAllowedEmpty;
   if (!email) throw emailIsRequired;
 
   const regEx = /^\w+@\w[^]+\.com(\.br)?$/;
@@ -23,23 +27,33 @@ const validEmail = (email) => {
 };
 
 const validPassword = (password) => {
+  if (password === '') throw passwordNotAllowedEmpty;
   if (!password) throw passwordIsRequired;
   if (password.length !== 6) throw invalidPassword;
 };
 
-const newUserInformation = (payload) => {
-  const { displayName, email, password } = payload;
-  
+const newUserInformation = ({ displayName, email, password }) => {  
   validDisplayName(displayName);
   validEmail(email);
   validPassword(password);
 };
 
-const newUser = (user) => {
+const uniqueEmail = (user) => {
   if (user) throw userAlreadyRegistered;
+};
+
+const login = ({ email, password }) => {
+  validEmail(email);
+  validPassword(password);
+};
+
+const user = (payload) => {
+  if (!payload) throw invalidFields;
 };
 
 module.exports = {
   newUserInformation,
-  newUser,
+  uniqueEmail,
+  login,
+  user,
 };
