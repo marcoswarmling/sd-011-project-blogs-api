@@ -1,5 +1,5 @@
 const { Users } = require('../models');
-const { createAuth } = require('../auth/createAuth');
+const { createAuth } = require('../middlewares/auth/createAuth');
 
 const create = async ({ email, password }) => {
   const newUser = await Users.findOne({ where: { email } });

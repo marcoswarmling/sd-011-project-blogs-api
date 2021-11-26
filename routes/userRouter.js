@@ -2,7 +2,7 @@ const express = require('express');
 const UserController = require('../controllers/userController');
 
 const { UserPostValidate, validateEmailUnique } = require('../middlewares/userValidation');
-const { userAuth } = require('../auth/validateAuth');
+const { userAuth } = require('../middlewares/auth/validateAuth');
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 const { Users } = require('../models');
-const { createAuth } = require('../auth/createAuth');
+const { createAuth } = require('../middlewares/auth/createAuth');
 
 const create = async ({ displayName, email, password, image }) => {
   const userData = { displayName, email, password, image };
