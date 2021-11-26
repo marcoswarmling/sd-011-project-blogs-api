@@ -7,6 +7,13 @@ const postCategories = (req, res) => {
         .catch((err) => res.send(err));
 };
 
+const getAllCategories = (_req, res) => {
+    Categories.findAll()
+        .then((categories) => res.status(200).json(categories))
+        .catch((err) => res.send(err));
+}
+
 module.exports = { 
     postCategories,
+    getAllCategories,
 };
