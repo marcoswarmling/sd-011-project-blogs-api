@@ -77,6 +77,6 @@ module.exports = {
   },
   requiredField: (field) => ({
     statusCode: statusCodes.badRequest,
-    message: `"${field}" is required"`,
+    message: `"${field}" is required`,
   }),
 };
