@@ -66,9 +66,16 @@ const validateReqBody = async ({ displayName, email, password }) => {
   return null;
 };
 
+const userNotFoundResponse = () => {
+  const responseMessage = { message: 'User does not exist' };
+  const statusCode = 404;
+  return { statusCode, responseMessage };
+};
+
 module.exports = {
   validateReqBody,
   invalidReqBodyResponse,
   validateEmail,
   validatePassword,
+  userNotFoundResponse,
 };
