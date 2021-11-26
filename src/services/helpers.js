@@ -14,8 +14,11 @@ const validateDisplayName = (displayName) => {
 const validateEmail = (email) => {
   const emailRequired = '"email" is required';
   const emailMustBeValid = '"email" must be a valid email';
+  const emptyEmailMessage = '"email" is not allowed to be empty';
 
-  if (!email) return emailRequired;
+  if (email === undefined) return emailRequired;
+
+  if (email.length === 0) return emptyEmailMessage;
 
   const validEmail = /^[a-z][a-z\d_-]+\.?([a-z\d_-]+)?[^-]@[a-z-]{2,12}\.[a-z]{2,3}(\.[a-z]{2})?$/i;
   if (!validEmail.test(email)) return emailMustBeValid;
@@ -34,13 +37,15 @@ const checkIfEmailAlreadyExists = async (email) => {
 };
 
 const validatePassword = (password) => {
-  let responseMessage = '"password" length must be 6 characters long';
-  if (!password) {
-    responseMessage = '"password" is required';
-    return responseMessage;
-  }
-  
-  if (password.length !== 6) return responseMessage;
+  const passwordRequired = '"password" is required';
+  const passwordMustBeValid = '"password" length must be 6 characters long';
+  const emptyPasswordMessage = '"password" is not allowed to be empty';
+
+  if (password === undefined) return passwordRequired;
+
+  if (password.length === 0) return emptyPasswordMessage;
+
+  if (password.length !== 6) return passwordMustBeValid;
 };
 
 const validateReqBody = async ({ displayName, email, password }) => {
@@ -64,4 +69,6 @@ const validateReqBody = async ({ displayName, email, password }) => {
 module.exports = {
   validateReqBody,
   invalidReqBodyResponse,
+  validateEmail,
+  validatePassword,
 };
