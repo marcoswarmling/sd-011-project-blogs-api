@@ -74,6 +74,10 @@ module.exports = {
       statusCode: statusCodes.badRequest,
       message: '"categoryIds" not found',
     },
+    notFound: {
+      statusCode: statusCodes.notFound,
+      message: 'Post does not exist',
+    },
   },
   requiredField: (field) => ({
     statusCode: statusCodes.badRequest,
