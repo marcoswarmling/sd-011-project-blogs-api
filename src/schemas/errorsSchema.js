@@ -26,6 +26,10 @@ module.exports = {
       statusCode: statusCodes.conflict,
       message: 'User already registered',
     },
+    notFound: {
+      statusCode: statusCodes.notFound,
+      message: 'User does not exist',
+    },
   },
   login: {
     invalidFields: {
