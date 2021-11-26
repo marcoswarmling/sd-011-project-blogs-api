@@ -19,10 +19,12 @@ module.exports = {
       published: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn('now')
         },
       updated: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn('now')
         },
       userId: {
         type: Sequelize.INTEGER,
@@ -33,11 +35,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         primaryKey: true,
-      }, 
-      image: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      }
+      },      
     });
   },
 

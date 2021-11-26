@@ -44,6 +44,8 @@ const userLogin = async (email, password) => {
 
   const userExists = await Users.findOne({ where: { email, password } });
 
+  const { id } = userExists;
+
   if (!userExists) {
     return { message: 'Invalid fields' };
   }
@@ -55,7 +57,7 @@ const userLogin = async (email, password) => {
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ email }, secret, jwtConfig);
+  const token = jwt.sign({ email, id }, secret, jwtConfig);
 
   return { token };
 };  

@@ -20,6 +20,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       image: {
+        allowNull: false,
         type: Sequelize.STRING,
       }
     });

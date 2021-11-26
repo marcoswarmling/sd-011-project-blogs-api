@@ -43,7 +43,7 @@ const validate = (displayName, email, password) => {
   return null;
 };
 
-const generateToken = (email) => {
+const generateToken = (email, id) => {
   const secret = process.env.JWT_SECRET;
 
   const jwtConfig = {
@@ -51,7 +51,7 @@ const generateToken = (email) => {
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ email }, secret, jwtConfig);
+  const token = jwt.sign({ email, id }, secret, jwtConfig);
 
   return token;
 };
@@ -76,7 +76,9 @@ const create = async (displayName, email, password, image) => {
     displayName, email, password, image,
   });
 
-  const token = generateToken(email);
+  const userId = await Users.findOne({ where: { email } });
+
+  const token = generateToken(email, userId.dataValues.id);
 
   return { token };
 };

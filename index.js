@@ -2,6 +2,7 @@ const express = require('express');
 const usersRoutes = require('./routes/usersRoute');
 const loginRoutes = require('./routes/loginRoute');
 const categoryRoutes = require('./routes/categoriesRoute');
+const postRoutes = require('./routes/postRoute');
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.use('/user', usersRoutes);
 app.use('/login', loginRoutes);
 
 app.use('/categories', categoryRoutes);
+
+app.use('/post', postRoutes);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

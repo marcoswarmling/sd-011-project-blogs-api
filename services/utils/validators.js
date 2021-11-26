@@ -81,6 +81,27 @@ const validateCategoryNameExists = (name) => {
   return null;
 };
 
+const validateTitleExists = (title) => {
+  if (!title) {
+    return { message: '"title" is required' };
+  }
+  return null;
+};
+
+const validateContentExists = (content) => {
+  if (!content) {
+    return { message: '"content" is required' };
+  }
+  return null;
+};
+
+const validaCategoryIdExists = (categoryId) => {
+  if (!categoryId) {
+    return { message: '"categoryIds" is required' };
+  }
+  return null;
+};
+
 module.exports = {
   validateEmailExists,
   validateDisplayNameLength,
@@ -91,4 +112,7 @@ module.exports = {
   validateEmptyEmail,
   verifyToken,
   validateCategoryNameExists,
+  validateTitleExists,
+  validateContentExists,
+  validaCategoryIdExists,
 };
