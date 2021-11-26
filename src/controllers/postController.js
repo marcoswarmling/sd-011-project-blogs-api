@@ -4,6 +4,9 @@ const createPost = async (req, res) => {
   try {
     const { title, categoryIds, content } = req.body;
     const newPost = await postService.postRegister(title, categoryIds, content, req.userId);
+    if (newPost.message) {
+      return res.status(400).json(newPost);
+    }
     res.status(201).json(newPost);
   } catch (error) {
     console.log(error.message);
