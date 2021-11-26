@@ -40,6 +40,8 @@ const getUserByID = async (id) => {
   return userID;
 };
 
+// test
+
 module.exports = {
   userValidate,
   loginValidate,
