@@ -18,6 +18,12 @@ const validPass = (pass) => {
   return false;
 };
 
+const existingUser = async (email) => {
+  const user = await User.findOne({ where: { email } });
+  // console.log(user);
+  return user;
+};
+
 const tokenGenerator = (displayName, email, password, image) => {
   const secret = process.env.SECRET;
   
@@ -38,11 +44,7 @@ const tokenGenerator = (displayName, email, password, image) => {
 };
 
 const userRegister = async ({ displayName, email, password, image }) => {
-  const existingUser = await User.findOne({
-    where: { email },
-    include: [{ model: User, as: 'users' }],
-  });
-  if (existingUser) {
+  if (await existingUser(email) !== null) {
     return { error: { code: 'conflict' } };
   }
   if (!validEmail(email)) {
@@ -54,7 +56,7 @@ const userRegister = async ({ displayName, email, password, image }) => {
   if (!validName(displayName)) {
     return { error: { code: 'invalidName' } };
   }
-  User.create({ displayName, email, password, image });
+  await User.create({ displayName, email, password, image });
   return tokenGenerator(displayName, email, password, image);
 };
 
