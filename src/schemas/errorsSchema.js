@@ -78,6 +78,14 @@ module.exports = {
       statusCode: statusCodes.notFound,
       message: 'Post does not exist',
     },
+    unauthorizedUser: {
+      statusCode: statusCodes.unauthorized,
+      message: 'Unauthorized user',
+    },
+    categoryUpdate: {
+      statusCode: statusCodes.badRequest,
+      message: 'Categories cannot be edited',
+    },
   },
   requiredField: (field) => ({
     statusCode: statusCodes.badRequest,
