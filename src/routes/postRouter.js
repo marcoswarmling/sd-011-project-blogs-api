@@ -13,5 +13,6 @@ postRouter.post('/', authValidator, newPostValidator, postController.create);
 postRouter.get('/:id', authValidator, postController.getById);
 postRouter.get('/', authValidator, postController.getAll);
 postRouter.put('/:id', authValidator, updatePostValidator, postOwnership, postController.update);
+postRouter.delete('/:id', authValidator, postOwnership, postController.delete);
 
 module.exports = postRouter;
