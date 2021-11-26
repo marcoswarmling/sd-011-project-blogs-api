@@ -5,7 +5,6 @@ const create = async (category, token) => {
   try {
     verifyToken(token);
     const { dataValues } = await Category.create(category);
-    console.log(dataValues);
     return dataValues;
   } catch (error) {
     return { message: 'Expired or invalid token' };
