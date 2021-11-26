@@ -7,5 +7,6 @@ const { CategoryPostValidate } = require('../middlewares/ categoriesValidation')
 const router = express.Router();
 
 router.post('/', userAuth, CategoryPostValidate, CategoriesController.create);
+router.get('/', userAuth, CategoriesController.findAll);
 
 module.exports = router;
