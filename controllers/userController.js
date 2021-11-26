@@ -17,11 +17,11 @@ router.post('/', async (req, res) => {
   const response = await userService.create({ displayName, email, password, image });
 
   if (response && response.message === 'User already registered') {
-    res.status(409).json(response);
+    return res.status(409).json(response);
   }
 
   if (response && response.message) {
-    res.status(400).json(response);
+    return res.status(400).json(response);
   }
 
   const { id, email: userEmail } = response;
