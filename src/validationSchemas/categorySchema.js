@@ -2,6 +2,8 @@ const Joi = require('joi');
 
 module.exports = {
   categorySchema: Joi.object({
-    name: Joi.string().required(),
+    name: Joi
+      .string()
+      .required(),
   }),
 };

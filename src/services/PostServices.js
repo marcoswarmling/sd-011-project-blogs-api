@@ -2,7 +2,7 @@ const { BlogPost, User, Category } = require('../models');
 
 const { postSchema } = require('../validationSchemas/postSchema');
 const { validateCategories } = require('../helpers/validateCategories');
-const { categoryNotFound } = require('../errors');
+const { categoryNotFound, postNotfound } = require('../errors');
 
 module.exports = {
   create: async ({ title, content, categoryIds, userId }) => {
@@ -39,6 +39,24 @@ module.exports = {
       if (!posts) return { error: true };
   
       return { posts };
+    } catch (error) {
+      return { error };
+    }
+  },
+  getPostById: async (id) => {
+    try {
+      if (!id) return { error: postNotfound };
+  
+      const post = await BlogPost.findByPk(id, {
+        include: [
+          { model: User, as: 'user', attributes: { exclude: ['password'] } },
+          { model: Category, as: 'categories' },
+        ],
+      });
+  
+      if (!post) return { error: postNotfound };
+  
+      return { post };
     } catch (error) {
       return { error };
     }

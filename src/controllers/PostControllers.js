@@ -26,4 +26,17 @@ module.exports = {
       return next(error);
     }
   },
+  getPostById: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+  
+      const { post, error } = await PostServices.getPostById(id);
+  
+      if (error) return next(error);
+
+      return res.status(200).json(post);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
