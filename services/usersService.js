@@ -1,43 +1,12 @@
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
-
-const validateEmailExists = (email) => {
-  if (!email) {
-    return { message: '"email" is required' };
-  }  
-  return null;
-};
-
-const validatePasswordExists = (password) => {
-  if (!password) {
-    return { message: '"password" is required' };
-  }
-  return null;
-};
-
-const validateEmailFormat = (email) => {
-  const emailPattern = /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/;
-  // para verificação de email abaixo: Source: https://forum.blip.ai/t/resolvido-regex-para-validacao-de-email/1635
-
-  if (!emailPattern.test(email)) {
-    return { message: '"email" must be a valid email' };
-  }  
-  return null;
-};
-
-const validatePasswordLength = (password) => {
-  if (password.length !== 6) {
-    return { message: '"password" length must be 6 characters long' };
-  }
-  return null;
-};
-
-const validateDisplayNameLength = (displayName) => {
-  if (displayName.length < 8) {
-    return { message: '"displayName" length must be at least 8 characters long' };
-  }
-  return null;
-};
+const { 
+  validateEmailExists,
+  validateDisplayNameLength,
+  validatePasswordLength,
+  validateEmailFormat,
+  validatePasswordExists,
+} = require('./utils/validators');
 
 const validateEmailAlreadyExists = async (email) => {
   const user = await Users.findOne({ where: { email } });
@@ -73,7 +42,7 @@ const validate = (displayName, email, password) => {
   return null;
 };
 
-const generateToken = (displayName, email) => {
+const generateToken = (email) => {
   const secret = 'fogueteNaoTemRe';
 
   const jwtConfig = {
@@ -81,7 +50,7 @@ const generateToken = (displayName, email) => {
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ displayName, email }, secret, jwtConfig);
+  const token = jwt.sign({ email }, secret, jwtConfig);
 
   return token;
 };
@@ -106,7 +75,7 @@ const create = async (displayName, email, password, image) => {
     displayName, email, password, image,
   });
 
-  const token = generateToken(displayName, email);
+  const token = generateToken(email);
 
   return { token };
 };

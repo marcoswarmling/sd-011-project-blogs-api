@@ -1,11 +1,14 @@
 const express = require('express');
 const usersRoutes = require('./routes/usersRoute');
+const loginRoutes = require('./routes/loginRoute');
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/user', usersRoutes);
+
+app.use('/login', loginRoutes);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
