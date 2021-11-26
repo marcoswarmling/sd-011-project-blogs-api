@@ -19,8 +19,10 @@ const userRegister = rescue(async (req, res, next) => {
   return res.status(201).json(result);
 });
 
-const getAllUsers = rescue(async (_req, res) => {
-  const users = await service.getAllUsers();
+const getAllUsers = rescue(async (req, res, next) => {
+  const { user } = req.user;
+  const users = await service.getAllUsers(user);
+  if (users.error) return next(users.error);
   return res.status(200).json(users);
 });
 

@@ -26,13 +26,13 @@ const userRegister = async ({ displayName, email, password, image }) => {
   };
 };
 
-const getAllUsers = async () => {
-  const users = await User.findAll();
-  if (users) {
-    return ([{
-      users,
-    }]);
-  }
+const getAllUsers = async (email) => {
+  const validUser = await existingUser(email);
+  if (!validUser) {
+    return ({
+      error: { code: 'inexistingUser' },
+    });
+  } return User.findAll();
 };
 
 module.exports = {
