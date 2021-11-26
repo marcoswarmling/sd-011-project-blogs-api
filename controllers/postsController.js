@@ -1,10 +1,6 @@
 const jwt = require('jsonwebtoken');
-// const Sequelize = require('sequelize');
-// const config = require('../config/config');
 
-// const sequelize = new Sequelize(config.development);
-
-const { BlogPosts, Categories, PostCategories } = require('../models');
+const { BlogPosts, Categories, PostCategories, Users } = require('../models');
 
 const validateToken = (authHeader) => {
   const validToken = jwt.verify(authHeader, process.env.JWT_SECRET, (error, decoded) => {
@@ -48,6 +44,30 @@ const createPost = async (req, res) => {
   }
 };
 
+const getPosts = async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return res.status(401).json({ message: 'Token not found' });
+
+  const validToken = validateToken(authHeader);
+  if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
+
+  try {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    const posts = await BlogPosts.findAll({
+      include: [
+        { model: Users, as: 'user' }, 
+        { model: Categories, as: 'categories' },
+      ],
+    });
+    console.log(posts);
+    return res.status(200).json(posts);
+  } catch (err) {
+    console.log('errooooooooooooo', err);
+    return res.status(400).json({ message: 'Algo deu errado' });
+  }
+};
+
 module.exports = {
   createPost,
+  getPosts,
 };
