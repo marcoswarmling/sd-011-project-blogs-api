@@ -4,7 +4,6 @@ const Categorie = (sequelize, DataTypes) => {
   }, {
     timestamps: false,
     tableName: 'Categories',
-    underscored: false,
   });
 
   return newCategorie;

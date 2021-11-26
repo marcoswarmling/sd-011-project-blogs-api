@@ -50,7 +50,7 @@ const jwtAuthorization = async (req, res, next) => {
     if (err) {
         res.status(401).json({ message: 'Expired or invalid token' });
     }
-    req.userId = authorizedData.id;
+    req.userId = authorizedData.data.id;
     next();
   });
 };
