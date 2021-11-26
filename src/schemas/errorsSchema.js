@@ -49,4 +49,14 @@ module.exports = {
       message: '"password" is not allowed to be empty',
     },
   },
+  auth: {
+    notFound: {
+      statusCode: statusCodes.unauthorized,
+      message: 'Token not found',
+    },
+    invalidJWT: {
+      statusCode: statusCodes.unauthorized,
+      message: 'Expired or invalid token',
+    },
+  },
 };
