@@ -1,4 +1,4 @@
-const { BlogPost, PostsCategory, Category } = require('../models');
+const { BlogPost, PostsCategory, Category, User } = require('../models');
 const { verifyIfCategoriesExists, validatePostData } = require('../validators/postValidators');
 
 const createPost = async (title, content, categoryId, userId) => {
@@ -15,6 +15,16 @@ const createPost = async (title, content, categoryId, userId) => {
   return { type: 'success', payload: { id: createPostResponse.id, userId, title, content } };
 };
 
+const getAll = async () => {
+  const getAllResponse = await BlogPost.findAll({ 
+    include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { type: 'success', payload: getAllResponse };
+};
+
 module.exports = {
   createPost,
+  getAll,
 };

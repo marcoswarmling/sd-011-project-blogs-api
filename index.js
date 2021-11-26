@@ -22,6 +22,7 @@ app.get('/', (request, response) => {
 app.get('/user', validateJWT, UserController.getAll);
 app.get('/user/:id', validateJWT, UserController.getById);
 app.get('/categories', validateJWT, CategoryController.getAll);
+app.get('/post', validateJWT, PostController.getAll);
 
 app.post('/user', UserController.createUser);
 app.post('/login', UserController.login);
