@@ -30,7 +30,6 @@ module.exports = async (request, _response, next) => {
     const property = properties[index];
     const [key, value] = Object.entries(property)[0];
     const validationError = validatorsDictionary[key](value);
-
     if (validationError) return next(validationError);
   }
 
