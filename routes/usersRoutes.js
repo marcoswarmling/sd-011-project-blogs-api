@@ -2,20 +2,20 @@ const routes = require('express').Router();
 const usersControlers = require('../controllers/usersControlers');
 
 const {
+  isValidDisplayName,
   isValidEmail,
-  isValidPassword,
   existPassword,
   validationEmail,
-  isValidName,
+  charactersOfPassword,
 } = require('../middlewares/usersValidations');
 
 routes.post(
   '/',
+  isValidDisplayName,
   isValidEmail,
-  isValidPassword,
   existPassword,
+  charactersOfPassword,
   validationEmail,
-  isValidName,
   usersControlers.addUser,
   );
 

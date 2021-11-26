@@ -1,4 +1,12 @@
-// const Users = require('../models/Users');
+const isValidDisplayName = async (req, res, next) => {
+  const { displayName } = req.body;
+  if (displayName.length < 8) {
+    return res.status(400).json({
+      message: '"displayName" length must be at least 8 characters long',
+    });
+  }
+  next();
+};
 
 const isValidEmail = async (req, res, next) => {
   const { email } = req.body;
@@ -13,7 +21,8 @@ const validationEmail = async (req, res, next) => {
   const si = /\S+@\S+\.\S+/;
   const validEmail = si.test(email);
 if (!validEmail) {
-    return res.status(400).json({ message: 'Incorrect username or password' });
+    return res.status(400).json({ message: '"email" must be a valid email',
+ });
   }
   next();
 };
@@ -21,35 +30,23 @@ if (!validEmail) {
 const existPassword = (req, res, next) => {
   const { password } = req.body;
   if (!password) {
-    return res.status(401).json({ message: 'All fields must be filled' });
+    return res.status(400).json({ message: '"password" is required' });
   }
   next();
 };
 
-const isValidName = async (req, res, next) => {
-  const { displayName } = req.body;
-  if (displayName.length < 8) {
-    return res.status(400).json({
-      message: '"displayName" length must be at last 8 characters long',
-    });
-  }
-  next();
-};
-
-const isValidPassword = async (req, res, next) => {
+const charactersOfPassword = (req, res, next) => {
   const { password } = req.body;
-  if (password.length !== 6) {
-    res.status(400).json({
-      message: '"password" length must be 6 characters long',
-    });
+  if (password.length < 6) {
+    return res.status(400).json({ message: '"password" length must be 6 characters long' });
   }
   next();
 };
 
 module.exports = {
+  isValidDisplayName,
   isValidEmail,
-  isValidPassword,
   existPassword,
   validationEmail,
-  isValidName,
+  charactersOfPassword,
 };
