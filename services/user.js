@@ -1,4 +1,7 @@
 const { User } = require('../models');
+const jwt = require('jsonwebtoken');
+
+const secret = 'my-hardcoded-secret';
 
 const isValidEmail = (email) => {
   const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
@@ -6,7 +9,8 @@ const isValidEmail = (email) => {
 };
 
 const generateToken = (user) => {
-  return 'abcdadfskfsak1212';
+  const token = jwt.sign(user, secret);
+  return token;
 }
 
 const createUser = async(data) => {
@@ -45,7 +49,7 @@ const createUser = async(data) => {
 
     const newUser = await User.create({displayName, email, password, image });
 
-    return {token: generateToken(newUser)};
+    return {token: generateToken({ email:newUser.email })};
   } catch (error) {
     console.log(error.message);
 
