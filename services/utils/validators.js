@@ -33,7 +33,7 @@ const validatePasswordLength = (password) => {
 };
 
 const validateDisplayNameLength = (displayName) => {
-  if (displayName.length < 8) {
+  if (displayName && displayName.length < 8) {
     return { message: '"displayName" length must be at least 8 characters long' };
   }
   return null;
