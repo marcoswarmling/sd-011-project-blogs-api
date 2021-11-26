@@ -17,7 +17,6 @@ const createPost = async (items) => {
     const promisseArr = await categoryIds.map(async (el) => {
       const newCat = await PostsCategory.create({ categoryId: el, postId: newPost.dataValues.id },
         { transaction: t });
-      console.log(newCat);
       return newCat;
     });
     await Promise.all(promisseArr);
@@ -44,14 +43,23 @@ const allPosts = async () => {
   const allBlogPosts = await BlogPost.findAll({
     include: [{
       model: User, as: 'users', attributes: { exclude: ['password'] },
-    }, {
-      model: PostsCategory, as: 'postsCategories',
-    }, {
-      model: Categorie, as: 'categories',
     }],
   });
+  
+  const promisseCategories = allBlogPosts.map(async ({ dataValues }) => {
+    const cat = await PostsCategory.findAll({ where: { postId: dataValues.id } });
+    return Promise.all(cat.map(async ({ dataValues: data }) => Categorie
+      .findOne({ where: { id: data.categoryId } })));
+  });
+  
+  const allPostsCategory = await Promise.all(promisseCategories);
 
-  return allBlogPosts;
+  const newArr = allPostsCategory.map((el) => el.map(({ dataValues: i }) => i));
+  const result = allBlogPosts.map((el, i) => {
+    const { dataValues: { users: user, ...allData } } = el;
+    return { ...allData, user, categories: newArr[i] };
+  });
+  return result;
 };
 
 module.exports = {

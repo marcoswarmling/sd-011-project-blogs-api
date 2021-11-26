@@ -9,11 +9,11 @@ const createPost = async (req, res) => {
 };
 
 const allPosts = async (req, res) => {
-  const getAllPosts = await servicesPosts.allPost();
+  const getAllPosts = await servicesPosts.allPosts();
   if (getAllPosts.message) {
-    return res.status(201).json({ message: getAllPosts.message });
+    return res.status(500).json({ message: getAllPosts.message });
   }
-  return res.status(201).json(getAllPosts);
+  return res.status(200).json(getAllPosts);
 };
 
 module.exports = {

@@ -30,7 +30,6 @@ router.post('/post',
 
 router.get('/post',
   token,
-  middlewaresPosts.verifyFields,
-  controllerPosts.createPost);
+  controllerPosts.allPosts);
 
 module.exports = router;

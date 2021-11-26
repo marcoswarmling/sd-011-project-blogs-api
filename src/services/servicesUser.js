@@ -51,7 +51,7 @@ const createUser = async (items) => {
 
 const allUsers = async () => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
     return users;
   } catch (error) {
     console.log(error.message);
@@ -61,7 +61,7 @@ const allUsers = async () => {
 
 const getById = async (id) => {
   try {
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
     if (!user) return { message: 'User does not exist' };
     return user;
   } catch (e) {
