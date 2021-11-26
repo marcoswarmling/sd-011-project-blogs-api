@@ -7,11 +7,11 @@ module.exports = (err, _req, res, next) => {
   }
 
   if (err.code === 'invalidEmail') {
-    return res.status(400).json({ message: '\"email\" must be a valid email' });
+    return res.status(400).json({ message: '"email" must be a valid email' });
   }
 
   if (err.code === 'invalidPass') {
-    return res.status(400).json({ message: '\"password\" length must be 6 characters long' });
+    return res.status(400).json({ message: '"password" length must be 6 characters long' });
   }
 
   return next(err);

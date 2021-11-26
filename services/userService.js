@@ -25,7 +25,7 @@ const existingUser = async (email) => {
 };
 
 const tokenGenerator = (displayName, email, password, image) => {
-  const secret = process.env.SECRET;
+  const secret = process.env.JWT_SECRET;
   
   const jwtConfig = {
     expiresIn: '1h',
