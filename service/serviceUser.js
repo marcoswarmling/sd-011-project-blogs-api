@@ -4,7 +4,7 @@ function checkfildEmail(req, res, next) {
   const { email } = req.body;
   if (!email) {
     return res.status(400).json({
-      email: 'is required',
+      message: '"email" is required',
     });
   }
   next();
@@ -14,7 +14,7 @@ function checkfildPassword(req, res, next) {
   const { password } = req.body;
   if (!password) {
     return res.status(400).json({
-      password: 'is required',
+      message: '"password" is required',
     });
   }
   next();
@@ -22,10 +22,10 @@ function checkfildPassword(req, res, next) {
 
 async function checkUserExist(req, res, next) {
   const { email } = req.body;
+
   const check = await Users.findOne({
     where: { email },
   });
-  console.log(check);
 
   if (check) {
     return res.status(409).json({

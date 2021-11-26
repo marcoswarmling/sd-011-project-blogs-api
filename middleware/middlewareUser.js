@@ -3,7 +3,7 @@ function checkName(req, res, next) {
 
   if (displayName.length < 8) {
     return res.status(400).json({
-      displayName: 'length must be at least 8 characters long',
+      message: '"displayName" length must be at least 8 characters long',
     });
   }
 
@@ -16,7 +16,7 @@ function checkEmail(req, res, next) {
 
   if (!regex.test(email)) {
     return res.status(400).json({
-      email: 'must be a valid email',
+      message: '"email" must be a valid email',
     });
   }
   next();
@@ -27,7 +27,7 @@ function checkPassword(req, res, next) {
 
   if (password.length < 6) {
     return res.status(400).json({
-      password: 'length must be 6 characters long',
+      message: '"password" length must be 6 characters long',
     });
   }
   next();

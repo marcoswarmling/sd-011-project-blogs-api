@@ -1,4 +1,5 @@
 const { Users } = require('../models');
+const { generateToken } = require('../auth');
 
 async function addNewUser(req, res) {
   const { displayName, email, password, image } = req.body;
@@ -13,12 +14,9 @@ async function addNewUser(req, res) {
       erro: 'Erro interno',
     }));
 
-  return res.status(201).send({
-    displayName,
-    email,
-    password,
-    image,
-  });
+  const token = generateToken({ displayName, email });
+
+  return res.status(201).send({ token });
 }
 
 module.exports = {
