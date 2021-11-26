@@ -1,4 +1,4 @@
-const postCategorie = (sequelize, DataTypes) => {
+const PostCategorie = (sequelize, DataTypes) => {
   const newPostCategorie = sequelize.define('PostsCategories', {
     postId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER,
@@ -11,4 +11,4 @@ const postCategorie = (sequelize, DataTypes) => {
   return newPostCategorie;
 };
 
-module.exports = postCategorie;
+module.exports = PostCategorie;
