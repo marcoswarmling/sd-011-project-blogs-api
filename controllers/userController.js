@@ -1,4 +1,5 @@
 const userServices = require('../services/index');
+const { status } = require('../schemas');
 
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -10,7 +11,7 @@ const createUser = async (req, res) => {
     return res.status(responseFromValidation.error.code).json({ message });
   }
 
-  return res.status(201).json({ token: responseFromValidation });
+  return res.status(status.CREATED).json({ token: responseFromValidation });
 };
 
 module.exports = {

@@ -1,8 +1,19 @@
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
 const userValidation = require('../validations/userValidation');
+const { status } = require('../schemas');
 
 const JWT_CONFIG = { expiresIn: '7d', algorithm: 'HS256' };
+
+const validadeEmailExistsError = (error) => {
+  if (error.message === 'Validation error') {
+    return {
+        code: status.CONFLICT,
+        message: 'User already registered',
+    };
+  }
+  return error;
+};
 
 const createUser = async ({ displayName, email, password, image }) => {
   try {
@@ -19,11 +30,11 @@ const createUser = async ({ displayName, email, password, image }) => {
       password: dataValues.password,
       image: dataValues.image,
     };
+
     return jwt.sign(userData, process.env.JWT, JWT_CONFIG);
   } catch (e) {
-    const conditionalErrorMessage = e
-      .message === 'Validation error' ? 'User already registered' : e.message;
-    return { error: { message: conditionalErrorMessage, code: e.code || 409 } };
+    const { message, code } = validadeEmailExistsError(e);
+    return { error: { message, code } };
   }
 };
 
