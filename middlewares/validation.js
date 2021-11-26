@@ -10,11 +10,11 @@ const validateUser = (req, res, next) => {
     image: joi.string(),
   }).validate(body);
 
-  if(error) return res.status(400).json({ message: error.details[0].message});
+  if (error) return res.status(400).json({ message: error.details[0].message });
 
   return next();
-}
+};
 
 module.exports = {
   validateUser,
-}
+};
