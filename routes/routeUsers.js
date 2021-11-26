@@ -3,12 +3,13 @@ const {
   checkName,
   checkEmail,
   checkPassword,
-} = require('../middleware/middlewareUser');
+} = require('../middleware');
+
 const {
   checkUserExist,
   checkfildEmail,
   checkfildPassword,
-} = require('../service/serviceUser');
+} = require('../service');
 
 const { addNewUser } = require('../controller/controllerUsers');
 
