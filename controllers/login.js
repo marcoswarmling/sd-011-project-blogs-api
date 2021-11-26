@@ -1,8 +1,9 @@
+const jwt = require('jsonwebtoken');
 const { status, loginMessages } = require('../Helpers/status&messages');
-const { generateToken } = require('../Helpers/authorizations');
 const { validLogin } = require('../Helpers/validateLogin');
 const { User } = require('../models');
 
+const JWT = 'SECRET';
 const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -16,8 +17,7 @@ const userLogin = async (req, res) => {
       .json({ message: loginMessages.notRegistered });
     }
     // geração do token
-    const { id } = checkUser;
-    const token = generateToken(id, email); 
+    const token = jwt.sign({ email }, JWT);
     return res.status(status.sucess).json({ token });
   } catch (error) {
     return res.status(error.status).json({ message: error.message });
