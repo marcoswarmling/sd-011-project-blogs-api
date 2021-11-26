@@ -1,4 +1,4 @@
-const { Post, User } = require('../../models');
+const { BlogPost } = require('../../models');
 const servicesCategories = require('./servicesCategories');
 require('dotenv').config();
 
@@ -6,7 +6,8 @@ require('dotenv').config();
 
 const createPost = async (items) => {
   try {
-    const newPost = await Post.create(items, { include: [User] });
+    const { categoryIds, ...item } = items;
+    const newPost = await BlogPost.create(item);
     if (!newPost) {
       return { message: 'erro na criação da categoria' };
     }
