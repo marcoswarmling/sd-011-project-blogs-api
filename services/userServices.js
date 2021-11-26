@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const { Users } = require('../models/index');
 
 const secret = process.env.JWT_SECRET;
+
 const jwtConfiguration = {
   expiresIn: '14d',
   algorithm: 'HS256',
@@ -22,6 +23,15 @@ const registerUser = async (displayName, email, password, image) => {
   return token;
 };
 
+const getAllUsers = async () => {
+  const allUsers = await Users.findAll();
+
+  if (!allUsers) throw new Error('No users found');
+
+  return allUsers;
+};
+
 module.exports = {
   registerUser,
+  getAllUsers,
 };
