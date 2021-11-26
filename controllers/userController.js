@@ -1,10 +1,10 @@
+const jwt = require('jsonwebtoken');
 const UserService = require('../services/userServices');
 
-// const secret = 'minhasenhasupersecreta';
+const secret = 'minhasenhasupersecreta';
 
-const getAll = async (req, res) => {
-  const { authorization } = req.headers;
-  const getAllResponse = await UserService.getAll(authorization);
+const getAll = async (_req, res) => {
+  const getAllResponse = await UserService.getAll();
   if (getAllResponse.type === 'error') {
     return res.status(getAllResponse.code).json({ message: getAllResponse.message });
   }
@@ -26,13 +26,19 @@ const login = async (req, res) => {
   if (loginResponse.type === 'error') {
     return res.status(loginResponse.code).json({ message: loginResponse.message });
   }
-  return res.status(200).json({ token: 'tokenserageradoaqui' });
+  const jwtConfig = {
+    expiresIn: '1h',
+    algorithm: 'HS256',
+  };
+  const { id } = loginResponse;
+  const token = jwt.sign({ id, email }, secret, jwtConfig);
+  console.log(token);
+  return res.status(200).json({ token });
 };
 
 const getById = async (req, res) => {
   const { id } = req.params;
-  const { authorization } = req.headers;
-  const getByIdResponse = await UserService.getById(id, authorization);
+  const getByIdResponse = await UserService.getById(id);
   if (getByIdResponse.type === 'error') {
     res.status(getByIdResponse.code).json({ message: getByIdResponse.message });
   }

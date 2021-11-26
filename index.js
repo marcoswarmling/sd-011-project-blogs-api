@@ -1,6 +1,8 @@
 const express = require('express');
 const UserController = require('./controllers/userController');
 const CategoryController = require('./controllers/categoryController');
+const PostController = require('./controllers/postController');
+const validateJWT = require('./auth/auth');
 
 require('dotenv').config();
 
@@ -17,10 +19,11 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.get('/user', UserController.getAll);
-app.get('/user/:id', UserController.getById);
-app.get('/categories', CategoryController.getAll);
+app.get('/user', validateJWT, UserController.getAll);
+app.get('/user/:id', validateJWT, UserController.getById);
+app.get('/categories', validateJWT, CategoryController.getAll);
 
 app.post('/user', UserController.createUser);
 app.post('/login', UserController.login);
-app.post('/categories', CategoryController.addCategory);
+app.post('/categories', validateJWT, CategoryController.createCategory);
+app.post('/post', validateJWT, PostController.createPost);

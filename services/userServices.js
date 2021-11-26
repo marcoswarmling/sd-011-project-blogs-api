@@ -1,11 +1,9 @@
 const { User } = require('../models');
 const { checkIfPasswordIsCorrect, validateLoginData } = require('../validators/loginValidators');
 const { validateUser, 
-  verifyIfEmailAlreadyRegistered, 
-  validateToken } = require('../validators/userValidators');
+  verifyIfEmailAlreadyRegistered } = require('../validators/userValidators');
 
-const getAll = async (token) => {
-  if (validateToken(token).type === 'error') return validateToken(token);
+const getAll = async () => {
   try {
     // https://stackoverflow.com/questions/31679838/sequelizejs-findall-exclude-field
     const allUsers = await User.findAll({ attributes: { exclude: ['password'] }, raw: true });
@@ -46,8 +44,7 @@ const login = async (email, password) => {
   }
 };
 
-const getById = async (id, token) => {
-  if (validateToken(token).type === 'error') return validateToken(token);
+const getById = async (id) => {
   const getByIdResponse = await User.findByPk(id, { attributes: { exclude: ['password'] } });
   if (!getByIdResponse) return { type: 'error', code: 404, message: 'User does not exist' }; 
   return { type: 'success', payload: getByIdResponse };

@@ -73,28 +73,9 @@ async function verifyIfEmailAlreadyRegistered(email) {
   };
 }
 
-const validateToken = (token) => {
-  if (!token) {
-  return {
-      type: 'error',
-      code: 401,
-      message: 'Token not found',
-    }; 
-  }
-  if (token !== 'tokenserageradoaqui') {
-    return {
-      type: 'error',
-      code: 401,
-      message: 'Expired or invalid token',
-    };
-  }
-  return { type: 'success' };
-};
-
 module.exports = {
   validateUser,
   verifyIfEmailAlreadyRegistered,
   validateEmail,
   validatePassword,
-  validateToken,
 };
