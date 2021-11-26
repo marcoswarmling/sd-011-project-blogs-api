@@ -1,6 +1,7 @@
 const express = require('express');
 const categoriesRoute = require('./routes/categoriesRoute');
 const loginRouter = require('./routes/loginRoute');
+const postsRouter = require('./routes/postsRoute');
 const userRouter = require('./routes/userRoutes');
 
 const app = express();
@@ -14,5 +15,6 @@ app.get('/', (request, response) => {
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/categories', categoriesRoute);
+app.use('/post', postsRouter);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

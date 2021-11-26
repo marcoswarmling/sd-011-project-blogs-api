@@ -11,8 +11,8 @@ const getByEmail = async (email) => {
 };
 
 const createUserService = async (displayName, email, password, image) => {
-  await User.create({ displayName, email, password, image });
-  const jwtToken = jwt.sign({ data: { displayName, email } }, secretKey);
+  const { id } = await User.create({ displayName, email, password, image });
+  const jwtToken = jwt.sign({ data: { displayName, email, id } }, secretKey);
   return jwtToken;
 };
 
