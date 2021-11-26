@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const ControllerUser = require('./controllers/user');
+const Middleware = require('./middleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,4 +13,4 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', ControllerUser.createUser);
+app.post('/user', Middleware.validateNewUser, ControllerUser.createUser);
