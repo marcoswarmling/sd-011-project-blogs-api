@@ -74,6 +74,13 @@ const verifyToken = (req, res, next) => {
 }
 };
 
+const validateCategoryNameExists = (name) => {
+  if (!name) {
+    return { message: '"name" is required' };
+  }
+  return null;
+};
+
 module.exports = {
   validateEmailExists,
   validateDisplayNameLength,
@@ -83,4 +90,5 @@ module.exports = {
   validateEmptyPassword,
   validateEmptyEmail,
   verifyToken,
+  validateCategoryNameExists,
 };
