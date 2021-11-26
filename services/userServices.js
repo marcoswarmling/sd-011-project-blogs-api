@@ -33,6 +33,14 @@ const login = async (email, password) => {
 const getUsers = async () => { 
   const users = await User.findAll();
   return users;
-};  
+}; 
 
-module.exports = { createUser, login, getUsers };
+const getUserById = async (id) => {
+  const user = await User.findAll({ where: { id } });
+  if (!user || user.length === 0) {
+    return { error: { message: 'User does not exist' } };
+  }
+  return user[0];
+};
+
+module.exports = { createUser, login, getUsers, getUserById };

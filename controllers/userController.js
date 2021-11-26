@@ -25,7 +25,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const response = await userServices.login(email, password);
   if (response.error) {
-    const { error } = await response;
+    const { error } = response;
     return res.status(400).json(error);
   }
   const jwtConfig = {
@@ -41,4 +41,14 @@ const getUsers = async (_req, res) => {
   return res.status(200).json(users);
 };
 
-module.exports = { createUser, login, getUsers };
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const user = await userServices.getUserById(id);
+  if (user.error) {
+    const { error } = user;
+    return res.status(404).json(error);
+  }
+  return res.status(200).json(user);
+};
+
+module.exports = { createUser, login, getUsers, getUserById };
