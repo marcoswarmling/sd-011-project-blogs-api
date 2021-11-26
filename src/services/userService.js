@@ -13,14 +13,14 @@ const createUser = async (displayName, email, password, image) => {
   }
 };
 
-const findUserByEmail = async (email) => {
-  try {
-    const [userByEmail] = await User.findAll({ where: { email } });
-    return userByEmail;
-  } catch (error) {
-    return ({ code: 500, result: { message: 'Internal Error Server' } });
-  }
-};
+// const findUserByEmail = async (email) => {
+//   try {
+//     const [userByEmail] = await User.findAll({ where: { email } });
+//     return userByEmail;
+//   } catch (error) {
+//     return ({ code: 500, result: { message: 'Internal Error Server' } });
+//   }
+// };
 
 const connectUser = async (email, password) => {
   const result = createJwtToken(email, password);
@@ -29,6 +29,5 @@ const connectUser = async (email, password) => {
 
 module.exports = {
   createUser,
-  findUserByEmail,
   connectUser,
 };

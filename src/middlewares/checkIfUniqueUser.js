@@ -1,10 +1,9 @@
-const UserService = require('../services/userService');
+const { User } = require('../models');
 
 const checkUniqueUser = async (req, res, next) => {
   const { email } = req.body;
-  const result = await UserService.findUserByEmail(email);
-  console.log(result.dataValues.email);
-  if (result !== undefined) return res.status(409).json({ message: 'User already registered' });
+  const [userByEmail] = await User.findAll({ where: { email } });
+  if (userByEmail) return res.status(409).json({ message: 'User already registered' });
   next();
 };
 
