@@ -15,4 +15,9 @@ router.post('/', validateJWT, async (req, res) => {
   return res.status(201).json(response);
 });
 
+router.get('/', validateJWT, async (req, res) => {
+  const response = await categoryService.getAll();
+  return res.status(200).json(response);
+});
+
 module.exports = router;
