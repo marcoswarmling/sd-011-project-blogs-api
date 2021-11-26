@@ -13,7 +13,7 @@ const validateToken = async (token) => {
   try {
     const findUser = await User.findAll({ where: { email } });
     if (!findUser) return false;
-    return true;
+    return email;
   } catch (error) {
     return false;
   }

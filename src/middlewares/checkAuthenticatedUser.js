@@ -8,7 +8,7 @@ const checkAuthenticatedUser = async (req, res, next) => {
     const valideToken = await validateToken(token);
 
     if (!valideToken) return res.status(401).json({ message: 'Expired or invalid token' });
-    
+    req.userEmail = valideToken;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });
