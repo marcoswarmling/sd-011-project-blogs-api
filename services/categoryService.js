@@ -3,7 +3,7 @@ const { isValidUser } = require('../utils/validations');
 
 const categoryRegister = async (name, userEmail) => {
   const result = await isValidUser(userEmail);
-  if (!result.error) return Category.create(name);
+  if (!result.error) return Category.create({ name });
   return result;
 };
 
