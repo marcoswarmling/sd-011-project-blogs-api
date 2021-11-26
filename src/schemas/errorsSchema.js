@@ -66,7 +66,7 @@ module.exports = {
   category: {
     requiredName: {
       statusCode: statusCodes.badRequest,
-      message: '"name" id required',
+      message: '"name" is required',
     },
   },
 };
