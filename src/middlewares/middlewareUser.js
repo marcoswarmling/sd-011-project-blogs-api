@@ -1,4 +1,4 @@
-const { Users } = require('../../models');
+// const { Users } = require('../../models');
 
 function validDisplayName(req, res, next) {
   const { displayName } = req.body;
@@ -36,15 +36,15 @@ const validPassword = (req, res, next) => {
   next();
 };
 
-const checkEmail = async (req, res, next) => {
-  const { email } = req.body;
-  const getUser = await Users.findOne({ where: { email } });
+// const checkEmail = async (req, res, next) => {
+//   const { email } = req.body;
+//   const getUser = await Users.findOne({ where: { email } });
 
-  if (getUser) {
-    return res.status(409).json({ message: 'User already registered' });
-  }
+//   if (getUser) {
+//     return res.status(409).json({ message: 'User already registered' });
+//   }
 
-  next();
-};
+//   next();
+// };
 
-module.exports = { validDisplayName, validEmail, validPassword, checkEmail };
+module.exports = { validDisplayName, validEmail, validPassword };
