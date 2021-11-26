@@ -25,4 +25,6 @@ routes.post(
 
 routes.get('/', isValidToken, usersControlers.getUsers);
 
+routes.get('/:id', isValidToken, usersControlers.getById);
+
 module.exports = routes;
