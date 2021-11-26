@@ -28,4 +28,9 @@ router.post('/post',
   middlewaresPosts.verifyFields,
   controllerPosts.createPost);
 
+router.get('/post',
+  token,
+  middlewaresPosts.verifyFields,
+  controllerPosts.createPost);
+
 module.exports = router;

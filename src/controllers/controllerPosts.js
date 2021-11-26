@@ -8,6 +8,15 @@ const createPost = async (req, res) => {
   return res.status(201).json(newCategorie);
 };
 
+const allPosts = async (req, res) => {
+  const getAllPosts = await servicesPosts.allPost();
+  if (getAllPosts.message) {
+    return res.status(201).json({ message: getAllPosts.message });
+  }
+  return res.status(201).json(getAllPosts);
+};
+
 module.exports = {
   createPost,
+  allPosts,
 };
