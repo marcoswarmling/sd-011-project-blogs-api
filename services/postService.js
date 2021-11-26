@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { BlogPosts, Categories, PostCategories } = require('../models');
+const { BlogPosts, Categories, PostCategories, Users } = require('../models');
 
 const { 
   validateTitleExists,
@@ -9,9 +9,7 @@ const {
 } = require('./utils/validators');
 
 const validateCategoryNameExistsOnDB = async (categoryIds) => {
-  const allCategories = await Categories.findAll({ where: { id: categoryIds } });  
-
-  console.log(allCategories);
+  const allCategories = await Categories.findAll({ where: { id: categoryIds } });
 
   if (allCategories.length === 0) {
     return { message: '"categoryIds" not found' };
@@ -67,4 +65,15 @@ const createPost = async (userId, title, content, categoryIds) => {
   return post;
 };
 
-module.exports = { createPost };
+const getPosts = async () => {
+  console.log('entrei');
+  const posts = await BlogPosts.findAll({
+    include: [{ model: Users, as: 'user' }, { model: Categories, as: 'categories' }],
+  });
+
+  console.log(posts, 'getallllll');
+
+  return posts;
+};
+
+module.exports = { createPost, getPosts };
