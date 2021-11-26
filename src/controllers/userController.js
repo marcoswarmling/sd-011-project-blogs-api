@@ -26,4 +26,16 @@ module.exports = {
       return next(error);
     }
   },
+
+  getById: async (request, response, next) => {
+    const { id } = request.params;
+
+    try {
+      const user = await userService.getById(id);
+
+      return response.status(statusCodes.ok).json(user);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
