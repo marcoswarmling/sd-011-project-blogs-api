@@ -22,14 +22,15 @@ const createUser = async (req, res) => {
     if (isDuplicatedUser) {
       return res.status(409).json({ message: 'User already registered' });
     }
-
+    
+    const newUser = await Users.create({ displayName, email, password, image });
+    
     const token = jwt.sign({
       displayName,
       email,
+      userId: newUser.dataValues.id,
     }, process.env.JWT_SECRET, tokenConfig);
-
-    await Users.create({ displayName, email, password, image });
-
+    
     return res.status(201).json({ token });
   } catch (err) {
     return res.status(500).json(err);
@@ -49,6 +50,7 @@ const login = async (req, res) => {
     const token = jwt.sign({
       displayName: user.displayName,
       email: user.email,
+      userId: user.id,
     }, process.env.JWT_SECRET, tokenConfig);
 
     return res.status(200).json({ token });
