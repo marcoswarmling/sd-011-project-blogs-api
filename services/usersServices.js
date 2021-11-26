@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
-const { Users } = require('../models');
+const { User } = require('../models');
 require('dotenv').config();
 
 const jwtKey = process.env.JWT_SECRET;
 
-const getUserByEmail = async (email) => Users.findOne({ where: { email } });
+const getUserByEmail = async (email) => User.findOne({ where: { email } });
 
-const createUser = (displayName, email, password, image) => {
-  Users.create({ 
+const createUser = async (displayName, email, password, image) => {
+  await User.create({ 
     displayName, 
     email, 
     password, 

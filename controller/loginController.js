@@ -4,6 +4,7 @@ const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const token = await loginServices.getUserByEmail(email, password);
+    console.log(token);
     if (token.message) {
       return res.status(400).json(token);
     }

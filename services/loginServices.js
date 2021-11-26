@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
-const { Users } = require('../models');
+const { User } = require('../models');
 require('dotenv').config();
 
 const jwtKey = process.env.JWT_SECRET;
 
 const getUserByEmail = async (email, password) => {
-  const userResult = await Users.findOne({ where: { email, password } });
+  const userResult = await User.findOne({ where: { email, password } });
+  console.log(userResult);
   if (!userResult) {
     return { message: 'Invalid fields' };
   }
