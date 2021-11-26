@@ -7,10 +7,6 @@ app.use(BodyParser.json());
 const UserRouter = require('./routes/UserRouter');
 const CategoriesRouter = require('./routes/CategoryRoutes');
 
-app.get('/', (req, res) => {
-  res.send('ping');
-});
-
 app.use('/', UserRouter);
 app.use('/', CategoriesRouter);
 
