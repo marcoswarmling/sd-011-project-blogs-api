@@ -1,5 +1,6 @@
-const { BlogPost } = require('../models');
+const { BlogPost, Category } = require('../models');
 const { hasCategories } = require('../helpers/categoryHelper');
+const { getUsers } = require('../helpers/userHelper');
 const errors = require('../schemas/errorsSchema');
 
 module.exports = {
@@ -14,8 +15,13 @@ module.exports = {
   },
 
   getAll: async () => {
-    const posts = BlogPost.findAll();
+    const posts = await BlogPost.findAll({
+      include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
+    });
 
-    return posts;
+    const userIds = posts.map(({ userId }) => userId);
+    const users = await getUsers(userIds);
+
+    return posts.map((post, index) => ({ ...post.dataValues, user: users[index] }));
   },
 };
