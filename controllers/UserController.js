@@ -20,6 +20,18 @@ const create = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body; 
+    const token = await UserService.login(email, password);
+    
+    return res.status(200).json({ token });
+  } catch (error) {
+    return error.message;
+  }  
+};
+
 module.exports = {
   create,
+  login,
 }; 

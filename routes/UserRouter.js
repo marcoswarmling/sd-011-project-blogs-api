@@ -11,6 +11,12 @@ const {
   passwordLength,
 } = require('../middlewares/UserValidations');
 
+const {
+  validateFields,
+  emailNotEmpty,
+  passwordNotEmpty,
+} = require('../middlewares/LoginValidations');
+
 const Req1Validations = [
   displayNameLength,
   emailExists,
@@ -20,7 +26,18 @@ const Req1Validations = [
   passwordLength,
 ];
 
+const Req2Validations = [
+  emailNotEmpty,
+  emailExists,
+  passwordNotEmpty,
+  passwordExists,
+  validateFields,
+];
+
 // Req 1
 router.post('/user', Req1Validations, UserController.create);
+
+// Req 2
+router.post('/login', Req2Validations, UserController.login);
 
 module.exports = router;
