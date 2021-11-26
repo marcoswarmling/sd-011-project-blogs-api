@@ -39,4 +39,17 @@ module.exports = {
       return next(error);
     }
   },
+
+  update: async (request, response, next) => {
+    const { id } = request.params;
+    const { title, content } = request.body;
+
+    try {
+      const updatedPost = postService.update(id, { title, content });
+
+      return response.status(statusCodes.ok).json(updatedPost);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
