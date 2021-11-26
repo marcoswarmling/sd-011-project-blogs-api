@@ -10,6 +10,13 @@ const createNewCategorie = async ({ name }) => {
   return { statusCode: 201, response: returnCategorieCreate };
  };
 
+ const getAllCategories = async () => {
+  const categories = await Categorie.findAll();
+
+  return { statusCode: 200, response: categories };
+};
+
  module.exports = {
   createNewCategorie,
+  getAllCategories,
 };

@@ -4,6 +4,6 @@ const validateJWT = require('../auth/validateJWT');
 const { paramsValidation } = require('../validation/validateCategories');
 
 router.post('/', validateJWT, paramsValidation, categoriesController.createCategorie);
-// router.get('/', validateJWT, categoriesController.getCategorie);
+router.get('/', validateJWT, categoriesController.getAllCategories);
 
 module.exports = router;
