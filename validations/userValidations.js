@@ -37,4 +37,20 @@ function validateUserCreation(displayName, email, password) {
   return true;
 }
 
-module.exports = { validateUserCreation };
+function loginValidation(email, password) {
+  if (email === '') {
+    return { error: { message: '"email" is not allowed to be empty' } };
+  }
+  if (!email) {
+    return { error: { message: '"email" is required' } };
+  }
+  if (password === '') {
+    return { error: { message: '"password" is not allowed to be empty' } };
+  }
+  if (!password) {
+    return { error: { message: '"password" is required' } };
+  }
+  return true;
+}
+
+module.exports = { validateUserCreation, loginValidation };

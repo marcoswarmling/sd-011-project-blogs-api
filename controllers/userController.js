@@ -21,4 +21,20 @@ const createUser = async (req, res) => {
   return res.status(201).json({ token });
 };
 
-module.exports = { createUser };
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  const response = await userServices.login(email, password);
+  console.log(response);
+  if (response.error) {
+    const { error } = await response;
+    return res.status(400).json(error);
+  }
+  const jwtConfig = {
+    expiresIn: '7d',
+    algorithm: 'HS256',
+  };
+  const token = jwt.sign({ email, password }, secret, jwtConfig);
+  return res.status(200).json({ token });
+};
+
+module.exports = { createUser, login };
