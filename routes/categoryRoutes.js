@@ -9,6 +9,7 @@ router
   .post('/categories',
   rescue(validateCategory),
   rescue(validateToken),
-  rescue(categoryController.newCategory));
+  rescue(categoryController.newCategory))
+  .get('/categories', rescue(validateToken), rescue(categoryController.getCategories));
 
 module.exports = router;
