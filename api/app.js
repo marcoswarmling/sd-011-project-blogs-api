@@ -1,8 +1,9 @@
 const express = require('express');
 const userRoutes = require('../routes/userRoutes');
-const userMiddleware = require('../middlewares/userMeddlewares');
+const userMiddleware = require('../middlewares/userMiddlewares');
 const userMiddlewaresComplement = require('../middlewares/userMiddlewaresComplement');
 const loginRoutes = require('../routes/loginRoutes');
+const loginMiddleware = require('../middlewares/loginMiddlewares');
 
 const app = express();
 
@@ -13,5 +14,6 @@ app.use(userMiddleware);
 app.use(userMiddlewaresComplement);
 
 app.use(loginRoutes);
+app.use(loginMiddleware);
 
 module.exports = app;
