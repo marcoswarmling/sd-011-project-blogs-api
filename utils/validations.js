@@ -43,10 +43,17 @@ const tokenGenerator = (displayName, email, password, image) => {
   return token;
 };
 
+const validLogin = async (email, password) => {
+  const user = await existingUser(email);
+  if (user && user.password === password) return true;
+  return false;
+};
+
 module.exports = {
   validEmail,
   validName,
   validPass,
   tokenGenerator,
   existingUser,
+  validLogin,
 };
