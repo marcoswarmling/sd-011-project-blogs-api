@@ -1,5 +1,3 @@
-const { validAuth } = require('../auth');
-
 function checkName(req, res, next) {
   const { displayName } = req.body;
 
