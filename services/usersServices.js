@@ -17,7 +17,10 @@ const createUser = async (displayName, email, password, image) => {
   return token;
 };
 
+const getAllUsers = () => User.findAll();
+
 module.exports = {
   getUserByEmail,
+  getAllUsers,
   createUser,
 };
