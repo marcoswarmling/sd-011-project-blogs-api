@@ -27,7 +27,11 @@ const getUserById = async (req, res) => {
 
   const user = await UsersService.getUserById(id);
 
-  if (user && !user.token) {
+  if (user.message === 'User does not exist') {
+    return res.status(404).json(user);
+  }
+
+  if (user.message) {
     return res.status(401).json(user);
   }
 
