@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const usersRoutes = require('./routes/usersRoutes');
+const loginRoutes = require('./routes/loginRoutes');
 
 const app = express();
 
@@ -13,6 +14,6 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', usersRoutes);
-// app.use('/login', loginRoutes);
+app.use('/login', loginRoutes);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
