@@ -22,7 +22,7 @@ const userRegister = async ({ displayName, email, password, image }) => {
   }
   await User.create({ displayName, email, password, image });
   return {
-    token: tokenGenerator(displayName, email, password, image),
+    token: tokenGenerator(email, password),
   };
 };
 

@@ -24,7 +24,7 @@ const existingUser = async (email) => {
   return user;
 };
 
-const tokenGenerator = (displayName, email, password, image) => {
+const tokenGenerator = (email, password) => {
   const secret = process.env.JWT_SECRET;
   
   const jwtConfig = {
@@ -33,10 +33,8 @@ const tokenGenerator = (displayName, email, password, image) => {
   };
 
   const payload = {
-    displayName,
     email,
     password,
-    image,
   };
 
   const token = jwt.sign({ data: payload }, secret, jwtConfig);
