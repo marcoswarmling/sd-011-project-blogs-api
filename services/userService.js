@@ -57,7 +57,9 @@ const userRegister = async ({ displayName, email, password, image }) => {
     return { error: { code: 'invalidName' } };
   }
   await User.create({ displayName, email, password, image });
-  return tokenGenerator(displayName, email, password, image);
+  return {
+    token: tokenGenerator(displayName, email, password, image),
+  };
 };
 
 module.exports = {
