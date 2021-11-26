@@ -31,7 +31,17 @@ const getAllUsers = async () => {
   return allUsers;
 };
 
+const getOneUser = async (id) => {
+  const paramsId = Number(id);
+  const user = await Users.findOne({ where: { id: paramsId } });
+
+  if (!user) throw new Error('User does not exist');
+
+  return user;
+};
+
 module.exports = {
   registerUser,
   getAllUsers,
+  getOneUser,
 };

@@ -16,11 +16,22 @@ const getAllUsers = async (req, res) => {
     const allUsers = await userServices.getAllUsers();
     return res.status(200).json(allUsers);
   } catch (e) {
-    return res.status(409).json({ message: e.message });
+    return res.status(404).json({ message: e.message });
+  }
+};
+
+const getOneUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await userServices.getOneUser(id);
+    return res.status(200).json(user);
+  } catch (e) {
+    return res.status(404).json({ message: e.message });
   }
 };
 
 module.exports = {
   signUpUser,
   getAllUsers,
+  getOneUser,
 };
