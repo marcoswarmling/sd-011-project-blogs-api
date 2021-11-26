@@ -1,7 +1,7 @@
 const { status, loginMessages } = require('../Helpers/status&messages');
 const { generateToken } = require('../Helpers/authorizations');
 const { validLogin } = require('../Helpers/validateLogin');
-const { User } = require('../models/users');
+const { User } = require('../models');
 
 const userLogin = async (req, res) => {
   try {
