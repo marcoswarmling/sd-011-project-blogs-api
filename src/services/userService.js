@@ -1,5 +1,7 @@
 const { User } = require('../models');
 
+const { createJwtToken } = require('../auth/createToken');
+
 const createUser = async (displayName, email, password, image) => {
   try {
     const userCreated = await User.create({
@@ -20,7 +22,13 @@ const findUserByEmail = async (email) => {
   }
 };
 
+const connectUser = async (email, password) => {
+  const result = createJwtToken(email, password);
+  return result;
+};
+
 module.exports = {
   createUser,
   findUserByEmail,
+  connectUser,
 };
