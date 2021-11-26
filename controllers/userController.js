@@ -29,8 +29,19 @@ const login = async (req, res) => {
   return res.status(200).json({ token: 'tokenserageradoaqui' });
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const { authorization } = req.headers;
+  const getByIdResponse = await UserService.getById(id, authorization);
+  if (getByIdResponse.type === 'error') {
+    res.status(getByIdResponse.code).json({ message: getByIdResponse.message });
+  }
+  return res.status(200).json(getByIdResponse.payload);
+};
+
 module.exports = {
   getAll,
   createUser,
   login,
+  getById,
 };
