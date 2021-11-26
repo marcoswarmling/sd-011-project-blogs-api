@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { BlogPosts, Categories, PostCategories, Users } = require('../models');
+const { BlogPosts, Categories, PostsCategories, Users } = require('../models');
 
 const validateToken = (authHeader) => {
   const validToken = jwt.verify(authHeader, process.env.JWT_SECRET, (error, decoded) => {
@@ -36,7 +36,7 @@ const createPost = async (req, res) => {
       .create({ title, content, userId, categoryIds });
 
     await categoryIds.forEach(async (categoryId) => {
-      await PostCategories.create({ postId: createdPost.dataValues.id, categoryId });
+      await PostsCategories.create({ postId: createdPost.dataValues.id, categoryId });
     });
     return res.status(201).json(createdPost);
   } catch (err) {
@@ -52,17 +52,14 @@ const getPosts = async (req, res) => {
   if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
 
   try {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     const posts = await BlogPosts.findAll({
       include: [
         { model: Users, as: 'user' }, 
         { model: Categories, as: 'categories' },
       ],
     });
-    console.log(posts);
     return res.status(200).json(posts);
   } catch (err) {
-    console.log('errooooooooooooo', err);
     return res.status(400).json({ message: 'Algo deu errado' });
   }
 };
