@@ -13,6 +13,17 @@ const create = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await userService.getAllUsers();
+
+    return res.status(users.statusCode).json(users.responseMessage);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
+  getAllUsers,
 };
