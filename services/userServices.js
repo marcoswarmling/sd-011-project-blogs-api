@@ -16,7 +16,14 @@ const createUserService = async (displayName, email, password, image) => {
   return jwtToken;
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll();
+  const arrayOfUsersData = users.map((i) => i.dataValues);
+  return arrayOfUsersData;
+};
+
 module.exports = {
   getByEmail,
   createUserService,
+  getAllUsers,
 };

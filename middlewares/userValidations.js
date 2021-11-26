@@ -1,4 +1,8 @@
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
+
+const secretKey = process.env.JWT_SECRET;
+
 const { getByEmail } = require('../services/userServices');
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/im;
@@ -48,7 +52,26 @@ const checkRepeatedEmail = async (req, res, next) => {
   next();
 };
 
+const checkValidToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+
+  try {
+    const decodedToken = jwt.verify(token, secretKey);
+    const findUserByEmail = await getByEmail(decodedToken.data.email);
+    
+    if (!findUserByEmail) {
+      return res.status(401).json({ message: 'Expired or invalid token' });
+    }
+  } catch (e) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+
+  next();
+};
+
 module.exports = {
   userDataValidation,
   checkRepeatedEmail,
+  checkValidToken,
 };
