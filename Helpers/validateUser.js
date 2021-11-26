@@ -1,40 +1,50 @@
-// displayName > 8, email = valid, password = 6
-const createError = require('http-errors');
 const { status, usersMessages } = require('./status&messages');
 
-const validPassword = (password) => {
-  if (!password) {
-    throw createError(status.badRequest, usersMessages.passwordRequired);
-  }
-  if (password.length !== 6) {
-    throw createError(status.badRequest, usersMessages.password);
-  }
-  return false;
+/* ========== HELPERS FUNCIONTS ======================= */
+
+const minLengthString = (attribute, length) => {
+  if (attribute.length < length) return false;
+  return true;
 };
 
-const validDisplayName = (displayName) => {
-  if (displayName.length < 8) {
-    throw createError(status.badRequest, usersMessages.displayName);
-  }
-  return false;
+const lengthEqualTo = (attribute, number) => {
+  const isEqual = attribute.length === number;
+  if (!isEqual) return false;
+  return true;
 };
 
-const validEmail = (email) => {
+const isValidEmail = (email) => {
   const regex = /\S+@\S+\.\S+/;
-  if (!email) { 
-    throw createError(status.badRequest, usersMessages.emailRequired);
-  }
-  if (!regex.test(email)) {
-    throw createError(status.badRequest, usersMessages.email);
+  if (!regex.test(email)) return false;
+  return true;
+};
+
+/* ========== VALIDATION FUNCIONTS ======================= */
+
+const displayNameValidation = (displayName) => {
+  if (!minLengthString(displayName, 8)) {
+    return { status: status.badRequest, message: usersMessages.displayName };
   }
   return false;
 };
 
-const validateUser = (displayName, email, password) => {
-  console.log('entrei em validateUser');
-  validDisplayName(displayName);
-  validEmail(email);
-  validPassword(password);
+const emailValidation = (email) => {
+  if (!email) {
+    return { status: status.badRequest, message: usersMessages.emailRequired };
+  }
+  if (!isValidEmail(email)) {
+    return { status: status.badRequest, message: usersMessages.email };
+  }
+  return false;
 };
 
-module.exports = { validateUser, validPassword, validDisplayName, validEmail };
+const passwordValidation = (password) => {
+  if (!password) {
+    return { status: status.badRequest, message: usersMessages.passwordRequired };
+  }
+  if (!lengthEqualTo(password, 6)) {
+    return { status: status.badRequest, message: usersMessages.password }; 
+  }
+};
+
+module.exports = { displayNameValidation, emailValidation, passwordValidation };
