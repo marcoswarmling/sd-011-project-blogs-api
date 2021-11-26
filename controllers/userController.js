@@ -7,7 +7,7 @@ const userRegister = rescue(async (req, res, next) => {
     displayName: joi.string().required(),
     email: joi.string().required(),
     password: joi.string().required(),
-    image: joi.string().required(),
+    image: joi.string(),
   }).validate(req.body);
 
   if (error) return next(error);
