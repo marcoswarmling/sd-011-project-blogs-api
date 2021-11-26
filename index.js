@@ -1,5 +1,5 @@
 const express = require('express');
-const { userRoutes } = require('./routes');
+const { userRoutes, categoryRoutes } = require('./routes');
 const errorMilddleware = require('./middlewares/error');
 
 const app = express();
@@ -14,4 +14,5 @@ app.get('/', (request, response) => {
 });
 
 app.use(userRoutes);
+app.use(categoryRoutes);
 app.use(errorMilddleware);

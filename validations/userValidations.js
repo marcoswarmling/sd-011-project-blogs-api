@@ -1,7 +1,7 @@
 const error = require('../utils/errors');
 
 const validDisplayName = (name) => {
-  if (!name) throw error.nameIsRequired;
+  if (!name) throw error.displayNameIsRequired;
   if (name.length < 8) throw error.invalidName;
 };
 

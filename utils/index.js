@@ -1,5 +1,5 @@
 module.exports = {
-  nameIsRequired: {
+  displayNameIsRequired: {
     message: '"displayName" is required',
     status: 400,
   },
@@ -50,5 +50,9 @@ module.exports = {
   userNotFound: {
     message: 'User does not exist',
     status: 404,
+  },
+  nameIsRequired: {
+    message: '"name" is required',
+    status: 400,
   },
 };
