@@ -1,6 +1,6 @@
-// const Sequelize = require('sequelize');
-// const { BlogPost } = require('../models');
-// const config = require('../config/config');
+const Sequelize = require('sequelize');
+const { BlogPost, PostsCategory } = require('../models');
+const config = require('../config/config');
 
 const {
   verifyTitle,
@@ -8,9 +8,27 @@ const {
   verifyCategoryIds,
 } = require('../validations/post');
 
-// const sequelize = new Sequelize(config.development);
+const sequelize = new Sequelize(config.development);
 
-const createPost = async (id, title, content, categoryIds) => {
+const manageDataIntoBlogAndPostCategoryTable = async (userId, title, content, categoryIds) => {
+  const t = await sequelize.transaction();
+  try {
+    const newPost = await BlogPost.create({ userId, title, content },
+    { transaction: t });
+    const categories = [];
+    categoryIds.map((id) => categories.push({
+      postId: newPost.id, categoryId: Number(id),
+    }));
+    await PostsCategory.bulkCreate(categories, { transaction: t });
+    await t.commit();
+    return { id: newPost.id, userId, title, content };
+  } catch (e) {
+    await t.rollback();
+    console.log(e.message);
+  }
+};
+
+const createPost = async (userId, title, content, categoryIds) => {
   const isValidTitle = verifyTitle(title);
   const isValidContent = verifyContent(content);
   const isValidCategoryIds = verifyCategoryIds(categoryIds);
@@ -19,17 +37,7 @@ const createPost = async (id, title, content, categoryIds) => {
   if (isValidContent) return isValidContent;
   if (isValidCategoryIds) return isValidCategoryIds;
 
-  // const result = await sequelize.transaction(async (t) => {
-  //   const newPost = await BlogPost({
-  //     userId: id, title, content,
-  //   }, { transaction: t });
-    
-  //   await BlogPost({
-  //     userId: id, title, content,
-  //   }, { transaction: t });
-  // });
-
-  return { id, title, content, categoryIds };
+  return manageDataIntoBlogAndPostCategoryTable(userId, title, content, categoryIds);
 };
 
 module.exports = {

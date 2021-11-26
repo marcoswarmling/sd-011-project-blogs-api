@@ -26,9 +26,17 @@ const categoryIdsIsRequired = {
   message: '"categoryIds" is required',
 };
 
+const categoryIdsNotFound = {
+  err: {
+    status: 400,
+  },
+  message: '"categoryIds" not found',
+};
+
 module.exports = {
   nameIsRequired,
   titleIsRequired,
   contentIsRequired,
   categoryIdsIsRequired,
+  categoryIdsNotFound,
 };

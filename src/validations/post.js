@@ -1,4 +1,8 @@
-const { titleIsRequired, contentIsRequired, categoryIdsIsRequired } = require('../err');
+const { Category } = require('../models');
+const {
+  titleIsRequired, contentIsRequired,
+  categoryIdsIsRequired, categoryIdsNotFound,
+} = require('../err');
 
 const verifyTitle = (title) => {
   if (!title || title.length === 0) {
@@ -18,6 +22,12 @@ const verifyCategoryIds = (categoryIds) => {
   if (!categoryIds || categoryIds.length === 0) {
     return categoryIdsIsRequired;
   }
+  categoryIds.forEach(async (id) => {
+    const categories = await Category.findByPk(id);
+    if (!categories) {
+      return categoryIdsNotFound;
+    }
+  });
   return null;
 };
 
