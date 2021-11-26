@@ -24,7 +24,7 @@ function checkEmail(req, res, next) {
 
 function checkPassword(req, res, next) {
   const { password } = req.body;
-  console.log(password);
+
   if (password.length < 6) {
     return res.status(400).json({
       password: 'length must be 6 characters long',
