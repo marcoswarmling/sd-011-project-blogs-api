@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('./controllers/user');
+const Category = require('./controllers/category');
 const errorMiddleware = require('./middlewares/Error');
 const ValidationJWT = require('./middlewares/ValidationJWT');
 
@@ -19,5 +20,7 @@ app.get('/user', ValidationJWT.validateToken, User.getAllUsers);
 app.get('/user/:id', ValidationJWT.validateToken, User.getUserById);
 
 app.post('/login', User.userLogin);
+
+app.post('/categories', ValidationJWT.validateToken, Category.createCat);
 
 app.use(errorMiddleware);
