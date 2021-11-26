@@ -9,4 +9,6 @@ router.post(
   CategoryController.registerCategory,
 );
 
+router.get('/', Validations.validateJWT, CategoryController.getAll);
+
 module.exports = router;

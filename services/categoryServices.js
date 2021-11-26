@@ -9,6 +9,13 @@ const registerCategory = async (name) => {
   return registeredCat;
 };
 
+const getAll = async () => {
+  const result = await Categories.findAll();
+  if (!result) throw new Error('No category found');
+  return result;
+};
+
 module.exports = {
   registerCategory,
+  getAll,
 };
