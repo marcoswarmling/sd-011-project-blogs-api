@@ -12,9 +12,11 @@ const {
 
 const {
   createUsers,
+  getUserById,
   getAllUsers,
 } = require('../controllers/usersControllers');
 
+router.get('/:id', validateJWTToken, getUserById);
 router.get('/', validateJWTToken, getAllUsers);
 router.post('/',
   validateDisplayName,

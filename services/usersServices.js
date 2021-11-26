@@ -13,13 +13,18 @@ const getAllUsers = async () => {
   return getUsers;
 };
 
+const getUserById = async (id) => {
+  const userId = await Users.findByPk(id);
+  return userId;
+};
+
 const getEmailExist = async (email) => {
   const user = await Users.findOne({ where: { email } });
   return user;
 };
 
 const createUsers = async (displayName, email, password, image) => {
- const emailExist = await getEmailExist(email);
+  const emailExist = await getEmailExist(email);
   if (emailExist) {
     return { msgError: 'msgError' };
   }
@@ -37,5 +42,6 @@ const createUsers = async (displayName, email, password, image) => {
 
 module.exports = {
   getAllUsers,
+  getUserById,
   createUsers,
 };
