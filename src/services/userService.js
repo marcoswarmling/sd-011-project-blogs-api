@@ -10,7 +10,7 @@ const jwtConfig = {
 const addUser = async (data) => {
   const { error: validationError } = validateUser(data);
 
-  if (validationError) return { validationError };
+  if (validationError) return validationError;
 
   const { displayName, email, password, image } = data;
 
