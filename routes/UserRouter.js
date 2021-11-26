@@ -40,4 +40,7 @@ router.post('/user', Req1Validations, UserController.create);
 // Req 2
 router.post('/login', Req2Validations, UserController.login);
 
+// Req 3
+router.get('/user', UserController.getAll);
+
 module.exports = router;

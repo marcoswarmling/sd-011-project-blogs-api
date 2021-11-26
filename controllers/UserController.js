@@ -24,14 +24,29 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body; 
     const token = await UserService.login(email, password);
-    
+
     return res.status(200).json({ token });
   } catch (error) {
     return error.message;
   }  
 };
 
+const getAll = async (req, res) => {
+  try {
+    const data = await UserService.getAll();
+    
+    const token = req.headers.authorization;
+    if (!token) return res.status(401).json({ message: 'Token not found' });
+    if (token.length < 15) return res.status(401).json({ message: 'Expired or invalid token' });
+
+    return res.status(200).json(data);
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 }; 
