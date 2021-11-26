@@ -7,6 +7,8 @@ module.exports = async (request, _response, next) => {
 
   const post = await getPostBasicInfo(id);
 
+  if (!post) return next(errors.post.notFound);
+
   if (post.userId !== user.id) return next(errors.post.unauthorizedUser);
 
   return next();
