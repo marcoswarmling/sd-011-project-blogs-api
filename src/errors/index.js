@@ -19,4 +19,8 @@ module.exports = {
     code: 404,
     message: 'User does not exist',
   },
+  categoryNotFound: {
+    code: 400,
+    message: '"categoryIds" not found',
+  },
 };

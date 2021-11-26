@@ -16,7 +16,7 @@ module.exports = {
 
     if (!user || user.password !== password) return { error: loginInvalidFields };
 
-    const token = await generateToken(user.displayName, email);
+    const token = await generateToken(user.id, user.displayName, email);
 
     return { token };
   },

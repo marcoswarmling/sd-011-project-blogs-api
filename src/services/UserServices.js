@@ -21,7 +21,7 @@ module.exports = {
 
     if (!created) throw new Error();
 
-    const token = await generateToken(userData.displayName, email);
+    const token = await generateToken(created.id, created.displayName, email);
 
     return { token };
   },

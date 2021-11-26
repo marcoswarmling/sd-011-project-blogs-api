@@ -2,9 +2,9 @@ require('dotenv').config();
 const { sign } = require('jsonwebtoken');
 
 module.exports = {
-  generateToken: async (displayName, email) => {
+  generateToken: async (userId, displayName, email) => {
     const token = sign(
-      { displayName, email },
+      { userId, displayName, email },
       process.env.JWT_SECRET,
       { expiresIn: '7d', algorithm: 'HS256' },
     );
