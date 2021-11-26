@@ -1,5 +1,4 @@
 const { User } = require('../models');
-
 const { createJwtToken } = require('../auth/createToken');
 
 const createUser = async (displayName, email, password, image) => {

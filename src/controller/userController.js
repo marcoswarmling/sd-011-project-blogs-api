@@ -22,7 +22,7 @@ const connectUser = async (req, res) => {
   }
 };
 
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (_req, res) => {
   try {
     const { code, result } = await UserService.getAllUsers();
     res.status(code).json(result);

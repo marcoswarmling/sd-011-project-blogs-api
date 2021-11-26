@@ -13,6 +13,16 @@ const createCategory = async (name) => {
   }
 };
 
+const getAllCategories = async () => {
+  try {
+    const getCategories = await Category.findAll();
+    return { code: 200, result: getCategories };
+  } catch (error) {
+    return ({ code: 500, result: { message: messageErrorServer } });
+  }
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };
