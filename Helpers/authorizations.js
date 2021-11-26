@@ -1,8 +1,7 @@
-// require(dotenv).config();
 const jwt = require('jsonwebtoken');
 // const { status } = require('../Helpers/status&messages');
 
-const segredo = 'segredo';
+const JWT = process.env;
 
 const jwtconfig = { 
   expiresIn: '1h',
@@ -11,7 +10,7 @@ const jwtconfig = {
 
 function generateToken(_id, email, role) {
   const payload = { _id, email, role };
-  const token = jwt.sign(payload, segredo, jwtconfig);
+  const token = jwt.sign(payload, JWT, jwtconfig);
   return token;
 }
 /* 

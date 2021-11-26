@@ -15,6 +15,7 @@ const userLogin = async (req, res) => {
       .status(status.badRequest)
       .json({ message: loginMessages.notRegistered });
     }
+    // geração do token
     const { id } = checkUser;
     const token = generateToken(id, email); 
     return res.status(status.sucess).json({ token });

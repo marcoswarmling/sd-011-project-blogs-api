@@ -24,13 +24,14 @@ const validEmail = (email) => {
   if (!email) { 
     throw createError(status.badRequest, usersMessages.emailRequired);
   }
-  if (!regex(email)) {
+  if (!regex.test(email)) {
     throw createError(status.badRequest, usersMessages.email);
   }
   return false;
 };
 
 const validateUser = (displayName, email, password) => {
+  console.log('entrei em validateUser');
   validDisplayName(displayName);
   validEmail(email);
   validPassword(password);

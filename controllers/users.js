@@ -1,16 +1,22 @@
 const usersServices = require('../services/users');
 const { status, intServerError } = require('../Helpers/status&messages');
-const { generateToken } = require('../Helpers/authorizations');
+const User = require('../models/user');
+// const { generateToken } = require('../Helpers/authorizations');
 
-const create = async (req, res) => {
+const createNewUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
-    await usersServices.create(displayName, email, password, image);
-    const token = generateToken();
-    return res.status(status.create).json({ token });
+    const newUser = await usersServices.createNewUser({ displayName, email, password, image });
+    // const token = generateToken();
+    return res.status(status.create).json({ user: newUser /* token */ });
   } catch (error) {
     return res.status(status.intServerError).json({ message: intServerError.unknown });
   }
 };
 
-module.exports = { create };
+const findAllUsers = async (req, res) => {
+  const allUsers = User.findAll();
+  res.status(200).json({ users: allUsers });
+};
+
+module.exports = { createNewUser, findAllUsers };
