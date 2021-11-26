@@ -25,6 +25,8 @@ route.post('/user', validDisplayName, validEmail, validPassword, controllerUser.
 
 route.post('/login', checkEmailLogin, checkPasswordLogin, controllerLogin.login);
 
+route.get('/categories', validToken, controllerCategory.getAll);
+
 route.post('/categories', validName, validToken, controllerCategory.create);
 
 module.exports = route;

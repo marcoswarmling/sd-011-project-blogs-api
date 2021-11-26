@@ -15,4 +15,19 @@ async function create(req, res) {
   }
 }
 
-module.exports = { create };
+async function getAll(req, res) {
+  try {
+    const getAllCategories = await ServiceCategory.getAll();
+
+    if (!getAllCategories) {
+      return res.status(400).json({ message: 'Categories not found' });
+    }
+
+    return res.status(200).json(getAllCategories);
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).json({ message: 'Categories not found' });
+  }
+}
+
+module.exports = { create, getAll };
