@@ -2,13 +2,12 @@ const { User } = require('../models');
 
 const validatePassword = (passsword) => {
   if (passsword === undefined) {
-    return { type: 'error', err: { code: 400, message: '"password" is required' } };
+    return { type: 'error', code: 400, message: '"password" is required' };
   }
   if (passsword.length !== 6) {
     return { type: 'error', 
-    err: { 
-      code: 400, message: '"password" length must be 6 characters long', 
-    } };
+      code: 400,
+      message: '"password" length must be 6 characters long' };
   }
   return {
     type: 'success',
@@ -20,10 +19,7 @@ async function verifyIfEmailAlreadyRegistered(email) {
   const allUsers = await User.findAll({ raw: true });
   const userFound = allUsers.filter((user) => user.email === email);
   if (userFound.length !== 0) {
-    return { type: 'error', 
-    err: { 
-      code: 409, message: 'User already registered', 
-    } };
+    return { type: 'error', code: 409, message: 'User already registered' };
   }
   return {
     type: 'success',
@@ -33,10 +29,10 @@ async function verifyIfEmailAlreadyRegistered(email) {
 const validateEmail = (email) => {
   const re = /\S+@\S+\.\S+/;
   if (email === undefined) {
-    return { type: 'error', err: { code: 400, message: '"email" is required' } };
+    return { type: 'error', code: 400, message: '"email" is required' };
   }
   if (!re.test(email)) {
-    return { type: 'error', err: { code: 400, message: '"email" must be a valid email' } };
+    return { type: 'error', code: 400, message: '"email" must be a valid email' };
   }
   return {
     type: 'success',
@@ -49,10 +45,9 @@ const validateDisplayName = (displayName) => {
       type: 'succces',
     };
   }
-  return { type: 'error',
-    err: { 
-      code: 400, message: '"displayName" length must be at least 8 characters long', 
-    } };
+  return { type: 'error', 
+  code: 400,
+  message: '"displayName" length must be at least 8 characters long' };
 };
 
 function validateUser(displayName, email, passsword, _image) {
