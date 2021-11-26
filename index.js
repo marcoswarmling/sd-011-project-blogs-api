@@ -19,6 +19,7 @@ app.get('/', (request, response) => {
 
 app.get('/user', UserController.getAll);
 app.get('/user/:id', UserController.getById);
+app.get('/categories', CategoryController.getAll);
 
 app.post('/user', UserController.createUser);
 app.post('/login', UserController.login);

@@ -10,6 +10,16 @@ const addCategory = async (req, res) => {
   return res.status(201).json(addResponse.payload);
 };
 
+const getAll = async (req, res) => {
+  const { authorization } = req.headers;
+  const getAllResponse = await CategoryServices.getAll(authorization);
+  if (getAllResponse.type === 'error') {
+    return res.status(getAllResponse.code).json({ message: getAllResponse.message });
+  }
+  return res.status(200).json(getAllResponse.payload);
+};
+
 module.exports = {
   addCategory,
+  getAll,
 };
