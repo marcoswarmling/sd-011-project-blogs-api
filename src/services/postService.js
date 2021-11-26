@@ -3,7 +3,9 @@ const { hasCategories } = require('../helpers/categoryHelper');
 const errors = require('../schemas/errorsSchema');
 
 const create = async (post) => {
-  if (!hasCategories(post.categoryIds)) throw errors.post.categoryNotFound;
+  const validCategories = await hasCategories(post.categoryIds);
+
+  if (!validCategories) throw errors.post.categoryNotFound;
 
   const newPost = await BlogPost.create(post);
 
