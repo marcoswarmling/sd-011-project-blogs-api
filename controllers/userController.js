@@ -26,4 +26,15 @@ router.post('/', validateUserSchema, async (req, res) => {
   }
 });
 
+const validateToken = require('../middlewares/validateToken');
+
+router.get('/', validateToken, async (req, res) => {
+  try {
+    const allUsers = await User.findAll();
+    return res.status(200).json(allUsers);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;

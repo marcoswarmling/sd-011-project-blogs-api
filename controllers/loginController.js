@@ -14,7 +14,6 @@ router.post('/', validateLoginSchema, async (req, res) => {
     });
   }
   const token = createJWT(email, password);
-  console.log(userExists);
   return res.status(200).json({ token });
 });
 
