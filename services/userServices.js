@@ -32,8 +32,7 @@ const getAllUsers = async () => {
 };
 
 const getOneUser = async (id) => {
-  const paramsId = Number(id);
-  const user = await Users.findOne({ where: { id: paramsId } });
+  const user = await Users.findOne({ where: { id } });
 
   if (!user) throw new Error('User does not exist');
 
