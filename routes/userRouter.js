@@ -5,6 +5,6 @@ const { UserPostValidate, validateEmailUnique } = require('../middlewares/userVa
 
 const router = express.Router();
 
-router.post('/user', UserPostValidate, validateEmailUnique, UserController.create);
+router.post('/', UserPostValidate, validateEmailUnique, UserController.create);
 
 module.exports = router;
