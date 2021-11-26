@@ -1,9 +1,8 @@
-const PostServices = require('../services/categoryServices');
+const PostServices = require('../services/postServices');
 
 const createPost = async (req, res) => {
-  const { title, content, categoryIds } = req.body;
-
-  const addResponse = await PostServices.createPost(title, content, categoryIds);
+  const { title, content, categoryIds, userInfo } = req.body;
+  const addResponse = await PostServices.createPost(title, content, categoryIds, userInfo.id);
   if (addResponse.type === 'error') {
     return res.status(addResponse.code).json({ message: addResponse.message });
   }

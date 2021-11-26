@@ -1,10 +1,18 @@
-const { BlogPost, PostCategory } = require('../models');
+const { BlogPost, PostsCategory, Category } = require('../models');
+const { verifyIfCategoriesExists, validatePostData } = require('../validators/postValidators');
 
-const createPost = async (title, content, categoryId) => {
-  const createResponse = await BlogPost.create({ title, content, userId: 'pegar pelo token' });
-  // Deve ser feita uma validação se as categorias passadas existem)
-  const createLinkResponse = await PostCategory.create('aqui vc vai ter que pegar o id gerado antes e user ele para criar vinculo com a categoria passada');
-  return { type: 'success', payload: { id, name } };
+const createPost = async (title, content, categoryId, userId) => {
+  if (validatePostData(title, content, categoryId).type === 'error') {
+    return validatePostData(title, content, categoryId);
+  }
+  const allCategories = await Category.findAll({ raw: true });
+  const areValidCategories = verifyIfCategoriesExists(categoryId, allCategories);
+  if (areValidCategories.type === 'error') return areValidCategories;
+  const createPostResponse = await BlogPost.create({ title, content, userId });
+  categoryId.forEach(async (id) => {
+    await PostsCategory.create({ postId: createPostResponse.id, categoryId: id });
+  });
+  return { type: 'success', payload: { id: createPostResponse.id, userId, title, content } };
 };
 
 module.exports = {

@@ -30,8 +30,7 @@ const login = async (req, res) => {
     expiresIn: '1h',
     algorithm: 'HS256',
   };
-  const { id } = loginResponse;
-  const token = jwt.sign({ id, email }, secret, jwtConfig);
+  const token = jwt.sign({ id: loginResponse.payload.id, email }, secret, jwtConfig);
   console.log(token);
   return res.status(200).json({ token });
 };
