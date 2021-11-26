@@ -1,10 +1,10 @@
-const { validatePost } = require('../../../helpers/postHelper');
+const { validateNewPostAttributes } = require('../../../helpers/postHelper');
 
 module.exports = (request, _response, next) => {
   const post = request.body;
 
   try {
-    validatePost(post);
+    validateNewPostAttributes(post);
   } catch (error) {
     return next(error);
   }
