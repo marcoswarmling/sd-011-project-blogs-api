@@ -21,12 +21,25 @@ const find = async (email) => {
 };
 
 const findAll = async () => {
-  const users = await Users.findAll();
+  const users = await Users.findAll({
+    attributes: { exclude: ['password'] },
+  });
   return users;
+};
+
+const findByID = async (id) => {
+  const user = await Users.findByPk(id, {
+    attributes: { exclude: ['password'] },
+  });
+  if (!user) {
+    throw new Error('User does not exist');
+  }
+  return user;
 };
 
 module.exports = {
   create,
   find,
   findAll,
+  findByID,
 };
