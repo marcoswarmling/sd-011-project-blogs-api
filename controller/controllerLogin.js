@@ -1,7 +1,7 @@
 const { Users } = require('../models');
 const { generateToken } = require('../auth');
 
-async function getUser(req, res) {
+async function getUserLogin(req, res) {
   const { email, password } = req.body;
 
   const result = await Users.findOne({ where: { email, password } })
@@ -16,5 +16,5 @@ async function getUser(req, res) {
 }
 
 module.exports = {
-  getUser,
+  getUserLogin,
 };

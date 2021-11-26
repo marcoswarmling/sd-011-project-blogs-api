@@ -7,10 +7,10 @@ const {
   checkfildPassword,
   checkEmptyEmail,
 } = require('../service');
-const { getUser } = require('../controller/controllerLogin');
+const { getUserLogin } = require('../controller/controllerLogin');
 
 router.post('/',
   checkEmptyEmail, checkfildEmail, checkEmail,
-  checkEmptyPassword, checkfildPassword, checkPassword, getUser);
+  checkEmptyPassword, checkfildPassword, checkPassword, getUserLogin);
 
 module.exports = router;
