@@ -6,9 +6,7 @@ app.use(express.json());
 const { createUser } = require('./controllers/userController');
 
 // não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (request, response) => {
-  response.send();
-});
+app.get('/', (request, response) => response.send());
 
 // Rota teste
 app.get('/ping', (_, res) => res.send('Pong'));

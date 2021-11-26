@@ -1,5 +1,6 @@
 const userServices = require('../services/index');
 const { status } = require('../schemas');
+const { generateToken } = require('../helpers/generateJWT');
 
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -7,11 +8,13 @@ const createUser = async (req, res) => {
     displayName, email, password, image });
 
   if (responseFromValidation.error) {
-    const { message } = responseFromValidation.error;
-    return res.status(responseFromValidation.error.code).json({ message });
+    const { message, code } = responseFromValidation.error;
+    return res.status(code).json({ message });
   }
 
-  return res.status(status.CREATED).json({ token: responseFromValidation });
+  const token = generateToken(responseFromValidation);
+
+  return res.status(status.CREATED).json({ token });
 };
 
 module.exports = {
