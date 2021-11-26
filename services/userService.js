@@ -23,15 +23,16 @@ const createUser = async ({ displayName, email, password, image }) => {
 
     const response = await Users.create({ displayName, email, password, image });
     const { dataValues } = response;
+    delete dataValues.id;
 
-    const userData = {
-      displayName: dataValues.displayName,
-      email: dataValues.email,
-      password: dataValues.password,
-      image: dataValues.image,
-    };
+    // const userData = {
+    //   displayName: dataValues.displayName,
+    //   email: dataValues.email,
+    //   password: dataValues.password,
+    //   image: dataValues.image,
+    // };
 
-    return jwt.sign(userData, process.env.JWT, JWT_CONFIG);
+    return jwt.sign(dataValues, process.env.JWT, JWT_CONFIG);
   } catch (e) {
     const { message, code } = validadeEmailExistsError(e);
     return { error: { message, code } };
