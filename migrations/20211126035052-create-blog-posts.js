@@ -9,25 +9,27 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      published: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now'),
       },
       userId: {
         type: Sequelize.INTEGER,
         references: {
-        model: 'Users',
-        key: 'id',
+          model: 'Users',
+          key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         primaryKey: true,
       }, 
-      published: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now'),
-      },
       updated: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('now'),
@@ -35,7 +37,7 @@ module.exports = {
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     await queryInterface.dropTable('BlogPosts');
   }
 };
