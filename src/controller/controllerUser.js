@@ -11,8 +11,23 @@ async function create(req, res) {
     return res.status(201).json(newUser);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Algo deu errado' });
+    return res.status(500).json({ message: 'Algo deu errado' });
   }
 }
 
-module.exports = { create };
+async function getAll(req, res) {
+  try {
+   const allUsers = await ServiceUser.getAll();
+
+   if (!allUsers) {
+     return res.status(400).json({ message: 'Not users found' });
+   }
+
+   return res.status(200).json(allUsers);
+  } catch (e) {
+    console.log(e.message);
+    return res.status(200).json({ message: 'Algo deu errado' });
+  }
+}
+
+module.exports = { create, getAll };

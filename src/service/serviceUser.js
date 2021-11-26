@@ -10,4 +10,9 @@ const create = async (displayName, email, password, image) => {
   return newUser;
 };
 
-module.exports = { create };
+const getAll = async () => {
+  const getUsers = await Users.findAll();
+  return getUsers;
+};
+
+module.exports = { create, getAll };
