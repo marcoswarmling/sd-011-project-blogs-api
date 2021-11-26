@@ -41,11 +41,12 @@ module.exports = {
   },
 
   update: async (request, response, next) => {
-    const { id } = request.params;
-    const { title, content } = request.body;
+    const { user, params, body } = request;
+    const { id } = params;
+    const { title, content } = body;
 
     try {
-      const updatedPost = postService.update(id, { title, content });
+      const updatedPost = await postService.update(user.id, id, { title, content });
 
       return response.status(statusCodes.ok).json(updatedPost);
     } catch (error) {
