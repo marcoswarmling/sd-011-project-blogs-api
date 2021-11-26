@@ -3,6 +3,19 @@ const { hasCategories } = require('../helpers/categoryHelper');
 const { getUsers, getUser } = require('../helpers/userHelper');
 const errors = require('../schemas/errorsSchema');
 
+const getById = async (id) => {
+  const post = await BlogPost.findOne({
+    where: { id },
+    include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
+  });
+
+  if (!post) throw errors.post.notFound;
+
+  const user = await getUser(post.userId);
+
+  return { ...post.dataValues, user: user.dataValues };
+};
+
 module.exports = {
   create: async (post) => {
     const validCategories = await hasCategories(post.categoryIds);
@@ -25,16 +38,17 @@ module.exports = {
     return posts.map((post, index) => ({ ...post.dataValues, user: users[index] }));
   },
 
-  getById: async (id) => {
-    const post = await BlogPost.findOne({
-      where: { id },
-      include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
-    });
+  getById,
 
-    if (!post) throw errors.post.notFound;
+  update: async (userId, postId, { title, content }) => {
+    const post = await BlogPost.findOne({ where: { id: postId } });
 
-    const user = await getUser(post.userId);
+    if (userId !== post.userId) throw errors.post.unauthorizedUser;
 
-    return { ...post.dataValues, user: user.dataValues };
+    await post.update({ title, content });
+
+    const updatedPost = await getById(postId);
+
+    return updatedPost;
   },
 };
