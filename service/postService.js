@@ -1,5 +1,5 @@
 const { verifyToken } = require('../helpers/handleToken');
-const { BlogPosts, PostsCategories, Category } = require('../models');
+const { BlogPosts, PostsCategories, Category, User } = require('../models');
 
 const validateCategories = async (array) => {
   const response = await array.reduce(async (acc, curr) => {
@@ -24,7 +24,7 @@ const create = async (post, token) => {
     if (fields) return fields;
     const masquemerda = await validateCategories(post.categoryIds);
     if (!masquemerda) return { message: '"categoryIds" not found' };
-    const { dataValues } = await BlogPosts.create({...post, userId: user.id });
+    const { dataValues } = await BlogPosts.create({ ...post, userId: user.id });
     await post.categoryIds.forEach(async (categoryId) => {
       await PostsCategories.create({
         postId: dataValues.id,
@@ -37,17 +37,27 @@ const create = async (post, token) => {
   }
 };
 
-// const getAll = async (token) => {
-//   try {
-//     verifyToken(token);
-//     const categories = await Category.findAll();
-//     return categories;
-//   } catch (_error) {
-//     return { message: 'Expired or invalid token' };
-//   }
-// };
+const getAll = async (token) => {
+  try {
+    verifyToken(token);
+    const posts = await BlogPosts.findAll({
+      include: [
+        {
+          model: User, as: 'user', attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category, as: 'categories',
+        },
+      ],
+    });
+    return posts;
+  } catch (error) {
+    console.log(error);
+    return { message: 'Expired or invalid token' };
+  }
+};
 
 module.exports = {
-  // getAll,
+  getAll,
   create,
 };
