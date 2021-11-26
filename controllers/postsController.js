@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 // const sequelize = new Sequelize(config.development);
 
-const { BlogPosts, Users, Categories, PostCategories } = require('../models');
+const { BlogPosts, Categories, PostCategories } = require('../models');
 
 const validateToken = (authHeader) => {
   const validToken = jwt.verify(authHeader, process.env.JWT_SECRET, (error, decoded) => {
