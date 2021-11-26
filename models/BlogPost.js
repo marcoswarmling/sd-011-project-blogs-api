@@ -5,7 +5,7 @@ const BlogPost = (sequelize, DataTypes) =>
       title: DataTypes.STRING,
       content: DataTypes.STRING,
       userId: DataTypes.INTEGER,
-      created: DataTypes.DATE,
+      published: DataTypes.DATE,
       updated: DataTypes.DATE,
     },
     { timestamps: false },
