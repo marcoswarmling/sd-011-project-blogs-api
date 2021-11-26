@@ -37,4 +37,19 @@ router.get('/', validateToken, async (req, res) => {
   }
 });
 
+router.get('/:id', validateToken, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findOne({ where: { id } });
+    if (!user) {
+      return res.status(404).json({
+        message: 'User does not exist',
+      });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;
