@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const { Users } = require('../models');
 const { 
   validateEmailExists,
@@ -43,7 +44,7 @@ const validate = (displayName, email, password) => {
 };
 
 const generateToken = (email) => {
-  const secret = 'fogueteNaoTemRe';
+  const secret = process.env.JWT_SECRET;
 
   const jwtConfig = {
     expiresIn: '1h',
@@ -80,6 +81,15 @@ const create = async (displayName, email, password, image) => {
   return { token };
 };
 
+const getAllUsers = async () => {
+  const users = await Users.findAll({
+    attributes: ['id', 'displayName', 'email', 'image'],
+  });
+
+  return users;
+};
+
 module.exports = {
   create,
+  getAllUsers,
 };

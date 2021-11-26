@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const { Users } = require('../models');
 const { 
   validateEmailExists,
@@ -47,7 +48,7 @@ const userLogin = async (email, password) => {
     return { message: 'Invalid fields' };
   }
 
-  const secret = 'fogueteNaoTemRe';
+  const secret = process.env.JWT_SECRET;
 
   const jwtConfig = {
     expiresIn: '1h',

@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 const validateEmailExists = (email) => {
   if (!email) {
     return { message: '"email" is required' };
@@ -50,6 +53,27 @@ const validateEmptyEmail = (email) => {
   return null;
 };
 
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  const secret = process.env.JWT_SECRET;
+
+  const jwtConfig = {
+    expiresIn: '1h',
+    algorithm: 'HS256',
+  };
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  try {
+    const decoded = jwt.verify(token, secret, jwtConfig);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+}
+};
+
 module.exports = {
   validateEmailExists,
   validateDisplayNameLength,
@@ -58,4 +82,5 @@ module.exports = {
   validatePasswordExists,
   validateEmptyPassword,
   validateEmptyEmail,
+  verifyToken,
 };
