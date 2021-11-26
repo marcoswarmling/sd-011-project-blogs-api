@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-const { createUser, loginUser } = require('../schemas/index');
+const { validateCreateUser, validateLoginUser } = require('../schemas/index');
 
 const { JWT_SECRET } = process.env;
 
 const validateUser = async (req, res, next) => {
   const { displayName, email, password } = req.body;
 
-  const { error } = createUser.validate({
+  const { error } = validateCreateUser.validate({
     displayName,
     email,
     password,
@@ -29,7 +29,7 @@ const validateUser = async (req, res, next) => {
 const validateLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const { error } = loginUser.validate({
+  const { error } = validateLoginUser.validate({
     email,
     password,
   });
@@ -52,11 +52,13 @@ const validateToken = async (req, res, next) => {
 
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
-  jwt.verify(token, JWT_SECRET, (err) => {
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: 'Expired or invalid token' });
     }
-  
+
+    req.userId = decoded.user.id;
+    
     next();
   });
 };

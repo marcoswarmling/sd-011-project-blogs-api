@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const emailPattern = /^\w+@\w+\.\w+$/;
 
-const createUser = Joi.object({
+const validateCreateUser = Joi.object({
   displayName: Joi.string().min(8).required().messages({
     'string.min': '"displayName" length must be at least 8 characters long',
   }),
@@ -16,7 +16,7 @@ const createUser = Joi.object({
   }),
 });
 
-const loginUser = Joi.object({
+const validateLoginUser = Joi.object({
   email: Joi.string().required().min(1).regex(emailPattern)
 .messages({
     'any.required': '"email" is required',
@@ -28,7 +28,14 @@ const loginUser = Joi.object({
   }),
 });
 
+const validateCreatePost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array(),
+});
+
 module.exports = {
-  createUser,
-  loginUser,
+  validateCreateUser,
+  validateLoginUser,
+  validateCreatePost,
 };

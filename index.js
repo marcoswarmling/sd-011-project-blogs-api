@@ -6,8 +6,9 @@ app.use(express.json());
 
 const userController = require('./controllers/userController');
 const categorieController = require('./controllers/categorieController');
+const postController = require('./controllers/postController');
 
-app.use('/', userController, categorieController);
+app.use('/', userController, categorieController, postController);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
