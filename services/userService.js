@@ -26,6 +26,16 @@ const userRegister = async ({ displayName, email, password, image }) => {
   };
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll();
+  if (users) {
+    return ([{
+      users,
+    }]);
+  }
+};
+
 module.exports = {
   userRegister,
+  getAllUsers,
 };
