@@ -16,6 +16,12 @@ const getById = async (id) => {
   return { ...post.dataValues, user: user.dataValues };
 };
 
+const getPostBasicInfo = async (id) => {
+  const post = await BlogPost.findOne({ where: { id } });
+
+  return post;
+};
+
 module.exports = {
   create: async (post) => {
     const validCategories = await hasCategories(post.categoryIds);
@@ -40,8 +46,10 @@ module.exports = {
 
   getById,
 
+  getPostBasicInfo,
+
   update: async (userId, postId, { title, content }) => {
-    const post = await BlogPost.findOne({ where: { id: postId } });
+    const post = await getPostBasicInfo(postId);
 
     if (userId !== post.userId) throw errors.post.unauthorizedUser;
 
