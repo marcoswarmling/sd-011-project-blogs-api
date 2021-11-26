@@ -24,7 +24,6 @@ const createUser = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
   const response = await userServices.login(email, password);
-  console.log(response);
   if (response.error) {
     const { error } = await response;
     return res.status(400).json(error);
@@ -37,4 +36,9 @@ const login = async (req, res) => {
   return res.status(200).json({ token });
 };
 
-module.exports = { createUser, login };
+const getUsers = async (_req, res) => {
+  const users = await userServices.getUsers();
+  return res.status(200).json(users);
+};
+
+module.exports = { createUser, login, getUsers };
