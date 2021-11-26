@@ -36,10 +36,10 @@ async function getById(req, res) {
     const getUserById = await ServiceUser.getById(id);
 
     if (!getUserById) {
-      res.status(404).json({ message: 'User does not exist' });
+      return res.status(404).json({ message: 'User does not exist' });
     }
 
-    res.status(200).json(getUserById);
+    return res.status(200).json(getUserById);
   } catch (e) {
     console.log(e.message);
     return res.status(200).json({ message: 'Algo deu errado' });
