@@ -36,4 +36,15 @@ router.get('/', validateJWT, async (req, res) => {
   return res.status(200).json(response);
 });
 
+router.get('/:id', validateJWT, async (req, res) => {
+  const { id } = req.params;
+  const response = await userService.getById(id);
+
+  if (!response) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+
+  return res.status(200).json(response);
+});
+
 module.exports = router;
