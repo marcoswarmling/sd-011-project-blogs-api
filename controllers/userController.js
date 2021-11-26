@@ -2,9 +2,13 @@ const UserService = require('../services/userServices');
 
 // const secret = 'minhasenhasupersecreta';
 
-const getAll = async (_req, res) => {
-  const getAllResponse = await UserService.getAll();
-  return res.status(200).json(getAllResponse);
+const getAll = async (req, res) => {
+  const { authorization } = req.headers;
+  const getAllResponse = await UserService.getAll(authorization);
+  if (getAllResponse.type === 'error') {
+    return res.status(getAllResponse.code).json({ message: getAllResponse.message });
+  }
+  return res.status(200).json(getAllResponse.payload);
 };
 
 const createUser = async (req, res) => {

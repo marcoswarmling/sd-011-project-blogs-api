@@ -1,11 +1,14 @@
 const { User } = require('../models');
 const { checkIfPasswordIsCorrect, validateLoginData } = require('../validators/loginValidators');
-const { validateUser, verifyIfEmailAlreadyRegistered } = require('../validators/userValidators');
+const { validateUser, 
+  verifyIfEmailAlreadyRegistered, 
+  validateToken } = require('../validators/userValidators');
 
-const getAll = async () => {
+const getAll = async (token) => {
+  if (validateToken(token).type === 'error') return validateToken(token);
   try {
-    const allUsers = await User.findAll();
-    return allUsers;
+    const allUsers = await User.findAll({ attributes: { exclude: ['password'] }, raw: true });
+    return { type: 'success', payload: allUsers };
   } catch (e) {
     console.log(e.message);
   }
