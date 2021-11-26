@@ -7,7 +7,6 @@ const postRegister = async (title, categoryIds, content, userId) => {
     return ({ message: '"categoryIds" not found' });
   }
   const newPost = await BlogPost.create({ userId, title, content });
-  console.log(newPost)
   return newPost;
 };
 
