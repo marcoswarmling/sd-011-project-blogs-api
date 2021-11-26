@@ -5,7 +5,6 @@ const UserGenerateToken = async (req, res) => {
 const { email, password } = req.body;
 const user = await Users.findOne({ where: { email, password } });
 const token = await createNewToken(user);
-console.log('to aqui');
 res.status(200).json({ token });
 };
 

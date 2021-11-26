@@ -18,7 +18,6 @@ const emailExists = (req, res, next) => {
 const passwordIsNotEmpty = (req, res, next) => {
     const { password } = req.body;
     if (password === undefined) {
-        console.log(password);
         return res.status(400).json({
         message: '"password" is required',
         });
@@ -38,7 +37,6 @@ const UserIsValid = (req, res, next) => {
         },
     })
     .then((user) => {
-        console.log(user);
         if (!user || user.password !== password) {
             return res.status(400).json({
                 message: 'Invalid fields',

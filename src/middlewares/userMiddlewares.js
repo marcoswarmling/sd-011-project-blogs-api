@@ -67,7 +67,6 @@ const userAlreadyExists = async (req, res, next) => {
 const validateJWT = async (req, res, next) => {
     const token = req.headers.authorization;
     const tokenValidate = await tokenJwtIsValid(token);
-    console.log(tokenValidate);
 
     if (!token) {
         return res.status(401).json({
@@ -82,6 +81,23 @@ const validateJWT = async (req, res, next) => {
     next();
 };
 
+const verifyIdExists = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+    const user = await Users.findOne({ where: { id } });
+    if (!user) {
+        return res.status(404).json({
+        message: 'User does not exist',
+        });
+    }
+} catch (err) {
+        return res.status(500).json({
+        message: 'Internal server error',
+        });
+    }
+  next();
+};
+
 module.exports = {
     passwordHaveSixCharacters,
      passwordExists,
@@ -89,4 +105,5 @@ module.exports = {
        emailExists,
         displayNameLessThanEight,
          userAlreadyExists,
-         validateJWT };
+         validateJWT,
+         verifyIdExists };
