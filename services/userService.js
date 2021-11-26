@@ -18,7 +18,7 @@ const validateUser = async (payload) => {
 };
 
 const newUser = async (payload) => {
-  validateUser(payload);
+  await validateUser(payload);
   const user = await User.create(payload);
   return generateToken(user);
 };
