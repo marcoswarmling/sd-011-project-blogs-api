@@ -14,9 +14,9 @@ module.exports = {
         onDelete: 'CASCADE',
         primaryKey: true,
       },
-      categoriesId: {
+      categoryId: {
         type: Sequelize.INTEGER,
-        field: 'categories_id',
+        field: 'category_id',
         references: {
           model: 'Categories',
           key: 'id',
