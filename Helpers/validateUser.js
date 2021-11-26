@@ -45,6 +45,7 @@ const passwordValidation = (password) => {
   if (!lengthEqualTo(password, 6)) {
     return { status: status.badRequest, message: usersMessages.password }; 
   }
+  return false;
 };
 
 module.exports = { displayNameValidation, emailValidation, passwordValidation };
