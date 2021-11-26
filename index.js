@@ -16,6 +16,8 @@ app.get('/', (request, response) => {
 
 app.post('/user', User.createUser);
 app.get('/user', ValidationJWT.validateToken, User.getAllUsers);
+app.get('/user/:id', ValidationJWT.validateToken, User.getUserById);
+
 app.post('/login', User.userLogin);
 
 app.use(errorMiddleware);

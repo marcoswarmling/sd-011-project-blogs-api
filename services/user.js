@@ -46,10 +46,10 @@ const userLogin = async (email, password) => {
     });
   }
   const existingUser = await doesUserExist(email);
-  if (existingUser) {
-    return existingUser;
+  if (!existingUser) {
+    return ErrorList.invalidLogin;
   }
-  return ErrorList.invalidLogin;
+  return existingUser;
 };
 
 const getAllUsers = async () => {
@@ -60,8 +60,19 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getUserById = async (id) => {
+  const user = await User.findByPk(id, {
+    attributes: { exclude: ['password'] },
+  });
+  if (!user) {
+    return ErrorList.userNotFound;
+  }
+  return user;
+};
+
 module.exports = {
   createUser,
   userLogin,
   getAllUsers,
+  getUserById,
 };

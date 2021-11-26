@@ -5,6 +5,13 @@ const userAlreadyExists = {
   },
 };
 
+const userNotFound = {
+  err: {
+    status: 404,
+    message: 'User does not exist',
+  },
+};
+
 const invalidLogin = {
   err: {
     status: 400,
@@ -28,6 +35,7 @@ const invalidToken = {
 
 module.exports = {
   userAlreadyExists,
+  userNotFound,
   invalidLogin,
   tokenNotFound,
   invalidToken,
