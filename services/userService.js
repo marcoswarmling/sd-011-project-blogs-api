@@ -5,6 +5,7 @@ const {
   validPass,
   tokenGenerator,
   existingUser,
+  isValidUser,
 } = require('../utils/validations');
 
 const userRegister = async ({ displayName, email, password, image }) => {
@@ -27,21 +28,21 @@ const userRegister = async ({ displayName, email, password, image }) => {
 };
 
 const getAllUsers = async (email) => {
-  const validUser = await existingUser(email);
-  if (!validUser) {
-    return ({
-      error: { code: 'inexistingUser' },
-    });
-  } return User.findAll();
+  const result = await isValidUser(email);
+  if (!result.error) return User.findAll();
+  return result;
 };
 
-const getUserById = async (id) => {
-  const user = await User.findOne({ where: { id } });
-  if (!user) {
-    return ({
-      error: { code: 'invalidId' },
-    });
-  } return user;
+const getUserById = async (id, email) => {
+  const result = await isValidUser(email);
+  if (!result.error) {
+    const user = await User.findOne({ where: { id } });
+    if (!user) {
+      return ({
+        error: { code: 'invalidId' },
+      });
+    } return user;
+  } return result; 
 };
 
 module.exports = {

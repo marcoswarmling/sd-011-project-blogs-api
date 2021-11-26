@@ -20,13 +20,24 @@ const userRegister = rescue(async (req, res, next) => {
 });
 
 const getAllUsers = rescue(async (req, res, next) => {
-  const { user } = req.user;
-  const users = await service.getAllUsers(user);
+  const { email } = req.user;
+
+  const users = await service.getAllUsers(email);
   if (users.error) return next(users.error);
   return res.status(200).json(users);
+});
+
+const getUserById = rescue(async (req, res, next) => {
+  const { email } = req.user;
+  const { id } = req.params;
+
+  const selectedUser = await service.getUserById(id, email);
+  if (selectedUser.error) return next(selectedUser.error);
+  return res.status(200).json(selectedUser);
 });
 
 module.exports = {
   userRegister,
   getAllUsers,
+  getUserById,
 };
