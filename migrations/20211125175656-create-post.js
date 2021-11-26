@@ -22,10 +22,10 @@ module.exports = {
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        field: 'user_id',
+        field: 'userId',
         references: {
           model: 'Users',
-          key: 'id',
+          key: 'userId',
         },
       },
     });

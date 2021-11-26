@@ -26,6 +26,6 @@ router.get('/categories',
 router.post('/post',
   token,
   middlewaresPosts.verifyFields,
-  controllerPosts.createCategories);
+  controllerPosts.createPost);
 
 module.exports = router;
