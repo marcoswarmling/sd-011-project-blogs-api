@@ -6,7 +6,6 @@ const { validateField } = require('../validation/loginValidation');
 
 const { INVALID_FIELDS } = require('../helper/errorObjects');
 
-
 const login = async (credentials) => {
   const { email, password } = credentials;
 
