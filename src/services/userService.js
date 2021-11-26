@@ -27,8 +27,19 @@ const getAllUsers = async () => {
   }
 };
 
+const getUserById = async (id) => {
+  try {
+    const findUserById = await User.findByPk(id);
+    if (!findUserById) return { code: 404, result: { message: 'User does not exist' } };
+    return { code: 200, result: findUserById };
+  } catch (error) {
+    return ({ code: 500, result: { message: 'Internal Error Server' } });
+  }
+};
+
 module.exports = {
   createUser,
   connectUser,
   getAllUsers,
+  getUserById,
 };

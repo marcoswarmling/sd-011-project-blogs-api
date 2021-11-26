@@ -10,8 +10,9 @@ route.post(
   UserValidate.validateUserBodyData,
   UserUnique.checkUniqueUser,
   UserController.createUser,
-  );
+);
 
+route.get('/:id', TokenValidate.checkAuthenticatedUser, UserController.getUserById);
 route.get('/', TokenValidate.checkAuthenticatedUser, UserController.getAllUsers);
 
 module.exports = route;
