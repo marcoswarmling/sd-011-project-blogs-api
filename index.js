@@ -1,5 +1,6 @@
 const express = require('express');
 const UserController = require('./controllers/userController');
+const CategoryController = require('./controllers/categoryController');
 
 require('dotenv').config();
 
@@ -21,3 +22,4 @@ app.get('/user/:id', UserController.getById);
 
 app.post('/user', UserController.createUser);
 app.post('/login', UserController.login);
+app.post('/categories', CategoryController.addCategory);
