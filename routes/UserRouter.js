@@ -43,4 +43,7 @@ router.post('/login', Req2Validations, UserController.login);
 // Req 3
 router.get('/user', UserController.getAll);
 
+// Req 4
+router.get('/user/:id', UserController.getById);
+
 module.exports = router;
