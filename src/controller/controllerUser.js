@@ -30,4 +30,20 @@ async function getAll(req, res) {
   }
 }
 
-module.exports = { create, getAll };
+async function getById(req, res) {
+  try {
+    const { id } = req.params;
+    const getUserById = await ServiceUser.getById(id);
+
+    if (!getUserById) {
+      res.status(404).json({ message: 'User does not exist' });
+    }
+
+    res.status(200).json(getUserById);
+  } catch (e) {
+    console.log(e.message);
+    return res.status(200).json({ message: 'Algo deu errado' });
+  }
+}
+
+module.exports = { create, getAll, getById };
