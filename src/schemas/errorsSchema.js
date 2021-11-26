@@ -69,4 +69,14 @@ module.exports = {
       message: '"name" is required',
     },
   },
+  post: {
+    categoryNotFound: {
+      statusCode: statusCodes.badRequest,
+      message: '"categoryIds" not found',
+    },
+  },
+  requiredField: (field) => ({
+    statusCode: statusCodes.badRequest,
+    message: `"${field}" is required"`,
+  }),
 };
