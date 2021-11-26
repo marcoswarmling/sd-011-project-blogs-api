@@ -28,7 +28,22 @@ const getAll = async (req, res, _next) => {
   res.status(200).json(users);
 };
 
+const getById = async (req, res, _next) => {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  if (!authorization) return res.status(401).json({ message: 'Token not found' });
+  const user = await UserService.getById(id, authorization);
+
+  if (user.message) {
+    const status = user.message === 'User does not exist' ? 404 : 401;
+    return res.status(status).json({ message: user.message });
+  }
+
+  res.status(200).json(user);
+};
+
 module.exports = {
+  getById,
   getAll,
   login,
   create,
