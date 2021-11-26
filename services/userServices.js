@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { checkIfPasswordIsCorrect } = require('../validators/loginValidators');
+const { checkIfPasswordIsCorrect, validateLoginData } = require('../validators/loginValidators');
 const { validateUser, verifyIfEmailAlreadyRegistered } = require('../validators/userValidators');
 
 const getAll = async () => {
@@ -29,8 +29,11 @@ const createUser = async (displayName, email, password, image) => {
 };
 
 const login = async (email, password) => {
+  const validDataFromBody = validateLoginData(email, password);
+  if (validDataFromBody.type === 'error') return validDataFromBody;
   try {
     const loginResponse = await User.findOne({ where: { email } });
+    if (!loginResponse) return { type: 'error', code: 400, message: 'Invalid fields' };
     const validPassword = checkIfPasswordIsCorrect(loginResponse.password, password);
     if (validPassword.type === 'error') return validPassword;
     return { type: 'success', payload: loginResponse };

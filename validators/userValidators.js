@@ -4,6 +4,9 @@ const validatePassword = (passsword) => {
   if (passsword === undefined) {
     return { type: 'error', code: 400, message: '"password" is required' };
   }
+  if (passsword === '') {
+    return { type: 'error', code: 400, message: '"password" is not allowed to be empty' };
+  }
   if (passsword.length !== 6) {
     return { type: 'error', 
       code: 400,
@@ -30,6 +33,9 @@ const validateEmail = (email) => {
   const re = /\S+@\S+\.\S+/;
   if (email === undefined) {
     return { type: 'error', code: 400, message: '"email" is required' };
+  }
+  if (email === '') {
+    return { type: 'error', code: 400, message: '"email" is not allowed to be empty' };
   }
   if (!re.test(email)) {
     return { type: 'error', code: 400, message: '"email" must be a valid email' };
@@ -70,4 +76,6 @@ function validateUser(displayName, email, passsword, _image) {
 module.exports = {
   validateUser,
   verifyIfEmailAlreadyRegistered,
+  validateEmail,
+  validatePassword,
 };
