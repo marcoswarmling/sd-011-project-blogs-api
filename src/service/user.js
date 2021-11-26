@@ -24,12 +24,28 @@ const createNewUser = async (displayName, email, password, image) => {
   return createToken(data);
 };
 
-const getAllUser = async () => {
+const getAllUsers = async () => {
   const allUsers = await User.findAll();
   return allUsers;
 };
 
+const getUserById = async (searchedId) => {
+  const user = await User.findByPk(searchedId);
+  if (!user) {
+    return {
+      err: {
+        status: 404,
+      },
+      message: 'User does not exist',
+    };
+  }
+
+  const { id, displayName, email, image } = user;
+  return { id, displayName, email, image };
+};
+
 module.exports = {
   createNewUser,
-  getAllUser,
+  getAllUsers,
+  getUserById,
 };

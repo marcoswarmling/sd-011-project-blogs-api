@@ -17,9 +17,26 @@ const createNewUser = async (req, res) => {
   }
 };
 
-const getAllUser = async (_req, res) => {
+const getAllUsers = async (_req, res) => {
   try {
-    const response = await userService.getAllUser();
+    const response = await userService.getAllUsers();
+    return res.status(200).json(response);
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await userService.getUserById(id);
+
+    if (response.err) {
+      const { err, message } = response;
+      return res.status(err.status).json({ message });
+    }
+
     return res.status(200).json(response);
   } catch (e) {
     console.log(e.message);
@@ -29,5 +46,6 @@ const getAllUser = async (_req, res) => {
 
 module.exports = {
   createNewUser,
-  getAllUser,
+  getAllUsers,
+  getUserById,
 };
