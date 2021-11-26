@@ -1,6 +1,7 @@
 const express = require('express');
 
 const userRoute = require('./routes/userRoute');
+const error = require('./middlewares/error');
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userRoute);
+
+app.use(error);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

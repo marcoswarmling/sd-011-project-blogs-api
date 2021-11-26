@@ -8,7 +8,7 @@ const createUser = async (req, res, next) => {
 
   return res.status(201).json({ token });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     next(error);
   }
 };
