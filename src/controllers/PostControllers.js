@@ -39,4 +39,20 @@ module.exports = {
       return next(error);
     }
   },
+  updatePost: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const { userId } = req.user;
+      const { title, content, categoryIds } = req.body;
+      const postNewInfo = { title, content, categoryIds };
+  
+      const { post, error } = await PostServices.updatePost(id, postNewInfo, userId);
+  
+      if (error) return next(error);
+  
+      return res.status(200).json(post);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };

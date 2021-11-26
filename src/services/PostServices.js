@@ -2,17 +2,20 @@ const { BlogPost, User, Category } = require('../models');
 
 const { postSchema } = require('../validationSchemas/postSchema');
 const { validateCategories } = require('../helpers/validateCategories');
-const { categoryNotFound, postNotfound } = require('../errors');
+const { validateNewPostInfo } = require('../helpers/validateNewPostInfo');
+const {
+  categoryNotFound,
+  postNotfound,
+  unauthorized,
+} = require('../errors');
 
 module.exports = {
   create: async ({ title, content, categoryIds, userId }) => {
     try {
       const { error } = postSchema.validate({ title, content, categoryIds, userId });
-
       if (error) return { error };
 
       const valid = await validateCategories(categoryIds);
-
       if (!valid) return { error: categoryNotFound };
 
       const [post, user] = await Promise.all([
@@ -35,7 +38,6 @@ module.exports = {
           { model: Category, as: 'categories' },
         ],
       });
-  
       if (!posts) return { error: true };
   
       return { posts };
@@ -53,10 +55,30 @@ module.exports = {
           { model: Category, as: 'categories' },
         ],
       });
-  
       if (!post) return { error: postNotfound };
   
       return { post };
+    } catch (error) {
+      return { error };
+    }
+  },
+  updatePost: async (id, { title, content, categoryIds = null }, userId) => {
+    try {
+      const { error } = await validateNewPostInfo({ title, content, categoryIds });
+      if (error) return { error };
+  
+      const post = await BlogPost.findByPk(id, {
+        include: { model: Category, as: 'categories' },
+      });
+      if (!post) return { error: postNotfound };
+      if (post.userId !== userId) return { error: unauthorized };
+  
+      await BlogPost.update({ title, content }, { where: { id } });
+
+      const newPostData = await BlogPost
+        .findByPk(id, { include: { model: Category, as: 'categories' } });
+  
+      return { post: newPostData };
     } catch (error) {
       return { error };
     }

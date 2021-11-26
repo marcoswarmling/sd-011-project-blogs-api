@@ -27,4 +27,12 @@ module.exports = {
     code: 404,
     message: 'Post does not exist',
   },
+  unauthorized: {
+    code: 401,
+    message: 'Unauthorized user',
+  },
+  cannotUpdateCategory: {
+    code: 400,
+    message: 'Categories cannot be edited',
+  },
 };
