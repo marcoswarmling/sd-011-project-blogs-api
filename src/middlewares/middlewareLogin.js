@@ -1,10 +1,10 @@
 function checkEmailLogin(req, res, next) {
   const { email } = req.body;
   if (email === '') {
-    res.status(400).json({ message: '"email" is not allowed to be empty' });
+    return res.status(400).json({ message: '"email" is not allowed to be empty' });
   }
   if (!email) {
-    res.status(400).json({ message: '"email" is required' });
+    return res.status(400).json({ message: '"email" is required' });
   }
 
   next();
@@ -13,10 +13,10 @@ function checkEmailLogin(req, res, next) {
 function checkPasswordLogin(req, res, next) {
   const { password } = req.body;
   if (password === '') {
-    res.status(400).json({ message: '"password" is not allowed to be empty' });
+    return res.status(400).json({ message: '"password" is not allowed to be empty' });
   }
   if (!password) {
-    res.status(400).json({ message: '"password" is required' });
+    return res.status(400).json({ message: '"password" is required' });
   }
   next();
 }
