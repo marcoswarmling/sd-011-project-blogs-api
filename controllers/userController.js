@@ -4,10 +4,9 @@ const createUser = async (req, res, next) => {
   try {
   const { body } = req;
 
-  console.log(body);
-  const response = await userService.createUser(body);
+  const token = await userService.createUser(body);
 
-  return res.status(201).json(response);
+  return res.status(201).json({ token });
   } catch (error) {
     console.log(error);
     next(error);
