@@ -14,4 +14,14 @@ module.exports = {
       return next(error);
     }
   },
+
+  getAll: async (_request, response, next) => {
+    try {
+      const posts = await postService.getAll();
+
+      return response.status(statusCodes.ok).json(posts);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
