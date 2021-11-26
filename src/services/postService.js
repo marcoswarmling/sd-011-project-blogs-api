@@ -48,10 +48,8 @@ module.exports = {
 
   getPostBasicInfo,
 
-  update: async (userId, postId, { title, content }) => {
+  update: async (postId, { title, content }) => {
     const post = await getPostBasicInfo(postId);
-
-    if (userId !== post.userId) throw errors.post.unauthorizedUser;
 
     await post.update({ title, content });
 
