@@ -1,12 +1,13 @@
 const express = require('express');
 
 const { createUserFields } = require('../middlewares');
-const { createUser } = require('../controllers/userController');
+  const { createUser, getUsers } = require('../controllers/userController');
 
 require('dotenv').config();
 
 const router = express.Router();
 
 router.post('/', createUserFields, createUser);
+router.get('/', getUsers);
 
 module.exports = router;

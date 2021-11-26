@@ -48,7 +48,33 @@ const login = async (req, res) => {
   }
 };
 
+const getUsers = async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+
+  const validToken = jwt.verify(authHeader, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: 'Expired or invalid token' });
+    }
+
+    return decoded;
+  });
+
+  if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
+
+  try {
+    const users = await Users.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
+    return res.status(200).json(users);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
 module.exports = {
   createUser,
   login,
+  getUsers,
 };
