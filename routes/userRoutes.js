@@ -8,6 +8,7 @@ const router = express.Router();
 router
   .post('/user', rescue(validateNewUser), rescue(userController.newUser))
   .post('/login', rescue(validateLogin), rescue(userController.login))
+  .get('/user/:id', rescue(validateToken), rescue(userController.getUser))
   .get('/user', rescue(validateToken), rescue(userController.getUsers));
 
 module.exports = router;

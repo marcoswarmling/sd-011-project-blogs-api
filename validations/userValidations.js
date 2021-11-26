@@ -40,9 +40,14 @@ const user = (payload) => {
   if (!payload) throw error.invalidFields;
 };
 
+const userById = (payload) => {
+  if (!payload) throw error.userNotFound;
+};
+
 module.exports = {
   newUserInformation,
   uniqueEmail,
   login,
   user,
+  userById,
 };

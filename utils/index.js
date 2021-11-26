@@ -47,4 +47,8 @@ module.exports = {
     message: 'Token not found',
     status: 401,
   },
+  userNotFound: {
+    message: 'User does not exist',
+    status: 404,
+  },
 };

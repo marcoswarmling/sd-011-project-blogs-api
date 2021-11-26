@@ -35,8 +35,15 @@ const login = async (payload) => {
 
 const getUsers = async () => User.findAll();
 
+const getUser = async (id) => {
+  const user = await User.findByPk(id);
+  validate.userById(user);
+  return user;
+};
+
 module.exports = {
   newUser,
   login,
   getUsers,
+  getUser,
 };

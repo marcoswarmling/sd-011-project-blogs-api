@@ -16,6 +16,7 @@ const emailNotAllowedEmpty = newError('emailNotAllowedEmpty');
 const passwordNotAllowedEmpty = newError('passwordNotAllowedEmpty');
 const tokenNotFound = newError('tokenNotFound');
 const tokenMalformed = newError('tokenMalformed');
+const userNotFound = newError('userNotFound');
 
 module.exports = {
   userAlreadyRegistered,
@@ -30,4 +31,5 @@ module.exports = {
   passwordNotAllowedEmpty,
   tokenNotFound,
   tokenMalformed,
+  userNotFound,
 };
