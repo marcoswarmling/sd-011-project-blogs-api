@@ -1,20 +1,19 @@
-const { Post } = require('../../models');
+const { Post, User } = require('../../models');
 const servicesCategories = require('./servicesCategories');
 require('dotenv').config();
 
-const errorMessage = 'Algo deu errado';
+// const errorMessage = 'Algo deu errado';
 
 const createPost = async (items) => {
   try {
-    console.log(Post);
-    const newPost = await Post.create(items);
+    const newPost = await Post.create(items, { include: [User] });
     if (!newPost) {
       return { message: 'erro na criação da categoria' };
     }
     const { categoryIds: _cat, ...returnPost } = newPost.dataValues;
     return returnPost;
   } catch (error) {
-    console.log(error.message)
+    console.log(error);
     return { message: error.message };
   }
 };

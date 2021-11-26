@@ -2,8 +2,8 @@ const Post = (sequelize, DataTypes) => {
   const newPost = sequelize.define('Post', {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    categoryIds: DataTypes.ARRAY(DataTypes.DECIMAL),
-    userId: DataTypes.DECIMAL,
+    categoryIds: DataTypes.ARRAY(DataTypes.INTEGER),
+    userId: DataTypes.INTEGER,
   },
   {
     timestamps: false,
