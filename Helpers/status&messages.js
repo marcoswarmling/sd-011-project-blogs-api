@@ -32,4 +32,9 @@ const loginMessages = {
   notRegistered: 'invalid fields',
 };
 
-module.exports = { status, intServerError, usersMessages, loginMessages };
+const tokenMessages = {
+  notFound: 'Token not found',
+  invalid: 'Expired or invalid token',
+};
+
+module.exports = { status, intServerError, usersMessages, loginMessages, tokenMessages };
