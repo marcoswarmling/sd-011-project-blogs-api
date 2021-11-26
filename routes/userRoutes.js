@@ -1,6 +1,11 @@
 const userRouter = require('express').Router();
 
-const { createUser, getAllUsersController } = require('../controllers/userController');
+const { 
+  createUser, 
+  getAllUsersController, 
+  getUserByIdController,
+} = require('../controllers/userController');
+
 const { 
   userDataValidation, 
   checkRepeatedEmail, 
@@ -18,6 +23,12 @@ userRouter.get(
   '/',
   checkValidToken,
   getAllUsersController,
+);
+
+userRouter.get(
+  '/:id',
+  checkValidToken,
+  getUserByIdController,
 );
 
 module.exports = userRouter;
