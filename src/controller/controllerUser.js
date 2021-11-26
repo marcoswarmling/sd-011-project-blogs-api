@@ -5,6 +5,9 @@ async function create(req, res) {
     const { displayName, email, password, image } = req.body;
     const newUser = await ServiceUser.create(displayName, email, password, image);
 
+    if (newUser.message) {
+      return res.status(409).json(newUser);
+    }
     return res.status(201).json(newUser);
   } catch (e) {
     console.log(e.message);
