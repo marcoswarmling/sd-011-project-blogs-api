@@ -4,6 +4,15 @@ const { Users } = require('../models');
 require('dotenv').config();
 
 const tokenConfig = { expiresIn: '1h' };
+const validateToken = (authHeader) => {
+  const validToken = jwt.verify(authHeader, process.env.JWT_SECRET, (error, decoded) => {
+    if (error) return null;
+
+    return decoded;
+  });
+
+  return validToken;
+};
 
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -55,13 +64,7 @@ const getUsers = async (req, res) => {
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  const validToken = jwt.verify(authHeader, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Expired or invalid token' });
-    }
-
-    return decoded;
-  });
+  const validToken = validateToken(authHeader);
 
   if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
 
@@ -73,8 +76,28 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) return res.status(401).json({ message: 'Token not found' });
+
+  const validToken = validateToken(authHeader);
+
+  if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
+
+  try {
+    const user = await Users.findByPk(id, { attributes: ['id', 'displayName', 'email', 'image'] });
+    if (!user) return res.status(404).json({ message: 'User does not exist' });
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
 module.exports = {
   createUser,
   login,
   getUsers,
+  getUserById,
 };
