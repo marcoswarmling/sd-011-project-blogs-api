@@ -48,13 +48,17 @@ module.exports = {
 
   getPostBasicInfo,
 
-  update: async (postId, { title, content }) => {
-    const post = await getPostBasicInfo(postId);
+  update: async (id, { title, content }) => {
+    const post = await getPostBasicInfo(id);
 
     await post.update({ title, content });
 
-    const updatedPost = await getById(postId);
+    const updatedPost = await getById(id);
 
     return updatedPost;
+  },
+
+  delete: async (id) => {
+    await BlogPost.destroy({ where: { id } });
   },
 };
