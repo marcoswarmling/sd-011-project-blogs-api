@@ -16,4 +16,14 @@ module.exports = {
       return next(error);
     }
   },
+
+  getAll: async (_request, response, next) => {
+    try {
+      const users = await userService.getAll();
+
+      return response.status(statusCodes.ok).json(users);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
