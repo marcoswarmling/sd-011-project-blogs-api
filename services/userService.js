@@ -8,7 +8,7 @@ const create = async ({ displayName, email, password, image }) => {
     return { message: 'User already exists' };
   }
 
-  const token = await createAuth(email, password);
+  const token = await createAuth(email, password, newUser.id);
 
  return token;
 };

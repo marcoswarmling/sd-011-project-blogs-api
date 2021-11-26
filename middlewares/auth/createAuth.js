@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 
 const passwordJWT = process.env.JWT_SECRET;
 
-const createAuth = async (email, password) => {
-  const userData = { email, password };
+const createAuth = async (email, password, id) => {
+  const userData = { email, password, id };
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',

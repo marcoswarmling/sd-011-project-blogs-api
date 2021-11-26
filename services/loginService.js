@@ -7,7 +7,7 @@ const create = async ({ email, password }) => {
     throw new Error('Invalid fields');
   }
 
-  const token = await createAuth(email, password);
+  const token = await createAuth(email, password, newUser.id);
 
  return token;
 };

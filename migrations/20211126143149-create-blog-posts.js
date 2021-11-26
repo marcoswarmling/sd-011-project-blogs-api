@@ -34,7 +34,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         field: 'updated',
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
