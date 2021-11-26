@@ -8,8 +8,10 @@ const {
 
 const {
   createUsers,
+  getAllUsers,
 } = require('../controllers/usersControllers');
 
+router.get('/', getAllUsers);
 router.post('/',
   validateDisplayName,
   validateEmail,

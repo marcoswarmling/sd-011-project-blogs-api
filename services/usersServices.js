@@ -8,6 +8,12 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
+const getAllUsers = async () => {
+  const getUsers = await Users.findAll();
+  return getUsers;
+};
+
+// Model Querying - Finders: https://sequelize.org/master/manual/model-querying-finders.html
 const createUsers = async (displayName, email, password, image) => {
   // console.log('ENTROU NO SERVICES');
   const emailExist = await Users.findOne({ where: { email } });
@@ -28,5 +34,6 @@ const createUsers = async (displayName, email, password, image) => {
 };
 
 module.exports = {
+  getAllUsers,
   createUsers,
 };
