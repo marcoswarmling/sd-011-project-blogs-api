@@ -53,4 +53,16 @@ module.exports = {
       return next(error);
     }
   },
+
+  delete: async (request, response, next) => {
+    const { id } = request.params;
+
+    try {
+      await postService.delete(id);
+
+      return response.status(statusCodes.noContent).send();
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
