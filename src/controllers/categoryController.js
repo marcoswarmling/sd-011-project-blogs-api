@@ -13,4 +13,14 @@ module.exports = {
       return next(error);
     }
   },
+
+  getAll: async (_request, response, next) => {
+    try {
+      const categories = await categoryService.getAll();
+
+      return response.status(statusCodes.ok).json(categories);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
