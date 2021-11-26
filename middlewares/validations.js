@@ -96,11 +96,37 @@ const validateCategoryName = async (req, res, next) => {
   const { name } = req.body;
 
   if (name === undefined) {
-    // return next({
-    //   code: 'emptyName',
-    //   message: '"name" is required',
-    // });
     return res.status(400).json({ message: '"name" is required' });
+  }
+
+  next();
+};
+
+const validatePostTitle = async (req, res, next) => {
+  const { title } = req.body;
+
+  if (title === undefined) {
+    return res.status(400).json({ message: '"title" is required' });
+  }
+
+  next();
+};
+
+const validatePostContent = async (req, res, next) => {
+  const { content } = req.body;
+
+  if (content === undefined) {
+    return res.status(400).json({ message: '"content" is required' });
+  }
+
+  next();
+};
+
+const validatePostCategoryIds = async (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  if (categoryIds === undefined) {
+    return res.status(400).json({ message: '"categoryIds" is required' });
   }
 
   next();
@@ -113,4 +139,7 @@ module.exports = {
   validateEmailLogin,
   validatePasswordLogin,
   validateCategoryName,
+  validatePostTitle,
+  validatePostContent,
+  validatePostCategoryIds,
 };

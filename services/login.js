@@ -14,7 +14,15 @@ const login = async (email, password) => {
 
   if (!userLogin) return false;
 
-  const token = jwt.sign({ data: { email, password } }, process.env.JWT_SECRET, jwtConfiguration);
+  const userId = userLogin.dataValues.id;
+  
+  console.log('userId', userId);
+
+  const token = jwt.sign({ 
+    data: { 
+      email, 
+      password, 
+      userId } }, process.env.JWT_SECRET, jwtConfiguration);
 
   return token;
 };

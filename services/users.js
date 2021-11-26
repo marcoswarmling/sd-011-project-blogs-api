@@ -18,10 +18,15 @@ const isEmailRegistered = async (email) => {
 };
 
 const createUser = async (displayName, email, password, image) => {
-  await Users.create({ displayName, email, password, image });
-
-  const token = jwt.sign({ data: { email, password } }, process.env.JWT_SECRET, jwtConfiguration);
-
+  const newUser = await Users.create({ displayName, email, password, image });
+  const userId = newUser.dataValues.id;
+  
+  const token = jwt.sign({ 
+    data: { 
+      email, 
+      password, 
+      userId } }, process.env.JWT_SECRET, jwtConfiguration);
+  
   return token;
 };
 
