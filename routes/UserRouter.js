@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const UserController = require('../controllers/UserController');
+// const validateJWT = require('../middlewares/validateJWT');
 
 const {
   displayNameLength,
@@ -19,6 +20,7 @@ const Req1Validations = [
   passwordLength,
 ];
 
+// Req 1
 router.post('/user', Req1Validations, UserController.create);
 
 module.exports = router;
