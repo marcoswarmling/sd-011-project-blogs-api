@@ -31,7 +31,6 @@ const validate = (email, password) => {
     return passwordExists;
   }
 
-
   return null;
 };
 
