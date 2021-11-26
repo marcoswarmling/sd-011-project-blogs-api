@@ -3,11 +3,11 @@ const express = require('express');
 const postController = require('../controllers/postController');
 
 const authValidator = require('../middlewares/validations/auth/authValidator');
-const postValidator = require('../middlewares/validations/post/postValidator');
+const newPostValidator = require('../middlewares/validations/post/newPostValidator');
 
 const postRouter = express.Router();
 
-postRouter.post('/', authValidator, postValidator, postController.create);
+postRouter.post('/', authValidator, newPostValidator, postController.create);
 postRouter.get('/:id', authValidator, postController.getById);
 postRouter.get('/', authValidator, postController.getAll);
 
