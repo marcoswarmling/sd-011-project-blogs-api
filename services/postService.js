@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { BlogPosts, Categories, PostCategories, Users } = require('../models');
+const { BlogPosts, Categories, PostsCategories, Users } = require('../models');
 
 const { 
   validateTitleExists,
@@ -56,7 +56,7 @@ const createPost = async (userId, title, content, categoryIds) => {
   const { id } = post;
 
   await categoryIds.forEach(async (categoryId) => {
-    await PostCategories.create({
+    await PostsCategories.create({
       categoryId,
       postId: id,
     });
@@ -66,12 +66,9 @@ const createPost = async (userId, title, content, categoryIds) => {
 };
 
 const getPosts = async () => {
-  console.log('entrei');
   const posts = await BlogPosts.findAll({
     include: [{ model: Users, as: 'user' }, { model: Categories, as: 'categories' }],
   });
-
-  console.log(posts, 'getallllll');
 
   return posts;
 };
