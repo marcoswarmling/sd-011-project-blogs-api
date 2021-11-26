@@ -3,7 +3,7 @@ const CategoryService = require('../services/categoryService');
 const messageErrorServer = 'Internal Error Server';
 
 const createCategory = async (req, res) => {
-  const { name } = req.params;
+  const { name } = req.body;
   try {
     const { code, result } = await CategoryService.createCategory(name);
     res.status(code).json(result);
