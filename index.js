@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('./controllers/user');
 const errorMiddleware = require('./middlewares/Error');
+const ValidationJWT = require('./middlewares/ValidationJWT');
 
 const app = express();
 
@@ -14,5 +15,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', User.createUser);
+app.get('/user', ValidationJWT.validateToken, User.getAllUsers);
+app.post('/login', User.userLogin);
 
 app.use(errorMiddleware);
