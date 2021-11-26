@@ -2,14 +2,20 @@ const { BlogPost } = require('../models');
 const { hasCategories } = require('../helpers/categoryHelper');
 const errors = require('../schemas/errorsSchema');
 
-const create = async (post) => {
-  const validCategories = await hasCategories(post.categoryIds);
+module.exports = {
+  create: async (post) => {
+    const validCategories = await hasCategories(post.categoryIds);
 
-  if (!validCategories) throw errors.post.categoryNotFound;
+    if (!validCategories) throw errors.post.categoryNotFound;
 
-  const newPost = await BlogPost.create(post);
+    const newPost = await BlogPost.create(post);
 
-  return newPost;
+    return newPost;
+  },
+
+  getAll: async () => {
+    const posts = BlogPost.findAll();
+
+    return posts;
+  },
 };
-
-module.exports = { create };
