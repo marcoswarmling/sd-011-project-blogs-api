@@ -1,4 +1,4 @@
-const { getToken } = require('../helpers/handleToken');
+const { getToken, verifyToken } = require('../helpers/handleToken');
 const { User } = require('../models');
 
 const create = async (user, validator) => {
@@ -27,7 +27,20 @@ const login = async (data, validator) => {
   }
 };
 
+const getAll = async (token) => {
+  try {
+    verifyToken(token);
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+    });
+    return users;
+  } catch (_error) {
+    return { message: 'Expired or invalid token' };
+  }
+};
+
 module.exports = {
+  getAll,
   create,
   login,
 };

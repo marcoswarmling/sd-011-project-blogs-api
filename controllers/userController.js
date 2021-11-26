@@ -18,7 +18,18 @@ const login = async (req, res, next) => {
   return res.status(200).json(response);
 };
 
+const getAll = async (req, res, _next) => {
+  const { authorization } = req.headers;
+  if (!authorization) return res.status(401).json({ message: 'Token not found' });
+  const users = await UserService.getAll(authorization);
+  
+  if (users.message) return res.status(401).json({ message: users.message });
+
+  res.status(200).json(users);
+};
+
 module.exports = {
+  getAll,
   login,
   create,
 };
