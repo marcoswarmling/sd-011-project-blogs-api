@@ -4,8 +4,10 @@ const { passwordHaveSixCharacters,
       validateEmail,
        emailExists,
         displayNameLessThanEight,
-         userAlreadyExists } = require('../middlewares/userMiddlewares');
-const { userRegistration } = require('../controllers/userController');
+         userAlreadyExists,
+          validateJWT,
+      } = require('../middlewares/userMiddlewares');
+const { userRegistration, getAllUsers } = require('../controllers/userController');
 
 router.post('/', 
 passwordExists,
@@ -15,5 +17,7 @@ passwordExists,
     displayNameLessThanEight,
      userAlreadyExists,
       userRegistration);
+
+router.get('/', validateJWT, getAllUsers);
 
 module.exports = router;

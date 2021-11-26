@@ -1,4 +1,5 @@
 const { Users } = require('../models');
+const { tokenJwtIsValid } = require('../auth/validateJWT');
 
 const displayNameLessThanEight = (req, res, next) => {
     if (!req.body.displayName || req.body.displayName.length < 8) {
@@ -56,9 +57,29 @@ const userAlreadyExists = async (req, res, next) => {
         });
     } 
 } catch (err) {
-        console.log(err);
+        return res.status(500).json({
+        message: 'Internal server error',
+        });
     }
   next();
+};
+
+const validateJWT = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const tokenValidate = await tokenJwtIsValid(token);
+    console.log(tokenValidate);
+
+    if (!token) {
+        return res.status(401).json({
+        message: 'Token not found',
+        });
+    } if (tokenValidate === false) {
+        return res.status(401).json({
+            message: 'Expired or invalid token',
+            });
+    }
+
+    next();
 };
 
 module.exports = {
@@ -67,4 +88,5 @@ module.exports = {
       validateEmail,
        emailExists,
         displayNameLessThanEight,
-         userAlreadyExists };
+         userAlreadyExists,
+         validateJWT };
