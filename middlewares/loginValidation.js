@@ -1,11 +1,8 @@
 const Joi = require('joi');
-const UserService = require('../services/userService');
 
 const schemaUserLogin = Joi.object().keys({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required().messages({
-    'string.min': '"password" length must be 6 characters long',
-  }),
+  password: Joi.string().required(),
 });
 
 const LoginPostValidate = async (req, res, next) => {
