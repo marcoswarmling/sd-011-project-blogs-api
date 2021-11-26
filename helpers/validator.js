@@ -38,4 +38,20 @@ const validator = (user) => {
   isValidPassword(user);
 };
 
-module.exports = validator;
+const isEmpty = (data, key) => {
+  if (data[key] === '') throw new Error(`"${key}" is not allowed to be empty`);
+};
+
+const validLogin = (data) => {
+  isEmpty(data, 'email');
+  isEmpty(data, 'password');
+  isPasswordExists(data);
+  isEmailExists(data);
+  isValidPassword(data);
+  isValidEmail(data, regexEmail);
+};
+
+module.exports = {
+  validator,
+  validLogin,
+};
