@@ -31,6 +31,8 @@ module.exports = {
       include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
     });
 
+    if (!post) throw errors.post.notFound;
+
     const user = await getUser(post.userId);
 
     return { ...post.dataValues, user: user.dataValues };
