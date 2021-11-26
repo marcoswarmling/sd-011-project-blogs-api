@@ -5,24 +5,17 @@ const newError = (status) => {
 };
 
 const userAlreadyRegistered = newError('userAlreadyRegistered');
-
 const nameIsRequired = newError('nameIsRequired');
-
 const invalidName = newError('invalidName');
-
 const emailIsRequired = newError('emailIsRequired');
-
 const invalidEmail = newError('invalidEmail');
-
 const passwordIsRequired = newError('passwordIsRequired');
-
 const invalidPassword = newError('invalidPassword');
-
 const invalidFields = newError('invalidFields');
-
 const emailNotAllowedEmpty = newError('emailNotAllowedEmpty');
-
 const passwordNotAllowedEmpty = newError('passwordNotAllowedEmpty');
+const tokenNotFound = newError('tokenNotFound');
+const tokenMalformed = newError('tokenMalformed');
 
 module.exports = {
   userAlreadyRegistered,
@@ -35,4 +28,6 @@ module.exports = {
   invalidFields,
   emailNotAllowedEmpty,
   passwordNotAllowedEmpty,
+  tokenNotFound,
+  tokenMalformed,
 };

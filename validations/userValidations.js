@@ -1,35 +1,24 @@
-const {
-  userAlreadyRegistered,
-  nameIsRequired,
-  invalidName,
-  emailIsRequired,
-  invalidEmail,
-  passwordIsRequired,
-  invalidPassword,
-  invalidFields,
-  emailNotAllowedEmpty,
-  passwordNotAllowedEmpty,
-} = require('../utils/errors');
+const error = require('../utils/errors');
 
 const validDisplayName = (name) => {
-  if (!name) throw nameIsRequired;
-  if (name.length < 8) throw invalidName;
+  if (!name) throw error.nameIsRequired;
+  if (name.length < 8) throw error.invalidName;
 };
 
 const validEmail = (email) => {
-  if (email === '') throw emailNotAllowedEmpty;
-  if (!email) throw emailIsRequired;
+  if (email === '') throw error.emailNotAllowedEmpty;
+  if (!email) throw error.emailIsRequired;
 
   const regEx = /^\w+@\w[^]+\.com(\.br)?$/;
   const check = regEx.test(email);
 
-  if (!check) throw invalidEmail;
+  if (!check) throw error.invalidEmail;
 };
 
 const validPassword = (password) => {
-  if (password === '') throw passwordNotAllowedEmpty;
-  if (!password) throw passwordIsRequired;
-  if (password.length !== 6) throw invalidPassword;
+  if (password === '') throw error.passwordNotAllowedEmpty;
+  if (!password) throw error.passwordIsRequired;
+  if (password.length !== 6) throw error.invalidPassword;
 };
 
 const newUserInformation = ({ displayName, email, password }) => {  
@@ -39,7 +28,7 @@ const newUserInformation = ({ displayName, email, password }) => {
 };
 
 const uniqueEmail = (user) => {
-  if (user) throw userAlreadyRegistered;
+  if (user) throw error.userAlreadyRegistered;
 };
 
 const login = ({ email, password }) => {
@@ -48,7 +37,7 @@ const login = ({ email, password }) => {
 };
 
 const user = (payload) => {
-  if (!payload) throw invalidFields;
+  if (!payload) throw error.invalidFields;
 };
 
 module.exports = {

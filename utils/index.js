@@ -39,4 +39,12 @@ module.exports = {
     message: '"password" is not allowed to be empty',
     status: 400,
   },
+  tokenMalformed: {
+    message: 'Expired or invalid token',
+    status: 401,
+  },
+  tokenNotFound: {
+    message: 'Token not found',
+    status: 401,
+  },
 };

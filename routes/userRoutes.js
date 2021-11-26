@@ -1,13 +1,13 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const { userController } = require('../controllers');
-const validateNewUser = require('../middlewares/validateNewUser');
-const validateLogin = require('../middlewares/validateLogin');
+const { validateNewUser, validateLogin, validateToken } = require('../middlewares');
 
 const router = express.Router();
 
 router
   .post('/user', rescue(validateNewUser), rescue(userController.newUser))
-  .post('/login', rescue(validateLogin), rescue(userController.login));
+  .post('/login', rescue(validateLogin), rescue(userController.login))
+  .get('/user', rescue(validateToken), rescue(userController.getUsers));
 
 module.exports = router;

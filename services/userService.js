@@ -33,7 +33,10 @@ const login = async (payload) => {
   return generateToken(user);
 };
 
+const getUsers = async () => User.findAll();
+
 module.exports = {
   newUser,
   login,
+  getUsers,
 };
