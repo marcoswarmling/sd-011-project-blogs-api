@@ -29,7 +29,23 @@ const getAllUsers = async () => {
   return allUsers;
 };
 
+const getUserById = async (searchedId) => {
+  const user = await User.findByPk(searchedId);
+  if (!user) {
+    return {
+      err: {
+        status: 404,
+      },
+      message: 'User does not exist',
+    };
+  }
+
+  const { id, displayName, email, image } = user;
+  return { id, displayName, email, image };
+};
+
 module.exports = {
   createNewUser,
   getAllUsers,
+  getUserById,
 };
