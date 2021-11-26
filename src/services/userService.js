@@ -30,4 +30,10 @@ const signin = async ({ email, password }) => {
   return token;
 };
 
-module.exports = { create, signin };
+const getAll = async () => {
+  const users = await User.findAll();
+
+  return users;
+};
+
+module.exports = { create, signin, getAll };
