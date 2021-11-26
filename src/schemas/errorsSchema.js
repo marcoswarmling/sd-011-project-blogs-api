@@ -63,4 +63,10 @@ module.exports = {
       message: 'Expired or invalid token',
     },
   },
+  category: {
+    requiredName: {
+      statusCode: statusCodes.badRequest,
+      message: '"name" id required',
+    },
+  },
 };
