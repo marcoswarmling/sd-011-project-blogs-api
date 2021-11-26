@@ -8,34 +8,27 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const getAllUsers = async () => {
-  const getUsers = await Users.findAll();
-  return getUsers;
-};
-
-const getEmailExist = async (email) => {
+const getUserEmail = async (email) => {
   const user = await Users.findOne({ where: { email } });
   return user;
 };
 
-const createUsers = async (displayName, email, password, image) => {
- const emailExist = await getEmailExist(email);
-  if (emailExist) {
+const createLogin = async (email, password) => {
+  const userExist = await getUserEmail(email);
+  console.log(userExist, 'USUARIO EXISTE');
+  if (!userExist || userExist.password !== password) {
     return { msgError: 'MESSAGE_ERROR' };
   }
 
-  await Users.create({ displayName, email, password, image });
-
   const userWithoutPassword = {
-    displayName,
     email,
   };
 
   const token = JWT.sign({ data: userWithoutPassword }, SECRET, jwtConfig);
+  console.log(token, 'TOKEN-SERVICES');
   return token;
 };
 
 module.exports = {
-  getAllUsers,
-  createUsers,
+  createLogin,
 };

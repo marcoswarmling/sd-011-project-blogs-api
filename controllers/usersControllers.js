@@ -1,11 +1,11 @@
 const usersServices = require('../services/usersServices');
 
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (_req, res) => {
   try {
     const users = await usersServices.getAllUsers();
     return res.status(200).json(users);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro no servidor' });
+    return res.status(500).json({ message: 'Oh no! Server error!' });
   }
 };
 
@@ -21,7 +21,7 @@ const createUsers = async (req, res) => {
     }
     return res.status(201).json({ token });
   } catch (error) {
-    return res.status(500).json({ message: 'Erro no servidor' });
+    return res.status(500).json({ message: 'Oh no! Server error!' });
   }
 };
 
