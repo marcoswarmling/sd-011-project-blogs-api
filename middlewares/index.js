@@ -1,5 +1,6 @@
-const { createUserFields } = require('./user');
+const { createUserFields, loginUserFields } = require('./user');
 
 module.exports = {
   createUserFields,
+  loginUserFields,
 };

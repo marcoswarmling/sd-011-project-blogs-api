@@ -10,6 +10,10 @@ const validateDisplayName = (displayName) => {
 };
 
 const validateEmail = (email) => {
+  if (email === '') {
+    return { err: { message: '"email" is not allowed to be empty', code: 400 } };
+  }
+
   if (!email) {
     return { err: {
       message: '"email" is required',
@@ -30,6 +34,10 @@ const validateEmail = (email) => {
 };
 
 const validatePassword = (password) => {
+  if (password === '') {
+    return { err: { message: '"password" is not allowed to be empty', code: 400 } };
+  }
+
   if (!password) {
     return { err: {
       message: '"password" is required',
@@ -82,6 +90,21 @@ const createUserValidations = ({ email, password, image, displayName }) => {
   return null;
 };
 
+const loginUserValidations = ({ email, password }) => {
+  const emailValidation = validateEmail(email);
+  if (emailValidation) {
+    return emailValidation;
+  }
+  
+  const passwordValidation = validatePassword(password);
+  if (passwordValidation) {
+    return passwordValidation;
+  }
+
+  return null;
+};
+
 module.exports = {
   createUserValidations,
+  loginUserValidations,
 };
