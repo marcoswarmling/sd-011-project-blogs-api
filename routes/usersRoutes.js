@@ -9,6 +9,10 @@ const {
   charactersOfPassword,
 } = require('../middlewares/usersValidations');
 
+const {
+  isValidToken,
+} = require('../middlewares/jwtvalidation');
+
 routes.post(
   '/',
   isValidDisplayName,
@@ -18,5 +22,7 @@ routes.post(
   validationEmail,
   usersControlers.addUser,
   );
+
+routes.get('/', isValidToken, usersControlers.getUsers);
 
 module.exports = routes;
