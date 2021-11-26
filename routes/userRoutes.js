@@ -1,6 +1,6 @@
 const express = require('express');
 const rescue = require('express-rescue');
-const userController = require('../controllers/userController');
+const { userController } = require('../controllers');
 const validateNewUser = require('../middlewares/validateNewUser');
 
 const router = express.Router();
