@@ -35,7 +35,17 @@ const getAllUsers = async (email) => {
   } return User.findAll();
 };
 
+const getUserById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  if (!user) {
+    return ({
+      error: { code: 'invalidId' },
+    });
+  } return user;
+};
+
 module.exports = {
   userRegister,
   getAllUsers,
+  getUserById,
 };
