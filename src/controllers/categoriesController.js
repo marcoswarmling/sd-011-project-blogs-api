@@ -1,15 +1,16 @@
 const { Categories } = require('../models');
 
-const postCategories = (req, res) => {
+const postCategories = async (req, res) => {
     const { name } = req.body;
     Categories.create({ name })
-        .then((categorie) => res.status(201).json(categorie))
+        .then((categories) => res.status(201).json(categories))
         .catch((err) => res.send(err));
 };
 
-const getAllCategories = (_req, res) => {
+const getAllCategories = async (_req, res) => {
     Categories.findAll()
-        .then((categories) => res.status(200).json(categories))
+        .then((categories) => 
+        console.log(categories) || res.status(200).json(categories))
         .catch((err) => res.send(err));
 };
 
