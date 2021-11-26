@@ -1,12 +1,7 @@
-const jwt = require('jsonwebtoken');
 const { createError } = require('../middlewares/errors');
+const { createToken } = require('../middlewares/token');
 const { User } = require('../models');
 const { validateUser } = require('../validations/validateUser');
-
-const jwtConfig = {
-  expiresIn: '10d',
-  algorithm: 'HS256',
-};
 
 const addUser = async (data) => {
   const { error: validationError } = validateUser(data);
@@ -19,12 +14,7 @@ const addUser = async (data) => {
   
   if (!user) {
     await User.create({ email, password, displayName, image });
-    const token = jwt.sign(
-      { email, displayName, image }, 
-      process.env.JWT_SECRET,
-      jwtConfig,
-    );
-  
+    const token = createToken(email);
     return token;
   }
 
