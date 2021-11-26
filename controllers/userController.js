@@ -19,6 +19,12 @@ const userRegister = rescue(async (req, res, next) => {
   return res.status(201).json(result);
 });
 
+const getAllUsers = rescue(async (_req, res) => {
+  const users = await service.getAllUsers();
+  return res.status(200).json(users);
+});
+
 module.exports = {
   userRegister,
+  getAllUsers,
 };
