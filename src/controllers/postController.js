@@ -1,5 +1,6 @@
 const statusCodes = require('../schemas/statusCodesSchema');
 const postService = require('../services/postService');
+const { createPostsCategories } = require('../helpers/postCategoryHelper');
 
 module.exports = {
   create: async (request, response, next) => {
@@ -8,6 +9,8 @@ module.exports = {
 
     try {
       const post = await postService.create({ title, content, categoryIds, userId: user.id });
+
+      await createPostsCategories(post.id, categoryIds);
 
       return response.status(statusCodes.created).json(post);
     } catch (error) {
