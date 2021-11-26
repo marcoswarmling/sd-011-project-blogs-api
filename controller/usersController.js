@@ -21,7 +21,21 @@ const getAllUsers = async (_req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await usersServices.getUserById(id);
+    if (user.message) {
+      return res.status(404).json(user);
+    }
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(500).json(ERROR_MESSAGE);
+  }
+};
+
 module.exports = {
+  getUserById,
   getAllUsers,
   createUser,
 };

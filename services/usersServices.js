@@ -19,8 +19,15 @@ const createUser = async (displayName, email, password, image) => {
 
 const getAllUsers = () => User.findAll();
 
+const getUserById = async (id) => { 
+  const user = await User.findOne({ where: { id } });
+  if (!user) return { message: 'User does not exist' };
+  return user;
+};
+
 module.exports = {
   getUserByEmail,
+  getUserById,
   getAllUsers,
   createUser,
 };
