@@ -1,11 +1,18 @@
 const { Categorie } = require('../models');
 
-const createCategorie = async (name) => {
+const create = async (name) => {
   const response = await Categorie.create({ name });
 
   return response;
 };
 
+const getAll = async () => {
+  const response = await Categorie.findAll();
+
+  return response;
+};
+
 module.exports = {
-  createCategorie,
+  create,
+  getAll,
 };
