@@ -1,4 +1,4 @@
-const { BlogPost, User } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
 const { postSchema } = require('../validationSchemas/postSchema');
 const { validateCategories } = require('../helpers/validateCategories');
@@ -20,9 +20,25 @@ module.exports = {
         User.findByPk(userId),
       ]);
 
-      await Promise.all([post.setAuthor(user), post.setCategories(categoryIds)]);
+      await Promise.all([post.setUser(user), post.setCategories(categoryIds)]);
 
       return { post };
+    } catch (error) {
+      return { error };
+    }
+  },
+  index: async () => {
+    try {
+      const posts = await BlogPost.findAll({
+        include: [
+          { model: User, as: 'user', attributes: { exclude: ['password'] } },
+          { model: Category, as: 'categories' },
+        ],
+      });
+  
+      if (!posts) return { error: true };
+  
+      return { posts };
     } catch (error) {
       return { error };
     }

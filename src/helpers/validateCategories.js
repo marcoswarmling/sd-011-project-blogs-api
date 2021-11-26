@@ -10,19 +10,16 @@ function validateCategoryArray(categories) {
 
 module.exports = {
   validateCategories: async (insertedCategories) => {
-    const invalid = validateCategoryArray(insertedCategories);
+    const isInvalid = validateCategoryArray(insertedCategories);
 
-    if (invalid) return false;
+    if (isInvalid) return false;
 
     const categories = await Category.findAll();
 
     const categoriesIds = categories.map(({ id }) => id);
 
-    const valid = insertedCategories.reduce((isValid, id) => {
-      if (!categoriesIds.includes(id)) return false;
-      return isValid;
-    }, true);
+    const isValid = insertedCategories.every((category) => categoriesIds.includes(category));
 
-    return valid;
+    return isValid;
   },
 };

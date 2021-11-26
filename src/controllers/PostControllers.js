@@ -14,5 +14,16 @@ module.exports = {
     } catch (error) {
       return next(error);
     }
-  }, 
+  },
+  index: async (_req, res, next) => {
+    try {
+      const { posts, error } = await PostServices.index();
+
+      if (error) return next(error);
+
+      return res.status(200).json(posts);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
