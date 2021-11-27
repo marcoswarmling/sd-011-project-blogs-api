@@ -21,6 +21,13 @@ const addUser = async (data) => {
   return createError('conflict', 'User already registered');
 };
 
+const getAllUsers = async () => {
+  const user = await User.findAll();
+
+  return user;
+};
+
 module.exports = {
   addUser,
+  getAllUsers,
 };

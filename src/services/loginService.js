@@ -1,5 +1,6 @@
 const { createError } = require('../middlewares/errors');
 const { User } = require('../models');
+const { createToken } = require('../validations/token');
 const { validateCredentials } = require('../validations/validations');
 
 const loginUser = async (data) => {
@@ -13,7 +14,8 @@ const loginUser = async (data) => {
   });
 
   if (!user) return createError('badRequest', 'Invalid fields');
-  return user;
+  const token = createToken(email);
+  return token;
 };
 
 module.exports = {

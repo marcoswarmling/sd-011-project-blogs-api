@@ -11,9 +11,6 @@ const createToken = (email) => jwt.sign(
   jwtConfig,
 );
 
-const verifyToken = (token) => jwt.verify(token, process.env.JWT_SECRET);
-
 module.exports = {
   createToken,
-  verifyToken,
 };
