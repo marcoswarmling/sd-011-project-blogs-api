@@ -77,10 +77,15 @@ const deletePost = async (id, userId) => {
   }
 };
 
+const deleteUser = async (userId) => { 
+  await User.destroy({ where: { id: userId } });
+};
+
 module.exports = {
   create,
   getAll,
   findById,
   updateById,
   deletePost,
+  deleteUser,
 };

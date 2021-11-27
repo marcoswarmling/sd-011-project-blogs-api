@@ -10,6 +10,7 @@ const {
   findById,
   updateById,
   deletePost,
+  deleteUser,
 } = require('../services/postService');
 
 router.post('/post', validateToken, validatePost, async (req, res) => {
@@ -60,6 +61,14 @@ router.delete('/post/:id', validateToken, async (req, res) => {
   const error = await deletePost(id, userId);
 
   if (error) return res.status(error.code).json({ message: error.message });
+
+  res.status(204).json();
+});
+
+router.delete('/user/me', validateToken, async (req, res) => {
+  const { userId } = req;
+
+  await deleteUser(userId);
 
   res.status(204).json();
 });
