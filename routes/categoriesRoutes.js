@@ -3,6 +3,7 @@ const categoriesController = require('../controller/categoriesController');
 const { tokenValidation } = require('../validations/tokenValidation');
 const { categoriesValidations } = require('../validations/categoriesValidations');
 
+router.get('/categories', tokenValidation, categoriesController.getAllCategories);
 router.post('/categories', 
   tokenValidation,
   categoriesValidations,
