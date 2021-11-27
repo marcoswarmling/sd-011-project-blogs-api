@@ -42,4 +42,9 @@ router.put('/post/:id',
   middlewaresPosts.findPostById,
   controllerPosts.updateById);
 
+router.delete('/post/:id',
+  token,
+  middlewaresPosts.findPostById,
+  controllerPosts.deleteById);
+
 module.exports = router;

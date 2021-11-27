@@ -29,7 +29,7 @@ const createPost = async (items) => {
   }
 };
 
-const findcategories = async (categories) => {
+const findCategories = async (categories) => {
   const allCategories = await servicesCategories.allcategories();
   const validCategories = allCategories.map(({ dataValues }) => dataValues.id);
   
@@ -81,11 +81,22 @@ const updateById = async (id, items) => {
   return postAttr;
 };
 
+const deleteById = async (id) => {
+  const deletePosts = await BlogPost.destroy({ where: { id } });
+
+  if (deletePosts !== 1) {
+    return { message: 'Post does not exist' };
+  }
+
+  return deletePosts;
+};
+
 module.exports = {
   createPost,
-  findcategories,
+  findCategories,
   allPosts,
   findById,
   findPostById,
   updateById,
+  deleteById,
 };

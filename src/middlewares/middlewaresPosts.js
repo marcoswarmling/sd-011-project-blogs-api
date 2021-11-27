@@ -19,7 +19,7 @@ const verifyFields = async (req, res, next) => {
   }
 
   const { categoryIds } = req.body;
-  const validateCategories = await servicesPosts.findcategories(categoryIds);
+  const validateCategories = await servicesPosts.findCategories(categoryIds);
 
   if (validateCategories) {
     return res.status(400).json({ message: validateCategories.message });
@@ -44,6 +44,10 @@ const verifyEditFields = async (req, res, next) => {
 
 const findPostById = async (req, res, next) => {
   const { params: { id }, userId } = req;
+  const verifyPostById = await servicesPosts.findById(id);
+  if (verifyPostById.message) {
+    return res.status(404).json({ message: verifyPostById.message });
+  }
   const verifyId = await servicesPosts.findPostById(id, userId);
   if (verifyId.message) {
     return res.status(401).json({ message: verifyId.message });
