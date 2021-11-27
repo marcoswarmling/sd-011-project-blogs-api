@@ -10,8 +10,6 @@ const {
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
-
 app.use(
   '/user',
   validateDisplayName,
@@ -20,7 +18,7 @@ app.use(
   UserController,
 );
 
-app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
+app.listen(3000, () => console.log('Ouvindo na porta 3000!'));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
