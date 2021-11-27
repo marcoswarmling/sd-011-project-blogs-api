@@ -10,8 +10,10 @@ const {
 
 const {
   createCategories,
+  getAllCategories,
 } = require('../controllers/categoriesControllers');
 
+router.get('/', validateJWTToken, getAllCategories);
 router.post('/', validateJWTToken, validateNameCategory, createCategories);
 
 module.exports = router;
