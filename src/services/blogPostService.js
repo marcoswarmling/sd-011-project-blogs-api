@@ -9,12 +9,14 @@ const createBlogPost = async (userEmail, title, content, categoryIds) => {
     const userId = dataValues.id;
     const postCreated = await BlogPost.create({
       title, content, userId, published: today, updated: today });
-    console.log(postCreated);
     const blogpostId = postCreated.dataValues.id;
     categoryIds.forEach((categoryId) => {
       PostCategory.create({ categoryId, blogpostId });
     });
-    return { code: 201, result: postCreated };
+    return {
+      code: 201,
+      result: { id: postCreated.id, userId, title, content },
+    };
   } catch (error) {
     return { code: 500, result: { message: messageErrorServer } };
   }
