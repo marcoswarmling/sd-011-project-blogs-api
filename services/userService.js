@@ -1,9 +1,6 @@
-// const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
 const userValidation = require('../validations/userValidation');
 const { status } = require('../schemas');
-
-// const JWT_CONFIG = { expiresIn: '7d', algorithm: 'HS256' };
 
 const validadeEmailExistsError = (error) => {
   if (error.message === 'Validation error') {
