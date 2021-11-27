@@ -17,7 +17,6 @@ const postRegister = rescue(async (req, res, next) => {
   const post = { title, content, categoryIds };
 
   const result = await service.postRegister(post, email);
-  console.log(result);
   if (result.error) return next(result.error);
   return res.status(201).json(result);
 });

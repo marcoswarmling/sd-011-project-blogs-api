@@ -57,7 +57,7 @@ const isValidUser = async (email) => {
 };
 
 const isValidCategory = async (categoryId) => {
-  const validCategory = await Category.findOne({ categoryId });
+  const validCategory = await Category.findOne({ where: categoryId });
   if (!validCategory) {
     return ({
       error: { code: 'inexistingCategory' },
