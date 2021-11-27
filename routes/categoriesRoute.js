@@ -6,5 +6,4 @@ const { createCategory } = require('../controllers/categoriesController');
 
 categoriesRouter.post('/', autenticateToken, validateCategory, createCategory);
 
-
 module.exports = categoriesRouter;

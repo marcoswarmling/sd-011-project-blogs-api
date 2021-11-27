@@ -8,4 +8,4 @@ const createCategory = async ({ name }) => {
 
 module.exports = {
   createCategory,
-}
+};
