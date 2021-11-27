@@ -2,7 +2,7 @@ const { Users } = require('../models');
 const createUserValidation = require('../validations/createUserValidation');
 const { status } = require('../schemas');
 
-const validadeEmailExistsError = (error) => {
+const validateEmailExistsError = (error) => {
   if (error.message === 'Validation error') {
     return {
         code: status.CONFLICT,
@@ -21,7 +21,7 @@ const createUser = async ({ displayName, email, password, image }) => {
     const response = await Users.create({ displayName, email, password, image });
     return response;
   } catch (e) {
-    const { message, code } = validadeEmailExistsError(e);
+    const { message, code } = validateEmailExistsError(e);
     return { error: { message, code } };
   }
 };
