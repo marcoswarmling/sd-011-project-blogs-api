@@ -31,11 +31,12 @@ const manageDataIntoBlogAndPostCategoryTable = async (userId, title, content, ca
 const createPost = async (userId, title, content, categoryIds) => {
   const isValidTitle = verifyTitle(title);
   const isValidContent = verifyContent(content);
-  const isValidCategoryIds = verifyCategoryIds(categoryIds);
+
+  const isValidCategoryIds = await verifyCategoryIds(categoryIds);
+  if (isValidCategoryIds) return isValidCategoryIds;
 
   if (isValidTitle) return isValidTitle;
   if (isValidContent) return isValidContent;
-  if (isValidCategoryIds) return isValidCategoryIds;
 
   return manageDataIntoBlogAndPostCategoryTable(userId, title, content, categoryIds);
 };

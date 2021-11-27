@@ -18,17 +18,22 @@ const verifyContent = (content) => {
   return null;
 };
 
-const verifyCategoryIds = (categoryIds) => {
+const verifyCategoryIds = async (categoryIds) => {
   if (!categoryIds || categoryIds.length === 0) {
     return categoryIdsIsRequired;
   }
-  categoryIds.forEach(async (id) => {
-    const categories = await Category.findByPk(id);
-    if (!categories) {
-      return categoryIdsNotFound;
+  const allCategories = await Category.findAll();
+  const getAllIndexOfAllCategories = {};
+  allCategories.forEach(({ dataValues }) => {
+    getAllIndexOfAllCategories[dataValues.id] = dataValues.id;
+  });
+  let err = null;
+  categoryIds.forEach((id) => {
+    if (!getAllIndexOfAllCategories[id]) {
+      err = categoryIdsNotFound;
     }
   });
-  return null;
+  return err;
 };
 
 module.exports = {
