@@ -3,5 +3,8 @@ module.exports = (err, _req, res, next) => {
   if (err.code === 'missingAuthToken') {
     return res.status(401).json({ message: 'Token not found' });
   }
+  if (err.code === 'inexistingCategory') {
+    return res.status(400).json({ message: '"categoryIds not found"' });
+  }
   return next(err);
 };
