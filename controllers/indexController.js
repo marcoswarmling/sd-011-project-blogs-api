@@ -5,5 +5,5 @@ module.exports = {
   createUser,
   loginUser,
   getAllUsers,
-  getUserById
+  getUserById,
 };
