@@ -70,10 +70,21 @@ const getById = async (id) => {
   }
 };
 
+const deleteMe = async (id) => {
+  try {
+    const user = await User.destroy({ where: { id } });
+    return user;
+  } catch (e) {
+    console.log(e.message);
+    return { errorMessage };
+  }
+};
+
 module.exports = {
   emailExists,
   createUser,
   loginUser,
   allUsers,
   getById,
+  deleteMe,
 };

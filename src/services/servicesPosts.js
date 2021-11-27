@@ -74,7 +74,7 @@ const updateById = async (id, items) => {
 
   const post = await BlogPost.findOne({
     where: { id },
-    include: [{ all: true, attributes: { exclude: ['userId'] } }],
+    include: [{ all: true }],
   });
 
   const { user, id: postId, published, updated, ...postAttr } = post.dataValues;

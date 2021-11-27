@@ -10,6 +10,7 @@ const { token } = require('../middlewares/token');
 // users
 router.post('/user', middlewaresUser.verifyUserFields, controllerUser.createUser);
 router.get('/user', token, controllerUser.allUsers);
+router.delete('/user/me', token, controllerUser.deleteMe);
 router.get('/user/:id', token, controllerUser.getById);
 router.post('/login', middlewaresUser.verifyLoginFields, controllerUser.loginUser);
 
@@ -18,6 +19,7 @@ router.post('/categories',
   token,
   middlewaresCategories.verifyFields,
   controllerCategories.createCategories);
+
 router.get('/categories',
   token,
   controllerCategories.allCategories);
