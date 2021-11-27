@@ -34,6 +34,11 @@ router.get('/post',
   token,
   controllerPosts.allPosts);
 
+router.get('/post/search',
+  token,
+  middlewaresPosts.querySearch,
+  controllerPosts.searchByQuery);
+
 router.get('/post/:id',
   token,
   controllerPosts.findById);

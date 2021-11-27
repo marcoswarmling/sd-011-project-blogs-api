@@ -56,8 +56,18 @@ const findPostById = async (req, res, next) => {
   return next();
 };
 
+const querySearch = async (req, res, next) => {
+  const { q } = req.query;
+  if (!q) {
+    req.query.q = '';
+  }
+
+  next();
+};
+
 module.exports = {
   verifyFields,
   verifyEditFields,
   findPostById,
+  querySearch,
 };

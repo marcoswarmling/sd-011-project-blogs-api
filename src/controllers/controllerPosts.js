@@ -43,10 +43,20 @@ const deleteById = async (req, res) => {
   return res.status(204).json(updatePost);
 };
 
+const searchByQuery = async (req, res) => {
+  const { q } = req.query;
+  const getPostByQuery = await servicesPosts.searchByQuery(q);
+  if (getPostByQuery.message) {
+    return res.status(401).json({ message: getPostByQuery.message });
+  }
+  return res.status(200).json(getPostByQuery);
+};
+
 module.exports = {
   createPost,
   allPosts,
   findById,
   updateById,
   deleteById,
+  searchByQuery,
 };

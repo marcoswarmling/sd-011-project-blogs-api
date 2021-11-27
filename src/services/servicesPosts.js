@@ -91,6 +91,14 @@ const deleteById = async (id) => {
   return deletePosts;
 };
 
+const searchByQuery = async (q) => {
+  const post = await BlogPost.findAll({
+    include: [{ all: true }],
+  });
+  return post
+    .filter(({ dataValues: { title, content } }) => title.includes(q) || content.includes(q));
+};
+
 module.exports = {
   createPost,
   findCategories,
@@ -99,4 +107,5 @@ module.exports = {
   findPostById,
   updateById,
   deleteById,
+  searchByQuery,
 };
