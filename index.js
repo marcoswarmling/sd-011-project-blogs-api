@@ -1,6 +1,7 @@
 const express = require('express');
 
 const userRoute = require('./routes/userRoute');
+const categoriesRoute = require('./routes/categoriesRoute');
 const error = require('./middlewares/error');
 const { loginUser } = require('./controllers/userController');
 const { validateLogin } = require('./middlewares/validation');
@@ -15,6 +16,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userRoute);
+app.use('/categories', categoriesRoute);
 app.post('/login', validateLogin, loginUser);
 
 app.use(error);
