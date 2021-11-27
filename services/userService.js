@@ -32,7 +32,16 @@ const loginUser = async ({ email, password }) => {
 };
 
 const getAllUsers = async () => {
-  const user = User.findAll();
+  const users = User.findAll();
+
+  return users;
+};
+
+const getUserById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+
+  if (!user) throw new Error('INEXISTENT_USER');
+
   return user;
 };
 
@@ -40,4 +49,5 @@ module.exports = {
   createUser,
   loginUser,
   getAllUsers,
+  getUserById,
 };
