@@ -32,7 +32,7 @@ const loginUser = async ({ email, password }) => {
 };
 
 const getAllUsers = async () => {
-  const users = User.findAll();
+  const users = await User.findAll();
 
   return users;
 };
