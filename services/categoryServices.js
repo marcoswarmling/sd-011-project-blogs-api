@@ -14,6 +14,18 @@ const createCategory = async (name, authorization) => {
   }
 };
 
+const getCategories = async (authorization) => {
+  try {
+    tokenValidation.tokenFieldValidation(authorization);
+
+    const response = await Categories.findAll();
+    return response;
+  } catch (e) {
+    return { error: { message: e.message, code: e.code } };
+  }
+};
+
 module.exports = {
   createCategory,
+  getCategories,
 };

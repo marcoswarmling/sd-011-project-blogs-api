@@ -9,6 +9,7 @@ const {
   getAllUsers,
   getUserById,
   createCategory,
+  getCategories,
  } = require('./controllers/indexController');
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -22,6 +23,7 @@ app.get('/user', getAllUsers);
 app.get('/user/:id', getUserById);
 
 app.post('/categories', createCategory);
+app.get('/categories', getCategories);
 
 app.post('/login', loginUser);
 

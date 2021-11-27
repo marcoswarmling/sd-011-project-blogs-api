@@ -16,6 +16,20 @@ const createCategory = async (req, res) => {
   return res.status(status.CREATED).json(responseFromValidation);
 };
 
+const getCategories = async (req, res) => {
+  const { authorization } = req.headers;
+
+  const responseFromValidation = await categoryServices.getCategories(authorization);
+
+  if (responseFromValidation.error) {
+    const { message, code } = responseFromValidation.error;
+    return res.status(code).json({ message });
+  }
+
+  return res.status(status.OK).json(responseFromValidation);
+};
+
 module.exports = {
   createCategory,
+  getCategories,
 };
