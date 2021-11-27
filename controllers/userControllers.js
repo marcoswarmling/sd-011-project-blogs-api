@@ -2,7 +2,7 @@ const rescue = require('express-rescue');
 const { User } = require('../models');
 const { CONFLICT } = require('../utils/statusError');
 const { USER_CONFLICT } = require('../utils/errorMessages');
-const { createUser } = require('../services/userServices');
+const { createUser, getAllUsers } = require('../services/userServices');
 
 const create = rescue(async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -15,4 +15,9 @@ const create = rescue(async (req, res) => {
   return res.status(201).json({ token });
 });
 
-module.exports = { create };
+const getUsers = rescue(async (_req, res) => {
+  const users = await getAllUsers();
+  return res.status(200).json([...users]);
+});
+
+module.exports = { create, getUsers };

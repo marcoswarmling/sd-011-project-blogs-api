@@ -1,31 +1,30 @@
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-// const { UNAUTHORIZED } = require('../utils/statusError');
-// const { TOKEN_NOT_FOUND, INVALID_TOKEN } = require('../utils/errorMessages');
+const { getUserByEmail } = require('../services/userServices');
+const { UNAUTHORIZED } = require('../utils/statusError');
+const { TOKEN_NOT_FOUND, INVALID_TOKEN } = require('../utils/errorMessages');
 
-// require('dotenv').config();
+require('dotenv').config();
 
-// const secret = process.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET;
 
-// const auth = async (req, res, next) => {
-//   const token = req.headers.authorization;
+const auth = async (req, res, next) => {
+  const token = req.headers.authorization;
   
-//   try {
-//     if (!token) {
-//       return res.status(UNAUTHORIZED).json({ message: TOKEN_NOT_FOUND });
-//     }
-//     const decoded = jwt.verify(token, secret);
+  try {
+    if (!token) {
+      return res.status(UNAUTHORIZED).json(TOKEN_NOT_FOUND);
+    }
+    const decoded = jwt.verify(token, secret);
+   
+    const userEmail = await getUserByEmail(decoded.data.email);
+    if (!userEmail) {
+      return res.status(UNAUTHORIZED).json(INVALID_TOKEN);
+    }
+  } catch (err) {
+    return res.status(UNAUTHORIZED).json(INVALID_TOKEN);
+  }
+  next();
+};
 
-//     const user = await model.getUserByEmail(decoded.email);
-
-//     if (!user) {
-//       return res.status(UNAUTHORIZED).json(INVALID_TOKEN);
-//     }
-//     req.user = user;
-//     next();
-//   } catch (err) {
-//     return res.status(UNAUTHORIZED).json(INVALID_TOKEN);
-//   }
-// };
-
-// module.exports = { auth };
+module.exports = { auth };
