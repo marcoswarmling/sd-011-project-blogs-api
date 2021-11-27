@@ -8,7 +8,7 @@ const secret = process.env.JWT_SECRET;
 const createToken = async (email) => {
   const result = await User.findOne({ where: { email } });
 
-  if (!result) return { message: 'Is not a email' };
+  if (!result) return { message: 'The email field not to be empty' };
 
   const jwtConfig = {
     expiresIn: '7d',

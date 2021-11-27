@@ -8,10 +8,10 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 const userRouter = require('./routers/userRouters');
-// const loginRouter = require('./routers/loginRouter');
+const loginRouter = require('./routers/loginRouter');
 
 app.use('/user', userRouter);
-// app.use('/login', loginRouter);
+app.use('/login', loginRouter);
 
 const PORT = process.env.PORT || 3000;
 
