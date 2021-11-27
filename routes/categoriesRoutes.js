@@ -15,6 +15,7 @@ routes.post(
 
 routes.get(
   '/',
+  isValidToken,
   categoriesControlers.getCategories,
 );
 
