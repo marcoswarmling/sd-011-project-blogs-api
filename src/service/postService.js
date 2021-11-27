@@ -1,4 +1,4 @@
-const { Post, Category } = require('../../models');
+const { BlogPost, Category } = require('../../models');
 
 const verifyCategoryExist = async (categoryIds) => {
   const getAllCategory = await Category.findAll();
@@ -16,7 +16,7 @@ const createdPost = async ({ title, content, categoryIds }, userId) => {
     };
   }
 
-  const result = await Post.create({ title, content, userId: userId.id });
+  const result = await BlogPost.create({ title, content, userId: userId.id });
   return result;
 };
 
