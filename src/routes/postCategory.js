@@ -14,5 +14,6 @@ const {
 const postController = require('../controller/postController');
 
 router.post('/', loginAuthentication, categoryExists, jwtAuthorization, postController.createPost);
+router.get('/', jwtAuthorization, postController.getAllPosts);
 
 module.exports = router;
