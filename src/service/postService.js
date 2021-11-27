@@ -34,7 +34,23 @@ const getAllBlogPosts = async () => {
   return result;
 };
 
+const getBlogPost = async (id) => {
+  const result = await BlogPost.findOne({
+    where: { id },
+    include: [{ all: true }],
+  });
+
+  if (!result) {
+    return {
+      message: 'Post does not exist',
+    };
+  }
+  
+  return result;
+};
+
 module.exports = {
   createdPost,
   getAllBlogPosts,
+  getBlogPost,
 };
