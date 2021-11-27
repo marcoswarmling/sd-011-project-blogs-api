@@ -1,12 +1,11 @@
 const express = require('express');
 const UserController = require('./controllers/UserController');
-// const { validateJWT } = require('./validations/validateJWT');
-// const {
-//   validateDisplayName,
-//   validateParams,
-//   verifyEmail,
-//   emailExists,
-// } = require('./validations/validateUser');
+
+const {
+  validateDisplayName,
+  validateEmal,
+  verifyPassword,
+} = require('./validations/validateUser');
 
 const app = express();
 app.use(express.json());
@@ -15,10 +14,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(
   '/user',
-  // validateDisplayName,
-  // validateParams,
-  // verifyEmail,
-  // emailExists,
+  validateDisplayName,
+  validateEmal,
+  verifyPassword,
   UserController,
 );
 
