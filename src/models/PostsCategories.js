@@ -1,13 +1,10 @@
 /* eslint-disable no-shadow */
 
 const PostsCategory = (sequelize, DataTypes) => {
-  const PostsCategory = sequelize.define(
-    'PostsCategory',
-    {},
-    { timestamps: false },
-  );
+  const PostsCategoryS = sequelize.define('PostsCategory', {},
+    { timestamps: false });
 
-  PostsCategory.associate = (models) => {
+  PostsCategoryS.associate = (models) => {
     models.BlogPost.belongsToMany(models.User, {
       as: 'users',
       through: 'PostsCategories',
@@ -23,7 +20,7 @@ const PostsCategory = (sequelize, DataTypes) => {
     });
   };
 
-  return PostsCategory;
+  return PostsCategoryS;
 };
 
 module.exports = PostsCategory;

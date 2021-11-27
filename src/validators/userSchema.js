@@ -26,9 +26,18 @@ const userSchema = Joi.object().keys({
   }),
 });
 
-// const loginSchema = Joi.object().keys({
-//   email: Joi.string().email().required(),
-//   password: Joi.string().required(),
-// });
+const loginSchema = Joi.object().keys({
+  email: Joi.string().email().required().messages({
+    'string.email': '"email" must be a valid email',
+    'string.empty': '"email" is not allowed to be empty',
+    'any.required': '"email" is required',
+  }),
+  
+  password: Joi.string().required().messages({
+    'string.base': 'Password must be a string',
+    'string.empty': '"password" is not allowed to be empty',
+    'any.required': '"password" is required',
+  }),
+});
 
-module.exports = userSchema;
+module.exports = { userSchema, loginSchema };

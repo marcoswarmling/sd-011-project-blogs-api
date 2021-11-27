@@ -21,6 +21,7 @@ describe('2 - Sua aplicação deve ter o endpoint POST `/login`', () => {
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
+        console.log(result)
         expect(result.token).not.toBeNull();
       });
   });
