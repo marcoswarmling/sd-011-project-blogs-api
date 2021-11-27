@@ -27,6 +27,8 @@ route.get('/user', validToken, controllerUser.getAll);
 
 route.get('/user/:id', validToken, controllerUser.getById);
 
+route.get('/post', validToken, controllerBlogPost.getAll);
+
 route.post('/user', validDisplayName, validEmail, validPassword, controllerUser.create);
 
 route.post('/login', checkEmailLogin, checkPasswordLogin, controllerLogin.login);
