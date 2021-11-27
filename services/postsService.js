@@ -20,7 +20,7 @@ const findAll = async () => {
   const posts = await BlogPosts.findAll({
     include: [
       { model: Users, as: 'user' },
-      { model: Categories, as: 'Categories' },
+      { model: Categories, as: 'categories' },
     ],
   });
   if (!posts) {
