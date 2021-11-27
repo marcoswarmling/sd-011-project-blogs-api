@@ -5,7 +5,7 @@ const createdNewPost = async (req, res) => {
   if (post.message) {
     return res.status(400).json(post);
   }
-  res.status(201).json(post);
+  return res.status(201).json(post);
 };
 
 module.exports = { createdNewPost };

@@ -33,7 +33,7 @@ const validEmail = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    res.status(500).json({ message: error });
+     return res.status(500).json({ message: error });
   }
 };
 
