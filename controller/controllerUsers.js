@@ -26,7 +26,19 @@ async function getUsers(req, res) {
   res.status(200).json(result);
 }
 
+async function getUser(req, res) {
+  const { id } = req.params;
+  const result = await Users.findOne({ where: { id } })
+    .catch(() =>
+      res.status(500).json({ message: 'Erro Interno' }));
+  if (!result) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+  res.status(200).json(result);
+}
+
 module.exports = {
   addNewUser,
   getUsers,
+  getUser,
 };

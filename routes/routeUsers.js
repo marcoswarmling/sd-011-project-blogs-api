@@ -13,12 +13,14 @@ const {
   checkUserCredencies,
 } = require('../service');
 
-const { addNewUser, getUsers } = require('../controller/controllerUsers');
+const { addNewUser, getUsers, getUser } = require('../controller/controllerUsers');
 
 router.post('/',
   checkfildEmail, checkfildPassword, checkName,
   checkEmail, checkPassword, checkUserExist, addNewUser);
 
 router.get('/', checkToken, checkUserCredencies, getUsers);
+
+router.get('/:id', checkToken, checkUserCredencies, getUser);
 
 module.exports = router;
