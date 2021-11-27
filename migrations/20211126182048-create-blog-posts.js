@@ -24,11 +24,17 @@ module.exports = {
         },
       },
       published: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.DATE,
+        isDate: true,
+        defaultValue: Sequelize.fn('now'),
       },
       updated: {
-        type: Sequelize.STRING
-      },
+        allowNull: false,
+        type: Sequelize.DATE,
+        isDate: true,
+        defaultValue: Sequelize.fn('now'),
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

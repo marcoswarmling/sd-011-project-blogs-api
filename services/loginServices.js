@@ -15,6 +15,7 @@ const signIn = async (email, password) => {
   if (password !== user.password) throw new Error('Invalid fields');
 
   const userWithoutPwd = {
+    id: user.id,
     email,
   };
 
