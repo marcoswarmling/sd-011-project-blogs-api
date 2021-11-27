@@ -15,6 +15,9 @@ const postRegister = async (post, userEmail) => {
   } return ({ error: validCategoryOne.error || validCategoryTwo.error });
 };
 
+const getAllPosts = async () => BlogPost.findAll();
+
 module.exports = {
   postRegister,
+  getAllPosts,
 };
