@@ -1,4 +1,4 @@
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 const { isValidUser, isValidCategory } = require('../utils/validations');
 
 const postRegister = async (post, userEmail) => {
@@ -15,7 +15,16 @@ const postRegister = async (post, userEmail) => {
   } return ({ error: validCategoryOne.error || validCategoryTwo.error });
 };
 
-const getAllPosts = async () => BlogPost.findAll();
+const getAllPosts = async () => {
+  const result = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return result;
+};
 
 module.exports = {
   postRegister,
