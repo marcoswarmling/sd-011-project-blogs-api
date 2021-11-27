@@ -16,7 +16,11 @@ class UserController {
     const { email } = newUser;
     try {
       await db.Users.create(newUser);
-      const token = JWTgenerate({ email });
+      const getNewUser = await db.Users.findOne({
+        where: { email },
+      });
+      const { id, displayName, image } = getNewUser;
+      const token = JWTgenerate({ id, displayName, email, image });
       return res.status(201).json(token);
     } catch (error) {
       return res.status(400).json(error.message);
