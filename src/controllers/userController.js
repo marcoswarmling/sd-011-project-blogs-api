@@ -10,11 +10,20 @@ const addUser = async (req, res, next) => {
 const getAllUsers = async (_req, res, _next) => {
   const user = await userService.getAllUsers();
 
-  console.log('user', user);
+  return res.status(200).json(user);
+};
+
+const getUserById = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await userService.getUserById(id);
+
+  if (user.err) return next(user.err);
+
   return res.status(200).json(user);
 };
 
 module.exports = {
   addUser,
   getAllUsers,
+  getUserById,
 };
