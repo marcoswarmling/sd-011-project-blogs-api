@@ -14,7 +14,7 @@
   },
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "drop": "npx sequelize-cli db:drop $",
     "seed": "npx sequelize-cli db:seed:all $",
     "test": "jest --runInBand",
@@ -30,5 +30,20 @@
     "jest": "26.0.1",
     "sequelize-cli": "6.2.0",
     "supertest": "4.0.2"
-  }
+  },
+  "description": "Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tryber/sd-011-project-blogs-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tryber/sd-011-project-blogs-api/issues"
+  },
+  "homepage": "https://github.com/tryber/sd-011-project-blogs-api#readme"
 }

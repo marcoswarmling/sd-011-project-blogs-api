@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { user } = require('./src/router/router');
+const { user } = require('./router/router');
+
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,4 +14,8 @@ app.use('/', user);
 
 app.get('/', (request, response) => {
   response.send();
+});
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
