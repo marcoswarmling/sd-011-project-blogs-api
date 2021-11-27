@@ -32,4 +32,8 @@ router.get('/post',
   token,
   controllerPosts.allPosts);
 
+router.get('/post/:id',
+  token,
+  controllerPosts.findById);
+
 module.exports = router;

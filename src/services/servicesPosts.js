@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { BlogPost, PostsCategory, User, Categorie } = require('../../models');
+const { BlogPost, PostsCategory } = require('../../models');
 const config = require('../../config/config');
 const servicesCategories = require('./servicesCategories');
 require('dotenv').config();
@@ -41,29 +41,27 @@ const findcategories = async (categories) => {
 
 const allPosts = async () => {
   const allBlogPosts = await BlogPost.findAll({
-    include: [{
-      model: User, as: 'users', attributes: { exclude: ['password'] },
-    }],
+    include: [{ all: true }],
   });
-  
-  const promisseCategories = allBlogPosts.map(async ({ dataValues }) => {
-    const cat = await PostsCategory.findAll({ where: { postId: dataValues.id } });
-    return Promise.all(cat.map(async ({ dataValues: data }) => Categorie
-      .findOne({ where: { id: data.categoryId } })));
-  });
-  
-  const allPostsCategory = await Promise.all(promisseCategories);
 
-  const newArr = allPostsCategory.map((el) => el.map(({ dataValues: i }) => i));
-  const result = allBlogPosts.map((el, i) => {
-    const { dataValues: { users: user, ...allData } } = el;
-    return { ...allData, user, categories: newArr[i] };
+  return allBlogPosts;
+};
+
+const findById = async (id) => {
+  const arrAllPosts = await BlogPost.findOne({
+    where: { id },
+    include: [{ all: true }],
   });
-  return result;
+
+  if (!arrAllPosts) {
+    return { message: 'Post does not exist' };
+  }
+  return arrAllPosts;
 };
 
 module.exports = {
   createPost,
   findcategories,
   allPosts,
+  findById,
 };
