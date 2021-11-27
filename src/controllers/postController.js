@@ -32,7 +32,7 @@ const postById = async (req, res) => {
     const { id } = req.params;
     const findPostById = await postService.getPostById(id);
     if (findPostById.message) {
-      return res.status(400).json(findPostById);
+      return res.status(404).json(findPostById);
     }
     res.status(200).json(findPostById);
   } catch (error) {
