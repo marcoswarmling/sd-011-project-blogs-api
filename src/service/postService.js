@@ -8,7 +8,14 @@ const createPost = async (title, content, userId) => {
 
 const getAllPosts = async () => {
   const allPosts = await await BlogPost.findAll({ include: [{ all: true }] });
-  console.log(allPosts);
+
+  return allPosts;
+};
+
+const getPostById = async (id) => {
+  const allPosts = await await BlogPost.findOne({ where: { id }, include: [{ all: true }] });
+
+  if (!allPosts) return { message: 'Post does not exist' };
 
   return allPosts;
 };
@@ -16,4 +23,5 @@ const getAllPosts = async () => {
 module.exports = {
   createPost,
   getAllPosts,
+  getPostById,
 };
