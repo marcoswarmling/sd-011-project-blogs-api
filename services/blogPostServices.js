@@ -11,7 +11,6 @@ const post = async (title, content, categoryIds, data) => {
   if (!doesCatExists) throw new Error('"categoryIds" not found');
 
   const result = await BlogPosts.create({ title, content, userId });
-  console.log(result);
 
   const postResult = {
     id: result.id,
