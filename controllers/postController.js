@@ -6,7 +6,7 @@ const postRegister = rescue(async (req, res, next) => {
   const { error } = joi.object({
     title: joi.string().required(),
     content: joi.string().required(),
-    categoryIds: joi.number().required(),
+    categoryIds: joi.array().required(),
   }).validate(req.body);
 
   if (error) return next(error);
@@ -17,6 +17,7 @@ const postRegister = rescue(async (req, res, next) => {
   const post = { title, content, categoryIds };
 
   const result = await service.postRegister(post, email);
+  console.log(result);
   if (result.error) return next(result.error);
   return res.status(201).json(result);
 });

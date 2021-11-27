@@ -7,11 +7,12 @@ const postRegister = async (post, userEmail) => {
   const validCategoryOne = await isValidCategory(categoryIds[0]);
   const validCategoryTwo = await isValidCategory(categoryIds[1]);
 
-  if (!validCategoryOne && !validCategoryTwo) {
+  if (!validCategoryOne.error && !validCategoryTwo.error) {
     const result = await isValidUser(userEmail);
-    if (!result.error) return BlogPost.create({ title, content, categoryIds });
+    const { id } = result;
+    if (!result.error) return BlogPost.create({ title, content, userId: id, categoryIds });
     return result;
-  } return ({ validCategoryOne, validCategoryTwo });
+  } return ({ error: validCategoryOne.error || validCategoryTwo.error });
 };
 
 module.exports = {

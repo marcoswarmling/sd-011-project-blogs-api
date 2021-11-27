@@ -6,7 +6,7 @@ const loginRoutes = require('../routes/loginRoutes');
 const loginMiddleware = require('../middlewares/loginMiddlewares');
 const categoryRoutes = require('../routes/categoryRoutes');
 const middlewareCategory = require('../middlewares/categoryMiddleware');
-const postRoutes = require('../controllers/postController');
+const postRoutes = require('../routes/postRoutes');
 const middlewarePost = require('../middlewares/postMiddleware');
 
 const app = express();
