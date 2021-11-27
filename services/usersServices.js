@@ -7,13 +7,14 @@ const jwtKey = process.env.JWT_SECRET;
 const getUserByEmail = async (email) => User.findOne({ where: { email } });
 
 const createUser = async (displayName, email, password, image) => {
-  await User.create({ 
+  const userCreation = await User.create({ 
     displayName, 
     email, 
     password, 
     image,
   });
-  const token = jwt.sign({ data: { displayName, email } }, jwtKey);
+  const { id: userId } = userCreation.dataValues;
+  const token = jwt.sign({ data: { userId, displayName, email } }, jwtKey);
   return token;
 };
 
