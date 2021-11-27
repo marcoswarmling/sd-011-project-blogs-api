@@ -1,6 +1,6 @@
 const userServices = require('../services/index');
 const { status } = require('../schemas');
-const { generateToken } = require('../helpers/generateJWT');
+const { generateToken } = require('../helpers/JWTfunctions');
 
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;

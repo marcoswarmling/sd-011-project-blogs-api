@@ -15,4 +15,13 @@ const generateTokenOnLogin = (email, password) => {
   return token;
 };
 
-module.exports = { generateToken, generateTokenOnLogin };
+const validateToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, secret);
+    return decoded;
+  } catch (_) {
+    return { error: { message: 'Expired or invalid token', code: 401 } };
+  }
+};
+
+module.exports = { generateToken, generateTokenOnLogin, validateToken };

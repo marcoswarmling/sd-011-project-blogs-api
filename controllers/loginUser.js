@@ -1,6 +1,6 @@
 const userServices = require('../services/index');
 const { status } = require('../schemas');
-const { generateTokenOnLogin } = require('../helpers/generateJWT');
+const { generateTokenOnLogin } = require('../helpers/JWTfunctions');
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
