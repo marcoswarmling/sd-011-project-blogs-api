@@ -1,6 +1,6 @@
 const { Users } = require('../models');
 const createUserValidation = require('../validations/createUserValidation');
-const UsersValidation = require('../validations/getAllUsersValidation');
+const tokenValidation = require('../validations/tokenValidation');
 const { status } = require('../schemas');
 
 const validateEmailExistsError = (error) => {
@@ -30,7 +30,7 @@ const createUser = async ({ displayName, email, password, image }) => {
 const getAllUsers = async (authorization) => {
   try {
     const query = { attributes: { exclude: ['password'] } };
-    UsersValidation.tokenFieldValidation(authorization);
+    tokenValidation.tokenFieldValidation(authorization);
 
     const allUsers = await Users.findAll(query);
     return allUsers;
@@ -42,7 +42,7 @@ const getAllUsers = async (authorization) => {
 const getUserById = async (id, authorization) => {
   try {
     const query = { where: { id } };
-    UsersValidation.tokenFieldValidation(authorization);
+    tokenValidation.tokenFieldValidation(authorization);
 
     const oneUser = await Users.findOne(query);
     return oneUser;

@@ -8,6 +8,7 @@ const {
   loginUser,
   getAllUsers,
   getUserById,
+  createCategory,
  } = require('./controllers/indexController');
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -19,6 +20,8 @@ app.get('/ping', (_, res) => res.send('Pong'));
 app.post('/user', createUser);
 app.get('/user', getAllUsers);
 app.get('/user/:id', getUserById);
+
+app.post('/categories', createCategory);
 
 app.post('/login', loginUser);
 
