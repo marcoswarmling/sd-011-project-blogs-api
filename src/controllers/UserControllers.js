@@ -39,4 +39,17 @@ module.exports = {
       return next(error);
     }
   },
+  deleteUser: async (req, res, next) => {
+    try {
+      const { userId } = req.user;
+
+      const { error } = await UserServices.deleteUser(userId);
+
+      if (error) return next(error);
+
+      return res.status(204).end();
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
