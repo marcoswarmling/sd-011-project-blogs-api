@@ -1,5 +1,5 @@
-const BlogCategories = (sequelize, DataTypes) => {
-  const newBlogCategories = sequelize.define('BlogCategories', {
+const BlogPost = (sequelize, DataTypes) => {
+  const newBlogPost = sequelize.define('BlogPost', {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: DataTypes.INTEGER,
@@ -7,11 +7,11 @@ const BlogCategories = (sequelize, DataTypes) => {
     updated: DataTypes.DATE,
   }, {
     timestamps: false,
-    tableName: 'BlogCategories',
-    underscored: true,
+    tableName: 'BlogPosts',
+    underscored: false,
   });
 
-  return newBlogCategories;
+  return newBlogPost;
 };
 
-module.exports = BlogCategories;
+module.exports = BlogPost;
