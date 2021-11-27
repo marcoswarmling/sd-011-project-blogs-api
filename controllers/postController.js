@@ -3,8 +3,13 @@ const express = require('express');
 const router = express.Router();
 
 const { validateToken } = require('../middlewares/validateUser');
-const { validatePost } = require('../middlewares/validatePost');
-const { create, getAll, findById } = require('../services/postService');
+const { validatePost, validUpdatePost } = require('../middlewares/validatePost');
+const {
+  create,
+  getAll,
+  findById,
+  updateById,
+} = require('../services/postService');
 
 router.post('/post', validateToken, validatePost, async (req, res) => {
   const { title, content, categoryIds } = req.body;
@@ -31,6 +36,20 @@ router.get('/post/:id', validateToken, async (req, res) => {
   }
 
   res.status(200).json(response[0]);
+});
+
+router.put('/post/:id', validateToken, validUpdatePost, async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const { userId } = req;
+
+  const response = await updateById(title, content, Number(id), Number(userId));
+
+  if (response.error) {
+    return res.status(401).json({ message: response.error });
+  }
+
+  res.status(200).json(response);
 });
 
 module.exports = router;

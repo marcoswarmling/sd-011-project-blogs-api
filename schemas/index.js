@@ -34,8 +34,14 @@ const validateCreatePost = Joi.object({
   categoryIds: Joi.array(),
 });
 
+const validateUpdatePost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 module.exports = {
   validateCreateUser,
   validateLoginUser,
   validateCreatePost,
+  validateUpdatePost,
 };

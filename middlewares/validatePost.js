@@ -1,5 +1,5 @@
 const { Categorie } = require('../models');
-const { validateCreatePost } = require('../schemas/index');
+const { validateCreatePost, validateUpdatePost } = require('../schemas/index');
 
 const validatePost = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
@@ -30,6 +30,21 @@ const validatePost = async (req, res, next) => {
   next();
 };
 
+const validUpdatePost = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+
+  if (categoryIds) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+
+  const { error } = validateUpdatePost.validate({ title, content });
+
+  if (error) return res.status(400).json({ message: error.details[0].message });
+
+  next();
+};
+
 module.exports = {
   validatePost,
+  validUpdatePost,
 };

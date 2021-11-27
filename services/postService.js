@@ -23,15 +23,17 @@ const getAll = async () => {
   const response = posts.map(async (post) => {
     const user = await User.findOne({ where: { id: post.userId } });
 
-    const removePassword = Object.entries(user.dataValues).filter((el) => el[0] !== 'password');
+    const removePassword = Object.entries(user.dataValues).filter(
+      (el) => el[0] !== 'password',
+    );
 
     const formatedUser = Object.fromEntries(removePassword);
 
-    const postcategories = categories.filter(
-      ({ id }) => postCategories.some(({ postId }) => id === postId),
-    );
+    const postcategories = categories.filter(({ id }) =>
+      postCategories.some(({ postId }) => id === postId));
 
-    const categoriesName = categories.filter(({ id }) => postcategories.some((p) => p.id === id));
+    const categoriesName = categories.filter(({ id }) =>
+      postcategories.some((p) => p.id === id));
 
     return { ...post.dataValues, user: formatedUser, categories: categoriesName };
   });
@@ -49,8 +51,23 @@ const findById = async (id) => {
   return postId;
 };
 
+const updateById = async (title, content, id, userId) => {
+  const [updated] = await BlogPost.update({ title, content }, { where: { id, userId } });
+
+  if (!updated) {
+    return { error: 'Unauthorized user' }; 
+  }
+
+  const allPosts = await getAll();
+
+  const postById = allPosts.filter((post) => post.id === id);
+
+  return postById[0];
+};
+
 module.exports = {
   create,
   getAll,
   findById,
+  updateById,
 };
