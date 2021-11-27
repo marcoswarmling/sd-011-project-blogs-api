@@ -5,6 +5,9 @@ const create = async (name) => {
   return categorie;
 };
 
-const getAllCategories = async () => Categorie.findAll();
+const getAllCategories = async () => {
+  const categories = await Categorie.findAll();
+  return categories.sort((a, b) => a.dataValues.id - b.dataValues.id);
+};
 
 module.exports = { create, getAllCategories };
