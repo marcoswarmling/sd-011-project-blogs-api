@@ -1,22 +1,21 @@
 // @ts-nocheck
 require('dotenv').config();
+const rescue = require('express-rescue');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
-const authKey = process.env.JWT_SECRET;
+const key = process.env.JWT_SECRET;
 
-module.exports = async (req, res, next) => {
+module.exports = rescue(async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ message: 'missing auth token' });
-    const decoded = jwt.verify(token, authKey);
-    const user = await User.findByEmail(decoded.email);
+    if (!token) return res.status(401).json({ message: 'Token not found' });
+    const decoded = jwt.verify(token, key);
+    const user = await User.findOne({ where: { id: decoded.id } });
     if (!user) return res.status(401).json({ message: 'Unauthorized' });
     req.data = user;
     next();
   } catch (error) {
-    return res.status(401).json({
-      message: error.message,
-    });
+     return next({ code: 401, message: 'Expired or invalid token' });
   }
-};
+});
