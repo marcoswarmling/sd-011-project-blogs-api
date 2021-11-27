@@ -7,8 +7,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    password: DataTypes.STRING,
-    image: DataTypes.STRING,
   });
 
   BlogPosts.associate = (models) => {
