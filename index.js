@@ -1,13 +1,26 @@
 const express = require('express');
 const UserController = require('./controllers/UserController');
-const { validateJWT } = require('./validations/validateJWT');
+// const { validateJWT } = require('./validations/validateJWT');
+// const {
+//   validateDisplayName,
+//   validateParams,
+//   verifyEmail,
+//   emailExists,
+// } = require('./validations/validateUser');
 
 const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-app.use('/user', UserController);
+app.use(
+  '/user',
+  // validateDisplayName,
+  // validateParams,
+  // verifyEmail,
+  // emailExists,
+  UserController,
+);
 
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
 
