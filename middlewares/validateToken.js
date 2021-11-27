@@ -8,12 +8,13 @@ const validateToken = (req, res, next) => {
       message: 'Token not found',
     });
   }
-  jwt.verify(receivedToken, process.env.JWT_SECRET, (err, _decoded) => {
+  jwt.verify(receivedToken, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).json({
         message: 'Expired or invalid token',
       });
     }
+    req.userId = decoded.id;
     next();
   });
 };

@@ -13,13 +13,13 @@ router.post('/', validateUserSchema, async (req, res) => {
       message: 'User already registered' });
   }
   try {
-    await User.create({
+    const newUser = await User.create({
       displayName,
       email,
       password,
       image,
     });
-    const token = createJWT(email, password);
+    const token = createJWT(newUser.id, newUser.email, newUser.password);
     return res.status(201).json({ token });
   } catch (error) {
     res.status(500).send(error);
