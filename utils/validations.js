@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { User } = require('../models');
+const { User, Category } = require('../models');
 
 // lógica adaptada de https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
 const validEmail = (email) => {
@@ -56,6 +56,15 @@ const isValidUser = async (email) => {
   } return validUser;
 };
 
+const isValidCategory = async (categoryId) => {
+  const validCategory = await Category.findOne({ categoryId });
+  if (!validCategory) {
+    return ({
+      error: { code: 'inexistingCategory' },
+    });
+  } return validCategory;
+};
+
 module.exports = {
   validEmail,
   validName,
@@ -64,4 +73,5 @@ module.exports = {
   existingUser,
   validLogin,
   isValidUser,
+  isValidCategory,
 };
