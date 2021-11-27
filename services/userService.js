@@ -21,6 +21,17 @@ const createUser = async ({ displayName, email, password, image }) => {
   return token;
 };
 
+const loginUser = async ({email, password}) => {
+  const user = await User.findOne({ where: { email, password } });
+
+  if(!user) throw {parent: { code: 'INVALID_FIELDS' } };
+
+  const token = generateToken(user.email, user.id);
+
+  return token;
+}
+
 module.exports = {
   createUser,
+  loginUser,
 };
