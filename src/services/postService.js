@@ -60,9 +60,26 @@ const updateById = async (id, title, content, userId) => {
   return result;
 };
 
+const excludePost = async (id, userId) => {
+  const findPostById = await BlogPost.findOne({
+    where: { id },
+  });
+  if (!findPostById) {
+    return { message: 'Post does not exist', status: 404 };
+  }
+  if (findPostById.dataValues.userId !== userId) {
+    return { message: 'Unauthorized user', status: 401 };
+  }
+  const exclude = await BlogPost.destroy(
+    { where: { id, userId } },
+  );
+  return exclude;
+};
+
 module.exports = {
   postRegister,
   getAllPost,
   getPostById,
   updateById,
+  excludePost,
 };

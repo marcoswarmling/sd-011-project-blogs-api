@@ -1,5 +1,7 @@
 const postService = require('../services/postService');
 
+const status400 = 'Something is wrong';
+
 const createPost = async (req, res) => {
   try {
     const { title, categoryIds, content } = req.body;
@@ -10,7 +12,7 @@ const createPost = async (req, res) => {
     res.status(201).json(newPost);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({ message: 'Something is wrong' });
+    res.status(400).json({ message: status400 });
   }
 };
 
@@ -23,7 +25,7 @@ const allPost = async (_req, res) => {
     res.status(200).json(callPost);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({ message: 'Something is wrong' });
+    res.status(400).json({ message: status400 });
   }
 };
 
@@ -37,7 +39,7 @@ const postById = async (req, res) => {
     res.status(200).json(findPostById);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({ message: 'Something is wrong' });
+    res.status(400).json({ message: status400 });
   }
 };
 
@@ -53,7 +55,21 @@ const update = async (req, res) => {
     res.status(200).json(updateOne);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({ message: 'Something is wrong' });
+    res.status(400).json({ message: status400 });
+  }
+};
+
+const deleteOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletePost = await postService.excludePost(id, req.userId);
+    if (deletePost.message) {
+      return res.status(deletePost.status).json(deletePost);
+    }
+    res.status(204).json(deletePost);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: status400 });
   }
 };
 
@@ -62,4 +78,5 @@ module.exports = {
   allPost,
   postById,
   update,
+  deleteOne,
 };

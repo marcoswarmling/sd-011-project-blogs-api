@@ -13,4 +13,6 @@ router.put('/post/:id',
   validations.validateUpdate, 
   postController.update);
 
+router.delete('/post/:id', validations.validateToken, postController.deleteOne);
+
 module.exports = router;
