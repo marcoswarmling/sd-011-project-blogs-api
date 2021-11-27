@@ -6,11 +6,9 @@ const emailExists = async (email) => {
   try {
     const userEmailExists = await User.findOne({ where: { email } });
     if (!userEmailExists) return false;
-
     return true;
   } catch (error) {
-    console.log(error.message);
-    return { message: 'Algo deu errado' };
+    return error.message;
   }
 };
 
@@ -22,14 +20,13 @@ const loginUser = async (email, password) => {
       return { message: 'usuário ou senha não conferem' };
     }
 
-    const { dataValues: { password: pass, image, ...jwtData } } = user;
+    const { dataValues: { password: pw, image, ...jwtData } } = user;
 
     const newToken = jwt.sign(jwtData, process.env.JWT_SECRET);
 
     return { token: newToken };
   } catch (error) {
-    console.log(error.message);
-    return { message: 'Algo deu errado' };
+    return error.message;
   }
 };
 
@@ -43,7 +40,16 @@ const createUser = async (items) => {
     const token = await loginUser(email, password);
     return token;
   } catch (error) {
-    return { message: 'Algo deu errado' };
+    return error.message;
+  }
+};
+
+const getAllUsers = async () => {
+  try {
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    return users;
+  } catch (error) {
+    return error.message;
   }
 };
 
@@ -51,4 +57,5 @@ module.exports = {
   emailExists,
   createUser,
   loginUser,
+  getAllUsers,
 };
