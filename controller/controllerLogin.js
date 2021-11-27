@@ -9,7 +9,11 @@ async function getUser(req, res) {
       res.status(500).json({ message: 'Erro Interno' }));
 
   if (result) {
-    const token = generateToken({ email });
+    const token = generateToken({
+      id: result.id,
+      email: result.email,
+      displayName: result.displayName,
+    });
     return res.status(200).json({ token });
   }
   res.status(400).json({ message: 'Invalid fields' });

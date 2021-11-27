@@ -4,7 +4,7 @@ const { generateToken } = require('../auth');
 async function addNewUser(req, res) {
   const { displayName, email, password, image } = req.body;
 
-  await Users.create({
+  const result = await Users.create({
     displayName,
     email,
     password,
@@ -14,7 +14,10 @@ async function addNewUser(req, res) {
       erro: 'Erro interno',
     }));
 
-  const token = generateToken({ displayName, email });
+  const token = generateToken({
+    displayName: result.displayName,
+    email: result.email,
+  });
 
   return res.status(201).send({ token });
 }
