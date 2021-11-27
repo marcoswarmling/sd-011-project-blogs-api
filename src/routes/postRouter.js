@@ -8,5 +8,9 @@ router.post('/post',
   postController.createPost);
 router.get('/post', validations.validateToken, postController.allPost);
 router.get('/post/:id', validations.validateToken, postController.postById);
+router.put('/post/:id', 
+  validations.validateToken, 
+  validations.validateUpdate, 
+  postController.update);
 
 module.exports = router;

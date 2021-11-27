@@ -40,8 +40,29 @@ const getPostById = async (id) => {
   return findPost;
 };
 
+const updateById = async (id, title, content, userId) => {
+  const findPostById = await BlogPost.findOne({
+    where: { id },
+  });
+  if (!findPostById) {
+    return { message: 'Post does not exist' };
+  }
+  const update = await BlogPost.update(
+    { title, content },
+    { where: { id, userId } },
+  );
+  if (update[0] === 0 && findPostById.dataValues.userId !== userId) {
+    return { message: 'Unauthorized user' };
+  }
+  const updateOne = await getPostById(id);
+  const { id: postId, user, published, updated, ...result } = updateOne.dataValues;
+
+  return result;
+};
+
 module.exports = {
   postRegister,
   getAllPost,
   getPostById,
+  updateById,
 };

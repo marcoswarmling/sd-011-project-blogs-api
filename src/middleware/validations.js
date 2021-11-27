@@ -72,10 +72,28 @@ const validatePost = async (req, res, next) => {
   next();
 };
 
+const validateUpdate = async (req, res, next) => {
+  const schema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  });
+
+  if (req.body.categoryIds) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ message: error.message });
+  }
+  next();
+};
+
 module.exports = {
   registerValidate,
   loginValidate,
   validateToken,
   validateCategorie,
   validatePost,
+  validateUpdate,
 };
