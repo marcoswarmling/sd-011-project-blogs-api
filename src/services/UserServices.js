@@ -51,7 +51,6 @@ module.exports = {
 
       return { error: null };
     } catch (error) {
-      console.error(error);
       return { error };
     }
   },

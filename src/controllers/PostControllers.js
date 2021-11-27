@@ -69,4 +69,17 @@ module.exports = {
       return next(error);
     }
   },
+  getPostBySearchTerm: async (req, res, next) => {
+    try {
+      const { q } = req.query;
+
+      const { posts, error } = await PostServices.getPostBySearchTerm(q);
+
+      if (error) return next(error);
+
+      return res.status(200).json(posts);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };

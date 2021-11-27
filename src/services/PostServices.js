@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, User, Category } = require('../models');
 
 const { postSchema } = require('../validationSchemas/postSchema');
@@ -23,7 +24,10 @@ module.exports = {
         User.findByPk(userId),
       ]);
 
-      await Promise.all([post.setUser(user), post.setCategories(categoryIds)]);
+      await Promise.all([
+        post.setUser(user),
+        post.setCategories(categoryIds),
+      ]);
 
       return { post };
     } catch (error) {
@@ -96,6 +100,29 @@ module.exports = {
       await post.destroy();
 
       return { error: null };
+    } catch (error) {
+      return { error };
+    }
+  },
+  getPostBySearchTerm: async (searchTerm) => {
+    try {
+      const search = `%${searchTerm}%` || '%';
+
+      const posts = await BlogPost.findAll({
+        where: {
+          [Op.or]: [
+            { title: { [Op.like]: search } },
+            { content: { [Op.like]: search } },
+          ],
+        },
+        include: [
+          { model: User, as: 'user', attributes: { exclude: ['password'] } },
+          { model: Category, as: 'categories' },
+        ] });
+  
+      if (!posts) return { posts: [] };
+  
+      return { posts };
     } catch (error) {
       return { error };
     }
