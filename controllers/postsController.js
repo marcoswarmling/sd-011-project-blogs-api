@@ -4,9 +4,10 @@ const create = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
     const { id } = req.user;
-    const newPost = await PostsService.create({ title, content, id });
-    categoryIds.forEach(async (categoryId) => {
-      await PostsService.createPostCategories({ postId: newPost.id, categoryId });
+    const newPost = await PostsService.create({ title, content, id }).then(() => {
+      categoryIds.forEach(async (categoryId) => {
+        await PostsService.createPostCategories({ postId: newPost.id, categoryId });
+      });
     });
     return res.status(201).json(newPost);
   } catch (error) {
@@ -24,6 +25,6 @@ const findAll = async (req, res) => {
 };
 
 module.exports = {
-  create,
+ create,
   findAll,
 }; 
