@@ -6,5 +6,6 @@ router.post('/post',
   validations.validateToken, 
   validations.validatePost, 
   postController.createPost);
+  router.get('/post', validations.validateToken, postController.allPost);
 
 module.exports = router;

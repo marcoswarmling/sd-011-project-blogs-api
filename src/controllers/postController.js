@@ -14,6 +14,20 @@ const createPost = async (req, res) => {
   }
 };
 
+const allPost = async (req, res) => {
+  try {
+    const callPost = await postService.getAllPost();
+    if (callPost.message) {
+      return res.status(400).json(callPost);
+    }
+    res.status(200).json(callPost);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: 'Something is wrong' });
+  }
+};
+
 module.exports = {
   createPost,
+  allPost,
 };
