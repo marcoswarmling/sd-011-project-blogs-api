@@ -27,7 +27,21 @@ const getAllPost = async () => {
   return allPost; 
 };
 
+const getPostById = async (id) => {
+  const findPost = await BlogPost.findOne({
+    where: { id },
+    include: [{ all: true }],
+  });
+
+  if (!findPost) {
+    return { message: 'Post does not exist' };
+  }
+
+  return findPost;
+};
+
 module.exports = {
   postRegister,
   getAllPost,
+  getPostById,
 };
