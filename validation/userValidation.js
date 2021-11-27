@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { Users } = require('../models');
 
 const validEmailFormat = (email) => {
   const re = /^\w+@\w+.com(.br)?$/;
@@ -53,7 +53,7 @@ const validEmail = (req, res, next) => {
 const validEmailExist = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const userExists = await User.findOne({ where: { email } });
+    const userExists = await Users.findOne({ where: { email } });
     if (userExists) {
       return res.status(409).json({ message: 'User already registered' });
     }
