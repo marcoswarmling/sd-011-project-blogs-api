@@ -36,4 +36,10 @@ router.get('/post/:id',
   token,
   controllerPosts.findById);
 
+router.put('/post/:id',
+  token,
+  middlewaresPosts.verifyEditFields,
+  middlewaresPosts.findPostById,
+  controllerPosts.updateById);
+
 module.exports = router;

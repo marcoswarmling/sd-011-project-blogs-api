@@ -48,15 +48,37 @@ const allPosts = async () => {
 };
 
 const findById = async (id) => {
-  const arrAllPosts = await BlogPost.findOne({
+  const post = await BlogPost.findOne({
     where: { id },
     include: [{ all: true }],
   });
 
-  if (!arrAllPosts) {
+  if (!post) {
     return { message: 'Post does not exist' };
   }
-  return arrAllPosts;
+  return post;
+};
+
+const findPostById = async (id, userId) => {
+  const verifyUser = await BlogPost.findOne({ where: { id, userId } });
+  if (!verifyUser) return { message: 'Unauthorized user' };
+  return true;
+};
+
+const updateById = async (id, items) => {
+  const updatePosts = await BlogPost.update(items, { where: { id } });
+
+  if (!updatePosts) {
+    return { message: 'Post does not exist' };
+  }
+
+  const post = await BlogPost.findOne({
+    where: { id },
+    include: [{ all: true, attributes: { exclude: ['userId'] } }],
+  });
+
+  const { user, id: postId, published, updated, ...postAttr } = post.dataValues;
+  return postAttr;
 };
 
 module.exports = {
@@ -64,4 +86,6 @@ module.exports = {
   findcategories,
   allPosts,
   findById,
+  findPostById,
+  updateById,
 };

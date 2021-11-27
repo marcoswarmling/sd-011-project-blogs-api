@@ -25,8 +25,18 @@ const findById = async (req, res) => {
   return res.status(200).json(getPost);
 };
 
+const updateById = async (req, res) => {
+  const { id } = req.params;
+  const updatePost = await servicesPosts.updateById(id, req.body);
+  if (updatePost.message) {
+    return res.status(404).json({ message: updatePost.message });
+  }
+  return res.status(200).json(updatePost);
+};
+
 module.exports = {
   createPost,
   allPosts,
   findById,
+  updateById,
 };
