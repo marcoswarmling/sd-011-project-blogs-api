@@ -28,6 +28,14 @@ module.exports = {
         onDelete: 'CASCADE',
         primaryKey: true,
       },
+      categoryIds: {
+        type: Sequelize.INTEGER,
+        field: 'category_id',
+        references: {
+          model: 'Category',
+          key: 'id',
+        },
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE,
