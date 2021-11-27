@@ -1,3 +1,5 @@
+const { validAuth } = require('../auth');
+
 function checkName(req, res, next) {
   const { displayName } = req.body;
 
@@ -45,9 +47,36 @@ function checkToken(req, res, next) {
   next();
 }
 
+function checkValidToken(req, res, next) {
+  const { authorization } = req.headers;
+
+  try {
+    validAuth(authorization);
+  } catch (error) {
+    return res.status(401).json({
+      message: 'Expired or invalid token',
+    });
+  }
+  next();
+}
+
+function cheNameCategories(req, res, next) {
+  const { name } = req.body;
+
+  if (!name || name === 'undefined') {
+    return res.status(400).json({
+      message: '"name" is required',
+    });
+  }
+
+  next();
+}
+
 module.exports = {
   checkName,
   checkEmail,
   checkPassword,
   checkToken,
+  checkValidToken,
+  cheNameCategories,
 };
