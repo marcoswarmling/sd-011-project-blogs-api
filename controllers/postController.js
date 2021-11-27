@@ -21,6 +21,12 @@ const postRegister = rescue(async (req, res, next) => {
   return res.status(201).json(result);
 });
 
+const getAllPosts = rescue(async (_req, res, _next) => {
+  const result = await service.getAllPosts();
+  return res.status(200).json(result);
+});
+
 module.exports = {
   postRegister,
+  getAllPosts,
 };
