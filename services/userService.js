@@ -1,5 +1,5 @@
 const { Users } = require('../models');
-const userValidation = require('../validations/userValidation');
+const createUserValidation = require('../validations/createUserValidation');
 const { status } = require('../schemas');
 
 const validadeEmailExistsError = (error) => {
@@ -14,9 +14,9 @@ const validadeEmailExistsError = (error) => {
 
 const createUser = async ({ displayName, email, password, image }) => {
   try {
-    userValidation.validDisplayName(displayName);
-    userValidation.validUserEmail(email); 
-    userValidation.validPassword(password);
+    createUserValidation.validDisplayName(displayName);
+    createUserValidation.validUserEmail(email); 
+    createUserValidation.validPassword(password);
 
     const response = await Users.create({ displayName, email, password, image });
     return response;
