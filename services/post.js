@@ -16,7 +16,8 @@ const categoryIdsExists = async (categoryIds) => {
   return false;
 };
 
-const createBlogPosts = async (title, content, userId, categoryIds, published, updated) => {
+const createBlogPosts = async (newPostData) => {
+  const { title, content, userId, categoryIds, published, updated } = newPostData;
   const newPost = await BlogPosts.create({ title, content, userId, published, updated });
 
   const { id } = newPost.dataValues;

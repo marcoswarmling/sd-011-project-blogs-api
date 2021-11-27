@@ -13,14 +13,9 @@ const createBlogPost = async (req, res, _next) => {
   const published = Date.now();
   const updated = Date.now();
 
-  const newPost = await blogPostsServices.createBlogPosts(
-    title,
-    content,
-    userId,
-    categoryIds,
-    published,
-    updated,
-  );
+  const newPostData = { title, content, userId, categoryIds, published, updated };
+
+  const newPost = await blogPostsServices.createBlogPosts(newPostData);
 
   return res.status(201).json({ id: newPost.id, userId, title, content, published, updated });
 };
