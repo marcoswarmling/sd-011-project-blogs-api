@@ -17,6 +17,4 @@ const createUser = async (req, res) => {
   return res.status(status.CREATED).json({ token });
 };
 
-module.exports = {
-  createUser,
-};
+module.exports = createUser;
