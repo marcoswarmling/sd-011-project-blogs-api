@@ -34,7 +34,7 @@ const getAllUsers = async (_req, res, next) => {
     console.log(error);
     next(error);
   }
-}
+};
 
 module.exports = {
   createUser,
