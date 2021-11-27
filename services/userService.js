@@ -1,6 +1,6 @@
 const { Users } = require('../models');
 const createUserValidation = require('../validations/createUserValidation');
-const getAllUsersValidation = require('../validations/getAllUsersValidation');
+const UsersValidation = require('../validations/getAllUsersValidation');
 const { status } = require('../schemas');
 
 const validateEmailExistsError = (error) => {
@@ -30,7 +30,7 @@ const createUser = async ({ displayName, email, password, image }) => {
 const getAllUsers = async (authorization) => {
   try {
     const query = { attributes: { exclude: ['password'] } };
-    getAllUsersValidation.tokenFieldValidation(authorization);
+    UsersValidation.tokenFieldValidation(authorization);
 
     const allUsers = await Users.findAll(query);
     return allUsers;
@@ -39,7 +39,20 @@ const getAllUsers = async (authorization) => {
   }
 };
 
+const getUserById = async (id, authorization) => {
+  try {
+    const query = { where: { id } };
+    UsersValidation.tokenFieldValidation(authorization);
+
+    const oneUser = await Users.findOne(query);
+    return oneUser;
+  } catch (e) {
+    return { error: { message: e.message, code: e.code } };
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
+  getUserById,
 };

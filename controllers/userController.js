@@ -15,6 +15,26 @@ const getAllUsers = async (req, res) => {
   return res.status(status.OK).json(responseFromValidation);
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const { authorization } = req.headers;
+
+  const responseFromValidation = await userServices
+    .getUserById(id, authorization);
+
+  if (!responseFromValidation) {
+    return res.status(status.NOT_FOUND)
+      .json({ message: 'User does not exist' });
+  }
+
+  if (responseFromValidation.error) {
+    const { message, code } = responseFromValidation.error;
+    return res.status(code).json({ message });
+  }
+
+  return res.status(status.OK).json(responseFromValidation);
+};
+
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const responseFromValidation = await userServices.createUser({
@@ -30,4 +50,4 @@ const createUser = async (req, res) => {
   return res.status(status.CREATED).json({ token });
 };
 
-module.exports = { getAllUsers, createUser };
+module.exports = { getAllUsers, createUser, getUserById };
