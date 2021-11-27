@@ -1,5 +1,5 @@
-const { User } = require('../models');
 const jwt = require('jsonwebtoken');
+const { User } = require('../models');
 
 const jwtConfig = {
   expiresIn: '1d',
