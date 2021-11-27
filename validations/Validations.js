@@ -6,6 +6,7 @@ class Validations {
       minimum: 8,
       regEmail: regexEmail,
       sixChar: 6,
+      empty: 0,
     };
   }
 
@@ -23,10 +24,13 @@ class Validations {
 
   // validação de email
   async validEmail(req, res, next) {
-    if (!req.body.email) {
+    if (req.body.email === undefined) {
       return res.status(400).json({ message: '"email" is required' });
     }
-    if (!this.isValid.regEmail.test(req.body.email)) {
+
+    if (req.body.email.length === this.isValid.empty) {
+      return res.status(400).json({ message: '"email" is not allowed to be empty' });
+    } if (!this.isValid.regEmail.test(req.body.email)) {
       return res.status(400).json({ message: '"email" must be a valid email' });
     }
 
@@ -35,17 +39,20 @@ class Validations {
 
   // validação de senha
   async validPassword(req, res, next) {
-    const { password } = req.body;
-    if (!password) {
+    if (req.body.password === undefined) {
       return res.status(400).json({ message: '"password" is required' });
     }
 
-    if (password.length !== this.isValid.sixChar) {
-      return res.status(400).json(
-        { message: '"password" length must be 6 characters long' },
-      );
+    if (req.body.password.length === this.isValid.empty) {
+      return res.status(400).json({ message: '"password" is not allowed to be empty' });
     }
 
+    if (req.body.password.length !== this.isValid.sixChar) {
+      return res.status(400).json(
+        { message: '"password" length must be 6 characters long' },
+        );
+    }
+      
     return next();
   }
 }

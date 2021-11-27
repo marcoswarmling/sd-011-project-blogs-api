@@ -15,6 +15,9 @@ router.post('/user',
   validations.validPassword.bind(validations),
   useController.createUser.bind(useController));
 
-router.post('/login', login.loginUser.bind(login));
+router.post('/login', 
+  validations.validEmail.bind(validations),
+  validations.validPassword.bind(validations),
+  login.loginUser.bind(login));
 
 module.exports = router;
