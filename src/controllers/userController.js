@@ -5,6 +5,7 @@ const express = require('express');
 const Sequelize = require('sequelize');
 const { BlogPost, Category, PostsCategory, User } = require('../models');
 const config = require('../config/config');
+const { userSchema } = require('../validators');
 
 const sequelize = new Sequelize(
   process.env.NODE_ENV === 'test' ? config.test : config.development,
@@ -26,6 +27,17 @@ const getAll = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
+
+    const { error } = userSchema.validate(req.body);
+    if (error)
+      return res.status(400).json({ message: error.details[0].message });
+
+    // verify if the user already exists by email
+    const checkUser = await User.findOne({ where: { email } });
+    if (checkUser) {
+      return res.status(409).json({ message: 'User already registered' });
+    }
+
     const user = await User.create({
       displayName,
       email,
