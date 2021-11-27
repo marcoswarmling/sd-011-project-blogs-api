@@ -17,7 +17,7 @@ const create = rescue(async (req, res) => {
 
 const getUsers = rescue(async (_req, res) => {
   const users = await getAllUsers();
-  return res.status(200).json([...users]);
+  return res.status(200).json(users);
 });
 
 const getUserById = rescue(async (req, res) => {

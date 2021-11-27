@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const { create } = require('../services/categoriesServices');
+const { create, getAllCategories } = require('../services/categoriesServices');
 
 const createCategorie = rescue(async (req, res) => {
   const { name } = req.body;
@@ -8,4 +8,10 @@ const createCategorie = rescue(async (req, res) => {
   return res.status(201).json(categorie);
 });
 
-module.exports = { createCategorie };
+const getCategories = rescue(async (_req, res) => {
+  const categories = await getAllCategories();
+
+  return res.status(200).json(categories);
+});
+
+module.exports = { createCategorie, getCategories };
