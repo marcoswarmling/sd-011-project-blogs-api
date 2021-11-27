@@ -15,10 +15,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       published: {
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       updated: {
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       userId: {
         type: Sequelize.INTEGER,

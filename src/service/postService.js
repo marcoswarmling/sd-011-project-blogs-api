@@ -16,7 +16,7 @@ const createdPost = async ({ title, content, categoryIds }, userId) => {
     };
   }
 
-  const result = await Post.create({ title, content, categoryIds, userId: userId.id });
+  const result = await Post.create({ title, content, userId: userId.id });
   return result;
 };
 
