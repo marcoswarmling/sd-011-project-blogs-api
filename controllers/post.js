@@ -10,11 +10,28 @@ const createBlogPost = async (req, res, _next) => {
     return res.status(400).json({ message: '"categoryIds" not found' });
   }
 
-  const newPost = await blogPostsServices.createBlogPosts(title, content, userId);
+  const published = Date.now();
+  const updated = Date.now();
 
-  return res.status(201).json(newPost);
+  const newPost = await blogPostsServices.createBlogPosts(
+    title,
+    content,
+    userId,
+    categoryIds,
+    published,
+    updated,
+  );
+
+  return res.status(201).json({ id: newPost.id, userId, title, content, published, updated });
+};
+
+const getAllPosts = async (_req, res, _next) => {
+  const posts = await blogPostsServices.getAllBlogPosts();
+
+  return res.status(200).json(posts);
 };
 
 module.exports = {
   createBlogPost,
+  getAllPosts,
 };

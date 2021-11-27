@@ -16,4 +16,10 @@ router.post(
   postController.createBlogPost,
 );
 
+router.get(
+  '/',
+  validateJWT,
+  postController.getAllPosts,
+);
+
 module.exports = router;

@@ -4,13 +4,15 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: { type: DataTypes.INTEGER, foreignKey: true },
-    image: DataTypes.STRING,
+    published: { type: DataTypes.DATE },
+    updated: { type: DataTypes.DATE },
   }, {
+    tableName: 'BlogPosts',
     timestamps: false,
   });
 
   BlogPosts.associate = (models) => {
-    BlogPosts.belongsTo(models.Users, { foreignKey: 'userId', as: 'users' });
+    BlogPosts.belongsTo(models.Users, { foreignKey: 'userId', as: 'user' });
   };
 
   return BlogPosts;
