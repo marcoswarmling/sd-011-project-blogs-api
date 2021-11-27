@@ -1,17 +1,17 @@
-const { Categorie } = require('../models');
+const { Category } = require('../models');
 
 const createNewCategorie = async ({ name }) => {
-  const categorie = await Categorie.findOne({ where: { name } });
+  const category = await Category.findOne({ where: { name } });
 
-  if (categorie) return { statusCode: 409, response: { message: 'Categorie already registered' } };
+  if (category) return { statusCode: 409, response: { message: 'Category already registered' } };
 
-  const returnCategorieCreate = await Categorie.create({ name });
+  const returnCategoryCreate = await Category.create({ name });
 
-  return { statusCode: 201, response: returnCategorieCreate };
+  return { statusCode: 201, response: returnCategoryCreate };
  };
 
  const getAllCategories = async () => {
-  const categories = await Categorie.findAll();
+  const categories = await Category.findAll();
 
   return { statusCode: 200, response: categories };
 };
