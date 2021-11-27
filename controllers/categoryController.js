@@ -13,11 +13,19 @@ const categoryRegister = rescue(async (req, res, next) => {
   const { email } = req.user;
 
   const result = await service.categoryRegister(name, email);
-  // console.log(result);
   if (result.error) return next(result.error);
   return res.status(201).json(result);
 });
 
+const getAllCategory = rescue(async (req, res, next) => {
+  const { email } = req.user;
+  
+  const result = await service.getAllCategory(email);
+  if (result.error) return next(result.error);
+  return res.status(200).json(result);
+});
+
 module.exports = {
   categoryRegister,
+  getAllCategory,
 };
