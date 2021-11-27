@@ -1,6 +1,11 @@
 const express = require('express');
+const routes = require('./routes');
 
 const app = express();
+
+app.use(express.json());
+
+app.use('/user', routes);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
