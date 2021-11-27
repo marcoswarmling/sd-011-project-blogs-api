@@ -1,7 +1,7 @@
 const { createError } = require('../middlewares/errors');
-const { createToken } = require('../middlewares/token');
+const { createToken } = require('../validations/token');
 const { User } = require('../models');
-const { validateUser } = require('../validations/validateUser');
+const { validateUser } = require('../validations/validations');
 
 const addUser = async (data) => {
   const { error: validationError } = validateUser(data);

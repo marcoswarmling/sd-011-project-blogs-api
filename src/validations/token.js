@@ -6,11 +6,14 @@ const jwtConfig = {
 };
 
 const createToken = (email) => jwt.sign(
-    { email }, 
-    process.env.JWT_SECRET,
-    jwtConfig,
-  );
+  { email }, 
+  process.env.JWT_SECRET,
+  jwtConfig,
+);
+
+const verifyToken = (token) => jwt.verify(token, process.env.JWT_SECRET);
 
 module.exports = {
   createToken,
+  verifyToken,
 };

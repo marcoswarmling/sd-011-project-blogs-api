@@ -12,6 +12,17 @@ const validateUser = (data) => {
   return schema;
 };
 
+const validateCredentials = (data) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).message('"password" length must be 6 characters long').required(),
+  })
+    .validate(data);
+
+  return schema;
+};
+
 module.exports = {
   validateUser,
+  validateCredentials,
 };
