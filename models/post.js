@@ -1,16 +1,19 @@
 const Post = (sequelize, DataTypes) => {
-  const newPost = sequelize.define('Post', {
+  const newPost = sequelize.define('BlogPost', {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    userId: DataTypes.DECIMAL,
-    categoryId: DataTypes.ARRAY(DataTypes.DECIMAL),
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   }, {
     timestamps: false,
-    tableName: 'Posts',
+    tableName: 'BlogPosts',
     underscored: false,
   });
+
+  newPost.associate = (models) => {
+    newPost.belongsTo(models.User, 
+      { foreignKey: 'userId', as: 'user' });
+  };
 
   return newPost;
 };
