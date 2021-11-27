@@ -14,13 +14,16 @@ const emailExists = async (email) => {
 
 const loginUser = async (email, password) => {
   try {
-    const user = await User.findOne({ where: { email, password } });
+    const user = await User.findOne({ 
+      where: { email, password }, 
+      attributes: { exclude: ['password', 'image'] }, 
+    });
 
     if (!user) {
       return { message: 'usuário ou senha não conferem' };
     }
 
-    const { dataValues: { password: pw, image, ...jwtData } } = user;
+    const jwtData = user.dataValues;
 
     const newToken = jwt.sign(jwtData, process.env.JWT_SECRET);
 
@@ -53,9 +56,19 @@ const getAllUsers = async () => {
   }
 };
 
+const getUserById = async (id) => {
+  try {
+    const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+    return user;
+  } catch (error) {
+    return error.message;
+  }
+};
+
 module.exports = {
   emailExists,
   createUser,
   loginUser,
   getAllUsers,
+  getUserById,
 };
