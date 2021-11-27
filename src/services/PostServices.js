@@ -83,4 +83,21 @@ module.exports = {
       return { error };
     }
   },
+  deletePost: async (id, userId) => {
+    try {
+      if (!id) return { error: postNotfound };
+
+      const post = await BlogPost.findByPk(id);
+
+      if (!post) return { error: postNotfound };
+
+      if (post.userId !== userId) return { error: unauthorized };
+
+      await post.destroy();
+
+      return { error: null };
+    } catch (error) {
+      return { error };
+    }
+  },
 };

@@ -55,4 +55,18 @@ module.exports = {
       return next(error);
     }
   },
+  deletePost: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const { userId } = req.user;
+
+      const { error } = await PostServices.deletePost(id, userId);
+
+      if (error) return next(error);
+
+      return res.status(204).end();
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
