@@ -1,26 +1,20 @@
-const jwt = require('jsonwebtoken');
+const createAuthentication = require('../middlewares/auth/auth');
 const { Users } = require('../models');
-
-const SECRET_JWT = process.env.SECRECT_JWT;
-
-const jwtConfig = {
-  algorithm: 'HS256',
-  expiresIn: '7d',
-};
 
 const createUser = async (displayName, email, password, image) => {
     const findEmailUser = await Users.findOne({ where: { email } });
     
     if (findEmailUser) return { error: 'Email_Exists' };
 
-    await Users.create({ displayName, email, password, image });
+    const user = await Users.create({ displayName, email, password, image });
 
     const userWithoutPWD = {
+      id: user.id,
       displayName,
       email,
     };
 
-    const token = jwt.sign({ data: userWithoutPWD }, SECRET_JWT, jwtConfig);
+    const token = await createAuthentication(userWithoutPWD);
     return token;
 };
 

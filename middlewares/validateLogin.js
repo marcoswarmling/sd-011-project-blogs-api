@@ -1,49 +1,30 @@
+const Joi = require('joi');
 const { Users } = require('../models');
+
+const schemaLogin = Joi.object().keys({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
+
+const validateLoginJoi = async (req, res, next) => {
+  const validate = schemaLogin.validate(req.body);
+  if (validate.error) {
+    return res.status(400).json({
+      message: validate.error.details[0].message,
+    });
+  }
+  next();
+};
 
 const error = 'Invalid fields';
 
-const isValidateEmailBinding = async (req, res, next) => {
-  const { email } = req.body;
-  if (!email) {
-    return res.status(400).json({ message: '"email" is required' });
-    }
-  if (email === '') {
-    return res.status(400).json({ message: '"email" is not allowed to be empty' });
-  }
-  next(); 
-};
-
-const isisValidatePasswordBinding = async (req, res, next) => {
-  const { password } = req.body;
-  if (!password) {
-    return res.status(400).json({ message: '"password" is required' });
-  }
-  if (password === '') {
-    return res.status(400).json({ message: '"password" is not allowed to be empty' });
-  }
-  next();
-};
-
-const isValidateEmail = async (req, res, next) => {
-  const { email } = req.body;
-  const validateUserEmail = await Users.findOne({ where: { email } });
-  const emailReg = /\S+@\S+\.\S+/;
-  if (!emailReg.test(email)) {
-    return res.status(400).json({ message: error });
-    }  
-  if (email !== validateUserEmail.email) {
+const validateLoginData = async (req, res, next) => {
+  const { password, email } = req.body;
+  const validate = await Users.findOne({ where: { email } });
+  if (!validate || validate.email !== email || validate.password !== password) {
     return res.status(400).json({ message: error });
   }
-  next();
-};
-
-const isValidatePassword = async (req, res, next) => {
-  const { password } = req.body;
-  const validateUserPassword = await Users.findOne({ where: { password } });
-  if (validateUserPassword === null || !validateUserPassword) {
-    return res.status(400).json({ message: error });
-  }
-  if (password !== validateUserPassword.password) {
+  if (password !== validate.password) {
     return res.status(400).json({ message: error });
   }
 
@@ -51,8 +32,6 @@ const isValidatePassword = async (req, res, next) => {
 };
 
 module.exports = {
-  isValidateEmailBinding,
-  isisValidatePasswordBinding,
-  isValidateEmail,
-  isValidatePassword,
+  validateLoginData,
+  validateLoginJoi,
 }; 

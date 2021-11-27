@@ -3,15 +3,11 @@ const router = require('express').Router();
 const { createUser } = require('../controllers/usersControllers');
 
 const {
-  isValidateDisplayName,
-  isValidateEmail,
-  isValidatePassword,
+  validateUserJoi,
 } = require('../middlewares/validateUsers');
 
 router.post('/',
-  isValidateDisplayName,
-  isValidateEmail,
-  isValidatePassword,
+  validateUserJoi,
   createUser);
 
 module.exports = router;

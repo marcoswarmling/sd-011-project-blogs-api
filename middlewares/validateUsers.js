@@ -1,39 +1,24 @@
-const isValidateDisplayName = (req, res, next) => {
-  const { displayName } = req.body;
-  if (!displayName || displayName.length < 8) {
-    return res.status(400)
-    .json({ message: '"displayName" length must be at least 8 characters long' });
+const Joi = require('joi');
+
+const schemaUser = Joi.object().keys({
+  displayName: Joi.string().min(8).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required().messages({
+    'string.min': '"password" length must be 6 characters long',
+  }),
+  image: Joi.string().required(),
+});
+
+const validateUserJoi = async (req, res, next) => {
+  const validate = schemaUser.validate(req.body);
+  if (validate.error) {
+    return res.status(400).json({
+      message: validate.error.details[0].message,
+    });
   }
-  next();
-};
-
-const isValidateEmail = (req, res, next) => {
-  const { email } = req.body;
-  const emailReg = /\S+@\S+\.\S+/;
-  if (!email) {
-    return res.status(400).json({ message: '"email" is required' });
-    } if (!emailReg.test(email)) {
-    return res.status(400).json({ message: '"email" must be a valid email' });
-    }
-    next(); 
-};
-
-const isValidatePassword = (req, res, next) => {
-  const { password } = req.body;
-
-  if (!password) {
-    return res.status(400).json({ message: '"password" is required' });
-  }
-  if (password.length !== 6) {
-    return res.status(400).json({ 
-      message: '"password" length must be 6 characters long' });
-  }
-
   next();
 };
 
 module.exports = {
-  isValidateDisplayName,
-  isValidateEmail,
-  isValidatePassword,
+  validateUserJoi,
 };

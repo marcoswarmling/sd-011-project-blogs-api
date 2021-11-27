@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
     if (token.error && token.error === 'Email_Exists') {
       return res.status(409).json({ message: 'User already registered' });
     }
-    return res.status(201).json({ token });
+    return res.status(201).json(token);
   } catch (e) {
     return res.status(500).json({ message: 'Erro no servidor!' });
   }
