@@ -1,4 +1,5 @@
 const { BlogPost, PostsCategory } = require('../../models');
+const servicesCategory = require('./category');
 require('dotenv').config();
 
 const createPost = async (items) => {
@@ -20,6 +21,17 @@ const createPost = async (items) => {
   }
 };
 
+const findCategoriesById = async (categories) => {
+  const allCategories = await servicesCategory.getAllCategories();
+  const validCategories = allCategories.map(({ dataValues }) => dataValues.id);
+
+  if (categories.some((el) => !validCategories.includes(el))) {
+    return { message: '"categoryIds" not found' };
+  }
+  return false;
+};
+
 module.exports = {
   createPost,
+  findCategoriesById,
 };
