@@ -7,5 +7,6 @@ const { postValidate, validateCategory } = require('../middlewares/postValidatio
 const router = express.Router();
 
 router.post('/', userAuth, postValidate, validateCategory, PostsController.create);
+router.get('/', userAuth, PostsController.findAll);
 
 module.exports = router;

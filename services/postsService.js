@@ -1,4 +1,4 @@
-const { BlogPosts, PostsCategories } = require('../models');
+const { BlogPosts, PostsCategories, Users, Categories } = require('../models');
 
 const create = async ({ title, content, id }) => {
   const newPost = await BlogPosts.create({ title, content, userId: id });
@@ -16,7 +16,21 @@ const createPostCategories = async ({ postId, categoryId }) => {
   return newPostCategorys;
 };
 
+const findAll = async () => {
+  const posts = await BlogPosts.findAll({
+    include: [
+      { model: Users, as: 'user' },
+      { model: Categories, as: 'Categories' },
+    ],
+  });
+  if (!posts) {
+    throw new Error('Invalid Operation');
+  }
+  return posts;
+};
+
 module.exports = {
   create,
   createPostCategories,
+  findAll,
 }; 
