@@ -17,7 +17,10 @@ const findCategories = async (categories) => {
   return false;
 };
 
+const getAllPosts = async () => BlogPost.findAll({ includes: [{ all: true }] });
+
 module.exports = {
   createPost,
+  getAllPosts,
   findCategories,
 };
