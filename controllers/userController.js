@@ -21,12 +21,23 @@ const loginUser = async (req, res, next) => {
   
     return res.status(200).json({ token });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     next(error);
   }
 };
+const getAllUsers = async (_req, res, next) => {
+  try {
+    const users = await userService.getAllUsers();
+    
+    return res.status(200).json(users);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
 
 module.exports = {
   createUser,
   loginUser,
+  getAllUsers,
 };
