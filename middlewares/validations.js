@@ -7,6 +7,9 @@ const {
   EMAIL_EMPTY,
   PASSWORD_EMPTY,
   NAME_REQ,
+  TITLE_REQ,
+  CONTENT_REQ,
+  CATEGORY_REQ,
 } = require('../utils/errorMessages');
 
 const { BAD_REQUEST } = require('../utils/statusError');
@@ -53,10 +56,20 @@ const isValidCategorie = async (req, res, next) => {
   next();
 };
 
+const isValidBlogPost = async (req, res, next) => {
+  const { title, content, categoriesIds } = req.body;
+
+  if (!title || title === '') return res.status(BAD_REQUEST).json(TITLE_REQ);
+  if (!content) return res.status(BAD_REQUEST).json(CONTENT_REQ);
+  if (categoriesIds.length === 0) return res.status(BAD_REQUEST).json(CATEGORY_REQ);
+  next();
+};
+
 module.exports = {
   isValidDisplayName,
   isValidEmail,
   isValidPassword,
   isValidLoginUser,
   isValidCategorie,
+  isValidBlogPost,
 };

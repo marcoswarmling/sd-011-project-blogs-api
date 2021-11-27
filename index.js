@@ -10,10 +10,12 @@ app.use(bodyParser.json());
 const userRouter = require('./routers/userRouters');
 const loginRouter = require('./routers/loginRouter');
 const categorieRouter = require('./routers/categorieRouter');
+const postRouter = require('./routers/postRouters');
 
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/categories', categorieRouter);
+app.use('/post', postRouter);
 
 const PORT = process.env.PORT || 3000;
 
