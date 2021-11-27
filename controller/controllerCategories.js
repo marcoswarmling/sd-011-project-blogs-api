@@ -8,6 +8,14 @@ async function insertCategorie(req, res) {
   res.status(201).json(result);
 }
 
+async function getAllCategories(_req, res) {
+  const result = await Categories.findAll()
+    .catch(() => res.status(500).json({ message: 'Erro interno' }));
+
+  res.status(200).json(result);
+}
+
 module.exports = {
   insertCategorie,
+  getAllCategories,
 };
