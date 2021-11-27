@@ -2,7 +2,9 @@ module.exports = (sequelize, DataTypes) => {
   const BlogPosts = sequelize.define('BlogPosts', {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
+    userId: {
+      type: DataTypes.INTEGER,
+    foreignKey: true },
     published: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     updated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   }, { timestamps: false });
