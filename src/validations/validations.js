@@ -12,6 +12,12 @@ const validateUser = (data) => {
   return schema;
 };
 
+const validateCategory = (data) => {
+  const schema = Joi.object({ name: Joi.string().required() }).validate(data);
+
+  return schema;
+};
+
 const validateCredentials = (data) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
@@ -25,4 +31,5 @@ const validateCredentials = (data) => {
 module.exports = {
   validateUser,
   validateCredentials,
+  validateCategory,
 };
