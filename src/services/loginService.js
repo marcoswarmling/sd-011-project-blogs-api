@@ -8,11 +8,11 @@ const loginUser = async (data) => {
 
   const { email, password } = data;
 
-  const user = User.findOne({
+  const user = await User.findOne({
     where: { email, password },
   });
 
-  if (!user) return createError('badRequest', 'invalid fields');
+  if (!user) return createError('badRequest', 'Invalid fields');
   return user;
 };
 
