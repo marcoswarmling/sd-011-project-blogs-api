@@ -26,6 +26,17 @@ class UserController {
       return res.status(400).json(error.message);
     }
   }
+
+  static async getUserById(req, res) {
+    const { id } = req.params;
+    
+    const findedUser = await db.Users.findOne({ where: { id } });
+    
+    if (findedUser) {
+      return res.status(200).json(findedUser);
+    }
+      return res.status(404).json({ message: 'User does not exist' });
+  }
 }
 
 module.exports = UserController;

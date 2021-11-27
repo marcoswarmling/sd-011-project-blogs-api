@@ -12,5 +12,6 @@ const validations = [emailValidation, nameLengthValidation,
 
 router.get('/', tokenValidation, UserController.getAllUsers);
 router.post('/', validations, UserController.createUser);
+router.get('/:id', tokenValidation, UserController.getUserById);
 
 module.exports = router;
