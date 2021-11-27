@@ -1,17 +1,14 @@
-const { User } = require('../models');
-
 const {
   DISPLAY_NAME,
   EMAIL,
   EMAIL_REQ,
   PASSWORD_REQ,
   PASSWORD,
-  USER,
   EMAIL_EMPTY,
   PASSWORD_EMPTY,
 } = require('../utils/errorMessages');
 
-const { BAD_REQUEST, CONFLICT } = require('../utils/statusError');
+const { BAD_REQUEST } = require('../utils/statusError');
 
 const isValidDisplayName = (req, res, next) => {
   const { displayName } = req.body;
