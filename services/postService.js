@@ -1,7 +1,7 @@
 const { BlogPost } = require('../models');
 const { isValidUser } = require('../utils/validations');
 
-const postRegister = (post, userEmail) => {
+const postRegister = async (post, userEmail) => {
   const { title, content, categoryIds } = post;
 
   const result = await isValidUser(userEmail);
