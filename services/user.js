@@ -39,6 +39,28 @@ const createUser = async (data) => {
   }
 };
 
+const validateLogin = async (data) => {
+  try {
+    const { email, password } = data;
+
+    const user = await User.findAll({ where: {
+        email,
+        password,
+    } });
+
+    if (user.length === 0) {
+      return { message: 'Invalid fields', status: 400 };
+    }
+
+    return { token: generateToken({ email: user.email }) };
+  } catch (error) {
+    console.log(error.message);
+
+    return { message: 'Algo deu errado', status: 500 };
+  }
+};
+
 module.exports = {
   createUser,
+  validateLogin,
 };

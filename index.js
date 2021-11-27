@@ -14,3 +14,4 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', Middleware.validateNewUser, ControllerUser.createUser);
+app.post('/login', Middleware.validateLogin, ControllerUser.login);
