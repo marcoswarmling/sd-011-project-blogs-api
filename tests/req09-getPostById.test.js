@@ -39,6 +39,7 @@ describe('9 - Sua aplicação deve ter o endpoint GET `post/:id`', () => {
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
+        console.log(result)
         expect(result.id).toBe(1);
         expect(result.title).toBe('Post do Ano');
         expect(result.content).toBe('Melhor post do ano');

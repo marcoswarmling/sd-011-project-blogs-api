@@ -23,9 +23,7 @@ const getAll = async () => {
   const response = posts.map(async (post) => {
     const user = await User.findOne({ where: { id: post.userId } });
 
-    const removePassword = Object.entries(user.dataValues).filter(
-      (element) => element[0] !== 'password',
-    );
+    const removePassword = Object.entries(user.dataValues).filter((el) => el[0] !== 'password');
 
     const formatedUser = Object.fromEntries(removePassword);
 
@@ -38,10 +36,21 @@ const getAll = async () => {
     return { ...post.dataValues, user: formatedUser, categories: categoriesName };
   });
 
-  return response;
+  const getResponse = await Promise.all(response).then((post) => post);
+
+  return getResponse;
+};
+
+const findById = async (id) => {
+  const allPosts = await getAll();
+
+  const postId = allPosts.filter((post) => post.id === Number(id));
+
+  return postId;
 };
 
 module.exports = {
   create,
   getAll,
+  findById,
 };

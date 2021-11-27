@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { validateToken } = require('../middlewares/validateUser');
 const { validatePost } = require('../middlewares/validatePost');
-const { create, getAll } = require('../services/postService');
+const { create, getAll, findById } = require('../services/postService');
 
 router.post('/post', validateToken, validatePost, async (req, res) => {
   const { title, content, categoryIds } = req.body;
@@ -18,9 +18,19 @@ router.post('/post', validateToken, validatePost, async (req, res) => {
 router.get('/post', validateToken, async (_req, res) => {
   const response = await getAll();
 
-  const getResponse = await Promise.all(response).then((post) => post);
+  res.status(200).json(response);
+});
 
-  res.status(200).json(getResponse);
+router.get('/post/:id', validateToken, async (req, res) => {
+  const { id } = req.params;
+
+  const response = await findById(id);
+
+  if (!response.length) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+
+  res.status(200).json(response[0]);
 });
 
 module.exports = router;
