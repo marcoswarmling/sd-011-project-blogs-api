@@ -9,10 +9,6 @@ const {
 router.post('/',
   validateLoginJoi,
   validateLoginData,
-  // isValidateEmailBinding,
-  // isisValidatePasswordBinding,
-  // isValidateEmail,
-  // isValidatePassword,
   createLogin);
 
 module.exports = router; 
