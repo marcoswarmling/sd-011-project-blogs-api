@@ -1,4 +1,4 @@
-const { User } = require('../model');
+const { User } = require('../models');
 
 const validEmailFormat = (email) => {
   const re = /^\w+@\w+.com(.br)?$/;
