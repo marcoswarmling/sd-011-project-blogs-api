@@ -6,6 +6,7 @@ const {
   PASSWORD,
   EMAIL_EMPTY,
   PASSWORD_EMPTY,
+  NAME_REQ,
 } = require('../utils/errorMessages');
 
 const { BAD_REQUEST } = require('../utils/statusError');
@@ -45,9 +46,17 @@ const isValidLoginUser = async (req, res, next) => {
   next();
 };
 
+const isValidCategorie = async (req, res, next) => {
+  const { name } = req.body;
+
+  if (!name) return res.status(BAD_REQUEST).json(NAME_REQ);
+  next();
+};
+
 module.exports = {
   isValidDisplayName,
   isValidEmail,
   isValidPassword,
   isValidLoginUser,
+  isValidCategorie,
 };

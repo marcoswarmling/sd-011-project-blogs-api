@@ -9,9 +9,11 @@ app.use(bodyParser.json());
 
 const userRouter = require('./routers/userRouters');
 const loginRouter = require('./routers/loginRouter');
+const categorieRouter = require('./routers/categorieRouter');
 
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
+app.use('/categories', categorieRouter);
 
 const PORT = process.env.PORT || 3000;
 
