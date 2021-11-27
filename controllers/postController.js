@@ -9,6 +9,7 @@ const {
   getAll,
   findById,
   updateById,
+  deletePost,
 } = require('../services/postService');
 
 router.post('/post', validateToken, validatePost, async (req, res) => {
@@ -50,6 +51,17 @@ router.put('/post/:id', validateToken, validUpdatePost, async (req, res) => {
   }
 
   res.status(200).json(response);
+});
+
+router.delete('/post/:id', validateToken, async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req;
+
+  const error = await deletePost(id, userId);
+
+  if (error) return res.status(error.code).json({ message: error.message });
+
+  res.status(204).json();
 });
 
 module.exports = router;
