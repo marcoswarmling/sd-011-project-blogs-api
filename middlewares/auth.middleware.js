@@ -7,7 +7,6 @@ const { JWT_SECRET } = process.env;
 module.exports = (req, _res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log(token)
     if (!token) return next(ApiError.tokenNotFound());
     
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
