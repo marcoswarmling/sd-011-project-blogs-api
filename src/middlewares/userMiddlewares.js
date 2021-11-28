@@ -67,7 +67,6 @@ const userAlreadyExists = async (req, res, next) => {
 const validateJWT = async (req, res, next) => {
     const token = req.headers.authorization;
     const tokenValidate = await tokenJwtIsValid(token);
-
     if (!token) {
         return res.status(401).json({
         message: 'Token not found',

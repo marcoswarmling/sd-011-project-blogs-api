@@ -5,7 +5,7 @@ require('dotenv/config');
 const secret = process.env.JWT_SECRET;
 
 const tokenJwtIsValid = (token) => {
-    try {
+     try {
         const decoded = jwt.verify(token, secret);
         return decoded;
     } catch (error) {
