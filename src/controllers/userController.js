@@ -62,8 +62,7 @@ const getUserById = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    console.log(req.body);
-    const { email, password } = req.body;
+    const { email } = req.body;
     const { error } = loginSchema.validate(req.body);
     if (error) { return res.status(400).json({ message: error.details[0].message }); }
     const user = await User.findOne({ where: { email } });
