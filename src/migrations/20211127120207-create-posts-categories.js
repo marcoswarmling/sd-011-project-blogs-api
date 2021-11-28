@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
    return queryInterface.createTable('PostsCategories', {
-     blogpostId: {
+     postId: {
        type: Sequelize.INTEGER,
        references: {
          model:'BlogPosts',
@@ -25,11 +25,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+    await queryInterface.dropTable('PostsCategories');
   }
 };

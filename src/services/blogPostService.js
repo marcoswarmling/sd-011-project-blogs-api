@@ -1,6 +1,6 @@
-const { BlogPost, User, PostCategory } = require('../models');
+const { BlogPost, User, PostCategory, Category } = require('../models');
 
-const messageErrorServer = 'Internal Error Server';
+const messageErrorServer = { code: 500, result: { message: 'Internal Error Server' } };
 
 const createBlogPost = async (userEmail, title, content, categoryIds) => {
   const today = new Date();
@@ -18,10 +18,25 @@ const createBlogPost = async (userEmail, title, content, categoryIds) => {
       result: { id: postCreated.id, userId, title, content },
     };
   } catch (error) {
-    return { code: 500, result: { message: messageErrorServer } };
+    return messageErrorServer;
+  }
+};
+
+const getAllBlogPosts = async () => {
+  try {
+    const blogPostsFind = await BlogPost.findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return { code: 200, result: blogPostsFind };
+  } catch (error) {
+    return messageErrorServer;
   }
 };
 
 module.exports = {
   createBlogPost,
+  getAllBlogPosts,
 };

@@ -11,4 +11,6 @@ route.post(
   BlogPostController.createBlogPost,
   );
 
+route.get('/', TokenValidate.checkAuthenticatedUser, BlogPostController.getAllBlogPosts);
+
 module.exports = route;
