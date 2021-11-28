@@ -27,6 +27,21 @@ async function createUser(userObj) {
   return token;
 }
 
+async function userLogin(loginObj) {
+  const { email, password } = loginObj;
+
+  const checkUserLogin = await User.findOne({ where: { email, password } });
+
+  if (!checkUserLogin) {
+    const err = JSON.stringify({ status: 400, message: 'Invalid fields' });
+    throw new Error(err);
+  }
+  const token = getToken(email, checkUserLogin.id);
+
+  return token;
+}
+
 module.exports = {
   createUser,
+  userLogin,
 };

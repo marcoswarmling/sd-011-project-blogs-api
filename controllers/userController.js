@@ -12,6 +12,19 @@ async function createUser(req, res) {
   }
 }
 
+async function userLogin(req, res) {
+  const loginObj = req.body;
+  try {
+    const result = await userService.userLogin(loginObj);
+    return res.status(200).json({ token: result });
+  } catch (error) {
+    const err = JSON.parse(error.message);
+    console.log(err);
+    res.status(err.status).json({ message: err.message });
+  }
+}
+
 module.exports = {
   createUser,
+  userLogin,
 };
