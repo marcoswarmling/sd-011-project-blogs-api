@@ -1,4 +1,4 @@
-// model é a representação de uma linha da tabela no mysql;
+// model acessa a tabela (User), é a representação de uma linha da tabela no mysql;
 
 const User = (sequelize, DataTypes) => {
   const user = sequelize.define('User', {
@@ -6,6 +6,8 @@ const User = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     image: DataTypes.STRING,
+  }, {
+    timestamps: false,
   });
   return user;
 };
