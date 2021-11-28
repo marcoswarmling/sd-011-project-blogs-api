@@ -18,6 +18,16 @@ const jtwConfig = {
   algorithm: 'HS256',
 };
 
+const getAll = async (req, res) => {
+  try {
+    const category = await Category.findAll({});
+    return res.status(200).json(category);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Ocorreu um erro' });
+  }
+};
+
 const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
@@ -34,6 +44,7 @@ const createCategory = async (req, res) => {
 
 module.exports = {
   createCategory,
+  getAll,
   
   // createAdmin,
 };

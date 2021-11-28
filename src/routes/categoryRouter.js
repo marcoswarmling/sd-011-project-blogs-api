@@ -5,7 +5,7 @@ const auth = require('../middlewares/auth');
 const router = express.Router();
 
 router.use(express.json());
-// router.get('/', auth, user.getAll);
+router.get('/', auth, category.getAll);
 router.post('/', auth, category.createCategory);
 // router.get('/:id', auth, user.getUserById);
 
