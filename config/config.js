@@ -4,24 +4,24 @@ const { MYSQL_USER, MYSQL_PASSWORD, HOSTNAME } = process.env;
 
 module.exports = {
   development: {
-    username: MYSQL_USER,
-    password: MYSQL_PASSWORD,
+    username: 'root',
+    password: 'Dario@55852565',
     database: 'blogs_api',
-    host: HOSTNAME,
+    host: 'localhost',
     dialect: 'mysql',
   },
   test: {
-    username: MYSQL_USER,
-    password: MYSQL_PASSWORD,
+    username: 'root',
+    password: 'Dario@55852565',
     database: 'blogs_api',
-    host: HOSTNAME,
+    host: 'localhost',
     dialect: 'mysql',
   },
   production: {
-    username: MYSQL_USER,
-    password: MYSQL_PASSWORD,
+    username: 'root',
+    password: 'Dario@55852565',
     database: 'blogs_api',
-    host: HOSTNAME,
+    host: 'localhost',
     dialect: 'mysql',
   },
 };
