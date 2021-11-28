@@ -34,11 +34,19 @@ testUser = {
 
 def getAllUsers():
     try:
-        response = requests.get(url=f"{baseURL}/user", headers=headers).text
-        response = json.loads(response)[0]
+        response = requests.get(url=f"{baseURL}/user/21", headers=headers).text
+        response = json.loads(response)
+        print(response)
+        print("Body response:")
+
+        for i in response:
+            print(f"{i}: {response[i]}")
+        print("\n")
+
         assert response["email"] == testUser["email"]
         assert response["displayName"] == testUser["displayName"]
         assert response["image"] == testUser["image"]
+        print("All tests passed!")
 
     except AssertionError:
         _, _, tb = sys.exc_info()
