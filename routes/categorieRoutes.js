@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createCategorie, getAllCategories } = require('../controllers/categoriesControlles');
+const { createCategorie, getAllCategories } = require('../controllers/categoriesControllers');
 
 const {
   validateCategorieJoi,
