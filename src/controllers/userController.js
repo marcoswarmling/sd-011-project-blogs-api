@@ -1,7 +1,7 @@
 // @ts-nocheck
 require('dotenv').config();
 
-const express = require('express');
+const rescue = require('express-rescue');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const { BlogPost, Category, User } = require('../models');
@@ -86,10 +86,27 @@ const login = async (req, res) => {
   }
 };
 
+const deleteOwnUser = rescue(async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.data.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User does not exist' });
+    }
+
+    await sequelize.transaction(async (t) => {
+      await user.destroy({ transaction: t });
+      return res.status(204).json();
+    });
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Ocorreu um erro' });
+  }
+});
+
 module.exports = {
   getAll,
   createUser,
   getUserById,
   login,
-  // createAdmin,
+  deleteOwnUser,
 };
