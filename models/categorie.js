@@ -3,6 +3,7 @@ const Categorie = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
   }, {
     timestamps: false,
+    tableName: 'Categories',
   });
   return CategorieTable;
 };
