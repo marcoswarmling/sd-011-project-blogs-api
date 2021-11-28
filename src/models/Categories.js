@@ -1,6 +1,7 @@
+/* eslint-disable no-shadow */
 // prettier-ignore
 const Category = (sequelize, DataTypes) => {
-  const CategoryS = sequelize.define('Category', {
+  const Category = sequelize.define('Category', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -13,7 +14,7 @@ const Category = (sequelize, DataTypes) => {
     timestamps: false,
   });
   
-  return CategoryS;
+  return Category;
 };
 
 module.exports = Category;

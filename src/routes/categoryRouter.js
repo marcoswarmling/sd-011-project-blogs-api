@@ -9,8 +9,4 @@ router.get('/', auth, category.getAll);
 router.post('/', auth, category.createCategory);
 // router.get('/:id', auth, user.getUserById);
 
-router.get('/', (req, res) => {
-  res.send('hello');
-});
-
 module.exports = router;

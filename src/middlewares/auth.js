@@ -13,7 +13,7 @@ module.exports = rescue(async (req, res, next) => {
     const decoded = jwt.verify(token, key);
     const user = await User.findOne({ where: { id: decoded.id } });
     if (!user) return res.status(401).json({ message: 'Unauthorized' });
-    req.data = user;
+    req.data = user.dataValues;
     next();
   } catch (error) {
      return next({ code: 401, message: 'Expired or invalid token' });

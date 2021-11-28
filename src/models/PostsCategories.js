@@ -1,26 +1,26 @@
 /* eslint-disable no-shadow */
 
 const PostsCategory = (sequelize, DataTypes) => {
-  const PostsCategoryS = sequelize.define('PostsCategory', {},
+  const PostsCategory = sequelize.define('PostsCategory', {},
     { timestamps: false });
 
-  PostsCategoryS.associate = (models) => {
-    models.BlogPost.belongsToMany(models.User, {
-      as: 'users',
-      through: 'PostsCategories',
+  PostsCategory.associate = (models) => {
+    models.BlogPost.belongsToMany(models.Category, {
+      through: 'PostsCategory',
       foreignKey: 'postId',
-      otherKey: 'userId',
+      otherKey: 'categoryId',
+      
     });
 
-    models.User.belongsToMany(models.BlogPost, {
-      as: 'posts',
-      through: 'PostsCategories',
-      foreignKey: 'userId',
+    models.Category.belongsToMany(models.BlogPost, {
+      through: 'PostsCategory',
+      foreignKey: 'categoryId',
       otherKey: 'postId',
+     
     });
   };
 
-  return PostsCategoryS;
+  return PostsCategory;
 };
 
 module.exports = PostsCategory;
