@@ -1,5 +1,5 @@
-// const postService = require('../')
+const postService = require('../')
 
-// module.exports = {
+module.exports = {
 
-// }
+}
