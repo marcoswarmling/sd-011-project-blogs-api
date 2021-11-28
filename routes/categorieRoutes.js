@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createCategories } = require('../controllers/categoriesControlles');
+const { createCategorie, getAllCategories } = require('../controllers/categoriesControlles');
 
 const {
   validateCategorieJoi,
@@ -9,6 +9,7 @@ const {
   isValidateToken,
 } = require('../middlewares/auth/validateAuth');
 
-router.post('/', validateCategorieJoi, isValidateToken, createCategories);
+router.get('/', isValidateToken, getAllCategories);
+router.post('/', validateCategorieJoi, isValidateToken, createCategorie);
 
 module.exports = router;
