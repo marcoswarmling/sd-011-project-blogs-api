@@ -13,11 +13,12 @@ const createUser = async (req, res) => {
       return res.status(409).json({ message: 'User already registered' });
     }
 
-    await Users.create({ displayName, email, password, image });
+    const newUser = await Users.create({ displayName, email, password, image });
     
     const token = jwt.sign({
       displayName,
       email,
+      userId: newUser.dataValues.id,
     }, 'secret', { expiresIn: '8h' });
 
     return res.status(201).json({ token });
