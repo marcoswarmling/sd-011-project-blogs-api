@@ -28,4 +28,19 @@ router.post('/', validateToken, validateBlogPostSchema, async (req, res) => {
   });
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const posts = await BlogPost.findAll({
+      include: [{
+        model: Category,
+        as: 'categories',
+      }],
+    });
+    return res.status(200).json(posts);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+});
+
+
 module.exports = router;
