@@ -17,6 +17,7 @@ async function createUser(req, res, next) {
   
     return next(ApiError.alreadyRegistered());
   } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRROR', err);
     return next(ApiError.internalServerError());
   }
 }

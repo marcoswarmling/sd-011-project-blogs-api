@@ -6,11 +6,11 @@ function validateUserFields(req, _res, next) {
     const { body } = req;
   
     const fieldExists = VALIDATION.verifyFieldExists(body);
-    if (fieldExists) return next(fieldExists);
-    const fieldLengths = VALIDATION.verifyFieldLength(body);
-    if (fieldLengths) return next(fieldLengths);
+    if (fieldExists) return next(fieldExists());
+    const fieldLength = VALIDATION.verifyFieldLength(body);
+    if (fieldLength) return next(fieldLength());
     const incorrectEmailFormat = VALIDATION.verifyEmailFormat(body);
-    if (incorrectEmailFormat) return next(incorrectEmailFormat);
+    if (incorrectEmailFormat) return next(incorrectEmailFormat());
   
     return next();
   } catch (err) {
