@@ -26,6 +26,16 @@ const createUser = async (req, res) => {
   }
 };
 
+// Função para auxiliar na validação do Token
+const isTokenValid = (auth) => {
+  const validToken = jwt.verify(auth, 'secret', (error, decoded) => {
+    if (error) return null;
+    return decoded;
+  });
+
+  return validToken;
+};
+
 // Requisito 3
 const listUsers = async (req, res) => {
   const auth = req.headers.authorization;
@@ -34,13 +44,7 @@ const listUsers = async (req, res) => {
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  const validToken = jwt.verify(auth, 'secret', (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Expired or invalid token' });
-    }
-
-    return decoded;
-  });
+  const validToken = isTokenValid(auth);
 
   if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
 
@@ -52,7 +56,28 @@ const listUsers = async (req, res) => {
   }
 };
 
+// Requisito 4
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const auth = req.headers.authorization;
+
+  if (!auth) return res.status(401).json({ message: 'Token not found' });
+
+  const validToken = isTokenValid(auth);
+
+  if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
+
+  try {
+    const user = await Users.findByPk(id, { attributes: ['id', 'displayName', 'email', 'image'] });
+    if (!user) return res.status(404).json({ message: 'User does not exist' });
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
 module.exports = {
   createUser,
   listUsers,
+  getUserById,
 };
