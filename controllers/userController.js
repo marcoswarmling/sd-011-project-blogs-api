@@ -26,7 +26,6 @@ async function userLogin(req, res) {
 
 async function getAllUsers(_req, res) {
   try {
-    console.log('aqui');
     const result = await userService.getAllUsers();
     return res.status(200).json(result);
   } catch (error) {
@@ -35,8 +34,20 @@ async function getAllUsers(_req, res) {
   }
 }
 
+async function getUserById(req, res) {
+  const { id } = req.params;
+  try {
+    const result = await userService.getUserById(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    const err = JSON.parse(error.message);
+    return res.status(err.status).json({ message: err.message });
+  }
+}
+
 module.exports = {
   createUser,
   userLogin,
   getAllUsers,
+  getUserById,
 };
