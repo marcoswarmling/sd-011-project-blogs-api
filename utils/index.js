@@ -55,4 +55,20 @@ module.exports = {
     message: '"name" is required',
     status: 400,
   },
+  titleIsRequired: {
+    message: '"title" is required',
+    status: 400,
+  },
+  contentIsRequired: {
+    message: '"content" is required',
+    status: 400,
+  },
+  categoryIsRequired: {
+    message: '"categoryIds" is required',
+    status: 400,
+  },
+  categoryNotFound: {
+    message: '"categoryIds" not found',
+    status: 400,
+  },
 };

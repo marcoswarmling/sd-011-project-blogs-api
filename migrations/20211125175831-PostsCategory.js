@@ -24,7 +24,7 @@ module.exports = {
         primaryKey: true,
       },
     }, {
-      timestamp: false,
+      timestamps: false,
     });
   },
 

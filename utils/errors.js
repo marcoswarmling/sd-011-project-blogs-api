@@ -18,6 +18,10 @@ const tokenNotFound = newError('tokenNotFound');
 const tokenMalformed = newError('tokenMalformed');
 const userNotFound = newError('userNotFound');
 const nameIsRequired = newError('nameIsRequired');
+const titleIsRequired = newError('titleIsRequired');
+const contentIsRequired = newError('contentIsRequired');
+const categoryIsRequired = newError('categoryIsRequired');
+const categoryNotFound = newError('categoryNotFound');
 
 module.exports = {
   userAlreadyRegistered,
@@ -34,4 +38,8 @@ module.exports = {
   tokenMalformed,
   userNotFound,
   nameIsRequired,
+  titleIsRequired,
+  contentIsRequired,
+  categoryIsRequired,
+  categoryNotFound,
 };

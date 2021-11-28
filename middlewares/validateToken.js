@@ -8,7 +8,7 @@ function validateToken(req, _res, next) {
   if (!authorization) throw error.tokenNotFound;
   try {
     const data = jwt.verify(authorization, secret);
-    req.jwtData = data;
+    req.token = data;
 
     next();
   } catch (e) {

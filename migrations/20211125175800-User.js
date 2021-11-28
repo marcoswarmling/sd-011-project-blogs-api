@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false,
       },
     }, {
-      timestamp: false,
+      timestamps: false,
     });
   },
 
