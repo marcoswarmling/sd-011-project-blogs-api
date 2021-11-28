@@ -36,6 +36,28 @@ const getAll = async (req, res) => {
   }
 };
 
+const getPostById = async (req, res) => {
+  try {
+    const post = await BlogPost.findOne({
+      where: { id: req.params.id },
+      attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
+      include: [
+        { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    
+    return res.status(200).json(post);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Ocorreu um erro' });
+  }
+};
+
 const createPost = async (req, res) => {
   try {
     console.log(req.data, 'DATA');
@@ -74,6 +96,7 @@ const createPost = async (req, res) => {
 module.exports = {
   createPost,
   getAll,
+  getPostById,
   
   // createAdmin,
 };
