@@ -4,12 +4,16 @@ const UserService = require('../services/user.services');
 
 async function createUser(req, res, next) {
   try {
-    const { email } = req.body;
+    const { displayName, email, password, image } = req.body;
 
-    const getEmail = await UserService.getUserByEmail(email);
+    const emailExists = await UserService.getUserByEmail(email);
 
-    console.log(getEmail);
-    return res.status(HttpCodes.code.OK).send('Olá mundo no createUser!');
+    if (!emailExists) {
+      await UserService.createUserInDB({ displayName, email, password, image });
+      res.status(HttpCodes.code.OK).send('criado');
+    }
+  
+    return next(ApiError.alreadyRegistered());
   } catch (err) {
     console.log('ERRO:', err);
     return next(ApiError.internalServerError());

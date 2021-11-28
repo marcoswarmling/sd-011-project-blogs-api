@@ -8,7 +8,7 @@ class ApiError {
 
   static alreadyRegistered() {
     return new ApiError(
-      HTTP_STATUS.code.BAD_REQUEST,
+      HTTP_STATUS.code.CONFLICT,
       HTTP_STATUS.EMAIL_ALREADY_EXIST,
     );
   }

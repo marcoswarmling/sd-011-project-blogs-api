@@ -1,15 +1,15 @@
 const { User } = require('../models');
 
 async function getUserByEmail(email) {
-  // console.log('chegou:', email);
-  const emailExists = await User.findAll();
-  console.log(emailExists);
-  // return emailExists;
-  return email;
+  const emailExists = await User.findOne({ where: { email } });
+  return emailExists;
 }
 
-function createUserInDB() {
-  // código
+async function createUserInDB(user) {
+  const emailExists = await User.create(user);
+  console.log(emailExists);
+
+  return true;
 }
 
 module.exports = {
