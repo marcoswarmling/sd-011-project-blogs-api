@@ -5,8 +5,11 @@ class UserController {
     this.userServices = new UserServices();
   }
 
-  async getAllUsers(_req, res) {
-    const { code, data } = await this.userServices.getAllUsers();
+  async getAllUsers(req, res) {
+    const { code, data, message } = await this.userServices.getAllUsers(req.headers.authorization);
+    if (message) {
+      return res.status(code).json({ message });
+    }
     return res.status(code).json(data);
   }
 
