@@ -28,19 +28,15 @@ router.post('/', validateToken, validateBlogPostSchema, async (req, res) => {
   });
 });
 
-router.get('/', async (req, res) => {
+router.get('/', validateToken, async (req, res) => {
   try {
     const posts = await BlogPost.findAll({
-      include: [{
-        model: Category,
-        as: 'categories',
-      }],
+      include: [{ all: true }],
     });
     return res.status(200).json(posts);
   } catch (error) {
     return res.status(500).send(error);
   }
 });
-
 
 module.exports = router;
