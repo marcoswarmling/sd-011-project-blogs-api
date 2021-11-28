@@ -5,7 +5,7 @@ module.exports = (err, _req, res, _next) => {
     MISSING_TOKEN: { status: 401, message: 'Token not found' },
     INVALID_TOKEN: { status: 401, message: 'Expired or invalid token' },
     INEXISTENT_USER: { status: 404, message: 'User does not exist' },
-    ER_NO_REFERENCED_ROW_2: { status: 400, message: '\"categoryIds\" not found' },
+    ER_NO_REFERENCED_ROW_2: { status: 400, message: '"categoryIds" not found' },
   };
   let response;
   if (err.parent) response = decoder[err.parent.code];

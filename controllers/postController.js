@@ -1,9 +1,8 @@
 const postService = require('../services/postService');
 
 const createPost = async (req, res, next) => {
-  try{
+  try {
     const { body, user } = req;
-
 
     const response = await postService.createPost(body, user);
 
@@ -16,4 +15,4 @@ const createPost = async (req, res, next) => {
 
 module.exports = {
   createPost,
-}
+};
