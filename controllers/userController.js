@@ -1,7 +1,7 @@
 const rescue = require('express-rescue');
 const { User } = require('../models');
 
-const createUser = rescue (async (req, res) => {
+const createUser = rescue(async (req, res) => {
   const { displayName, email, password, image } = req.body;
   
   try {
