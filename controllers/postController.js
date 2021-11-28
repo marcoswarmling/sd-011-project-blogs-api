@@ -27,7 +27,7 @@ const getAllPosts = rescue(async (_req, res, _next) => {
 });
 
 const getPostById = rescue(async (req, res, next) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const result = await service.getAllPosts(id);
   if (result.error) return next(result.error);
   return res.status(200).json(result);
