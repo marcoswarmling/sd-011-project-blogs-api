@@ -19,12 +19,24 @@ async function userLogin(req, res) {
     return res.status(200).json({ token: result });
   } catch (error) {
     const err = JSON.parse(error.message);
-    console.log(err);
+    // console.log(err);
     res.status(err.status).json({ message: err.message });
+  }
+}
+
+async function getAllUsers(_req, res) {
+  try {
+    console.log('aqui');
+    const result = await userService.getAllUsers();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ message: 'not found' });
   }
 }
 
 module.exports = {
   createUser,
   userLogin,
+  getAllUsers,
 };

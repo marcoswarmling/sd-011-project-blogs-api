@@ -11,7 +11,7 @@ function validateUser(req, res, next) {
   }).validate(body);
   
   if (error) {
-    console.log(error);
+    // console.log(error);
     const errorMessage = error.details[0].message;
     return res.status(400).json({ message: errorMessage });
   }
