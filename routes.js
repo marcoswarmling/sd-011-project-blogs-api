@@ -20,4 +20,6 @@ router.post('/login',
   validations.validPassword.bind(validations),
   login.loginUser.bind(login));
 
+router.get('/user/:id', useController.getUserById.bind(useController));
+
 module.exports = router;

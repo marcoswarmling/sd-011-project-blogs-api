@@ -21,6 +21,22 @@ class UserServices {
     }
   }
 
+  async getUserById(id, token) {
+    try {
+      if (token === undefined || token.length === this.zero) {
+        return { code: 401, message: 'Token not found' };
+      }
+      this.token.validate(token);
+      const data = await this.user.findByPk(id);
+      if (!data) {
+        return { code: 404, message: 'User does not exist' };
+      }
+      return { code: 200, data };
+    } catch (error) {
+      return { code: 401, message: 'Expired or invalid token' };
+    }
+  }
+
   async createUser(userData) {
     const userExists = await this.user.findOne({ where: { email: userData.email } });
     if (userExists) {

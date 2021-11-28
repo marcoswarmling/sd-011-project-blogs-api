@@ -13,6 +13,16 @@ class UserController {
     return res.status(code).json(data);
   }
 
+  async getUserById(req, res) {
+    const token = req.headers.authorization;
+    const { id } = req.params;
+    const { code, data, message } = await this.userServices.getUserById(id, token);
+    if (message) {
+      return res.status(code).json({ message });
+    }
+    return res.status(code).json(data);
+  }
+
   async createUser(req, res) {
     try {
       const { code, data, message } = await this.userServices.createUser(req.body);
