@@ -8,7 +8,7 @@ async function logIn(req, res, next) {
     if (!body) {
       return next(ApiError.internalServerError());
     }
-    console.log(body.email.length);
+
     return res.status(HttpCodes.code.OK).send('Olá mundo no logIn!');
   } catch (err) {
     return next(ApiError.internalServerError());

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { User } = require('../models');
 
 async function getUserByEmail(email) {
@@ -6,9 +8,7 @@ async function getUserByEmail(email) {
 }
 
 async function createUserInDB(user) {
-  const emailExists = await User.create(user);
-  console.log(emailExists);
-
+  await User.create(user);
   return true;
 }
 

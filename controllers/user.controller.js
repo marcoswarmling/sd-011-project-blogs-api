@@ -1,6 +1,7 @@
 const ApiError = require('../utils/ApiError');
 const HttpCodes = require('../utils/HttpCodes');
 const UserService = require('../services/user.services');
+const generateJWT = require('../utils/generateJWT');
 
 async function createUser(req, res, next) {
   try {
@@ -10,12 +11,13 @@ async function createUser(req, res, next) {
 
     if (!emailExists) {
       await UserService.createUserInDB({ displayName, email, password, image });
-      res.status(HttpCodes.code.OK).send('criado');
+      const token = generateJWT({ displayName, email });
+      console.log(token);
+      return res.status(HttpCodes.code.OK).json({ token });
     }
   
     return next(ApiError.alreadyRegistered());
   } catch (err) {
-    console.log('ERRO:', err);
     return next(ApiError.internalServerError());
   }
 }

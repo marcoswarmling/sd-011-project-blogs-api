@@ -14,7 +14,7 @@ module.exports = {
     username: MYSQL_USER,
     password: MYSQL_PASSWORD,
     database: 'blogs_api',
-    host: HOSTNAME,
+    host: 'localhost',
     dialect: 'mysql',
   },
   production: {

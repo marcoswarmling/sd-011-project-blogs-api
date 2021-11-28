@@ -20,7 +20,7 @@ function validateLogInInfos(req, _res, next) {
     const validatePassword = VALIDATION.validateEmail(email);
 
     if (validateEmail && validatePassword) next();
-    console.log('Deu erro no validate login infos');
+
     return next(ApiError.internalServerError());
   }
 }
