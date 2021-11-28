@@ -12,5 +12,6 @@ route.post(
   );
 
 route.get('/', TokenValidate.checkAuthenticatedUser, BlogPostController.getAllBlogPosts);
+route.get('/:id', TokenValidate.checkAuthenticatedUser, BlogPostController.getBlogPostById);
 
 module.exports = route;
