@@ -1,28 +1,19 @@
 const ApiError = require('../utils/ApiError');
 const VALIDATION = require('../utils/validateFields');
 
-function validateFieldsNotExistsOrEmpty(email, password, next) {
-  if (!email) next(ApiError.requiredEmail);
-  if (!password) next(ApiError.requiredPassword);
-  if (email.lenght === 0) next(ApiError.emptyEmail);
-  if (password.length === 0) next(ApiError.emptyPassword);
-
-  return false;
-}
-
 function validateLogInInfos(req, _res, next) {
-  const { email, password } = req.body;
-  
-  const invalidFields = validateFieldsNotExistsOrEmpty(email, password, next); 
+  const { body } = req;
+  const { email, password } = body;
+  const fieldExists = VALIDATION.verifyFieldExists(body);
+  if (fieldExists) return next(fieldExists());
 
-  if (!invalidFields) {
-    const validateEmail = VALIDATION.validateEmail(email);
-    const validatePassword = VALIDATION.validateEmail(email);
+  const validEmailLength = VALIDATION.validateEmailNotEmpty(email);
+  if (!validEmailLength) return next(ApiError.emptyEmail());
 
-    if (validateEmail && validatePassword) next();
+  const validPasswordLength = VALIDATION.validateEmailNotEmpty(password);
+  if (!validPasswordLength) return next(ApiError.emptyPassword());
 
-    return next(ApiError.internalServerError());
-  }
+  return next();
 }
 
 module.exports = validateLogInInfos;
