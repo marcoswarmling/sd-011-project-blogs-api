@@ -13,7 +13,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
-const getAllPosts = async (_req, res, next ) => {
+const getAllPosts = async (_req, res, next) => {
   try {
     const posts = await postService.getAllPosts();
 
@@ -22,7 +22,7 @@ const getAllPosts = async (_req, res, next ) => {
     console.log(error);
     next(error);
   }
-}
+};
 
 module.exports = {
   createPost,
