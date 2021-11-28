@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable max-lines-per-function */
 // @ts-nocheck
 require('dotenv').config();
@@ -70,6 +71,38 @@ const createPost = async (req, res) => {
 
 const getPostById = async (req, res) => {
   try {
+    if (req.query.q) {
+      const posts = await BlogPost.findAll({
+        where: {
+          [Sequelize.Op.or]: [
+            { title: { [Sequelize.Op.like]: `%${req.query.q}%` } },
+            { content: { [Sequelize.Op.like]: `%${req.query.q}%` } },
+          ],
+        },
+        attributes: [
+          'id',
+          'title',
+          'content',
+          'userId',
+          'published',
+          'updated',
+        ],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'displayName', 'email', 'image'],
+          },
+          { model: Category, as: 'categories', through: { attributes: [] } },
+        ],
+      });
+      return res.status(200).json(posts);
+    }
+
+    if (req.query && !req.query.q) {
+      return getAll(req, res);
+    }
+
     const post = await BlogPost.findOne({
       where: { id: req.params.id },
       attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
@@ -137,7 +170,7 @@ const updatePost = rescue(async (req, res, next) => {
   }
 });
 
-const deletePost = rescue(async (req, res, next) => {
+const deletePost = rescue(async (req, res) => {
   try {
     const post = await BlogPost.findByPk(req.params.id);
     if (!post) {
