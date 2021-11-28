@@ -8,12 +8,12 @@ module.exports = (sequelize, _DataTypes) => {
     // Associação de categoryId de PostCategories com o Id de Categories
     models.BlogPosts.belongsToMany(
       models.Categories,
-      { as: 'Categories', foreignKey: 'postId', otherKey: 'categoryId', through: PostsCategories },
+      { as: 'categories', foreignKey: 'postId', otherKey: 'categoryId', through: PostsCategories },
     );
     // Associação de postId de PostCategories com o Id de BlogPosts
       models.Categories.belongsToMany(
       models.BlogPosts, 
-      { as: 'BlogPosts', foreignKey: 'categoryId', otherKey: 'postId', through: PostsCategories },
+      { as: 'blogposts', foreignKey: 'categoryId', otherKey: 'postId', through: PostsCategories },
     );
   };
 
