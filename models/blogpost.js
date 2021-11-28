@@ -3,11 +3,14 @@ const BlogPost = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: DataTypes.INTEGER,
-  });
+    published: { type: DataTypes.DATE, defaultValue: new Date() },
+    updated: { type: DataTypes.DATE, defaultValue: new Date() },
+  }, { timestamps: false });
 
   BlogPost1.associate = (models) => {
-    BlogPost1.belongsTo(models.User,
-      { foreignKey: 'userId', as: 'users' });
+    BlogPost1.belongsToMany(models.Category, {
+      through: models.PostCategory, foreignKey: 'postId', as: 'categories',
+    });
   };
 
   return BlogPost1;
