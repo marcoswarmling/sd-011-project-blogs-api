@@ -8,10 +8,6 @@ router.use(express.json());
 router.get('/', auth, post.getAll);
 router.post('/', auth, post.createPost);
 router.get('/:id', auth, post.getPostById);
-// router.get('/:id', auth, post.getPostById);
-
-router.get('/', (req, res) => {
-  res.send('hello');
-});
+router.put('/:id', auth, post.updatePost);
 
 module.exports = router;

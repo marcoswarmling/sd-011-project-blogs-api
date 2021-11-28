@@ -1,8 +1,11 @@
 /* eslint-disable no-shadow */
 
 const PostsCategory = (sequelize, DataTypes) => {
-  const PostsCategory = sequelize.define('PostsCategory', {},
-    { timestamps: false });
+  const PostsCategory = sequelize.define(
+    'PostsCategory',
+    {},
+    { timestamps: false },
+  );
 
   PostsCategory.associate = (models) => {
     models.BlogPost.belongsToMany(models.Category, {
@@ -10,7 +13,6 @@ const PostsCategory = (sequelize, DataTypes) => {
       through: 'PostsCategory',
       foreignKey: 'postId',
       otherKey: 'categoryId',
-      
     });
 
     models.Category.belongsToMany(models.BlogPost, {
@@ -18,7 +20,6 @@ const PostsCategory = (sequelize, DataTypes) => {
       through: 'PostsCategory',
       foreignKey: 'categoryId',
       otherKey: 'postId',
-     
     });
   };
 
