@@ -42,8 +42,21 @@ const getPostById = async (id) => {
     } return valid;
 };
 
+const updatePost = async (post, userEmail) => {
+  const { id, title, content } = post;
+  const postDatabase = await getPostById(id);
+  const { email } = postDatabase.user;
+  if (email === userEmail) {
+    return BlogPost.update({ title, content }, 
+      { where: { id } });
+  } return ({
+      error: { code: 'postNotPertence' },
+  });
+};
+
 module.exports = {
   postRegister,
   getAllPosts,
   getPostById,
+  updatePost,
 };
