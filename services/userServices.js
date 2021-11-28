@@ -1,5 +1,15 @@
 const createAuthentication = require('../middlewares/auth/auth');
-const { Users } = require('../models');
+const { Users } = require('../models/index');
+
+const getAllUsers = async () => {
+  const users = await Users.findAll();
+  return users;
+};
+
+const getByIdUser = async (id) => {
+  const userId = await Users.findByPk(id);
+  return userId;
+};
 
 const createUser = async (displayName, email, password, image) => {
     const findEmailUser = await Users.findOne({ where: { email } });
@@ -18,4 +28,4 @@ const createUser = async (displayName, email, password, image) => {
     return token;
 };
 
-module.exports = { createUser };
+module.exports = { createUser, getAllUsers, getByIdUser };

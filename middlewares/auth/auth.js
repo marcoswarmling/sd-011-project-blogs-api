@@ -1,15 +1,14 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const SECRET_JWT = process.env.SECRECT_JWT;
-
-const jwtConfig = {
-  algorithm: 'HS256',
-  expiresIn: '7d',
-};
+const JWT_SECRETED = process.env.JWT_SECRET;
 
 const createAuthentication = (data) => {
-  const token = jwt.sign(data, SECRET_JWT, jwtConfig);
+  const jwtConfig = {
+    expiresIn: '7d',
+    algorithm: 'HS256',
+  };
+  const token = jwt.sign(data, JWT_SECRETED, jwtConfig);
   return { token };
 };
 

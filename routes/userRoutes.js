@@ -1,13 +1,21 @@
 const router = require('express').Router();
 
-const { createUser } = require('../controllers/usersControllers');
+const Users = require('../controllers/usersControllers');
 
 const {
   validateUserJoi,
 } = require('../middlewares/validateUsers');
 
+const {
+  isValidateToken,
+} = require('../middlewares/auth/validateAuth');
+
+router.get('/', isValidateToken, Users.getAllUsers);
+
+router.get('/:id', isValidateToken, Users.getByIdUser);
+
 router.post('/',
   validateUserJoi,
-  createUser);
+  Users.createUser);
 
 module.exports = router;

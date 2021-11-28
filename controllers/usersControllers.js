@@ -1,17 +1,17 @@
 const userServices = require('../services/userServices');
 
-// const getAllUsers = async (req, res) => {
-//   const users = await User.findAll();
-
-//   res.status(200).json(users);ff
-// });
-
-// const getByIdUser = ('/:id', async (req, res) => {
-//   const { id } = req.params;
-//   const user = await User.findByPk(id);
-
-//   res.status(200).json(user);
-// });
+const getByIdUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await userServices.getByIdUser(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User does not exist' });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ message: 'Erro no servidor!' });
+  }
+};
 
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -23,6 +23,16 @@ const createUser = async (req, res) => {
     }
     return res.status(201).json(token);
   } catch (e) {
+    return res.status(500).json({ message: 'Erro no servidor!' });
+  }
+};
+
+const getAllUsers = async (_req, res) => {
+  try {
+    const users = await userServices.getAllUsers();
+    console.log(users, 'GETALL CONTROLLER');
+    return res.status(200).json(users);
+  } catch (error) {
     return res.status(500).json({ message: 'Erro no servidor!' });
   }
 };
@@ -40,4 +50,4 @@ const createUser = async (req, res) => {
 //   res.status(200).json({});
 // };
 
-module.exports = { createUser };
+module.exports = { createUser, getAllUsers, getByIdUser };
