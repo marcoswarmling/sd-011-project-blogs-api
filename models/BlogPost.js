@@ -3,13 +3,13 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: { type: DataTypes.INTEGER, foreignKey: true },
-    createdAt: { type: DataTypes.DATE, name: 'createdAt', field: 'published' },
-    updatedAt: { type: DataTypes.DATE, name: 'updatedAt', field: 'updated' },
-  }, { tableName: 'BlogPosts' });
+    published: DataTypes.DATE,
+    updated: DataTypes.DATE,
+  }, { tableName: 'BlogPosts', timestamps: false });
 
   BlogPost.associate = (models) => {
-    BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'users' });
-    // BlogPost.hasMany(models.PostsCategory, { foreignKey: 'postId', as: 'BlogPosts' });
+    BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    BlogPost.hasMany(models.PostsCategory, { foreignKey: 'postId', as: 'posts' });
   };
 
   return BlogPost;

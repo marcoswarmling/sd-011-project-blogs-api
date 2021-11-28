@@ -22,6 +22,7 @@ const titleIsRequired = newError('titleIsRequired');
 const contentIsRequired = newError('contentIsRequired');
 const categoryIsRequired = newError('categoryIsRequired');
 const categoryNotFound = newError('categoryNotFound');
+const postDoesNotExist = newError('postDoesNotExist');
 
 module.exports = {
   userAlreadyRegistered,
@@ -42,4 +43,5 @@ module.exports = {
   contentIsRequired,
   categoryIsRequired,
   categoryNotFound,
+  postDoesNotExist,
 };

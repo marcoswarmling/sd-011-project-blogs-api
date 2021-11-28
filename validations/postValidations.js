@@ -10,6 +10,9 @@ const newPost = ({ title, content, categoryIds }) => {
   validateField(categoryIds, error.categoryIsRequired);
 };
 
+const post = (payload) => validateField(payload, error.postDoesNotExist);
+
 module.exports = {
   newPost,
+  post,
 };
