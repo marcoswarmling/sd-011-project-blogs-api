@@ -51,8 +51,28 @@ const getBlogPostById = async (id) => {
   }
 };
 
+const updatePostById = async (id, title, content) => {
+  const updated = new Date();
+  try {
+    await BlogPost.update(
+      { title, content, updated },
+      { where: { id } },
+    );
+    const blogPostUpdated = await BlogPost.findByPk(id, {
+      attributes: ['title', 'content', 'userId'],
+      include: [
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return { code: 200, result: blogPostUpdated };
+  } catch (error) {
+    return messageErrorServer;
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
   getBlogPostById,
+  updatePostById,
 };
