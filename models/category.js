@@ -6,7 +6,16 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     name: DataTypes.STRING,
+  }, {
+    timestamps: false,
   });
+
+  Category.associate = (models) => {
+    Category.hasMany(models.PostCategory, {
+      foreignKey: 'categoryId',
+      as: 'postcategories',
+    });
+  };
 
   return Category;
 };

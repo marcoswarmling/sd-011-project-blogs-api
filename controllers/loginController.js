@@ -13,7 +13,7 @@ router.post('/', validateLoginSchema, async (req, res) => {
       message: 'Invalid fields',
     });
   }
-  const token = createJWT(email, password);
+  const token = createJWT(userExists.id, email);
   return res.status(200).json({ token });
 });
 

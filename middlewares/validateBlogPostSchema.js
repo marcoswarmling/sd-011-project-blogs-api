@@ -16,6 +16,6 @@ const validateBlogPostSchema = (req, res, next) => {
   }
 
   next();
-}
+};
 
 module.exports = validateBlogPostSchema;

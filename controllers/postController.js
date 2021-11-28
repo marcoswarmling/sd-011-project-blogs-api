@@ -1,19 +1,31 @@
-const express = require("express");
-const { BlogPost } = require("../models");
-const router = express.Router();
+const express = require('express');
+const { BlogPost } = require('../models');
 
-const validateToken = require("../middlewares/validateToken");
-const validateBlogPostSchema = require("../middlewares/validateBlogPostSchema");
-router.post("/", validateToken, validateBlogPostSchema, async (req, res) => {
+const router = express.Router();
+const { Category } = require('../models');
+const validateToken = require('../middlewares/validateToken');
+const validateBlogPostSchema = require('../middlewares/validateBlogPostSchema');
+const checkCategoryExistence = require('../utils/checkCategoryExistence');
+
+router.post('/', validateToken, validateBlogPostSchema, async (req, res) => {
   const { title, content } = req.body;
   const { userId } = req;
-  console.log(req.userId);
-  try { 
-    const newPost = await BlogPost.create({ title, content, userId });
-    return res.status(201).json(newPost);
-  } catch (error) {
-    return res.status(500).send(error);
+  const existingCategories = await Category.findAll();
+  const doesAllCategoriesExistst = checkCategoryExistence(
+    req.body.categoryIds, existingCategories,
+  );
+  if (doesAllCategoriesExistst) {
+    try {
+      const newPost = await BlogPost.create({ title, content, userId });
+      const { id } = newPost;
+      return res.status(201).json({ id, userId, title, content });
+    } catch (error) {
+      return res.status(500).send(error);
+    }
   }
+  return res.status(400).json({
+    message: '"categoryIds" not found',
+  });
 });
 
 module.exports = router;
