@@ -20,7 +20,7 @@ function verifyFieldLength(body) {
   return false;
 }
 
-function verifyEmailFormat(body, next) {
+function verifyEmailFormat(body) {
   const { email } = body;
 
     const EMAIL_REGEX = /\S+@\S+\.\S+/;
