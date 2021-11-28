@@ -1,12 +1,12 @@
 const express = require('express');
+
 require('dotenv').config();
-const boryParser = require('body-parser');
 
 const app = express();
 
-app.use(boryParser);
+app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.listen(PORT, () => console.log(`Ouvindo porta ${PORT}!`));
 
