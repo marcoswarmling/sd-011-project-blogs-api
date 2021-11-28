@@ -21,8 +21,15 @@ const jtwConfig = {
 
 const getAll = async (req, res) => {
   try {
-    const category = await Category.findAll({});
-    return res.status(200).json(category);
+    const posts = await BlogPost.findAll({
+      attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
+      include: [
+        { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    return res.status(200).json(posts);
   } catch (e) {
     console.log(e.message);
     res.status(500).json({ message: 'Ocorreu um erro' });
