@@ -5,17 +5,15 @@ function verifyFieldExists(body) {
 
   if (!email) return ApiError.requiredEmail;
   if (!password) return ApiError.requiredPassword;
-  
-  return false;
 }
 
 const validateEmailNotEmpty = (email) => {
-  if (email.length === 0) return false;
+  if (email === '') return false;
   return true;
 };
 
 const validatePasswordNotEmpty = (password) => {
-  if (password.length === 0) return false;
+  if (password.length === '') return false;
   return true;
 };
 

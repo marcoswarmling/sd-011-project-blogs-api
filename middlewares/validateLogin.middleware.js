@@ -5,14 +5,14 @@ function validateLogInInfos(req, _res, next) {
   const { body } = req;
   const { email, password } = body;
 
-  const fieldExists = VALIDATION.verifyFieldExists({ email, password });
-  if (fieldExists) return next(fieldExists());
-
   const validEmailLength = VALIDATION.validateEmailNotEmpty(email);
   if (!validEmailLength) return next(ApiError.emptyEmail());
 
   const validPasswordLength = VALIDATION.validateEmailNotEmpty(password);
   if (!validPasswordLength) return next(ApiError.emptyPassword());
+
+  const fieldExists = VALIDATION.verifyFieldExists(body);
+  if (fieldExists) return next(fieldExists());
 
   return next();
 }

@@ -20,7 +20,7 @@ const HTTP_STATUS = {
   INVALID_PASSWORD: { message: '"password" length must be 6 characters long' },
   INVALID_TOKEN: { message: 'jwt malformed' },
   PASSWORD_REQUIRED: { message: '"password" is required' },
-  PASSWORD_NOT_ALLOWED: { message: 'password is not allowed to be empty' },
+  PASSWORD_NOT_ALLOWED: { message: '"password" is not allowed to be empty' },
   MISSING_TOKEN: { message: 'missing auth token' },
 };
 
