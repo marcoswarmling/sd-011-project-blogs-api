@@ -1,7 +1,6 @@
 const express = require('express');
 
 const { userValidation } = require('../validations');
-
 const { createUser, listUsers, getUserById } = require('../controllers/userController');
 
 require('dotenv').config();
@@ -14,7 +13,7 @@ userRouter.post('/', userValidation, createUser);
 // Requisito 3 - ROTA USER - GET
 userRouter.get('/', listUsers);
 
-// Requisito 4
+// Requisito 4 - ROTA USER - GET BY ID
 userRouter.get('/:id', getUserById);
 
 module.exports = userRouter;
