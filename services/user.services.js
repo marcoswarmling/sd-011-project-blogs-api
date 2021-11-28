@@ -12,7 +12,13 @@ async function createUserInDB(user) {
   return true;
 }
 
+async function getAllUsersInDB() {
+  const user = await User.findAll();
+  return user;
+}
+
 module.exports = {
   getUserByEmail,
   createUserInDB,
+  getAllUsersInDB,
 };

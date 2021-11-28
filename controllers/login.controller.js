@@ -14,7 +14,7 @@ async function logIn(req, res, next) {
 
     const { displayName } = emailExists.dataValues;
     const token = generateJWT({ displayName, email });
-    return res.status(HttpCodes.code.OK).json(token);
+    return res.status(HttpCodes.code.OK).json({ token });
   } catch (err) {
     console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRROR', err);
     return next(ApiError.internalServerError());

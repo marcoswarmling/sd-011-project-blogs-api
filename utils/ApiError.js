@@ -62,6 +62,20 @@ class ApiError {
     );
   }
 
+  static invalidToken() {
+    return new ApiError(
+      HTTP_STATUS.code.UNAUTHORIZED,
+      HTTP_STATUS.INVALID_TOKEN,
+    );
+  }
+
+  static tokenNotFound() {
+    return new ApiError(
+      HTTP_STATUS.code.UNAUTHORIZED,
+      HTTP_STATUS.TOKEN_NOT_FOUND,
+    );
+  }
+
   static requiredEmail() {
     return new ApiError(
       HTTP_STATUS.code.BAD_REQUEST,

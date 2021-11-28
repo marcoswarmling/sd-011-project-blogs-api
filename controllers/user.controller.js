@@ -22,6 +22,20 @@ async function createUser(req, res, next) {
   }
 }
 
+async function findAllUsers(req, res, next) {
+  try {
+    console.log('entrou');
+    
+    const users = await UserService.getAllUsersInDB();
+
+    return res.status(HttpCodes.code.OK).json(users);
+  } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRROR', err);
+    return next(ApiError.internalServerError());
+  }
+}
+
 module.exports = {
   createUser,
+  findAllUsers,
 };

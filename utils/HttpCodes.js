@@ -18,9 +18,10 @@ const HTTP_STATUS = {
   INVALID_EMAIL: { message: '"email" must be a valid email' },
   INVALID_FIELDS: { message: 'Invalid fields' },
   INVALID_PASSWORD: { message: '"password" length must be 6 characters long' },
-  INVALID_TOKEN: { message: 'jwt malformed' },
+  INVALID_TOKEN: { message: 'Expired or invalid token' },
   PASSWORD_REQUIRED: { message: '"password" is required' },
   PASSWORD_NOT_ALLOWED: { message: '"password" is not allowed to be empty' },
+  TOKEN_NOT_FOUND: { message: 'Token not found' },
   MISSING_TOKEN: { message: 'missing auth token' },
 };
 
