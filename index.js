@@ -18,7 +18,7 @@ app.get('/', (request, response) => {
 
 app.use('/user', userRoute);
 app.use('/categories', categoriesRoute);
-app.use('post', postRoute);
+app.use('/post', postRoute);
 app.post('/login', validateLogin, loginUser);
 
 app.use(error);

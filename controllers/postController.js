@@ -7,9 +7,9 @@ const createPost = async (req, res, next) => {
 
     const response = await postService.createPost(body, user);
 
-    res.status(200).json(response);
+    res.status(201).json(response);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     next(error);
   }
 };
