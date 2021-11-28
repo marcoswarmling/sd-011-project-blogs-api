@@ -1,5 +1,5 @@
 const { BlogPost, User, Category } = require('../models');
-const { isValidUser, isValidCategory } = require('../utils/validations');
+const { isValidUser, isValidCategory, validPost } = require('../utils/validations');
 
 const postRegister = async (post, userEmail) => {
   const { title, content, categoryIds } = post;
@@ -26,7 +26,10 @@ const getAllPosts = async () => {
   return result;
 };
 
+const getPostById = async (id) => validPost(id);
+
 module.exports = {
   postRegister,
   getAllPosts,
+  getPostById,
 };
