@@ -137,11 +137,33 @@ const updatePost = rescue(async (req, res, next) => {
   }
 });
 
+const deletePost = rescue(async (req, res, next) => {
+  try {
+    const post = await BlogPost.findByPk(req.params.id);
+    if (!post) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+
+    if (post.userId !== req.data.id) {
+      return res.status(401).json({ message: 'Unauthorized user' });
+    }
+
+    await sequelize.transaction(async (t) => {
+      await post.destroy({ transaction: t });
+      return res.status(204).json();
+    });
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: 'Ocorreu um erro' });
+  }
+});
+
 module.exports = {
   createPost,
   getAll,
   getPostById,
   updatePost,
+  deletePost,
 
   // createAdmin,
 };
