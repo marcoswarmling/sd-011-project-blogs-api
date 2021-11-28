@@ -13,6 +13,18 @@ const createPost = async (req, res, next) => {
   }
 };
 
+const getAllPosts = async (_req, res, next ) => {
+  try {
+    const posts = await postService.getAllPosts();
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
