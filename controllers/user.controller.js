@@ -12,7 +12,6 @@ async function createUser(req, res, next) {
     if (!emailExists) {
       await UserService.createUserInDB({ displayName, email, password, image });
       const token = generateJWT({ displayName, email });
-      console.log(token);
       return res.status(HttpCodes.code.CREATED).json({ token });
     }
   

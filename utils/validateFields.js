@@ -1,21 +1,21 @@
 const ApiError = require('./ApiError');
 
-function verifyFieldExists(body, next) {
+function verifyFieldExists(body) {
   const { email, password } = body;
 
-  if (!email) next(ApiError.requiredEmail());
-  if (!password) next(ApiError.requiredPassword());
+  if (!email) return ApiError.requiredEmail();
+  if (!password) return ApiError.requiredPassword();
   
   return false;
 }
 
-function verifyFieldLength(body, next) {
+function verifyFieldLength(body) {
   const { displayName, email, password } = body;
 
-  if (email.lenght === 0) next(ApiError.emptyEmail());
-  if (password.length === 0) next(ApiError.emptyPassword());
-  if (password.length !== 6) next(ApiError.invalidPassword());
-  if (displayName.length < 8) next(ApiError.invalidDisplayName());
+  if (email.length === 0) return ApiError.emptyEmail();
+  if (password.length === 0) return ApiError.emptyPassword();
+  if (password.length !== 6) return ApiError.invalidPassword();
+  if (displayName.length < 8) return ApiError.invalidDisplayName();
 
   return false;
 }
@@ -26,7 +26,7 @@ function verifyEmailFormat(body, next) {
     const EMAIL_REGEX = /\S+@\S+\.\S+/;
     const validEmail = EMAIL_REGEX.test(email);
 
-    if (!validEmail) next(ApiError.invalidEmail());
+    if (!validEmail) return ApiError.invalidEmail();
 
     return false;
 }

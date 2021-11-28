@@ -2,13 +2,20 @@
 const VALIDATION = require('../utils/validateFields');
 
 function validateUserFields(req, _res, next) {
-  const { body } = req;
-
-  const invalidFields = VALIDATION.verifyFieldExists(body, next)
-  || VALIDATION.verifyFieldLength(body, next)
-  || VALIDATION.verifyEmailFormat(body, next);
-
-  if (!invalidFields) return next();
+  try {
+    const { body } = req;
+  
+    const fieldExists = VALIDATION.verifyFieldExists(body);
+    if (fieldExists) return next(fieldExists);
+    const fieldLengths = VALIDATION.verifyFieldLength(body);
+    if (fieldLengths) return next(fieldLengths);
+    const incorrectEmailFormat = VALIDATION.verifyEmailFormat(body);
+    if (incorrectEmailFormat) return next(incorrectEmailFormat);
+  
+    return next();
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports = validateUserFields;
