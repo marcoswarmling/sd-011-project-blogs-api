@@ -17,6 +17,18 @@ class CategorieController {
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
+
+  async getAllCategories(req, res) {
+    try {
+      const { code, data, message } = await this.categorieService.getAll(req.headers.authorization);
+      if (message) {
+        return res.status(code).json({ message });
+      }
+      return res.status(code).json(data);
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
 }
 
 module.exports = CategorieController;

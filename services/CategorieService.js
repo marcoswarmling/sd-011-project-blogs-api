@@ -24,6 +24,19 @@ class CategorieService {
       return { code: 401, message: 'Expired or invalid token' };
     }
   }
+
+  async getAll(token) {
+    try {
+      if (token === undefined || token.length === this.zero) {
+        return { code: 401, message: 'Token not found' };
+      }
+      this.token.validate(token);
+      const data = await this.categorie.findAll();
+      return { code: 200, data };
+    } catch (error) {
+      return { code: 401, message: 'Expired or invalid token' };
+    }
+  }
 }
 
 module.exports = CategorieService;

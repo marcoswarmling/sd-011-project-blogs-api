@@ -28,4 +28,6 @@ router.post('/categories',
   validations.validBodyCategory.bind(validations),
   categories.createCategory.bind(categories));
 
+router.get('/categories', categories.getAllCategories.bind(categories));
+
 module.exports = router;
