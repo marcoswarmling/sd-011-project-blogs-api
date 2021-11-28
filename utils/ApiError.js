@@ -41,17 +41,24 @@ class ApiError {
     );
   }
 
-  static invalidPassword() {
-    return new ApiError(
-      HTTP_STATUS.code.BAD_REQUEST,
-      HTTP_STATUS.INVALID_PASSWORD,
-    );
-  }
-
   static invalidEmail() {
     return new ApiError(
       HTTP_STATUS.code.BAD_REQUEST,
       HTTP_STATUS.INVALID_EMAIL,
+    );
+  }
+
+  static invalidFields() {
+    return new ApiError(
+      HTTP_STATUS.code.BAD_REQUEST,
+      HTTP_STATUS.INVALID_FIELDS,
+    );
+  }
+
+  static invalidPassword() {
+    return new ApiError(
+      HTTP_STATUS.code.BAD_REQUEST,
+      HTTP_STATUS.INVALID_PASSWORD,
     );
   }
 

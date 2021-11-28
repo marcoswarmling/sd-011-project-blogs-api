@@ -4,7 +4,8 @@ const VALIDATION = require('../utils/validateFields');
 function validateLogInInfos(req, _res, next) {
   const { body } = req;
   const { email, password } = body;
-  const fieldExists = VALIDATION.verifyFieldExists(body);
+
+  const fieldExists = VALIDATION.verifyFieldExists({ email, password });
   if (fieldExists) return next(fieldExists());
 
   const validEmailLength = VALIDATION.validateEmailNotEmpty(email);
