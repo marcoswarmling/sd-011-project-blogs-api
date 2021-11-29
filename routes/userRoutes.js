@@ -18,4 +18,10 @@ route.get(
   UserController.listAll,
 );
 
+route.get(
+  '/:id',
+  validateToken,
+  UserController.findById,
+);
+
 module.exports = route;
