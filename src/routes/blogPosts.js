@@ -6,7 +6,7 @@ const { titleIsRequired,
            JWTisValid,
             categoryExists } = require('../middlewares/blogPostMiddlewares');
 
-    const { postRegistration } = require('../controllers/blogPostController');
+    const { postRegistration, getAllPosts } = require('../controllers/blogPostController');
 
     router.post('/', 
     titleIsRequired,
@@ -16,4 +16,5 @@ const { titleIsRequired,
         categoryExists,
          postRegistration);
 
+    router.get('/', JWTisValid, getAllPosts);
     module.exports = router;
