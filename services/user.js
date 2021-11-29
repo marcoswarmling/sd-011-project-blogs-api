@@ -60,7 +60,21 @@ const validateLogin = async (data) => {
   }
 };
 
+const getAllUsers = async () => {
+  try {
+    const result = await User.findAll({
+      attributes: ['id', 'displayName', 'email', 'image'],
+    });
+    return result;
+  } catch (error) {
+    console.log(error.message);
+
+    return { message: 'Algo deu errado', status: 500 };
+  }
+};
+
 module.exports = {
   createUser,
   validateLogin,
+  getAllUsers,
 };

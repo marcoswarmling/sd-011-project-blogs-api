@@ -1,3 +1,7 @@
+const jwt = require('jsonwebtoken');
+
+const secret = 'my-hardcoded-secret';
+
 const validateNewUser = (req, res, next) => {
   const { displayName, email, password } = req.body;
 
@@ -46,7 +50,29 @@ const validateLogin = (req, res, next) => {
   next();
 };
 
+const validateToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({
+      message: 'Token not found',
+    });
+  }
+
+  try {
+    const decoded = jwt.verify(token, secret);
+
+    req.userData = decoded;
+  } catch (error) {
+    return res.status(401).json({
+      message: 'Expired or invalid token',
+    });
+  }
+
+  next();
+};
+
 module.exports = { 
   validateNewUser,
   validateLogin,
+  validateToken,
  };
