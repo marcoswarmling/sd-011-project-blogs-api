@@ -9,23 +9,35 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER,
       },
-      displayName: {
-        field: 'display_name',
+      title: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      email: {
+      content: {
         allowNull: false,
         type: Sequelize.STRING,
-        unique: true,
       },
       password: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      image: {
+      published: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
+      },
+      updated: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    }, {
+      hooks: {
+        beforeCreate: (newBlogPost, _options) => {
+          newBlogPost.published = new Date();
+          newBlogPost.updated = new Date();
+        },
+        beforeUpdate: (updatedBlogPost, _options) => {
+          updatedBlogPost.updated = new Date();
+        },
       },
     });
   },
