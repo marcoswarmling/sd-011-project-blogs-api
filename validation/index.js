@@ -74,10 +74,21 @@ const passwordLoginIsValid = (password) => {
   return {};
 };
 
+const validateCategoriesName = (name) => {
+  if (!name) {
+    return {
+      message: '"name" is required',
+    };
+  }
+
+  return {};
+};
+
 module.exports = {
   validateName,
   isEmailValid,
   passwordIsValid,
   isEmailLoginValid,
   passwordLoginIsValid,
+  validateCategoriesName,
 };

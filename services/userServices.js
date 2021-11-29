@@ -33,7 +33,6 @@ const getAllUsers = async () => {
 
 const getUserById = async (id) => {
   const getUser = await User.findOne({ where: { id } });
-  // console.log(getUser);
   if (getUser === null) return { message: 'User does not exist' };
 
   return getUser;
