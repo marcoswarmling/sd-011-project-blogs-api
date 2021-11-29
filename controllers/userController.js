@@ -7,6 +7,20 @@ const createNewUser = async (req, res) => {
   return res.status(201).json({ token: newUser });
 };
 
+const getAllUsers = async (_req, res) => {
+  const AllUsers = await userService.getAllUsers();
+  return res.status(200).json(AllUsers);
+};
+
+const getUserByPk = async (req, res) => {
+  const { id } = req.body;
+  const UserByPk = await userService.getUserByPk(id);
+  if (!UserByPk) return res.status(404).json({ message: 'not found' });
+  return res.status(200).json(UserByPk);
+};
+
 module.exports = {
   createNewUser,
+  getAllUsers,
+  getUserByPk,
 };

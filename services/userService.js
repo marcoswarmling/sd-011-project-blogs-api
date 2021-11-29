@@ -12,6 +12,15 @@ const createNewUser = async ({ displayName, email, password, image }) => {
  return token;
 };
 
+const getUserByEmail = async (email) => User.findOne({ where: { email } });
+
+const getAllUsers = async () => User.findAll();
+
+const getUserByPk = async (id) => User.findByPk(id);
+
 module.exports = {
   createNewUser,
+  getUserByEmail,
+  getAllUsers,
+  getUserByPk,
 };
