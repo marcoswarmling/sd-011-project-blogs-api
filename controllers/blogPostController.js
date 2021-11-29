@@ -12,6 +12,17 @@ const post = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  try {
+    const allPosts = await blogPostServices.getAll();
+    return res.status(200).json(allPosts);
+  } catch (e) {
+    console.log(e);
+    return res.status(401).json({ message: e.message });
+  }
+};
+
 module.exports = {
   post,
+  getAll,
 };

@@ -1,4 +1,4 @@
-const { BlogPosts, Categories } = require('../models/index');
+const { BlogPosts, Categories, Users } = require('../models/index');
 const checkAllExists = require('../helpers/checkAllExists');
 
 const post = async (title, content, categoryIds, data) => {
@@ -14,7 +14,7 @@ const post = async (title, content, categoryIds, data) => {
 
   const postResult = {
     id: result.id,
-    userId: result.userId,
+    userId,
     title: result.title,
     content: result.content,
   };
@@ -22,6 +22,19 @@ const post = async (title, content, categoryIds, data) => {
   return postResult;
 };
 
+const getAll = async () => {
+  const allPosts = await BlogPosts.findAll({
+    attributes: { exclude: ['UserId'] },
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (!allPosts) throw new Error('No posts found');
+  return allPosts;
+};
+
 module.exports = {
   post,
+  getAll,
 };

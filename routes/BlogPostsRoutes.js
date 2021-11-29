@@ -9,6 +9,6 @@ router.post(
   BlogPostController.post,
 );
 
-// router.get('/', Validations.validateJWT, CategoryController.getAll);
+router.get('/', Validations.validateJWT, BlogPostController.getAll);
 
 module.exports = router;
