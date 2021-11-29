@@ -1,14 +1,15 @@
 function validedPassword(req, res, next) {
-  if (!req.body.password) {
-    res.status(401).json({ message: 'All fields must be filled' });
+  const { password } = req.body;
+  if (!password) {
+    res.status(400).json({ message: '"password" is required' });
     return;
   }
-  if (req.body.password.length < 6) {
-    res.status(422).json({
-      message: '"name" length must be at least 6 characters long',
+  if (password.length < 6) {
+    res.status(400).json({
+      message: '"password" length must be 6 characters long',
     });
   }
   next();
 }
 
-module.exports = { validedPassword };
+module.exports = validedPassword;
