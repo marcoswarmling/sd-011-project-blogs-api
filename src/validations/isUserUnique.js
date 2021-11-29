@@ -7,7 +7,7 @@ module.exports = async (model, email = '') => {
       this.errors = [{ 
         message: JSON.stringify({ 
           message: 'User already registered', 
-          status: 403, 
+          status: 409, 
         }), 
       }];
     }
