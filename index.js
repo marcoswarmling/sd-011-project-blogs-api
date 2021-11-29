@@ -1,6 +1,7 @@
 const express = require('express');
 const UserController = require('./controllers/UserController');
 const LoginController = require('./controllers/LoginController');
+const CategoryController = require('./controllers/CategoryController');
 
 const {
   validateDisplayName,
@@ -18,6 +19,9 @@ const {
 } = require('./validations/validateLogin');
 
 const { validateJWT } = require('./validations/validateJWT');
+
+const { verifyName,
+} = require('./validations/validateCategory');
 
 const app = express();
 app.use(express.json());
@@ -51,6 +55,13 @@ app.get(
   validateJWT,
   VerifyUserExist,
   UserController.getUserById,
+);
+
+app.post(
+  '/categories',
+  validateJWT,
+  verifyName,
+  CategoryController.createCategory,
 );
 
 app.listen(3000, () => console.log('Ouvindo na porta 3000!'));
