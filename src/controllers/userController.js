@@ -35,4 +35,16 @@ module.exports = {
       return next(error);
     }
   },
+
+  destroy: async (request, response, next) => {
+    const { user: { id } } = request;
+
+    try {
+      await userService.destroy(id);
+
+      return response.status(statusCodes.noContent).send();
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
