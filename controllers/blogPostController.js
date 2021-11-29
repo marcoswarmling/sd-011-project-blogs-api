@@ -22,7 +22,19 @@ const getAll = async (req, res) => {
   }
 };
 
+const getOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await blogPostServices.getOne(id);
+    return res.status(200).json(result);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).json({ message: e.message });
+  }
+};
+
 module.exports = {
   post,
   getAll,
+  getOne,
 };
