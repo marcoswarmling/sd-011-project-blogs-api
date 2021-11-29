@@ -1,4 +1,5 @@
-// uma classes que contem todas as validações que vem da requisição
+const { Categorie } = require('../models');
+
 class Validations {
   constructor() {
     const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -8,6 +9,7 @@ class Validations {
       sixChar: 6,
       empty: 0,
     };
+    this.category = Categorie;
   }
 
   // validação de nome
@@ -60,6 +62,40 @@ class Validations {
     const { name } = req.body;
     if (name === undefined || name.length === this.isValid.empty) {
       return res.status(400).json({ message: '"name" is required' });
+    }
+    return next();
+  }
+
+  async validPostTitle(req, res, next) {
+    const { title } = req.body;
+    if (title === undefined || title.length === this.isValid.empty) {
+      return res.status(400).json({ message: '"title" is required' });
+    }
+    return next();
+  }
+
+  async validPostContent(req, res, next) {
+    const { content } = req.body;
+    if (content === undefined || content.length === this.isValid.empty) {
+      return res.status(400).json({ message: '"content" is required' });
+    }
+    return next();
+  }
+
+  async validPostCategoryIds(req, res, next) {
+    const { categoryIds } = req.body;
+    if (categoryIds === undefined || categoryIds.length === this.isValid.empty) {
+      return res.status(400).json({ message: '"categoryIds" is required' });
+    }
+    
+    const categoryIdsExist = await this.category.findAll({
+      where: {
+        id: categoryIds,
+      },
+    });
+
+    if (categoryIdsExist.length !== categoryIds.length) {
+      return res.status(400).json({ message: '"categoryIds" not found' });
     }
     return next();
   }

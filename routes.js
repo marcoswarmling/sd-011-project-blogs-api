@@ -4,11 +4,13 @@ const UserController = require('./controllers/useController');
 const Validations = require('./validations/Validations');
 const LoginController = require('./controllers/LoginController');
 const CategorieController = require('./controllers/CategorieController');
+const BlogPostController = require('./controllers/BlogPostController');
 
 const useController = new UserController();
 const validations = new Validations();
 const login = new LoginController();
 const categories = new CategorieController();
+const blogPost = new BlogPostController();
 
 router.get('/user', useController.getAllUsers.bind(useController));
 router.post('/user', 
@@ -29,5 +31,11 @@ router.post('/categories',
   categories.createCategory.bind(categories));
 
 router.get('/categories', categories.getAllCategories.bind(categories));
+
+router.post('/post',
+  validations.validPostTitle.bind(validations),
+  validations.validPostContent.bind(validations),
+  validations.validPostCategoryIds.bind(validations),
+  blogPost.createPost.bind(blogPost));
 
 module.exports = router;
