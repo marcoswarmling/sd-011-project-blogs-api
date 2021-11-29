@@ -12,7 +12,8 @@ const { titleIsRequired,
 const { postRegistration,
          getAllPosts,
           getPostById,
-           getPostUpdate } = require('../controllers/blogPostController');
+           getPostUpdate,
+            deletePost } = require('../controllers/blogPostController');
 
     router.post('/', 
     titleIsRequired,
@@ -36,5 +37,10 @@ const { postRegistration,
                     noEditCategories,
                      userIsEqualToPostAuthor,
                       getPostUpdate);
+
+    router.delete('/:id', JWTisValid,
+                           verifyPostIdExists,
+                            userIsEqualToPostAuthor,
+                             deletePost);
 
     module.exports = router;
