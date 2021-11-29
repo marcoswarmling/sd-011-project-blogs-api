@@ -2,11 +2,14 @@ const express = require('express');
 require('dotenv').config(); 
 
 const app = express();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 app.use(express.json());
-const router = require('./routes/userRoutes');
+const routerUser = require('./routes/userRoutes');
 const routerLogin = require('./routes/loginRoutes');
 
-app.use('/user', router);
+app.use('/user', routerUser);
 app.use('/login', routerLogin);
 const PORT = process.env.PORT || 3000; 
 
