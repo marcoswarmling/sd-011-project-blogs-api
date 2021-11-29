@@ -44,7 +44,7 @@ app.post(
 app.get(
   '/user',
   validateJWT,
-  UserController.getAllUsrs,
+  UserController.getAllUsers,
 );
 
 app.listen(3000, () => console.log('Ouvindo na porta 3000!'));

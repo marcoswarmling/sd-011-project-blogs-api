@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const getAllUsrs = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll();
 
@@ -33,5 +33,5 @@ const getAllUsrs = async (req, res) => {
 
 module.exports = {
   createUser,
-  getAllUsrs,
+  getAllUsers,
 };
