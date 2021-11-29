@@ -1,5 +1,6 @@
 const { validateJWT } = require('./userMiddlewares');
 const { Categories, BlogPosts } = require('../models');
+const { tokenJwtIsValid } = require('../auth/validateJWT');
 
 const titleIsRequired = (req, res, next) => {
     const { title } = req.body;
@@ -70,6 +71,35 @@ const verifyPostIdExists = async (req, res, next) => {
     next();
 };
 
+const noEditCategories = async (req, res, next) => {
+    const { categoryIds } = req.body;
+    if (categoryIds) {
+        return res.status(400).json({
+            message: 'Categories cannot be edited',
+        });
+    }
+next();
+};
+
+const userIsEqualToPostAuthor = async (req, res, next) => {
+    const { id } = req.params;
+    const token = req.headers.authorization;
+    const { data } = await tokenJwtIsValid(token);
+    try {
+        const blogPost = await BlogPosts.findOne({ where: { id } });
+        if (blogPost.userId !== data.id) {
+            return res.status(401).json({
+                message: 'Unauthorized user',
+            });
+        }
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Internal server error',
+            });
+         }
+    next();
+};
+
 module.exports = {
     titleIsRequired,
     contentIsRequired,
@@ -77,4 +107,6 @@ module.exports = {
     JWTisValid,
     categoryExists,
     verifyPostIdExists,
+    noEditCategories,
+    userIsEqualToPostAuthor,
 };

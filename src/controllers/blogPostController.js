@@ -33,8 +33,27 @@ const getPostById = async (req, res) => {
     return res.status(200).json(posts[0]);
 };
 
+const postUpdate = async (req) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const posts = await BlogPosts.update({ title, content }, { where: { id } });
+    return posts;
+};
+
+const getPostUpdate = async (req, res) => {
+    const { id } = req.params;
+    await postUpdate(req);
+    const posts = await BlogPosts.findAll({ where: { id },
+        include: [{ model: Users, as: 'user', attributes: { exclude: ['password'] } }, 
+          { model: Categories, as: 'categories', through: { attributes: [] } },
+        ],
+      });
+    return res.status(200).json(posts[0]);
+};
+
 module.exports = {
     postRegistration,
     getAllPosts,
     getPostById,
+    getPostUpdate,
 };

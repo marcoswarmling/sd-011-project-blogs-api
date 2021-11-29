@@ -5,11 +5,14 @@ const { titleIsRequired,
           categoryIdsIsRequired,
            JWTisValid,
             categoryExists,
-             verifyPostIdExists } = require('../middlewares/blogPostMiddlewares');
-
-    const { postRegistration,
-             getAllPosts,
-              getPostById } = require('../controllers/blogPostController');
+             verifyPostIdExists,
+              noEditCategories,
+               userIsEqualToPostAuthor } = require('../middlewares/blogPostMiddlewares');
+   
+const { postRegistration,
+         getAllPosts,
+          getPostById,
+           getPostUpdate } = require('../controllers/blogPostController');
 
     router.post('/', 
     titleIsRequired,
@@ -24,5 +27,14 @@ const { titleIsRequired,
     router.get('/:id', JWTisValid,
                          verifyPostIdExists,
                           getPostById);
+
+    router.put('/:id', 
+                titleIsRequired,
+                 contentIsRequired,
+                  JWTisValid,
+                   verifyPostIdExists,
+                    noEditCategories,
+                     userIsEqualToPostAuthor,
+                      getPostUpdate);
 
     module.exports = router;
