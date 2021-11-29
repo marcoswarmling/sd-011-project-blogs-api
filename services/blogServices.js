@@ -15,15 +15,6 @@ const blogPostValidate = async ({ title, content, categoryIds }, userId) => {
   
   const register = await BlogPost.create({ title, content, userId });
   
-  const setPostCtg = await categoryIds.map(async (values) => {
-    const newCtg = await PostsCategory.create(
-      { categoryIds: values, postId: register.dataValues.id },
-      );
-      return newCtg;
-  });
-
-  await Promise.all(setPostCtg);
-
   return register;
 };
 
