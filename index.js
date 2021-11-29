@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-const { PORT }= process.env;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log('ouvindo porta 3000!'));
 
