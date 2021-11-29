@@ -7,6 +7,7 @@ module.exports = (err, _req, res, _next) => {
     INEXISTENT_USER: { status: 404, message: 'User does not exist' },
     ER_NO_REFERENCED_ROW_2: { status: 400, message: '"categoryIds" not found' },
     INEXISTENT_POST: { status: 404, message: 'Post does not exist' },
+    ACCESS_DENIED: { status: 401, message: 'Unauthorized user' },
   };
   let response;
   if (err.parent) response = decoder[err.parent.code];

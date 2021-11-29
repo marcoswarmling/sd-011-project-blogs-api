@@ -8,7 +8,7 @@ const createPost = async (req, res, next) => {
 
     res.status(201).json(response);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     next(error);
   }
 };
@@ -37,8 +37,23 @@ const getPostById = async (req, res, next) => {
   }
 };
 
+const updatePost = async (req, res, next) => {
+  try {
+    const { body, user } = req;
+    const { id } = req.params;
+
+    const post = await postService.updatePost(body, user, id);
+    console.log(post, 'retorno');
+    return res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  updatePost,
 };

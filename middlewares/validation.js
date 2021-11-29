@@ -54,9 +54,25 @@ const validatePost = (req, res, next) => {
   return next();
 };
 
+const validateUpdatePost = (req, res, next) => {
+  const { body } = req;
+
+  if (body.categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
+
+  const { error } = joi.object({
+    title: joi.string().required(),
+    content: joi.string().required(),
+  }).validate(body);
+
+  if (error) return res.status(400).json({ message: error.details[0].message });
+
+  return next();
+};
+
 module.exports = {
   validateUser,
   validateLogin,
   validateCategory,
   validatePost,
+  validateUpdatePost,
 };

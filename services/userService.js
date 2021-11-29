@@ -6,7 +6,7 @@ const jwtSecret = process.env.JWT_SECRET;
 
 const generateToken = (email, id) => {
   const payload = {
-    id,
+    userId: id,
     email,
   };
   
