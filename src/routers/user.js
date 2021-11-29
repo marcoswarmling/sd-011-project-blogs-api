@@ -1,14 +1,12 @@
 const express = require('express');
 
 const router = express.Router();
-
-const { User } = require('../models');
+const Controller = require('../controllers/User');
 
 router.post('/', (req, res) => {
-  User.create(req.body)
-    .then((createdUser) => {
-      console.log(createdUser);
-      res.status(201).json({ token: 'tokenubauba' });
+  Controller.create(req.body)
+    .then(({ token }) => {
+      res.status(201).json({ token });
     });
 });
 
