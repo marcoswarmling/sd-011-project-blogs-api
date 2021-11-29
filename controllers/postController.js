@@ -43,7 +43,7 @@ const updatePost = async (req, res, next) => {
     const { id } = req.params;
 
     const post = await postService.updatePost(body, user, id);
-    console.log(post, 'retorno');
+    
     return res.status(200).json(post);
   } catch (error) {
     console.log(error);

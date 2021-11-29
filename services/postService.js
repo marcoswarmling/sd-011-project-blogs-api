@@ -37,7 +37,7 @@ const getPostById = async (id) => {
 const updatePost = async ({ title, content }, { userId }, id) => {
   const post = await BlogPosts.findOne({
     where: { id },
-    include: { model: PostsCategories, as: 'categories', through: { attributes: [] } },
+    include: [{ all: true }],
   });
 
   if (!post) throw new Error('INEXISTENT_POST');
@@ -48,9 +48,13 @@ const updatePost = async ({ title, content }, { userId }, id) => {
     { title, content },
     { where: { id } },
   );
-    post.title = title;
-    post.content = content;
-  return post;
+    const response = { 
+      title,
+       content,
+       userId: post.userId,
+       categories: post.categories,
+      };
+  return response;
 };
 
 module.exports = {
