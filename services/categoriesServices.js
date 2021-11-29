@@ -1,12 +1,12 @@
-const { Categorie } = require('../models');
+const { Category } = require('../models');
 
 const create = async (name) => {
-  const categorie = await Categorie.create({ name });
-  return categorie;
+  const category = await Category.create({ name });
+  return category;
 };
 
 const getAllCategories = async () => {
-  const categories = await Categorie.findAll();
+  const categories = await Category.findAll();
   return categories.sort((a, b) => a.dataValues.id - b.dataValues.id);
 };
 

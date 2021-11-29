@@ -57,11 +57,12 @@ const isValidCategorie = async (req, res, next) => {
 };
 
 const isValidBlogPost = async (req, res, next) => {
-  const { title, content, categoriesIds } = req.body;
+  const { title, content, categoryIds } = req.body;
 
-  if (!title || title === '') return res.status(BAD_REQUEST).json(TITLE_REQ);
+  if (!title) return res.status(BAD_REQUEST).json(TITLE_REQ);
   if (!content) return res.status(BAD_REQUEST).json(CONTENT_REQ);
-  if (categoriesIds.length === 0) return res.status(BAD_REQUEST).json(CATEGORY_REQ);
+  if (!categoryIds || categoryIds.length === 0) return res.status(BAD_REQUEST).json(CATEGORY_REQ);
+  
   next();
 };
 
