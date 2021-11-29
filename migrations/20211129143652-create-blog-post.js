@@ -28,12 +28,12 @@ module.exports = {
       published: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
+        idDate: true,
       },
       updated: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
+        idDate: true,
       }
     });
   },

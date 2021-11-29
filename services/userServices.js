@@ -17,7 +17,6 @@ const create = async (displayName, email, password, image) => {
   const emailExists = await User.findOne({ where: {
     email,
   } });
-  // console.log(emailExists);
   if (emailExists) return { message: 'User already registered' };
 
   const createUser = await User.create({ displayName, email, password, image });
