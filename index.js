@@ -56,3 +56,10 @@ app.post(
   auth,
   categoriesController.createCategory,
 );
+
+app.get(
+  '/categories',
+  missingToken,
+  auth,
+  categoriesController.findAll,
+);
