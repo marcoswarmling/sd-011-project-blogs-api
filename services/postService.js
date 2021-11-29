@@ -32,7 +32,7 @@ const newPost = async (payload) => {
 const getPosts = () => BlogPost.findAll({
   include: [
     { model: User, as: 'user' },
-    ...categoryConfig,
+    { ...categoryConfig },
   ],
 });
 
@@ -40,7 +40,7 @@ const getPostById = async (id) => {
   const post = await BlogPost.findByPk(id, {
     include: [
       { model: User, as: 'user' },
-      ...categoryConfig,
+      { ...categoryConfig },
     ],
   });
   validate.post(post);
