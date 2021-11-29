@@ -27,7 +27,14 @@ const login = async (req, res) => {
   res.status(200).json({ token });
 };
 
+const listAll = async (_req, res) => {
+  const allUsers = await UserServices.findAll();
+
+  res.status(200).json(allUsers);
+};
+
 module.exports = {
   create,
   login,
+  listAll,
 };

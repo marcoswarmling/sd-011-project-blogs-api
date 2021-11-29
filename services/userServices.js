@@ -6,7 +6,10 @@ const create = async ({ displayName, email, password, image }) => Users.create({
   displayName, email, password, image,
 });
 
+const findAll = async () => Users.findAll({ raw: true });
+
 module.exports = {
   findUserByEmail,
   create,
+  findAll,
 };
