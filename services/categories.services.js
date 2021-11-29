@@ -6,6 +6,12 @@ async function createCategoryInDB(categoryName) {
   return dataValues.id;
 }
 
+async function getAllCategoriesInDB() {
+  const categories = await Category.findAll();
+  return categories;
+}
+
 module.exports = {
   createCategoryInDB,
+  getAllCategoriesInDB,
 };

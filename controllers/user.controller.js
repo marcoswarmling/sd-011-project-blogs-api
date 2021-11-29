@@ -22,7 +22,7 @@ async function createUser(req, res, next) {
   }
 }
 
-async function findAllUsers(req, res, next) {
+async function findAllUsers(_req, res, next) {
   try {
     const users = await UserService.getAllUsersInDB();
 

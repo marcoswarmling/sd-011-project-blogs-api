@@ -18,6 +18,19 @@ async function createCategory(req, res, next) {
   }
 }
 
+async function getAllCategories(_req, res, next) {
+  try {
+    const categories = await CategoryServices.getAllCategoriesInDB();
+
+    return res.status(HttpCodes.code.OK).json(categories);
+  } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRROR', err);
+    return next(ApiError.internalServerError());
+  }
+}
+
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };
