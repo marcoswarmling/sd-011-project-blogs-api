@@ -1,8 +1,8 @@
-const PostsCategory = (sequelize, _DataTypes) => {
-  const Pcat = sequelize.define('PostsCategory', {},
+module.exports = (sequelize, _DataTypes) => {
+  const PostsCategory = sequelize.define('PostsCategory', {},
     { timestamps: false });
 
-  Pcat.associate = (models) => {
+    PostsCategory.associate = (models) => {
     models.BlogPost.belongsToMany(models.Category, {
       as: 'categories',
       through: 'PostsCategory',
@@ -18,7 +18,5 @@ const PostsCategory = (sequelize, _DataTypes) => {
     });
   };
 
-  return Pcat;
+  return PostsCategory;
 };
-
-module.exports = PostsCategory;
