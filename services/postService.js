@@ -4,15 +4,14 @@ const { isValidUser, isValidCategory, validPost } = require('../utils/validation
 const postRegister = async (post, userEmail) => {
   const { title, content, categoryIds } = post;
 
-  const validCategoryOne = await isValidCategory(categoryIds[0]);
-  const validCategoryTwo = await isValidCategory(categoryIds[1]);
+  const validCategory = await isValidCategory(categoryIds);
 
-  if (!validCategoryOne.error && !validCategoryTwo.error) {
+  if (validCategory) {
     const result = await isValidUser(userEmail);
     const { id } = result;
     if (!result.error) return BlogPost.create({ title, content, userId: id, categoryIds });
     return result;
-  } return ({ error: validCategoryOne.error || validCategoryTwo.error });
+  } return ({ error: { code: 'inexistingCategory' } });
 };
 
 const getAllPosts = async () => {

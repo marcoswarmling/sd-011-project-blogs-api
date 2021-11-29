@@ -56,13 +56,13 @@ const isValidUser = async (email) => {
   } return validUser;
 };
 
-const isValidCategory = async (categoryId) => {
-  const validCategory = await Category.findOne({ where: { id: categoryId } });
-  if (!validCategory) {
-    return ({
-      error: { code: 'inexistingCategory' },
-    });
-  } return validCategory;
+const isValidCategory = async (categoryIds) => {
+  const categories = categoryIds.map(async (categoryId) => 
+    Category.findOne({ where: { id: categoryId } }));
+
+  const allValidation = Promise.all(categories).then((result) => result.every((valid) => valid));
+
+  return allValidation;
 };
 
 const validPost = async (postId) => {
