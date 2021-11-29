@@ -62,10 +62,21 @@ const deleteByID = async (userId, id) => {
   return postDeleted;
 };
 
+const updateByID = async (data, id) => {
+  const postUpdated = await BlogPosts.update(data, {
+    where: { id },
+  });
+  if (!postUpdated || postUpdated === 0) {
+    throw new Error('Invalid Operation');
+  }
+  return postUpdated;
+};
+
 module.exports = {
   create,
   createPostCategories,
   findAll,
   findByID,
   deleteByID,
+  updateByID,
 }; 

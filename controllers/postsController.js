@@ -33,6 +33,17 @@ const findByID = async (req, res) => {
   }
 };
 
+const updateByID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const updatedPost = await PostsService.updateByID({ title, content }, id);
+    return res.status(204).json(updatedPost);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+};
+
 const deleteByID = async (req, res) => {
   try {
     const { id } = req.params;
@@ -48,4 +59,5 @@ module.exports = {
   findAll,
   findByID,
   deleteByID,
+  updateByID,
 }; 
