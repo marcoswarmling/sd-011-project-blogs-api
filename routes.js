@@ -40,4 +40,6 @@ router.post('/post',
 
 router.get('/post', blogPost.getPosts.bind(blogPost));
 
+router.get('/post/:id', blogPost.getPostById.bind(blogPost));
+
 module.exports = router;
