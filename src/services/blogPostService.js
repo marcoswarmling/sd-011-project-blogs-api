@@ -5,13 +5,14 @@ const messageErrorServer = { code: 500, result: { message: 'Internal Error Serve
 const createBlogPost = async (userEmail, title, content, categoryIds) => {
   const today = new Date();
   try {
-    const [{ dataValues }] = await User.findAll({ where: { email: userEmail } });
-    const userId = dataValues.id;
+    const [dataValues] = await User.findAll({ where: { email: userEmail } });
+    console.log('datavalues', dataValues.id);
+    const userId = await dataValues.id;
     const postCreated = await BlogPost.create({
       title, content, userId, published: today, updated: today });
-    const blogpostId = postCreated.dataValues.id;
+    const postId = await postCreated.dataValues.id;
     categoryIds.forEach((categoryId) => {
-      PostCategory.create({ categoryId, blogpostId });
+      PostCategory.create({ categoryId, postId });
     });
     return {
       code: 201,
