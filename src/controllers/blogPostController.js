@@ -98,8 +98,7 @@ const getPostById = async (req, res) => {
       });
       return res.status(200).json(posts);
     }
-
-    if (req.query && !req.query.q) {
+    if (Object.keys(req.query).length > 0 && !req.query.q) {
       return getAll(req, res);
     }
 
