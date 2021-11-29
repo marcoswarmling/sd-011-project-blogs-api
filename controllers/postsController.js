@@ -33,8 +33,19 @@ const findByID = async (req, res) => {
   }
 };
 
+const deleteByID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await PostsService.deleteByID(req.user.id, id);
+    return res.status(204).json();
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+};
+
 module.exports = {
   create,
   findAll,
   findByID,
+  deleteByID,
 }; 

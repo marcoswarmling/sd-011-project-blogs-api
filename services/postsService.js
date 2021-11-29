@@ -48,9 +48,24 @@ const findByID = async (id) => {
   return post;
 };
 
+const deleteByID = async (userId, id) => {
+  const postDeleted = await BlogPosts.destroy({
+    where: {
+      id,
+      userId,
+    },
+  });
+  console.log(postDeleted);
+  if (!postDeleted || postDeleted === 0) {
+    throw new Error('Post does not exist');
+  }
+  return postDeleted;
+};
+
 module.exports = {
   create,
   createPostCategories,
   findAll,
   findByID,
+  deleteByID,
 }; 
