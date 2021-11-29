@@ -33,10 +33,18 @@ const invalidToken = {
   },
 };
 
+const invalidCatsArray = {
+  err: {
+    status: 400,
+    message: '"categoryIds" not found',
+  },
+};
+
 module.exports = {
   userAlreadyExists,
   userNotFound,
   invalidLogin,
   tokenNotFound,
   invalidToken,
+  invalidCatsArray,
 };

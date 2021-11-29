@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const { Category } = require('../models');
-// const ErrorList = require('../utils/errorList');
 
 const newCatValidt = Joi.object({
   name: Joi.string().required(),
@@ -19,6 +18,13 @@ const createCat = async (name) => {
   return newCat.dataValues;
 };
 
+const getAllCats = async () => {
+  const cats = await Category.findAll();
+
+  return cats;
+};
+
 module.exports = {
   createCat,
+  getAllCats,
 };

@@ -8,6 +8,13 @@ const createCat = async (req, res, next) => {
   return res.status(201).json(cat);
 };
 
+const getAllCats = async (_req, res, _next) => {
+  const cats = await Category.getAllCats();
+
+  return res.status(200).json(cats);
+};
+
 module.exports = {
   createCat,
+  getAllCats,
 };
