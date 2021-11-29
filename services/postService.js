@@ -41,13 +41,21 @@ const getPostById = async (id) => {
     } return valid;
 };
 
-const updatePost = async (post, userEmail) => {
+const updatePost = async (post, userEmail, categoryIds) => {
+  if (categoryIds) return ({ error: { code: 'categoryIsNotEdited' } });
   const { id, title, content } = post;
   const postDatabase = await getPostById(id);
   const { email } = postDatabase.user;
   if (email === userEmail) {
-    return BlogPost.update({ title, content }, 
+    await BlogPost.update({ title, content }, 
       { where: { id } });
+    const newPost = await BlogPost.findOne({
+      where: { id },
+      include: [
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return newPost;
   } return ({
       error: { code: 'postNotPertence' },
   });

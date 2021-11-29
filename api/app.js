@@ -8,6 +8,7 @@ const categoryRoutes = require('../routes/categoryRoutes');
 const middlewareCategory = require('../middlewares/categoryMiddleware');
 const postRoutes = require('../routes/postRoutes');
 const middlewarePost = require('../middlewares/postMiddleware');
+const postMiddlewareComplement = require('../middlewares/postMiddlewareComplement');
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use(middlewareCategory);
 
 app.use(postRoutes);
 app.use(middlewarePost);
+app.use(postMiddlewareComplement);
 
 module.exports = app;

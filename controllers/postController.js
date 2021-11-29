@@ -37,15 +37,16 @@ const updatePost = rescue(async (req, res, next) => {
   const { error } = joi.object({
     title: joi.string().required(),
     content: joi.string().required(),
+    categoryIds: joi.array(),
   }).validate(req.body);
 
   if (error) return next(error);
 
   const { id } = req.params;
-  const { title, content } = req.body;
+  const { title, content, categoryIds } = req.body;
   const post = { id, title, content };
   const { email } = req.user;
-  const result = await service.updatePost(post, email);
+  const result = await service.updatePost(post, email, categoryIds);
   if (result.error) return next(result.error);
   return res.status(200).json(result);
 });
