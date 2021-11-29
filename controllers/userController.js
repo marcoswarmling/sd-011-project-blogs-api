@@ -1,5 +1,5 @@
 const db = require('../models');
-const jwtToken = require('../authrization/jwtToken');
+const jwtToken = require('../authorization/jwtToken');
 
 const getAllUsers = async (_req, res) => {
   try {
@@ -15,10 +15,14 @@ const createUser = async (req, res) => {
   const { email } = newUser;     
     try {
       await db.Users.create(newUser);
-      const token = jwtToken({ email });
-      return res.status(201).json(token);    
+      const getNewUser = await db.Users.findOne({
+        where: { email },
+      });
+      const { id, displayName, image } = getNewUser;
+      const token = jwtToken({ id, displayName, email, image });
+      return res.status(201).json(token);
     } catch (error) {
-       return res.status(400).json(error.message); 
+      return res.status(400).json(error.message);
     }
 };
 
