@@ -45,8 +45,8 @@ const verifyUser = async (req, res, next) => {
   const { email } = req.body;
   const user = await User.findOne({ where: { email } });
   if (!user) {
-    return res.status(400).json({ message: 'Invalid fields' });
-  } 
+    return res.status(400).json({ message: 'Invalid Fields' });
+  }
 
   next();
 };

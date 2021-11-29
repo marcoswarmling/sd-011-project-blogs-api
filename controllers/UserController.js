@@ -20,6 +20,18 @@ const createUser = async (req, res) => {
   }
 };
 
+const getAllUsrs = async (req, res) => {
+  try {
+    const users = await User.findAll();
+
+    return res.status(200).json([...users]);
+  } catch (e) {
+    console.log(e);
+    return res.status(409).json({ message: 'User already registered' });
+  }
+};
+
 module.exports = {
   createUser,
+  getAllUsrs,
 };

@@ -6,6 +6,7 @@ const {
   validateDisplayName,
   validateEmail,
   verifyPassword,
+  // verifyUserExists,
 } = require('./validations/validateUser');
 
 const {
@@ -16,6 +17,8 @@ const {
   verifyUser,
 } = require('./validations/validateLogin');
 
+const { validateJWT } = require('./validations/validateJWT');
+
 const app = express();
 app.use(express.json());
 
@@ -24,6 +27,7 @@ app.post(
   validateDisplayName,
   validateEmail,
   verifyPassword,
+  // verifyUserExists,
   UserController.createUser,
 );
 
@@ -35,6 +39,12 @@ app.post(
   verifyPasswordExists,
   verifyUser,
   LoginController.login,
+);
+
+app.get(
+  '/user',
+  validateJWT,
+  UserController.getAllUsrs,
 );
 
 app.listen(3000, () => console.log('Ouvindo na porta 3000!'));
