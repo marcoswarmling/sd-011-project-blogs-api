@@ -1,25 +1,13 @@
-const {
-  Model,
-} = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
-  class PostsCategories extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    // associate(models)
-    static associate() {
-      // define association here
-    }
-  }
-  PostsCategories.init({
+  const PostsCategories = sequelize.define('PostsCategories', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     postId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER,
-  }, {
-    sequelize,
-    modelName: 'PostsCategories',
-  });
+  }, { timestamps: false });
+  //   remove a obrigatoriedade de utilizar os campos `createdAt` e `updatedAt`
   return PostsCategories;
 };

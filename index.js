@@ -2,6 +2,7 @@ const express = require('express');
 const routerUsers = require('./routes/routeUsers');
 const routerLogin = require('./routes/routerLogin');
 const routerCategories = require('./routes/routerCategories');
+const routerBlogPost = require('./routes/routerBlogPost');
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,8 @@ app.use('/user', routerUsers);
 app.use('/login', routerLogin);
 
 app.use('/categories', routerCategories);
+
+app.use('/post', routerBlogPost);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

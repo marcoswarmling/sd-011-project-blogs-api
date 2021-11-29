@@ -1,24 +1,12 @@
-const {
-  Model,
-} = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
-  class Categories extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    // associate(models)
-    static associate() {
-      // define association here
-    }
-  }
-  Categories.init({
+  const Categories = sequelize.define('Categories', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Categories',
-  });
+  }, { timestamps: false });
+  //   remove a obrigatoriedade de utilizar os campos `createdAt` e `updatedAt`
   return Categories;
 };
