@@ -4,7 +4,7 @@ const {
   validEmailExist,
   validDisplayName,
   validPassword,
-} = require('../validation/userValidation');
+} = require('../validation');
 const { createUser, userController } = require('../controllers/userController');
 const tokenValidation = require('../middlewares/tokenValidation');
 
