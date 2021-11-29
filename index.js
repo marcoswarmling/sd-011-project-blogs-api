@@ -6,7 +6,7 @@ const { nameValidation, emailExist, emailValidation,
 passwordValidation, emailEmpty, passwordEmpty, 
 tokenValidation } = require('./middlewares/userValidation');
 const { nameIsValid } = require('./middlewares/categoriesValidation');
-const { createCategory } = require('./controllers/categorieController');
+const { createCategory, getCategories } = require('./controllers/categorieController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,3 +23,4 @@ app.post('/login', emailEmpty, passwordEmpty, loginUser);
 app.get('/user', tokenValidation, getAllUsers);
 app.get('/user/:id', tokenValidation, getUserById);
 app.post('/categories', tokenValidation, nameIsValid, createCategory);
+app.get('/categories', tokenValidation, getCategories);
