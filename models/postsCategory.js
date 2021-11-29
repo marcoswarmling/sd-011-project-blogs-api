@@ -5,7 +5,7 @@ const PostsCategory = (sequelize, _DataTypes) => {
     postsCategory.belongsTo(models.User, {
       foreignKey: 'userId',
       as: 'user',
-    }),
+    });
     postsCategory.belongsTo(models.Category, {
       foreignKey: 'categoryId',
       as: 'category',

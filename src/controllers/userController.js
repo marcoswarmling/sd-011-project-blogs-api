@@ -1,10 +1,16 @@
+const jwt = require('jsonwebtoken');
 const rescue = require('express-rescue');
-// const { User } = require('../models');
 const userService = require('../services/userService');
 const {
   // STATUS_CODE_OK,
   STATUS_CODE_CREATED,
 } = require('../helpers/user.js');
+
+const secret = 'hardcoded-secret';
+const jwtConfig = {
+  expiresIn: '7d',
+  algorithm: 'HS256',
+};
 
 const createUser = rescue(async (req, res) => {
   const { displayName, email, password, image } = req.body;
