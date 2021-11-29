@@ -1,4 +1,4 @@
-module.exports = async (model, email) => {
+module.exports = async (model, email = '') => {
   const foundUser = await model.findOne({ where: { email } });
   if (!foundUser) return true;
 

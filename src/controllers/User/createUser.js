@@ -1,23 +1,19 @@
 const { User } = require('../../models');
-const isUserUnique = require('../../validations/isUserUnique');
+const verifyIsUserUnique = require('../../validations/isUserUnique');
+const { generateToken } = require('../../jwt');
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const { displayName, email, password, image } = req.body;
 
-    await isUserUnique(User, email);
-
+    await verifyIsUserUnique(User, email);
     await User.create({ displayName, email, password, image });
-
-    return res.status(201).json({ token: 'criado' });
-  } catch (error) {
-    const { errors: [data] } = error;
-    const DEFAULT_STATUS = 400;
-    const DEFAULT_MESSAGE = 'invalid entries';
     
-    const { status = DEFAULT_STATUS, message = DEFAULT_MESSAGE } = JSON.parse(data.message);
+    const token = generateToken({ email });
 
-    return res.status(status).json({ message });
+    return res.status(201).json({ token });
+  } catch (error) {
+    return next(error);
   }
 };
 
