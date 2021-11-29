@@ -1,5 +1,4 @@
 const serviceFindAllUsers = require('../service/serviceFindAllUsers');
-const UniqueConstraintError = require('sequelize/lib/errors/validation/unique-constraint-error');
 
 const controllerFindAllUsers = async (req, res) => {
   try {

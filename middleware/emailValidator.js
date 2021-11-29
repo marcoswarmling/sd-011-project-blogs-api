@@ -6,7 +6,7 @@ function validedEmail(req, res, next) {
   const regexEmail = /[a-zA-Z0-9_]+@+[a-zA-Z0-9_]+.com/;
   const testeRegex = regexEmail.test(req.body.email);
   if (!testeRegex) {
-    res.status(400).json({ message:'"email" must be a valid email' });
+    res.status(400).json({ message: '"email" must be a valid email' });
     return;
   }
 

@@ -1,8 +1,8 @@
 const { Users } = require('../models');
 
 const serviceFindAllUsers = async () => {
-  const login = await Users.findAll();
-  return login;
+  const users = await Users.findAll();
+  return users;
 };
 
 module.exports = serviceFindAllUsers;

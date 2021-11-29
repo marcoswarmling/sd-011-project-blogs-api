@@ -7,7 +7,7 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const validedToken = (req,res, next)=>{
+const validedToken = (req, res, next) => {
 const token = req.headers.authorization;
 
 if (!token) {
@@ -22,4 +22,4 @@ try {
 }
 };
 
-module.exports = validedToken
+module.exports = validedToken;

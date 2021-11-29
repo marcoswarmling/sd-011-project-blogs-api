@@ -1,11 +1,11 @@
 function validedPasswordLogin(req, res, next) {
   const { password } = req.body;
-  if (password === "") {
-    res.status(400).json({ message: '"password" is not allowed to be empty'});
+  if (password === '') {
+    res.status(400).json({ message: '"password" is not allowed to be empty' });
     return;
   }
   if (!password) {
-    res.status(400).json({ message: "\"password\" is required"});
+    res.status(400).json({ message: '"password" is required' });
     return;
   }
 

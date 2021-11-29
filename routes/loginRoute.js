@@ -6,7 +6,7 @@ router.post(
   '/',
   validedEmailLogin,
   validedPasswordLogin,
-  controllerLoginUser
+  controllerLoginUser,
 );
 
 module.exports = router;
