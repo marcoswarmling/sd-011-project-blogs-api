@@ -41,9 +41,19 @@ const getUserById = async (req, res) => {
   }
 };
 
+const excludeUser = async (req, res) => {
+  try {
+    const { code } = await UserService.excludeUser(req.userEmail);
+    res.status(code).send();
+  } catch (error) {
+    res.status(500).json({ message: messageErrorServer });
+  }
+};
+
 module.exports = {
   createUser,
   connectUser,
   getAllUsers,
   getUserById,
+  excludeUser,
 };

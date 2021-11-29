@@ -14,5 +14,6 @@ route.post(
 
 route.get('/:id', TokenValidate.checkAuthenticatedUser, UserController.getUserById);
 route.get('/', TokenValidate.checkAuthenticatedUser, UserController.getAllUsers);
+route.delete('/me', TokenValidate.checkAuthenticatedUser, UserController.excludeUser);
 
 module.exports = route;
