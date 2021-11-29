@@ -76,14 +76,18 @@ const removePost = async (id, userEmail) => {
 
 // https://pt.stackoverflow.com/questions/355872/como-utilizar-o-like-do-sql-no-sequelize
 const searchByTerm = async (searchParam) => {
-  if (!searchParam) return BlogPost.findAll();
+  if (!searchParam) {
+    return BlogPost.findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+  }
+
   const posts = await BlogPost.findAll({
     where: {
-      [Op.or]: [
-        { title: { [Op.like]: `%${searchParam}%` } },
-        { content: { [Op.like]: `%${searchParam}%` } },
-      ],
-    },
+      [Op.or]: [{ title: { [Op.like]: `%${searchParam}%` } },
+                { content: { [Op.like]: `%${searchParam}%` } }] },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
