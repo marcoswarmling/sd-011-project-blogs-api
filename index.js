@@ -3,6 +3,7 @@ const express = require('express');
 const userRoutes = require('./routes/user');
 const loginRoutes = require('./routes/login');
 const categoriesRoutes = require('./routes/categories');
+const blogPostsRoutes = require('./routes/blogposts');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,5 +17,6 @@ app.get('/', (request, response) => {
 app.use('/user', userRoutes);
 app.use('/login', loginRoutes);
 app.use('/categories', categoriesRoutes);
+app.use('/post', blogPostsRoutes);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
