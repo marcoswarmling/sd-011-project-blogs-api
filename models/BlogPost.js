@@ -9,12 +9,11 @@ module.exports = (sequelize, DataTypes) => {
   {
     timestamps: false,
     tableName: 'BlogPosts',
-    underscored: true,
   });
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User,
-      { foreignKey: 'user_id', as: 'user' });
+      { foreignKey: 'userId', as: 'user' });
   };
 
   return BlogPost;
