@@ -1,8 +1,11 @@
 const { User } = require('../../models');
+const isUserUnique = require('../../validations/isUserUnique');
 
 const createUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
+
+    await isUserUnique(User, email);
 
     await User.create({ displayName, email, password, image });
 

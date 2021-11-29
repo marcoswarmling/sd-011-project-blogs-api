@@ -8,7 +8,4 @@ module.exports = {
   notEmpty: {
     msg: JSON.stringify({ message: '"email" is required' }),
   },
-  unique: {
-    msg: JSON.stringify({ message: 'User already registered' }),
-  },
 };
