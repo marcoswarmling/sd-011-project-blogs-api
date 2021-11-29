@@ -13,7 +13,7 @@ const {
   validateEmailLength,
   verifyPasswordExists,
   verifyPasswordLength,
-  // verifyUser,
+  verifyUser,
 } = require('./validations/validateLogin');
 
 const app = express();
@@ -33,7 +33,7 @@ app.post(
   verifyPasswordLength,
   validateEmailExists,
   verifyPasswordExists,
-  // verifyUser,
+  verifyUser,
   LoginController.login,
 );
 

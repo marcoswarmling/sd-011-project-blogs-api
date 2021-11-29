@@ -10,10 +10,7 @@ const jwtConfig = {
 const login = async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid fields' });
-    }  
+    const user = await User.findOne({ where: { email } }); 
     const token = jwt.sign({ data: user }, secret, jwtConfig);
     return res.status(200).json({ token });
   } catch (error) {
