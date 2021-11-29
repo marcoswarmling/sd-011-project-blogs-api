@@ -65,4 +65,16 @@ module.exports = {
       return next(error);
     }
   },
+
+  search: async (request, response, next) => {
+    const { searchTerm } = request.query.q;
+
+    try {
+      const posts = await postService.search(searchTerm);
+
+      return response.status(statusCodes.ok).json(posts);
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
