@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 const { BlogPost, PostsCategory, User, Category } = require('../models');
 const config = require('../config/config');
 
+const { unauthorizedUser } = require('../err');
+
 const {
   verifyTitle,
   verifyContent,
@@ -70,8 +72,26 @@ const getPostById = async (searchedId) => {
   return blogPost;
 };
 
+const updatePost = async ({ title, content, postId, userId }) => {
+  const { user: { dataValues: { id: ownerId } } } = await getPostById(postId);
+
+  if (userId !== ownerId) {
+    return unauthorizedUser;
+  }
+
+  const isValidTitle = verifyTitle(title);
+  const isValidContent = verifyContent(content);
+  if (isValidTitle) return isValidTitle;
+  if (isValidContent) return isValidContent;
+
+  await BlogPost.update({ title, content }, { where: { id: postId } });
+  const post = await getPostById(postId);
+  return post;
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  updatePost,
 };

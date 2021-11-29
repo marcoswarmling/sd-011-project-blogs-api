@@ -30,7 +30,14 @@ const categoryIdsNotFound = {
   err: {
     status: 400,
   },
-  message: '"categoryIds" not found',
+  message: '"categories" not found',
+};
+
+const unauthorizedUser = {
+  err: {
+    status: 401,
+  },
+  message: 'Unauthorized user',
 };
 
 module.exports = {
@@ -39,4 +46,5 @@ module.exports = {
   contentIsRequired,
   categoryIdsIsRequired,
   categoryIdsNotFound,
+  unauthorizedUser,
 };
