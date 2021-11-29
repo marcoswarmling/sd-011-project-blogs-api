@@ -13,11 +13,11 @@ const controllerCreateUser = async (req, res) => {
       error instanceof UniqueConstraintError
       && error.errors[0].path === 'Users.email'
     ) {
-      res.status(409).json({ menssage: 'User already registered' });
+      res.status(409).json({ message: 'User already registered' });
       return;
     }
     console.log(error);
-    res.status(500).json({ menssage: 'problema aqui: rota post user' });
+    res.status(500).json({ message: 'problema aqui: rota post user' });
   }
 };
 module.exports = controllerCreateUser;
