@@ -1,4 +1,4 @@
-const { getRequiredFieldMessage } = require('../errorMessages');
+const { getRequiredFieldMessage, getMinimumLengthMessage } = require('../errorMessages');
 
 const create = {
   type: 'object',
@@ -17,6 +17,8 @@ const create = {
     },
     properties: {
       email: '"email" must be a valid email',
+      displayName: '"displayName" length must be at least 8 characters long',
+      password: getMinimumLengthMessage('password', 6),
     },
   },
 };
