@@ -1,4 +1,4 @@
-module.exports = (err, _req, res, _next) => {
+module.exports = (err, _req, res, next) => {
   if (err.isJoi) return res.status(400).json({ message: err.details[0].message });
   if (err.code === 'missingAuthToken') {
     return res.status(401).json({ message: 'Token not found' });
@@ -9,7 +9,5 @@ module.exports = (err, _req, res, _next) => {
   if (err.code === 'inexistingPost') {
     return res.status(404).json({ message: 'Post does not exist' });
   }
-  return res.status(500).json({ 
-    message: 'critical error :(',
-  });
+  return next(err);
 };
