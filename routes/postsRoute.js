@@ -1,6 +1,11 @@
 const postsRouter = require('express').Router();
 
-const { createPostController, getAllPostsController } = require('../controllers/postsController');
+const { 
+  createPostController, 
+  getAllPostsController, 
+  getPostByIdController,
+} = require('../controllers/postsController');
+
 const { 
   validatePostFields, 
   validateExistingCategories,
@@ -20,6 +25,12 @@ postsRouter.get(
   '/',
   checkValidToken,
   getAllPostsController,
+);
+
+postsRouter.get(
+  '/:id',
+  checkValidToken,
+  getPostByIdController,
 );
 
 module.exports = postsRouter;
