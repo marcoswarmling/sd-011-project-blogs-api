@@ -20,4 +20,6 @@ const validDisplayName = (req, res, next) => {
   next();
 };
 
-module.exports = validDisplayName;
+module.exports = { 
+  validDisplayName,
+};
