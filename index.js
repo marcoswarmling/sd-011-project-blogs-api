@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const user = require('./routes/userRouter');
+const login = require('./routes/loginRouter');
 
 const PORT = process.env.PORT || 3000;
 
@@ -20,3 +21,4 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', user);
+app.use('/login', login);
