@@ -2,7 +2,7 @@ const {
   userNameValidations, 
   passwordValidations,
   emailValidations,
-} = require('../validations');
+} = require('../validations/sequelize');
 
 const UserModel = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
