@@ -14,6 +14,16 @@ class BlogPostController {
 
     res.status(code).json(data);
   }
+
+  async getPosts(req, res) {
+    const token = req.headers.authorization;
+    const { code, data, message } = await this.blogPostService.getAllPosts(token);
+    if (message) {
+      return res.status(code).json({ message });
+    }
+
+    res.status(code).json(data);
+  }
 }
 
 module.exports = BlogPostController;

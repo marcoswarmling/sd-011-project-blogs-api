@@ -38,4 +38,6 @@ router.post('/post',
   validations.validPostCategoryIds.bind(validations),
   blogPost.createPost.bind(blogPost));
 
+router.get('/post', blogPost.getPosts.bind(blogPost));
+
 module.exports = router;
