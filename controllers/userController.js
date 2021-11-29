@@ -20,9 +20,15 @@ const getUser = async (req, res) => {
   return res.status(200).json(users);
 };
 
+const deleteMe = async (req, res) => {
+  await userService.deleteMe(req.token.id);
+  return res.status(204).end();
+};
+
 module.exports = {
   newUser,
   login,
   getUsers,
   getUser,
+  deleteMe,
 };

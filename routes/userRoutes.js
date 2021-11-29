@@ -8,6 +8,7 @@ const router = express.Router();
 router
   .post('/user', rescue(validateNewUser), rescue(userController.newUser))
   .post('/login', rescue(validateLogin), rescue(userController.login))
+  .delete('/user/me', rescue(validateToken), rescue(userController.deleteMe))
   .get('/user/:id', rescue(validateToken), rescue(userController.getUser))
   .get('/user', rescue(validateToken), rescue(userController.getUsers));
 
