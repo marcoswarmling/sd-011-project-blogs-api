@@ -10,6 +10,7 @@ const postOwnership = require('../middlewares/validations/post/postOwnership');
 const postRouter = express.Router();
 
 postRouter.post('/', authValidator, newPostValidator, postController.create);
+postRouter.get('/search', authValidator, postController.search);
 postRouter.get('/:id', authValidator, postController.getById);
 postRouter.get('/', authValidator, postController.getAll);
 postRouter.put('/:id', authValidator, updatePostValidator, postOwnership, postController.update);
