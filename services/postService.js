@@ -4,13 +4,16 @@ const checkPermission = (post, userId) => {
   if (post.userId !== userId) throw new Error('ACCESS_DENIED');
 };
 
-const createPost = async ({ title, content, categoryIds }, { userId }) => {
-  const newPost = await BlogPosts.create({ title, content, userId });
+const createPost = async ({ title, content, categoryIds }, { userId }, t) => {
+  const newPost = await BlogPosts.create(
+    { title, content, userId },
+    { transaction: t },
+    );
 
   const newPostCategories = categoryIds
   .map((category) => ({ postId: newPost.id, categoryId: category }));
   
-  await PostsCategories.bulkCreate(newPostCategories);
+  await PostsCategories.bulkCreate(newPostCategories, { transaction: t });
 
   return newPost;
 };

@@ -1,13 +1,23 @@
+const Sequelize = require('sequelize');
+
 const postService = require('../services/postService');
+const config = require('../config/config');
+require('dotenv').config();
+
+const sequelize = new Sequelize(config.development);
 
 const createPost = async (req, res, next) => {
+  const t = await sequelize.transaction();
   try {
     const { body, user } = req;
 
-    const response = await postService.createPost(body, user);
+    const response = await postService.createPost(body, user, t);
+
+    await t.commit();
 
     res.status(201).json(response);
   } catch (error) {
+    await t.rollback();
     console.log(error);
     next(error);
   }
@@ -43,7 +53,7 @@ const updatePost = async (req, res, next) => {
     const { id } = req.params;
 
     const post = await postService.updatePost(body, user, id);
-    
+
     return res.status(200).json(post);
   } catch (error) {
     console.log(error);
