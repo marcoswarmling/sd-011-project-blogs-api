@@ -13,9 +13,14 @@ const {
 } = require('../middlewares/categoryValidations');
 
 const {
+  getAllPosts,
   createPost,
 } = require('../controllers/blogPostsControllers');
 
+router.get('/',
+  validateJWTToken,
+  getAllPosts);
+  
 router.post('/',
   validateJWTToken,
   validatePosts,

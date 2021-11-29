@@ -13,11 +13,11 @@ const validateCategoryExist = async (req, res, next) => {
   const { categoryIds } = req.body;
   const findCategories = await Categories.findAll();
  // console.log(findCategories, 'FIND-CATEGORIES');
-  const ifCategoryExist = findCategories.some((category) => 
+  const categoryExist = findCategories.some((category) => 
   categoryIds.includes(category.dataValues.id));
 
   // console.log(ifCategoryExist, 'CATEGORY-EXIST');
-  if (!ifCategoryExist) {
+  if (!categoryExist) {
     return res.status(400).json({ message: '"categoryIds" not found' });
   }
   next();
