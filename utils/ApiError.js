@@ -76,6 +76,13 @@ class ApiError {
     );
   }
 
+  static requiredCategoryName() {
+    return new ApiError(
+      HTTP_STATUS.code.BAD_REQUEST,
+      HTTP_STATUS.CATEGORY_NAME_REQUIRED,
+    );
+  }
+
   static requiredEmail() {
     return new ApiError(
       HTTP_STATUS.code.BAD_REQUEST,

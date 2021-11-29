@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const { User } = require('../models');
 
 async function getUserByEmail(email) {

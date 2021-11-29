@@ -9,6 +9,7 @@ const HTTP_STATUS = {
     OK: 200,
     UNAUTHORIZED: 401,
   },
+  CATEGORY_NAME_REQUIRED: { message: '"name" is required' },
   EMAIL_ALREADY_EXIST: { message: 'User already registered' },
   EMAIL_REQUIRED: { message: '"email" is required' },
   EMAIL_NOT_ALLOWED: { message: '"email" is not allowed to be empty' },
