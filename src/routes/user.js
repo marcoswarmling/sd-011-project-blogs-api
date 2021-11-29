@@ -8,4 +8,7 @@ Route.route('/')
   .get(UserController.listAll)
   .post(UserController.create);
 
+Route.route('/:id')
+  .get(UserController.findById);
+
 module.exports = Route;
