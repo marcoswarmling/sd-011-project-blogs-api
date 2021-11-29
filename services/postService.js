@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, User, Category } = require('../models');
 const { isValidUser, isValidCategory, validPost } = require('../utils/validations');
 
@@ -73,10 +74,29 @@ const removePost = async (id, userEmail) => {
   } return { error: { code: 'postNotPertence' } };
 };
 
+// https://pt.stackoverflow.com/questions/355872/como-utilizar-o-like-do-sql-no-sequelize
+const searchByTerm = async (searchParam) => {
+  const posts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${searchParam}%` } },
+        { content: { [Op.like]: `%${searchParam}%` } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return posts;
+};
+
 module.exports = {
   postRegister,
   getAllPosts,
   getPostById,
   updatePost,
   removePost,
+  searchByTerm,
 };
