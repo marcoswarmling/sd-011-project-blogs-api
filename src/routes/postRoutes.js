@@ -21,7 +21,7 @@ route.put(
   UserPost.checkUserPost,
   BlogPostController.updatePostById,
 );
-route.post(
+route.delete(
   '/:id',
   TokenValidate.checkAuthenticatedUser,
   UserDeletePost.checkUserDeletePost,

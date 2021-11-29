@@ -6,7 +6,6 @@ const createBlogPost = async (userEmail, title, content, categoryIds) => {
   const today = new Date();
   try {
     const [dataValues] = await User.findAll({ where: { email: userEmail } });
-    console.log('datavalues', dataValues.id);
     const userId = await dataValues.id;
     const postCreated = await BlogPost.create({
       title, content, userId, published: today, updated: today });
