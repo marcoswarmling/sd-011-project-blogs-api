@@ -35,7 +35,26 @@ const createCategory = async (req, res) => {
     return res.status(500).json(err);
   }
 };
+const listCategories = async (req, res) => {
+    const auth = req.headers.authorization;
+
+    if (!auth) {
+      return res.status(401).json({ message: 'Token not found' });
+    }
+
+    const validToken = isTokenValid(auth);
+
+    if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
+
+    try {
+      const users = await Categories.findAll();
+      return res.status(200).json(users);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  };
 
 module.exports = {
   createCategory,
+  listCategories,
 };
