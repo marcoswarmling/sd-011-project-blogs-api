@@ -62,9 +62,12 @@ const updatePost = async (post, userEmail, categoryIds) => {
 };
 
 const removePost = async (id, userEmail) => {
-  const postDatabase = await getPostById(id);
-  const { email } = postDatabase.user;
-  if (email === userEmail) {
+  const post = await validPost(id);
+  const { email } = post.user;
+
+  if (post.error) return post;
+
+  if (!post.error && email === userEmail) {
     return BlogPost.destroy({ where: { id } });
   } return { error: { code: 'postNotPertence' } };
 };

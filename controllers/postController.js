@@ -57,7 +57,7 @@ const removePost = rescue(async (req, res, next) => {
 
   const result = await service.removePost(id, email);
   if (result.error) return next(result.error);
-  return res.status(200).send();
+  return res.status(204).send();
 });
 
 module.exports = {
