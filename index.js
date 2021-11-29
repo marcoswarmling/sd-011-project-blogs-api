@@ -9,7 +9,7 @@ app.post('/user', (req, res) => {
   User.create(req.body)
     .then((createdUser) => {
       console.log(createdUser);
-      res.json({ token: 'tokenubauba' });
+      res.status(201).json({ token: 'tokenubauba' });
     });
 });
 
