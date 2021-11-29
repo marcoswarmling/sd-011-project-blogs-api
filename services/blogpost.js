@@ -1,6 +1,5 @@
 const Joi = require('joi');
-const { BlogPost, PostsCategory, Category } = require('../models');
-const { User } = require('../models');
+const { BlogPost, PostsCategory, Category, User } = require('../models');
 const ErrorList = require('../utils/errorList');
 
 const newPostValidt = Joi.object({
@@ -47,6 +46,18 @@ const createPost = async (email, title, content, categoryIds) => {
   return ErrorList.invalidCatsArray;
 };
 
+const getAllPosts = async () => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return posts;
+};
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
