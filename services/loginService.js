@@ -5,7 +5,7 @@ require('dotenv').config();
 const SECRET = process.env.JWT_SECRET;
 
 const createToken = async (email, password) => {
-  const result = await User.findOne({ where: { email } });
+  const result = await User.findOne({ where: { email, password } });
   if (!result || !password) return { status: 400, message: 'Invalid fields' };
   
   const jwtConfig = {
