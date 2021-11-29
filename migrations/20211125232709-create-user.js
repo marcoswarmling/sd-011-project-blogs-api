@@ -11,13 +11,16 @@ module.exports = {
       displayname: {
         type: Sequelize.STRING
       },
-      createdAt: {
+      email: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.DATE
       },
-      updatedAt: {
+      password: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.DATE
+      },
+      image: {
+        type: Sequelize.STRING
       }
     });
   },
