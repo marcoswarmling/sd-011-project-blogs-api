@@ -1,21 +1,40 @@
 const express = require('express');
 const UserController = require('./controllers/UserController');
+const LoginController = require('./controllers/LoginController');
 
 const {
   validateDisplayName,
-  validateEmal,
+  validateEmail,
   verifyPassword,
 } = require('./validations/validateUser');
+
+const {
+  validateEmailExists,
+  validateEmailLength,
+  verifyPasswordExists,
+  verifyPasswordLength,
+  // verifyUser,
+} = require('./validations/validateLogin');
 
 const app = express();
 app.use(express.json());
 
-app.use(
+app.post(
   '/user',
   validateDisplayName,
-  validateEmal,
+  validateEmail,
   verifyPassword,
-  UserController,
+  UserController.createUser,
+);
+
+app.post(
+  '/login',
+  validateEmailLength,
+  verifyPasswordLength,
+  validateEmailExists,
+  verifyPasswordExists,
+  // verifyUser,
+  LoginController.login,
 );
 
 app.listen(3000, () => console.log('Ouvindo na porta 3000!'));

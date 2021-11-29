@@ -8,7 +8,7 @@ const validateDisplayName = async (req, res, next) => {
   next();
 };
 
-const validateEmal = async (req, res, next) => {
+const validateEmail = async (req, res, next) => {
   const { email } = req.body;
 
   if (!email) {
@@ -36,6 +36,6 @@ const verifyPassword = async (req, res, next) => {
 
 module.exports = {
   validateDisplayName,
-  validateEmal,
+  validateEmail,
   verifyPassword,
 };
