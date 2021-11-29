@@ -2,7 +2,7 @@ const JWT = require('jsonwebtoken');
 const { Users } = require('../models');
 
 const SECRET = process.env.JWT_SECRET;
-console.log(SECRET, 'SECRET DO LOGIN');
+// console.log(SECRET, 'SECRET DO LOGIN');
 
 const jwtConfig = {
   expiresIn: '15d',
