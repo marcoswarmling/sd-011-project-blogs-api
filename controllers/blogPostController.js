@@ -1,4 +1,6 @@
 const { BlogPost } = require('../models');
+const { Category } = require('../models');
+const { User } = require('../models');
 require('dotenv');
 
 const createPost = async (req, res) => {
@@ -9,6 +11,15 @@ const createPost = async (req, res) => {
     return res.status(201).json({ title, content, categoryIds, userId, id });
 };
 
+const getPosts = async (req, res) => {
+    const posts = await BlogPost.findAll({
+        include: [{ model: User, as: 'user' }, 
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    return res.status(200).json(posts);
+};
+
 module.exports = {
     createPost,
+    getPosts,
 };

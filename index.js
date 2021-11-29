@@ -7,7 +7,7 @@ passwordValidation, emailEmpty, passwordEmpty,
 tokenValidation } = require('./middlewares/userValidation');
 const { nameIsValid } = require('./middlewares/categoriesValidation');
 const { createCategory, getCategories } = require('./controllers/categorieController');
-const { createPost } = require('./controllers/blogPostController');
+const { createPost, getPosts } = require('./controllers/blogPostController');
 const { blogPostValidation,
   contentIsValid,
   categoryIsValid,
@@ -31,3 +31,4 @@ app.post('/categories', tokenValidation, nameIsValid, createCategory);
 app.get('/categories', tokenValidation, getCategories);
 app.post('/post', 
 blogPostValidation, contentIsValid, categoryIsValid, categoryIdExist, tokenValidation, createPost);
+app.get('/post', tokenValidation, getPosts);
