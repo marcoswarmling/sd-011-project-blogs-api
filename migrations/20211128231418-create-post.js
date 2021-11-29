@@ -17,11 +17,9 @@ module.exports = {
         allowNull: false
       },
       published: {
-        allowNull: false,
         type: Sequelize.DATE
       },
       updated: {
-        allowNull: false,
         type: Sequelize.DATE
       },
       userId: {
