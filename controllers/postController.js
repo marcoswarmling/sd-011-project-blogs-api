@@ -51,9 +51,19 @@ const updatePost = rescue(async (req, res, next) => {
   return res.status(200).json(result);
 });
 
+const removePost = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const { email } = req.user;
+
+  const result = await service.removePost(id, email);
+  if (result.error) return next(result.error);
+  return res.status(200).send();
+});
+
 module.exports = {
   postRegister,
   getAllPosts,
   getPostById,
   updatePost,
+  removePost,
 };
