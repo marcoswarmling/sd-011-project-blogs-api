@@ -76,6 +76,7 @@ const removePost = async (id, userEmail) => {
 
 // https://pt.stackoverflow.com/questions/355872/como-utilizar-o-like-do-sql-no-sequelize
 const searchByTerm = async (searchParam) => {
+  if (!searchParam) return BlogPost.findAll();
   const posts = await BlogPost.findAll({
     where: {
       [Op.or]: [

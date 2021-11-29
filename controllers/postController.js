@@ -61,7 +61,8 @@ const removePost = rescue(async (req, res, next) => {
 });
 
 const searchByTerm = rescue(async (req, res, _next) => {
-  const { search } = req.query;
+  const { q: search } = req.query;
+  console.log(req.query);
   const result = await service.searchByTerm(search);
   res.status(200).json(result);
 });

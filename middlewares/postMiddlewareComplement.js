@@ -1,4 +1,5 @@
 module.exports = (err, _req, res, _next) => {
+  console.log(err);
   if (err.isJoi) return res.status(401).json({ message: err.details[0].message });
   if (err.code === 'postNotPertence') return res.status(401).json({ message: 'Unauthorized user' });
   if (err.code === 'categoryIsNotEdited') {
