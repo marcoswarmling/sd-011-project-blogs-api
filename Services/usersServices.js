@@ -6,7 +6,7 @@ const createUser = async (displayName, email, password, image) => {
   const userExists = await Users.findOne({ where: { email } });
   if (userExists) { return { errorCode: 'USER_ALREADY_EXISTS' }; }  
   
-  await Users.create({ displayName, email, password, image });
+  const userCreated = await Users.create({ displayName, email, password, image });
   
  const topSecret = process.env.JWT_SECRET;
   const jwtconfig = {
@@ -14,6 +14,7 @@ const createUser = async (displayName, email, password, image) => {
     algorithm: 'HS256',
   };
   const dataOfUser = {
+    id: userCreated.id,
     displayName,
     email,
   };

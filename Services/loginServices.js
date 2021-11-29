@@ -12,6 +12,7 @@ const login = async (email, password) => {
     algorithm: 'HS256',
   };
   const dataOfUser = {
+    id: userExists.id,
     email,
     password,
   };
