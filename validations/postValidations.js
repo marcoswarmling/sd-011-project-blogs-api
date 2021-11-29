@@ -1,30 +1,30 @@
-const error = require('../utils/errors');
+const error = require('../utils/errorCreator');
 
 const validateField = (field, errorMessage) => {
-  if (!field || field.length === 0) throw errorMessage;
+  if (!field || field.length === 0) throw error(errorMessage);
 };
 
 const newPost = ({ title, content, categoryIds }) => {
-  validateField(title, error.titleIsRequired);
-  validateField(content, error.contentIsRequired);
-  validateField(categoryIds, error.categoryIsRequired);
+  validateField(title, 'titleIsRequired');
+  validateField(content, 'contentIsRequired');
+  validateField(categoryIds, 'categoryIsRequired');
 };
 
-const post = (payload) => validateField(payload, error.postDoesNotExist);
+const post = (payload) => validateField(payload, 'postDoesNotExist');
 
 const editPost = (payload) => {
   Object.keys(payload).forEach((key) => {
-    if (key === 'categoryIds') throw error.categoriesCannotBeEdited;
+    if (key === 'categoryIds') throw error('categoriesCannotBeEdited');
   });
 
   const { title, content } = payload;
-  validateField(title, error.titleIsRequired);
-  validateField(content, error.contentIsRequired);
+  validateField(title, 'titleIsRequired');
+  validateField(content, 'contentIsRequired');
 };
 
 const userIsOwner = (userPost, userId) => {
-  if (!userPost) throw error.postDoesNotExist;
-  if (userPost.id !== userId) throw error.unauthorizedUser;
+  if (!userPost) throw error('postDoesNotExist');
+  if (userPost.id !== userId) throw error('unauthorizedUser');
 };
 
 module.exports = {
