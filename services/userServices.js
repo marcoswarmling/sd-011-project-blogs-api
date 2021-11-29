@@ -1,6 +1,6 @@
 const { Users } = require('../models');
 
-const findUserByEmail = async (email) => Users.findOne({ where: { email } });
+const findUserByEmail = async (email) => Users.findOne({ where: { email }, raw: true });
 
 const create = async ({ displayName, email, password, image }) => Users.create({
   displayName, email, password, image,
