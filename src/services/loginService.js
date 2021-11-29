@@ -14,7 +14,7 @@ const loginUser = async (data) => {
   });
 
   if (!user) return createError('badRequest', 'Invalid fields');
-  const token = createToken(email);
+  const token = createToken(email, user.id);
   return token;
 };
 

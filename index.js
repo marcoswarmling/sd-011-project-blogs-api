@@ -3,6 +3,7 @@ const userRoute = require('./src/routes/userRoute');
 const loginRoute = require('./src/routes/loginRoute');
 const { getErrors } = require('./src/middlewares/errors');
 const categoryRoute = require('./src/routes/categoryRoute');
+const postRoute = require('./src/routes/postRoute');
 require('dotenv').config();
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use('/user', userRoute);
 app.use('/login', loginRoute);
 app.use('/categories', categoryRoute);
+app.use('/post', postRoute);
 
 app.use(getErrors);
 

@@ -18,6 +18,17 @@ const validateCategory = (data) => {
   return schema;
 };
 
+const validatePost = (data) => {
+  const schema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+    categoryIds: Joi.array().required(),
+  })
+    .validate(data);
+
+  return schema;
+};
+
 const validateCredentials = (data) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
@@ -32,4 +43,5 @@ module.exports = {
   validateUser,
   validateCredentials,
   validateCategory,
+  validatePost,
 };

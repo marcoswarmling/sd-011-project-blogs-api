@@ -19,6 +19,13 @@ const create = async (data) => {
   return createError('conflict', 'Category already exists');
 };
 
+const getAll = async () => {
+  const categories = Category.findAll();
+
+  return categories;
+};
+
 module.exports = {
   create,
+  getAll,
 };
