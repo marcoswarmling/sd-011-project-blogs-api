@@ -26,5 +26,5 @@ router.get('/', validateJWT, getAllUsers);
 
 router.get('/:id', validateJWT, verifyIdExists, getUserById);
 
-router.delete('/:id', validateJWT, deleteUserById)
+router.delete('/:id', validateJWT, deleteUserById);
 module.exports = router;

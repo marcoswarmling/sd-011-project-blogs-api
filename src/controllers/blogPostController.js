@@ -55,7 +55,7 @@ const deletePost = async (req, res) => {
     const { id } = req.params;
     const posts = await BlogPosts.destroy({ where: { id } });
     return res.status(204).json(posts);
-}
+};
 
 module.exports = {
     postRegistration,

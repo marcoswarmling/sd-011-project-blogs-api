@@ -45,7 +45,7 @@ const getUserById = async (req, res) => {
 
 const deleteUserById = async (req, res) => {
     const token = req.headers.authorization;
-    const {id} = await tokenJwtIsValid(token).data;
+    const { id } = await tokenJwtIsValid(token).data;
     try {
         const userById = await Users.destroy({ where: { id } });
         return res.status(204).json(userById);
