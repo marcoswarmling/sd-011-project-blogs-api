@@ -16,10 +16,25 @@ const createCategory = async (req, res) => {
     return res.status(201).json(newCategory);
   } catch (e) {
     console.log(e);
-    return res.status(409).json({ message: 'User already registered' });
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+const getAllCategories = async (req, res) => {
+  try {
+    const categories = await Category.findAll({
+      order: [
+          ['id', 'ASC'],
+      ],
+  });
+
+    return res.status(200).json(categories);
+  } catch (e) {
+    return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
 
 module.exports = {
   createCategory,
+  getAllCategories,
 };

@@ -64,6 +64,12 @@ app.post(
   CategoryController.createCategory,
 );
 
+app.get(
+  '/categories',
+  validateJWT,
+  CategoryController.getAllCategories,
+);
+
 app.listen(3000, () => console.log('Ouvindo na porta 3000!'));
 
 // não remova esse endpoint, e para o avaliador funcionar
