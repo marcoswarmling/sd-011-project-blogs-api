@@ -1,5 +1,5 @@
 const { validateJWT } = require('./userMiddlewares');
-const { Categories } = require('../models');
+const { Categories, BlogPosts } = require('../models');
 
 const titleIsRequired = (req, res, next) => {
     const { title } = req.body;
@@ -53,10 +53,28 @@ try {
 next();
 };
 
+const verifyPostIdExists = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const blogPost = await BlogPosts.findOne({ where: { id } });
+        if (!blogPost) {
+            return res.status(404).json({
+                message: 'Post does not exist',
+            });
+        }
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Internal server error',
+            });
+    }
+    next();
+};
+
 module.exports = {
     titleIsRequired,
     contentIsRequired,
     categoryIdsIsRequired,
     JWTisValid,
     categoryExists,
+    verifyPostIdExists,
 };
