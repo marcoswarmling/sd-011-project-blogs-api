@@ -10,11 +10,11 @@ const validateJWTToken = async (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   }
-console.log(SECRET);
+// console.log(SECRET);
   try {
     const payload = JWT.verify(token, SECRET);  
     req.user = payload;
-    // console.log(payload);
+    // console.log(payload, 'PAYLOAD');
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' }); 

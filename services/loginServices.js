@@ -16,11 +16,13 @@ const getUserEmail = async (email) => {
 
 const createLogin = async (email, password) => {
   const userExist = await getUserEmail(email);
+ // console.log(userExist, 'USEREXIST');
   if (!userExist || userExist.password !== password) {
     return { msgError: 'msgError' };
   }
 
   const userWithoutPassword = {
+    id: userExist.id,
     email,
   };
 

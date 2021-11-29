@@ -3,7 +3,7 @@ const Categories = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
   },
   { timestamps: false });
- // console.log(users, 'USERS');
+ 
   return category;
 };
 
