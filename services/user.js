@@ -73,8 +73,32 @@ const getAllUsers = async () => {
   }
 };
 
+const getUserById = async (data) => {
+  const { id } = data;
+  try {
+    const user = await User.findOne({ 
+      where: {
+        id,
+      },
+      attributes: [
+        'id', 'displayName', 'email', 'image',
+      ],
+    });
+
+    if (!user) {
+      return { message: 'User does not exist', status: 404 };
+    }
+    return user;
+  } catch (error) {
+    console.log(error.message);
+
+    return { message: 'Algo deu errado', status: 500 };
+  }
+};
+
 module.exports = {
   createUser,
   validateLogin,
   getAllUsers,
+  getUserById,
 };
