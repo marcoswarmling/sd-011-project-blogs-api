@@ -1,5 +1,5 @@
 const { Users } = require('../models');
-const { tokenJwtIsValid } = require('../auth/validateJWT');
+const { tokenJwtIsValid } = require('../auth/verifyJWT');
 
 const displayNameLessThanEight = (req, res, next) => {
     if (!req.body.displayName || req.body.displayName.length < 8) {

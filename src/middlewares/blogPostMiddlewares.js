@@ -1,6 +1,6 @@
 const { validateJWT } = require('./userMiddlewares');
 const { Categories, BlogPosts } = require('../models');
-const { tokenJwtIsValid } = require('../auth/validateJWT');
+const { tokenJwtIsValid } = require('../auth/verifyJWT');
 
 const titleIsRequired = (req, res, next) => {
     const { title } = req.body;

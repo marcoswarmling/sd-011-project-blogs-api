@@ -1,5 +1,6 @@
  const { Users } = require('../models');
  const { createNewToken } = require('../auth/createJWT');
+ const { tokenJwtIsValid } = require('../auth/verifyJWT');
 
 const userRegistration = async (req, res) => {
     try {
@@ -42,8 +43,22 @@ const getUserById = async (req, res) => {
     }
 };
 
+const deleteUserById = async (req, res) => {
+    const token = req.headers.authorization;
+    const {id} = await tokenJwtIsValid(token).data;
+    try {
+        const userById = await Users.destroy({ where: { id } });
+        return res.status(204).json(userById);
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message,
+        });
+    }
+};
+
 module.exports = {
     userRegistration,
     getAllUsers,
     getUserById,
+    deleteUserById,
 };

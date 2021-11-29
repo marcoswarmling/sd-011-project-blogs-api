@@ -1,5 +1,5 @@
 const { BlogPosts, Categories, Users } = require('../models');
-const { tokenJwtIsValid } = require('../auth/validateJWT');
+const { tokenJwtIsValid } = require('../auth/verifyJWT');
 
 const postRegistration = async (req, res) => {
     const { title, content } = req.body;
