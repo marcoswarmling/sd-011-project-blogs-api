@@ -24,7 +24,6 @@ const getAllPosts = async () => {
     const { password, ...userInfo } = user.dataValues;
     return { ...i, user: userInfo };
   }));
-  console.log(postsUser);
 
   return postsUser;
 };
@@ -34,8 +33,17 @@ const getPostById = async (id) => {
   return postData;
 };
 
+const updatePost = async (id, title, content) => {
+  await BlogPost.update({ title, content }, { where: { id } });
+  const postData = await getPostById(id);
+  const { user, published, updated, id: postId, ...postInfo } = postData.dataValues;
+  // console.log(postInfo);
+  return postInfo;
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  updatePost,
 };
