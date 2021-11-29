@@ -1,9 +1,11 @@
 const { BlogPosts, PostsCategories, Users, Categories } = require('../models');
 
+const invalidError = 'Invalid Operation';
+
 const create = async ({ title, content, id }) => {
   const newPost = await BlogPosts.create({ title, content, userId: id });
   if (!newPost) {
-    throw new Error('Invalid Operation');
+    throw new Error(invalidError);
   }
  return newPost;
 };
@@ -11,7 +13,7 @@ const create = async ({ title, content, id }) => {
 const createPostCategories = async ({ postId, categoryId }) => {
   const newPostCategorys = await PostsCategories.create({ postId, categoryId });
   if (!newPostCategorys) {
-    throw new Error('Invalid Operation');
+    throw new Error(invalidError);
   }
   return newPostCategorys;
 };
@@ -27,7 +29,7 @@ const findAll = async () => {
     ],
   });
   if (!posts) {
-    throw new Error('Invalid Operation');
+    throw new Error(invalidError);
   }
   return posts;
 };
@@ -57,7 +59,7 @@ const deleteByID = async (userId, id) => {
     },
   });
   if (!postDeleted || postDeleted === 0) {
-    throw new Error('Invalid Operation');
+    throw new Error(invalidError);
   }
   return postDeleted;
 };
@@ -67,7 +69,7 @@ const updateByID = async (data, id) => {
     where: { id },
   });
   if (!postUpdated || postUpdated === 0) {
-    throw new Error('Invalid Operation');
+    throw new Error(invalidError);
   }
   return postUpdated;
 };

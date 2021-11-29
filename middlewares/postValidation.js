@@ -20,16 +20,6 @@ const postValidate = async (req, res, next) => {
 
 const validateCategory = async (req, res, next) => {
   const { categoryIds } = req.body;
-  // let result = false;
-  // await categoryIds.forEach(async (categoryId) => {
-  //   const categoryExist = await PostsCategories.findByPk(categoryId);
-  //   if (!categoryExist) {
-  //     result = true;
-  //   }
-  // });
-  // const result = data.some((category) => {
-  //   category.id.include()
-  // });
   const data = await Categories.findAll();
   const categoryExist = await categoryIds.every((id) =>
   data.some((category) => category.id === id));
