@@ -1,4 +1,3 @@
-// @ts-nocheck
 require('dotenv').config();
 const rescue = require('express-rescue');
 const jwt = require('jsonwebtoken');
@@ -9,13 +8,13 @@ const key = process.env.JWT_SECRET;
 module.exports = rescue(async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ message: 'Token not found' });
+    if (!token) return next('TokenNotFound');
     const decoded = jwt.verify(token, key);
     const user = await User.findOne({ where: { id: decoded.id } });
-    if (!user) return res.status(401).json({ message: 'Unauthorized' });
+    if (!user) return next('Unauthorized');
     req.data = user.dataValues;
     next();
   } catch (error) {
-     return next({ code: 401, message: 'Expired or invalid token' });
+    return next('InvalidToken');
   }
 });

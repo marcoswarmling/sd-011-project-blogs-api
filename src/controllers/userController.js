@@ -3,6 +3,7 @@
 
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
+const rescue = require('express-rescue');
 const { BlogPost, Category, User } = require('../models');
 const config = require('../config/config');
 const { userSchema, loginSchema } = require('../validators');
@@ -48,11 +49,12 @@ const createUser = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
+const getUserById = rescue(async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await User.findOne({ where: { id } });
-    if (!user) return res.status(404).json({ message: 'User does not exist' });
+    if (!user) return next('UserdoesNotExist');
+    // res.status(404).json({ message: 'User does not exist' });
     if (req.query.includePosts === true) {
       const posts = await BlogPost.findAll({
         where: { userId: id },
@@ -67,7 +69,7 @@ const getUserById = async (req, res) => {
     console.log(e.message);
     return res.status(500).json(errorHappened);
   }
-};
+});
 
 const login = async (req, res) => {
   try {

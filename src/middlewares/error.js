@@ -1,6 +1,11 @@
 const errorStatus = {
   MissingAuthToken: { code: 401, message: 'missing auth token' },
-  ENOENT: { code: 404, message: 'resource not found' },
+  UserdoesNotExist: { code: 404, message: 'User does not exist' },
+  TokenNotFound: { code: 401, message: 'Token not found' },
+  Unauthorized: { code: 401, message: 'Unauthorized' },
+  InvalidToken: { code: 401, message: 'Expired or invalid token' },
+  CategoryNotFound: { code: 400, message: '"categoryIds" not found' },
+  ENOENT: { code: 404, message: 'Resource not found' },
   EmailAlreadyRegistered: { code: 409, message: 'Email already registered' },
   AllFieldsRequired: { code: 401, message: 'All fields must be filled' },
   InvalidEntries: { code: 400, message: 'Invalid entries. Try again.' },
@@ -14,18 +19,19 @@ const errorStatus = {
 };
 
 module.exports = (err, _req, res, _next) => {
-  console.log(err);
-
-  if (errorStatus[err.message]) {
+  if (err.message && err.message === '"categoryIds" is not allowed') {
+    const { message } = err;
     return res
-      .status(err.code)
-      .json({ message: errorStatus[err.message].message });
-  }
-  if (err.message) {
-    return res.status(err.code || 500).send({ message: err.message });
+      .status(errorStatus[message].code)
+      .json({ message: errorStatus[message].message });
   }
 
-  const { code, message } = errorStatus[err.error];
+  if (err.code && err.message) {
+    const { code, message } = err;
+    return res.status(code).json({ message });
+  }
+
+  const { code, message } = errorStatus[err];
 
   res.status(code).json({ message });
 };
