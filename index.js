@@ -26,6 +26,13 @@ app.post(
   userController.createUser,
 );
 
+app.post(
+  '/login',
+  emailValidation,
+  passwordValidation,
+  userController.login,
+);
+
 // app.get('/', async (req, res) => {
 //   const users = await User.findAll();
 //   res.status(200).json(users);

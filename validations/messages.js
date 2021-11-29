@@ -8,7 +8,7 @@ const email = {
   message: '"email" must be a valid email',
 };
 
-const emptyEmail = {
+const requiredEmail = {
   status: 400,
   message: '"email" is required',
 };
@@ -18,15 +18,27 @@ const password = {
   message: '"password" length must be 6 characters long',
 };
 
-const emptyPassword = {
+const requiredPassword = {
   status: 400,
   message: '"password" is required',
+};
+
+const emptyEmail = {
+    status: 400,
+    message: '"email" is not allowed to be empty', 
+};
+
+const emptyPassword = {
+  status: 400,
+  message: '"password" is not allowed to be empty', 
 };
 
 module.exports = {
   displayName,
   email,
-  emptyEmail,
+  requiredEmail,
   password,
+  requiredPassword,
+  emptyEmail,
   emptyPassword,
 };

@@ -16,9 +16,14 @@ const emailValidation = (req, res, next) => {
   const receivedEmail = new RegExp('\\S+@\\S+\\.\\S+');
   const validate = receivedEmail.test(email);
 
-  if (!email) {
+  if (email === '') {
     return res.status(error.emptyEmail.status)
     .json({ message: error.emptyEmail.message });
+  }
+
+  if (!email) {
+    return res.status(error.requiredEmail.status)
+    .json({ message: error.requiredEmail.message });
   }
 
   if (!validate) {
@@ -31,10 +36,16 @@ const emailValidation = (req, res, next) => {
 
 const passwordValidation = (req, res, next) => {
   const { password } = req.body;
+  console.log(password);
 
-  if (!password) {
+  if (password === '') {
     return res.status(error.emptyPassword.status)
     .json({ message: error.emptyPassword.message });
+  }
+
+  if (!password) {
+    return res.status(error.requiredPassword.status)
+    .json({ message: error.requiredPassword.message });
   }
 
   if (password.length < 6) {
