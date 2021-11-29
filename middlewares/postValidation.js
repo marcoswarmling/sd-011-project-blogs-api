@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const CategoriesService = require('../services/categoriesService');
-const PostsService = require('../services/postsService');
 const { BlogPosts } = require('../models');
 
 const schemaPost = Joi.object().keys({
