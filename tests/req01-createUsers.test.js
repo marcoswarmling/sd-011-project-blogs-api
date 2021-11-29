@@ -9,7 +9,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
   });
 
-  it.only('Será validado que é possível cadastrar um usuário com sucesso', async () => {
+  it('Será validado que é possível cadastrar um usuário com sucesso', async () => {
     await frisby
       .post(`${url}/user`,
         {
