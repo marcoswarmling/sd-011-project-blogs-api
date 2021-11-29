@@ -10,8 +10,11 @@ const {
 
 const {
   createBlogPost,
+  getBlogPosts,
 } = require('../controllers/BlogController');
 
 router.post('/post', jwtValid, validBlogPost, createBlogPost);
+
+router.get('/post', jwtValid, getBlogPosts);
 
 module.exports = router;

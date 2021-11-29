@@ -1,5 +1,6 @@
 const {
   blogPostValidate,
+  getAllPosts,
 } = require('../services/blogServices');
 
 const createBlogPost = async (req, res) => {
@@ -17,6 +18,17 @@ const createBlogPost = async (req, res) => {
   }
 };
 
+const getBlogPosts = async (req, res) => {
+  try {
+    const getPosts = await getAllPosts();
+    return res.status(200).json(getPosts);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
   createBlogPost,
+  getBlogPosts,
 };
