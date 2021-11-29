@@ -14,13 +14,18 @@ const {
 
 const {
   getAllPosts,
+  getPostById,
   createPost,
 } = require('../controllers/blogPostsControllers');
+
+router.get('/:id',
+  validateJWTToken,
+  getPostById);
 
 router.get('/',
   validateJWTToken,
   getAllPosts);
-  
+
 router.post('/',
   validateJWTToken,
   validatePosts,

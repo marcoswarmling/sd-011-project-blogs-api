@@ -10,6 +10,18 @@ const getAllPosts = async () => {
   return getPosts;
 };
 
+const getPostById = async (id) => {
+  const post = await BlogPosts.findByPk(id, {
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } }],
+  });
+
+ // console.log(post, 'POSTBYID');
+  if (!post) return { msgError: 'msgError' };
+  return post;
+};
+
 const createPost = async ({ title, content, data }) => {
   //  console.log('Entrou no CREATE', title, content, data);
   const createdPost = await BlogPosts.create({
@@ -23,5 +35,6 @@ const createPost = async ({ title, content, data }) => {
 
 module.exports = {
   getAllPosts,
+  getPostById,
   createPost,
 };

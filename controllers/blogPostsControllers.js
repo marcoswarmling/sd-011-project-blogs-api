@@ -10,6 +10,20 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+const getPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await blogPostsServices.getPostById(id);
+   // console.log(post);
+    if (post.msgError) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: 'Oh no! Server error!' });
+  }
+};
+
 const createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -26,5 +40,6 @@ const createPost = async (req, res) => {
 
 module.exports = {
   getAllPosts,
+  getPostById,
   createPost,
 };
