@@ -8,7 +8,7 @@ const tokenValidation = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
-    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         
     const checkTokenAlreadyExists = await db.Users.findOne({
       where: { email: decodedToken.login.email },
