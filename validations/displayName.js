@@ -6,8 +6,10 @@ const joiDisplayNameSchema = Joi.object({
     .required(),
 });
 
-const validDisplayName = (req, res, next) => {
+const validDisplayName = (req, res, _next) => {
   const { displayName } = req.body;
+
+  console.log(`--> ${displayName}`);
 
   const validationResult = joiDisplayNameSchema.validate({ displayName });
 
@@ -16,8 +18,6 @@ const validDisplayName = (req, res, next) => {
 
     return res.status(400).json({ message });
   }
-
-  next();
 };
 
 module.exports = { 

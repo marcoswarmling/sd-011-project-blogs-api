@@ -9,7 +9,7 @@ const joiEmailSchema = Joi.object({
     .required(),
 });
 
-const validEmail = (req, res, next) => {
+const validEmail = (req, res, _next) => {
   const { email } = req.body;
 
   const validationResult = joiEmailSchema.validate({ email });
@@ -19,8 +19,6 @@ const validEmail = (req, res, next) => {
 
     return res.status(400).json({ message });
   }
-
-  next();
 };
 
 const emailAlredyExists = async (req, res, next) => {

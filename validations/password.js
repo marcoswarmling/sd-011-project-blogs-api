@@ -3,10 +3,13 @@ const Joi = require('joi');
 const joiPasswordSchema = Joi.object({
   password: Joi.string()
     .min(6)
-    .required(),
+    .required()
+    .messages({
+      'string.min': '"password" length must be 6 characters long',
+    }),
 });
 
-const validPassword = (req, res, next) => {
+const validPassword = (req, res, _next) => {
   const { password } = req.body;
 
   const validationResult = joiPasswordSchema.validate({ password });
@@ -16,8 +19,6 @@ const validPassword = (req, res, next) => {
 
     return res.status(400).json({ message });
   }
-
-  next();
 };
 
 module.exports = {
