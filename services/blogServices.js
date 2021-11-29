@@ -1,4 +1,4 @@
-const { BlogPost, Categorie, PostsCategory } = require('../models');
+const { BlogPost, Categorie } = require('../models');
 
 const verifyCategoriesId = async (categoryIds) => {
   const getAll = await Categorie.findAll();
