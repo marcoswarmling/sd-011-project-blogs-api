@@ -13,7 +13,7 @@ const getAllUsers = async (_req, res) => {
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   try {
-    await db.Users.createUser({ displayName, email, password, image });
+    await db.Users.create({ displayName, email, password, image });
     const token = jwtToken({ email });
     return res.status(201).json(token);
   } catch (error) {
