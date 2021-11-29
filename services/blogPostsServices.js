@@ -5,8 +5,8 @@ const getAllBlogPosts = async () => {
   return blogpostsFindAll;
 };
 
-const createBlogPosts = async (title, content) => {
-  const blogpostsCreate = await BlogPosts.create({ title, content });
+const createBlogPosts = async ({ title, content, id }) => {
+  const blogpostsCreate = await BlogPosts.create({ userId: id, title, content });
   return blogpostsCreate;
 };
 
