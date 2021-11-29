@@ -13,7 +13,7 @@ const createPost = async ({ title, content, categoryIds }, { id }) => {
 
 const getAllPosts = async () => {
   const posts = await BlogPosts.findAll({
-    include: [{ all: true, attributes: { exclude: ['password'] }}],
+    include: [{ all: true, attributes: { exclude: ['password'] } }],
   });
 
   return posts;
@@ -22,13 +22,13 @@ const getAllPosts = async () => {
 const getPostById = async (id) => {
   const post = await BlogPosts.findOne({
     where: { id },
-    include: [{ all: true, attributes: { exclude: ['password'] }}],
+    include: [{ all: true, attributes: { exclude: ['password'] } }],
   });
 
-    if(!post) throw new Error ('INEXISTENT_POST');
+    if (!post) throw new Error('INEXISTENT_POST');
 
-  return post
-}
+  return post;
+};
 
 module.exports = {
   createPost,
