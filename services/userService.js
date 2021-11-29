@@ -33,7 +33,14 @@ const login = async (email, password) => {
   return { token };
 };
 
+const findAll = async () => {
+  const result = await User.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
+
+  return result;
+};
+
 module.exports = {
   createUser,
   login,
+  findAll,
 };

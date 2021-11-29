@@ -4,6 +4,8 @@ const {
   nameValidation,
   emailValidation,
   passwordValidation,
+  missingToken,
+  auth,
 } = require('./validations/middlewares');
 
 const userController = require('./controllers/userController');
@@ -33,7 +35,9 @@ app.post(
   userController.login,
 );
 
-// app.get('/', async (req, res) => {
-//   const users = await User.findAll();
-//   res.status(200).json(users);
-// });
+app.get(
+  '/user',
+  missingToken,
+  auth,
+  userController.findAll,
+);

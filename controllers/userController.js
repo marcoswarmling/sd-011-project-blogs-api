@@ -19,7 +19,14 @@ const login = async (req, res) => {
   return res.status(200).json({ token });
 };
 
+const findAll = async (req, res) => {
+  const result = await userSevice.findAll();
+
+  return res.status(200).json(result);
+};
+
 module.exports = {
   createUser,
   login,
+  findAll,
 };
