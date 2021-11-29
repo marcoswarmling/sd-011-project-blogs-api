@@ -6,7 +6,6 @@ const BlogPostModel = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    underscored: true,
     tableName: 'BlogPosts',
   });
 
