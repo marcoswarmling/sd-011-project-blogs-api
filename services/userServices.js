@@ -16,7 +16,7 @@ const loginValidate = async (email, password) => {
   if (!userDb) return ({ message: 'Invalid fields' });
 
   const createJWT = jwt.sign({
-    id: userDb.id,
+    id: userDb.dataValues.id,
     email: userDb.email,
     password: userDb.password,
   }, process.env.JWT_SECRET);

@@ -45,6 +45,7 @@ const jwtValid = async (req, res, next) => {
     if (err) {
       return res.status(401).json({ message: 'Expired or invalid token' });
     }
+    console.log(decoded);
     req.userId = decoded.id;
     next();
   });
