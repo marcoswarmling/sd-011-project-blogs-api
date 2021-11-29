@@ -70,9 +70,19 @@ const updatePostById = async (id, title, content) => {
   }
 };
 
+const excludeBlogPost = async (id) => {
+  try {
+    await BlogPost.destroy({ where: { id } });
+    return { code: 204 };
+  } catch (error) {
+    return messageErrorServer;
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
   getBlogPostById,
   updatePostById,
+  excludeBlogPost,
 };

@@ -44,9 +44,19 @@ const updatePostById = async (req, res) => {
   }
 };
 
+const excludeBlogPost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { code } = await BlogPostService.excludeBlogPost(id);
+    res.status(code).send();
+  } catch (error) {
+     return messageErrorServer;
+  }
+};
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
   getBlogPostById,
   updatePostById,
+  excludeBlogPost,
 };

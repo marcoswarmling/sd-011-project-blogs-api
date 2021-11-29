@@ -4,6 +4,7 @@ const TokenValidate = require('../middlewares/checkAuthenticatedUser');
 const BodyPostValidate = require('../middlewares/checkBlogPostData');
 const BlogPostController = require('../controller/blogPostController');
 const UserPost = require('../middlewares/checkUserPost');
+const UserDeletePost = require('../middlewares/checkUserDeletePost');
 
 route.post(
   '/',
@@ -20,5 +21,11 @@ route.put(
   UserPost.checkUserPost,
   BlogPostController.updatePostById,
 );
+route.post(
+  '/:id',
+  TokenValidate.checkAuthenticatedUser,
+  UserDeletePost.checkUserDeletePost,
+  BlogPostController.excludeBlogPost,
+  );
 
 module.exports = route;
