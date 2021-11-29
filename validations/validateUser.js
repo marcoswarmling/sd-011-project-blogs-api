@@ -1,4 +1,4 @@
-// const { User } = require('../models');
+const { User } = require('../models');
 
 const validateDisplayName = async (req, res, next) => {
   const { displayName } = req.body;
@@ -24,15 +24,15 @@ const validateEmail = async (req, res, next) => {
   next();
 };
 
-// const verifyUserExists = async (req, res, next) => {
-//   const { email } = req.body;
-//   const user = await User.findOne({ where: { email } });
-//   if (!user) {
-//     return res.status(409).json({ message: 'User already registered' });
-//   } 
+const VerifyUserExist = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findByPk(id);
+  if (!user) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
 
-//   next();
-// };
+  next();
+};
 
 const verifyPassword = async (req, res, next) => {
   const { password } = req.body;
@@ -50,5 +50,5 @@ module.exports = {
   validateDisplayName,
   validateEmail,
   verifyPassword,
-  // verifyUserExists,
+  VerifyUserExist,
 };
