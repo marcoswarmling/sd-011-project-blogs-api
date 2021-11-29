@@ -1,12 +1,15 @@
 const express = require('express');
+const useRouter = require('./routers/userRouters');
 
-require('dotenv').config();
+require('dotenv').config(); 
 
 const app = express();
 
 app.use(express.json());
 
 const PORT = 3000;
+
+app.use('/', useRouter);
 
 app.listen(PORT, () => console.log(`Ouvindo porta ${PORT}!`));
 
