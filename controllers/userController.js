@@ -7,8 +7,8 @@ const createUser = async (req, res) => {
   const { email, password, image, displayName } = req.body;
 
   try {
-    const doesUserExists = await Users.findOne({ where: { email } });
-    if (doesUserExists) {
+    const doesUserExist = await Users.findOne({ where: { email } });
+    if (doesUserExist) {
       return res.status(409).json({ message: 'User already registered' });
     }
 
