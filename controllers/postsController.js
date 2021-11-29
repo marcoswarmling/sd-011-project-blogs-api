@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { Categories, BlogPosts } = require('../models');
+const { Categories, BlogPosts, Users } = require('../models');
 
 const isTokenValid = (auth) => {
   const validToken = jwt.verify(auth, 'secret', (error, decoded) => {
@@ -40,6 +40,27 @@ const createPost = async (req, res) => {
   }
 };
 
+const listPosts = async (req, res) => {
+  const auth = req.headers.authorization;
+  if (!auth) return res.status(401).json({ message: 'Token not found' });
+
+  const validToken = isTokenValid(auth);
+  if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
+
+  try {
+    const posts = await BlogPosts.findAll({
+      include: [
+        { model: Users, as: 'user' },
+        { model: Categories, as: 'categories' },
+      ],
+    });
+    return res.status(200).json(posts);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
 module.exports = {
   createPost,
+  listPosts,
 };
