@@ -1,20 +1,29 @@
-const db = require('../models');
-const jwt = require('../auth/jwt');
+const express = require('express');
+const jwt = require('jsonwebtoken');
 
-class controllerLogin {
-  static async login(req, res) {
-    const { email } = req.body;
-    try {
-      const user = await db.Users.findOne({
-        where: { email },
-      });
-      const { id, displayName, image } = user;
-      const token = jwt({ id, displayName, email, image });
-      return res.status(200).json(token);
-    } catch (error) {
-      return res.status(400).json(error.message);
-    }
+const router = express.Router();
+const newLogin = require('../services/loginServices');
+
+const secret = 'jjpp170392';
+
+router.post('/', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await newLogin.login(email, password);
+
+    if (typeof user.message === 'string') return res.status(400).json(user);
+
+    const jwtConfig = {
+      expiresIn: '7d',
+      algorithm: 'HS256',
+    };
+
+    const token = jwt.sign({ data: user }, secret, jwtConfig);
+
+    return res.status(200).json({ token });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Something went wrong' });
   }
-}
-
-module.exports = controllerLogin;
+});
+module.exports = router;

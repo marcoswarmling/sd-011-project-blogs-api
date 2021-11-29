@@ -1,15 +1,25 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-module.exports = (login) => {
+const secret = 'jjpp170392';
+
+const validateToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+
   try {
-  const configJwt = {
-    expiresIn: '7d',
-    algorithm: 'HS256',
-  };  
-  const token = jwt.sign({ login }, process.env.SECRET, configJwt);
-  return { token };
-  } catch (error) {
-    return error.message;
+    if (!token) {
+      return res.status(401).json({ message: 'Token not found' });
+    }
+
+    const decoded = jwt.verify(token, secret);
+
+    const { data } = decoded;
+
+    req.user = data;
+
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
+
+module.exports = validateToken;
