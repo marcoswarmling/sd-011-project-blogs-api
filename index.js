@@ -9,6 +9,7 @@ const {
 } = require('./validations/middlewares');
 
 const userController = require('./controllers/userController');
+const categoriesController = require('./controllers/categoriesController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -47,4 +48,11 @@ app.get(
   missingToken,
   auth,
   userController.findById,
+);
+
+app.post(
+  '/categories',
+  missingToken,
+  auth,
+  categoriesController.createCategory,
 );
