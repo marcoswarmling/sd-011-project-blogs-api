@@ -23,6 +23,8 @@ const contentIsRequired = newError('contentIsRequired');
 const categoryIsRequired = newError('categoryIsRequired');
 const categoryNotFound = newError('categoryNotFound');
 const postDoesNotExist = newError('postDoesNotExist');
+const categoriesCannotBeEdited = newError('categoriesCannotBeEdited');
+const unauthorizedUser = newError('unauthorizedUser');
 
 module.exports = {
   userAlreadyRegistered,
@@ -44,4 +46,6 @@ module.exports = {
   categoryIsRequired,
   categoryNotFound,
   postDoesNotExist,
+  categoriesCannotBeEdited,
+  unauthorizedUser,
 };

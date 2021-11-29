@@ -12,7 +12,23 @@ const newPost = ({ title, content, categoryIds }) => {
 
 const post = (payload) => validateField(payload, error.postDoesNotExist);
 
+const editPost = (payload) => {
+  Object.keys(payload).forEach((key) => {
+    if (key === 'categoryIds') throw error.categoriesCannotBeEdited;
+  });
+
+  const { title, content } = payload;
+  validateField(title, error.titleIsRequired);
+  validateField(content, error.contentIsRequired);
+};
+
+const userIsOwner = (post, userId) => {
+  if (post.id !== userId) throw error.unauthorizedUser;
+};
+
 module.exports = {
   newPost,
   post,
+  editPost,
+  userIsOwner,
 };

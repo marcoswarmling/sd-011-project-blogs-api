@@ -75,4 +75,12 @@ module.exports = {
     message: 'Post does not exist',
     status: 404,
   },
+  categoriesCannotBeEdited: {
+    message: 'Categories cannot be edited',
+    status: 400,
+  },
+  unauthorizedUser: {
+    message: 'Unauthorized user',
+    status: 401,
+  },
 };
