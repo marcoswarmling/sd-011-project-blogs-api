@@ -54,9 +54,16 @@ const editPost = async ({ title, content }, id, token) => {
   return BlogPost.findByPk(id, { include: { ...categoryConfig } });
 };
 
+const deletePost = async (postId, token) => {
+  const post = await BlogPost.findByPk(postId);
+  validate.userIsOwner(post, token.id);
+  await BlogPost.destroy({ where: { id: postId } });
+};
+
 module.exports = {
   newPost,
   getPosts,
   getPostById,
   editPost,
+  deletePost,
 };

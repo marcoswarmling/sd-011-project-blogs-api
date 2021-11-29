@@ -8,6 +8,7 @@ const router = express.Router();
 router
   .post('/post', rescue(validateToken), rescue(validatePost), rescue(postController.newPost))
   .get('/post/:id', rescue(validateToken), rescue(postController.getPostById))
+  .delete('/post/:id', rescue(validateToken), rescue(postController.deletePost))
   .put('/post/:id',
     rescue(validatePostEdit),
     rescue(validateToken),

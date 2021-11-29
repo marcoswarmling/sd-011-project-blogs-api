@@ -23,6 +23,7 @@ const editPost = (payload) => {
 };
 
 const userIsOwner = (userPost, userId) => {
+  if (!userPost) throw error.postDoesNotExist;
   if (userPost.id !== userId) throw error.unauthorizedUser;
 };
 
