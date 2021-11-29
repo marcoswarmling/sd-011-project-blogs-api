@@ -67,10 +67,10 @@ module.exports = {
   },
 
   search: async (request, response, next) => {
-    const { searchTerm } = request.query.q;
+    const { q } = request.query;
 
     try {
-      const posts = await postService.search(searchTerm);
+      const posts = await postService.search(q);
 
       return response.status(statusCodes.ok).json(posts);
     } catch (error) {
