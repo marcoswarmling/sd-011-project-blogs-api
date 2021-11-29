@@ -19,3 +19,4 @@ app.post('/login', Middleware.validateLogin, ControllerUser.login);
 app.get('/user', Middleware.validateToken, ControllerUser.getAllUsers);
 app.get('/user/:id', Middleware.validateToken, ControllerUser.getUserById);
 app.post('/categories', Middleware.validateToken, ControllerCategories.createCategory);
+app.get('/categories', Middleware.validateToken, ControllerCategories.getAllCategories);

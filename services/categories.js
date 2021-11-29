@@ -18,6 +18,20 @@ const createCategory = async (data) => {
   }
 };
 
+const getAllCategories = async () => {
+  try {
+    const allCategories = await Categories.findAll({
+      attributes: ['id', 'name'],
+    });
+    return allCategories;
+  } catch (error) {
+    console.log(error.message);
+
+    return { message: 'Algo deu errado', status: 500 };
+  }
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };
