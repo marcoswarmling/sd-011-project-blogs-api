@@ -6,6 +6,9 @@ module.exports = (err, _req, res, _next) => {
   if (err.code === 'inexistingCategory') {
     return res.status(400).json({ message: '"categoryIds" not found' });
   }
+  if (err.code === 'inexistingPost') {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
   return res.status(500).json({ 
     message: 'critical error :(',
   });
