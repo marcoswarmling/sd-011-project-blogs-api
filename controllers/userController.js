@@ -61,7 +61,7 @@ const listUsers = async (req, res) => {
     if (!validToken) return res.status(401).json({ message: 'Expired or invalid token' });
 
     try {
-      const user = await Users.findByPk(id, { attributes: ['id', 'displayName', 'email', 'image'] });
+    const user = await Users.findByPk(id, { attributes: ['id', 'displayName', 'email', 'image'] });
       if (!user) return res.status(404).json({ message: 'User does not exist' });
       return res.status(200).json(user);
     } catch (err) {
