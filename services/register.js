@@ -8,6 +8,11 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
+const generateToken = (displayName) => {
+  const token = jwt.sign({ data: displayName }, secret, jwtConfig);
+  return token;
+};
+
 const registerUser = async (userData) => {
   const {
     displayName,
@@ -24,8 +29,7 @@ const registerUser = async (userData) => {
       image,
     });
 
-    const generateToken = jwt.sign({ data: displayName }, secret, jwtConfig);
-    return generateToken;
+    return generateToken(displayName);
   } catch (err) {
     return err;
   }
@@ -33,4 +37,5 @@ const registerUser = async (userData) => {
 
 module.exports = {
   registerUser,
+  generateToken,
 };
