@@ -37,9 +37,20 @@ const findByID = async (id) => {
   return user;
 };
 
+const deleteByID = async (id) => {
+  const userDeleted = await Users.destroy({
+    where: { id },
+  });
+  if (!userDeleted || userDeleted === 0) {
+    throw new Error('Invalid Operation');
+  }
+  return userDeleted;
+};
+
 module.exports = {
   create,
   find,
   findAll,
   findByID,
+  deleteByID,
 };

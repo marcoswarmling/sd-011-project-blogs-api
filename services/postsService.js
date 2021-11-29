@@ -50,15 +50,14 @@ const findByID = async (id) => {
 };
 
 const deleteByID = async (userId, id) => {
-  const postDeleted = await BlogPosts.findAll({
+  const postDeleted = await BlogPosts.destroy({
     where: {
       id,
       userId,
     },
   });
-  console.log(postDeleted);
   if (!postDeleted || postDeleted === 0) {
-    throw new Error('Post does not exist');
+    throw new Error('Invalid Operation');
   }
   return postDeleted;
 };
