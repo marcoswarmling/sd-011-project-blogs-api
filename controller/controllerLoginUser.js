@@ -13,12 +13,6 @@ const controllerLoginUser = async (req, res) => {
       return;
     }
   } catch (error) {
-    if (error instanceof UniqueConstraintError) {
-      if (error.errors[0].path === 'Users.email') {
-        res.status(409).json({ menssage: 'User already registered' });
-        return;
-      }
-    }
     console.log(error);
     res.status(500).json({ menssage: 'problema aqui: rota post user' });
   }

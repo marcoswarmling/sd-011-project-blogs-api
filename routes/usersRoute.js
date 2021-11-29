@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const controllerCreateUser = require('../controller/controllerCreateUser');
-const { validedName, validedEmail, validedPassword } = require('../middleware');
+const controllerFindAllUsers = require('../controller/controllerFindAllUsers')
+const { validedName, validedEmail, validedPassword, validedToken } = require('../middleware');
 
 router.post(
   '/',
@@ -9,5 +10,8 @@ router.post(
   validedPassword,
   controllerCreateUser
 );
+
+router.get('/', validedToken, controllerFindAllUsers );
+
 
 module.exports = router;
