@@ -9,12 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        type: Sequelize.STRING
       },
       content: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        type: Sequelize.STRING
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -24,17 +22,17 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-        }
+        },
       },
-      createdAt: {
+      published: {
         allowNull: false,
-        field: 'published',
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
       },
-      updatedAt: {
+      updated: {
         allowNull: false,
-        field: 'updated',
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
       }
     });
   },

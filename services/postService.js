@@ -16,7 +16,16 @@ async function createPost(postObj, id) {
   }
   return createdPost;
 }
+
+async function getAllPosts() {
+  const allPosts = BlogPosts.findAll({ include: [
+    { all: true, attributes: { exclude: ['password'] } },
+  ],
+});
+  return allPosts;
+}
  
 module.exports = {
   createPost,
+  getAllPosts,
 };

@@ -14,6 +14,19 @@ async function createPost(req, res) {
   }
 }
 
+async function getAllPosts(_req, res) {
+  try {
+    const result = await postService.getAllPosts();
+    console.log(result.id);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    // console.error(error.message);
+    return res.status(500).json({ message: 'not found' });
+  }
+}
+ 
 module.exports = {
   createPost,
+  getAllPosts,
 };
