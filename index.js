@@ -1,6 +1,7 @@
 const express = require('express');
 const { userRouter, loginRouter, categoryRouter, postRouter } = require('./src/routes');
 const error = require('./src/middlewares/error');
+require('dotenv').config();
 
 const app = express();
 

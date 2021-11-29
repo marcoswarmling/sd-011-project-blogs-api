@@ -1,5 +1,5 @@
 // @ts-nocheck
-require('dotenv').config();
+// require('dotenv').config();
 
 const rescue = require('express-rescue');
 const Sequelize = require('sequelize');
