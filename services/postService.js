@@ -61,9 +61,18 @@ const updatePost = async (post, userEmail, categoryIds) => {
   });
 };
 
+const removePost = async (id, userEmail) => {
+  const postDatabase = await getPostById(id);
+  const { email } = postDatabase.user;
+  if (email === userEmail) {
+    return BlogPost.destroy({ where: { id } });
+  } return { error: { code: 'postNotPertence' } };
+};
+
 module.exports = {
   postRegister,
   getAllPosts,
   getPostById,
   updatePost,
+  removePost,
 };
