@@ -12,9 +12,9 @@ const post = async (req, res) => {
   }
 };
 
-const getAll = async (req, res) => {
+const getAllPosts = async (req, res) => {
   try {
-    const allPosts = await blogPostServices.getAll();
+    const allPosts = await blogPostServices.getAllPost();
     return res.status(200).json(allPosts);
   } catch (e) {
     console.log(e);
@@ -22,10 +22,10 @@ const getAll = async (req, res) => {
   }
 };
 
-const getOne = async (req, res) => {
+const getOnePost = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await blogPostServices.getOne(id);
+    const result = await blogPostServices.getOnePost(id);
     return res.status(200).json(result);
   } catch (e) {
     console.log(e);
@@ -33,8 +33,22 @@ const getOne = async (req, res) => {
   }
 };
 
+const updateOnePost = async (req, res) => {
+try {
+  const { data } = req.userInfo;
+  const { title, content } = req.body;
+  const { id } = req.params;
+  const updatedPost = await blogPostServices.updateOnePost(data, title, content, id);
+  return res.status(200).json(updatedPost);
+} catch (e) {
+  console.error(e);
+  return res.status(401).json({ message: e.message });
+}
+};
+
 module.exports = {
   post,
-  getAll,
-  getOne,
+  getAllPosts,
+  getOnePost,
+  updateOnePost,
 };

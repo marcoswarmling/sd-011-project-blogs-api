@@ -22,7 +22,7 @@ const post = async (title, content, categoryIds, data) => {
   return postResult;
 };
 
-const getAll = async () => {
+const getAllPost = async () => {
   const allPosts = await BlogPosts.findAll({
     attributes: { exclude: ['UserId'] },
     include: [
@@ -34,7 +34,7 @@ const getAll = async () => {
   return allPosts;
 };
 
-const getOne = async (id) => {
+const getOnePost = async (id) => {
   const foundPost = await BlogPosts.findByPk(id, {
     include: [
       { model: Users, as: 'user', attributes: { exclude: ['password'] } },
@@ -45,8 +45,21 @@ const getOne = async (id) => {
   return foundPost;
 };
 
+const updateOnePost = async (data, title, content, id) => {
+  const postToUpdate = await BlogPosts.findByPk(id);
+  const isUserAllowed = data.id === postToUpdate.userId;
+  if (!isUserAllowed) throw new Error('Unauthorized user');
+  const updatedPost = await BlogPosts.update(
+    { title, content }, 
+    { where: { id }, returning: true },
+  );
+  console.log(updatedPost);
+  return updatedPost;
+};
+
 module.exports = {
   post,
-  getAll,
-  getOne,
+  getAllPost,
+  getOnePost,
+  updateOnePost,
 };
