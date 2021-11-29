@@ -40,6 +40,13 @@ const invalidCatsArray = {
   },
 };
 
+const postNotFound = {
+  err: {
+    status: 404,
+    message: 'Post does not exist',
+  },
+};
+
 module.exports = {
   userAlreadyExists,
   userNotFound,
@@ -47,4 +54,5 @@ module.exports = {
   tokenNotFound,
   invalidToken,
   invalidCatsArray,
+  postNotFound,
 };

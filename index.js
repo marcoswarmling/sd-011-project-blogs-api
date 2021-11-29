@@ -27,5 +27,6 @@ app.get('/categories', ValidationJWT.validateToken, Category.getAllCats);
 
 app.post('/post', ValidationJWT.validateToken, BlogPost.createPost);
 app.get('/post', ValidationJWT.validateToken, BlogPost.getAllPosts);
+app.get('/post/:id', ValidationJWT.validateToken, BlogPost.getPostById);
 
 app.use(errorMiddleware);
