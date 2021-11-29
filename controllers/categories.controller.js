@@ -29,7 +29,6 @@ async function getAllCategories(_req, res, next) {
   }
 }
 
-
 module.exports = {
   createCategory,
   getAllCategories,
