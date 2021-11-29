@@ -22,6 +22,17 @@ const getPostBasicInfo = async (id) => {
   return post;
 };
 
+const getAll = async () => {
+  const posts = await BlogPost.findAll({
+    include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
+  });
+
+  const userIds = posts.map(({ userId }) => userId);
+  const users = await getUsers(userIds);
+
+  return posts.map((post, index) => ({ ...post.dataValues, user: users[index] }));
+};
+
 module.exports = {
   create: async (post) => {
     const validCategories = await hasCategories(post.categoryIds);
@@ -33,16 +44,7 @@ module.exports = {
     return newPost;
   },
 
-  getAll: async () => {
-    const posts = await BlogPost.findAll({
-      include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
-    });
-
-    const userIds = posts.map(({ userId }) => userId);
-    const users = await getUsers(userIds);
-
-    return posts.map((post, index) => ({ ...post.dataValues, user: users[index] }));
-  },
+  getAll,
 
   getById,
 
@@ -60,5 +62,17 @@ module.exports = {
 
   delete: async (id) => {
     await BlogPost.destroy({ where: { id } });
+  },
+
+  search: async (searchTerm) => {
+    const posts = await getAll();
+
+    if (searchTerm.length === 0) return posts;
+
+    const filteredPosts = posts.filter(({ title, content }) => (
+      title.includes(searchTerm) || content.includes(searchTerm)
+    ));
+
+    return filteredPosts;
   },
 };
