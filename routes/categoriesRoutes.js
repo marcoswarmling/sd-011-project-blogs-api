@@ -13,4 +13,10 @@ route.post(
   CategoriesController.create,
 );
 
+route.get(
+  '/',
+  validateToken,
+  CategoriesController.listAll,
+);
+
 module.exports = route;

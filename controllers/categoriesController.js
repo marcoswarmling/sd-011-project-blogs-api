@@ -7,6 +7,13 @@ const create = async (req, res) => {
   res.status(201).json(dataValues);
 };
 
+const listAll = async (_req, res) => {
+  const allUsers = await CategoriesServices.findAll();
+
+  res.status(200).json(allUsers);
+};
+
 module.exports = {
   create,
+  listAll,
 };
