@@ -2,7 +2,7 @@ const db = require('../models');
 const JWTgenerate = require('../auth/JWTGenerate');
 
 class UserController {
-  static async getAllUsers(_req, res) {
+  static async getAllUsers(req, res) {
     try {
       const allUsers = await db.Users.findAll();
       return res.status(200).json(allUsers);

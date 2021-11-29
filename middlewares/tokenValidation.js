@@ -17,7 +17,8 @@ const tokenValidation = async (req, res, next) => {
     if (!checkTokenAlreadyExists) {
       return res.status(401).json({ message: 'Token not found' });
     }
-   next();
+    req.user = decodedToken.login;
+    next();
   } catch (err) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
