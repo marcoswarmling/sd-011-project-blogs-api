@@ -1,4 +1,3 @@
-// @ts-nocheck
 const Sequelize = require('sequelize');
 const { BlogPost, User, Category } = require('../models');
 const config = require('../config/config');

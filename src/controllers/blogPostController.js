@@ -1,7 +1,3 @@
-/* eslint-disable max-lines-per-function */
-// @ts-nocheck
-// require('dotenv').config();
-
 const rescue = require('express-rescue');
 const Sequelize = require('sequelize');
 const { BlogPost } = require('../models');

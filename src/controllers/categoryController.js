@@ -1,6 +1,3 @@
-// @ts-nocheck
-// require('dotenv').config();
-
 const { Category } = require('../models');
 
 const getAll = async (req, res) => {
@@ -30,6 +27,6 @@ const createCategory = async (req, res) => {
 module.exports = {
   createCategory,
   getAll,
-  
+
   // createAdmin,
 };

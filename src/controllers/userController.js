@@ -1,6 +1,3 @@
-// @ts-nocheck
-// require('dotenv').config();
-
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const rescue = require('express-rescue');
