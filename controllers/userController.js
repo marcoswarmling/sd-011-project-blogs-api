@@ -15,7 +15,7 @@ const userLogin = async (req, res) => {
     return res.status(201).json(newUser);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({ message: 'Something is wrong' });
+    return res.status(400).json({ message: 'Something is wrong' });
   }
 };
 
@@ -29,7 +29,7 @@ const userLoginValidate = async (req, res) => {
     return res.status(200).json(login);
   } catch (error) {
     console.log(error.message);
-   res.status(500).json({ message: 'Invalid fields' });
+    return res.status(500).json({ message: 'Invalid fields' });
   }
 };
 
@@ -42,7 +42,7 @@ const getAllUsers = async (req, res) => {
     return res.status(200).json(users);
   } catch (error) {
     console.log(error.message);
-    res.status(401).json({ message: 'Expired or invalid token' });
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
@@ -56,7 +56,7 @@ const getUser = async (req, res) => {
     return res.status(200).json(user);
   } catch (error) {
     console.log(error.message);
-    res.status(401).json({ message: 'Expired or invalid token' });
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 

@@ -13,7 +13,7 @@ const categorieCreate = async (req, res) => {
     return res.status(201).json(newCategorie);
   } catch (error) {
     console.log(error.message);
-    res.status(401).json({ message: 'Something is wrong' });
+    return res.status(401).json({ message: 'Something is wrong' });
   }
 };
 
@@ -26,7 +26,7 @@ const getAllCategories = async (req, res) => {
     return res.status(200).json(categories);
   } catch (error) {
     console.log(error.message);
-    res.status(401).json({ message: 'Expired or invalid token' });
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
