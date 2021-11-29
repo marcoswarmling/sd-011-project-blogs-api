@@ -11,7 +11,7 @@ const isValidToken = (req, res, next) => {
   try {
     const payload = jwt.verify(token, topSecret);
     req.user = payload;
-    console.log(payload);
+    console.log(payload, 'PAYLOAD');
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });

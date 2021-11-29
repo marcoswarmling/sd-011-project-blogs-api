@@ -15,6 +15,6 @@ routes.post(
   blogPosts.addPost,
 );
 
-routes.get('/', blogPosts.getPost);
+routes.get('/', isValidToken, blogPosts.getPost);
 
 module.exports = routes;

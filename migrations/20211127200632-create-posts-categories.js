@@ -10,10 +10,9 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        field: 'postId',
+        // onUpdate: 'CASCADE',
       },
-      categoryIds: {
+      categoryId: {
         primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
@@ -21,8 +20,7 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'CASCADE',
-      // onUpdate: 'CASCADE',
-        field: 'categoryIds',
+        // onUpdate: 'CASCADE',
       },
     });
   },
