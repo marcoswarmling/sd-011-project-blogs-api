@@ -9,7 +9,7 @@ const getAll = async (req, res) => {
     return res.status(200).json(category);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Ocorreu um erro' });
+    return res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
 
@@ -23,7 +23,7 @@ const createCategory = async (req, res) => {
     res.status(201).json(category);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Ocorreu um erro' });
+    return res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
 

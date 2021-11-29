@@ -25,7 +25,7 @@ const getAll = async (req, res) => {
     return res.status(200).json(employees);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json(errorHappened);
+    return res.status(500).json(errorHappened);
   }
 };
 
@@ -44,7 +44,7 @@ const createUser = async (req, res) => {
     return res.status(201).json(user);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json(errorHappened);
+    return res.status(500).json(errorHappened);
   }
 };
 
@@ -65,7 +65,7 @@ const getUserById = async (req, res) => {
     return res.status(200).json(user);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json(errorHappened);
+    return res.status(500).json(errorHappened);
   }
 };
 
@@ -83,7 +83,7 @@ const login = async (req, res) => {
     return res.status(200).json({ token });
   } catch (e) {
     console.log(e.message);
-    res.status(500).json(errorHappened);
+    return res.status(500).json(errorHappened);
   }
 };
 
@@ -100,7 +100,7 @@ const deleteOwnUser = async (req, res) => {
     });
   } catch (e) {
     console.log(e.message);
-    res.status(500).json(errorHappened);
+    return res.status(500).json(errorHappened);
   }
 };
 
