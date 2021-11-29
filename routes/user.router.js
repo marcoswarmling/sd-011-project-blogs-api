@@ -4,6 +4,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
 const validateCreateUserMiddleware = require('../middlewares/validateCreateUser.middleware');
 
 // GETS
+router.get('/:id', authMiddleware, UserController.findUserById);
 router.get('/', authMiddleware, UserController.findAllUsers);
 
 // POSTS

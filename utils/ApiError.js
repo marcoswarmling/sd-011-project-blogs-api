@@ -89,6 +89,13 @@ class ApiError {
       HTTP_STATUS.PASSWORD_REQUIRED,
     );
   }
+
+  static userNotFound() {
+    return new ApiError(
+      HTTP_STATUS.code.NOT_FOUND,
+      HTTP_STATUS.USER_NOT_FOUND,
+    );
+  }
 }
 
 module.exports = ApiError;

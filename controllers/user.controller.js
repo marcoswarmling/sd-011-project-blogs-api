@@ -24,8 +24,6 @@ async function createUser(req, res, next) {
 
 async function findAllUsers(req, res, next) {
   try {
-    console.log('entrou');
-    
     const users = await UserService.getAllUsersInDB();
 
     return res.status(HttpCodes.code.OK).json(users);
@@ -35,7 +33,23 @@ async function findAllUsers(req, res, next) {
   }
 }
 
+async function findUserById(req, res, next) {
+  try {
+    const { id } = req.params;
+
+    const user = await UserService.getUserById(id);
+
+    if (!user) return next(ApiError.userNotFound());
+
+    return res.status(HttpCodes.code.OK).json(user);
+  } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRROR', err);
+    return next(ApiError.internalServerError());
+  }
+}
+
 module.exports = {
   createUser,
   findAllUsers,
+  findUserById,
 };

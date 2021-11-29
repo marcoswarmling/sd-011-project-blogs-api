@@ -7,6 +7,11 @@ async function getUserByEmail(email) {
   return emailExists;
 }
 
+async function getUserById(id) {
+  const user = await User.findOne({ where: { id } });
+  return user;
+}
+
 async function createUserInDB(user) {
   await User.create(user);
   return true;
@@ -21,4 +26,5 @@ module.exports = {
   getUserByEmail,
   createUserInDB,
   getAllUsersInDB,
+  getUserById,
 };
