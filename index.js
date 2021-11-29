@@ -1,17 +1,12 @@
+require('dotenv').config();
+
 const express = require('express');
+const userRouter = require('./src/routers/user');
 
 const app = express();
 app.use(express.json());
 
-const { User } = require('./src/models');
-
-app.post('/user', (req, res) => {
-  User.create(req.body)
-    .then((createdUser) => {
-      console.log(createdUser);
-      res.status(201).json({ token: 'tokenubauba' });
-    });
-});
+app.use('/user', userRouter);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
