@@ -71,7 +71,17 @@ const updateByID = async (data, id) => {
   if (!postUpdated || postUpdated === 0) {
     throw new Error(invalidError);
   }
-  return postUpdated;
+  const postReturn = BlogPosts.findByPk(id, {
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories,
+        as: 'categories',
+        attributes: { exclude: ['PostsCategories'] },
+        through: { attributes: [] } },
+    ],
+  });
+  if (!postReturn) { throw new Error(invalidError); }
+  return postReturn;
 };
 
 module.exports = {
