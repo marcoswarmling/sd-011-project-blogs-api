@@ -2,6 +2,7 @@ const {
   checkContent,
   checkCategoryIds,
   checkTitle,
+  chekCategorisExist,
 } = require('./middlewareBlogPost');
 
 const { cheNameCategories } = require('./middlewareCategories');
@@ -23,6 +24,7 @@ module.exports = {
   checkTitle,
   checkName,
   checkEmail,
+  chekCategorisExist,
   checkPassword,
   checkToken,
   checkValidToken,
