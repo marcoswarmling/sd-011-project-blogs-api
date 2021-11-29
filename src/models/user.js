@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
+    scopes: { withoutPassword: {
+        attributes: { exclude: ['password'] },
+      },
+    },
   });
 
   User.associate = (models) => {
