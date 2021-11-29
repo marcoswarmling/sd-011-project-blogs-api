@@ -4,7 +4,7 @@
 
 const rescue = require('express-rescue');
 const Sequelize = require('sequelize');
-const { BlogPost, Category, PostsCategory } = require('../models');
+const { BlogPost } = require('../models');
 const config = require('../config/config');
 const { postSchema, updatePostSchema } = require('../validators');
 const postService = require('../services/blogPostService');
