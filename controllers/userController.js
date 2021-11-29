@@ -36,7 +36,7 @@ const getUserById = rescue(async (req, res, next) => {
   return res.status(200).json(selectedUser);
 });
 
-const removeUser = rescue(async (req, res, next) => {
+const removeUser = rescue(async (req, res, _next) => {
   const { email } = req.user;
   await service.removeUser(email);
   return res.status(204).send();
