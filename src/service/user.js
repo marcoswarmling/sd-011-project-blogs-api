@@ -25,12 +25,12 @@ const createNewUser = async (displayName, email, password, image) => {
 };
 
 const getAllUsers = async () => {
-  const allUsers = await User.findAll();
+  const allUsers = await User.scope('withoutPassword').findAll();
   return allUsers;
 };
 
 const getUserById = async (searchedId) => {
-  const user = await User.findByPk(searchedId);
+  const user = await User.scope('withoutPassword').findByPk(searchedId);
   if (!user) {
     return {
       err: {
@@ -40,8 +40,7 @@ const getUserById = async (searchedId) => {
     };
   }
 
-  const { id, displayName, email, image } = user;
-  return { id, displayName, email, image };
+  return user;
 };
 
 module.exports = {
