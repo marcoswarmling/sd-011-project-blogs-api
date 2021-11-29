@@ -67,7 +67,7 @@ module.exports = {
   search: async (searchTerm) => {
     const posts = await getAll();
 
-    if (searchTerm.length === 0) return posts;
+    if (!searchTerm || searchTerm.length === 0) return posts;
 
     const filteredPosts = posts.filter(({ title, content }) => (
       title.includes(searchTerm) || content.includes(searchTerm)
