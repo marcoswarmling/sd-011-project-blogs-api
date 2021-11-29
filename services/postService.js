@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, Category, User } = require('../models');
 const validate = require('../validations/postValidations');
 const validateCategories = require('../validations/categoryValidations');
@@ -30,18 +31,12 @@ const newPost = async (payload) => {
 };
 
 const getPosts = () => BlogPost.findAll({
-  include: [
-    { model: User, as: 'user' },
-    { ...categoryConfig },
-  ],
+  include: [{ model: User, as: 'user' }, { ...categoryConfig }],
 });
 
 const getPostById = async (id) => {
   const post = await BlogPost.findByPk(id, {
-    include: [
-      { model: User, as: 'user' },
-      { ...categoryConfig },
-    ],
+    include: [{ model: User, as: 'user' }, { ...categoryConfig }],
   });
   validate.post(post);
   return post;
@@ -60,10 +55,21 @@ const deletePost = async (postId, token) => {
   await BlogPost.destroy({ where: { id: postId } });
 };
 
+const queryPost = async (param) => BlogPost.findAll({
+  where: {
+    [Op.or]: [
+      { title: { [Op.substring]: param } },
+      { content: { [Op.substring]: param } },
+    ],
+  },
+  include: [{ model: User, as: 'user' }, { ...categoryConfig }],
+});
+
 module.exports = {
   newPost,
   getPosts,
   getPostById,
   editPost,
   deletePost,
+  queryPost,
 };
