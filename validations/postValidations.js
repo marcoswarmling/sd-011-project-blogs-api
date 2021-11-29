@@ -22,8 +22,8 @@ const editPost = (payload) => {
   validateField(content, error.contentIsRequired);
 };
 
-const userIsOwner = (post, userId) => {
-  if (post.id !== userId) throw error.unauthorizedUser;
+const userIsOwner = (userPost, userId) => {
+  if (userPost.id !== userId) throw error.unauthorizedUser;
 };
 
 module.exports = {
