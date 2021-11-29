@@ -1,4 +1,4 @@
-const { getAll } = require('../services/CategoryService');
+const { Categories } = require('../models/index');
 const getAllCategories = require('../helpers/checkCategory');
 
 const titleExists = async (req, res, next) => {
@@ -22,10 +22,9 @@ const categoryIdExists = async (req, res, next) => {
 const categoryIdIsRequired = async (req, res, next) => {
   const { categoryIds } = req.body;
 
-  const allCategories = await getAll();
-  // console.log('ALL CATEGORIRES: ', allCategories);
-  const verification = getAllCategories(categoryIds, allCategories.id);
-  // console.log('VERIFICATION: ', verification);
+  const allCategories = await Categories.findAll();
+  const verification = getAllCategories(categoryIds, allCategories);
+
   if (!verification) return res.status(400).json({ message: '"categoryIds" not found' });
   next();
 };

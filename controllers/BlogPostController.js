@@ -4,7 +4,7 @@ const { getById } = require('../services/UserService');
 const create = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
-    console.log('ENTREI NO SERVICE');
+
     const { id } = req.params;
     const userId = getById(id);
 
