@@ -13,9 +13,9 @@ const getAllUsers = async (_req, res) => {
 };
 
 const getUserByPk = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const UserByPk = await userService.getUserByPk(id);
-  if (!UserByPk) return res.status(404).json({ message: 'not found' });
+  if (!UserByPk) return res.status(404).json({ message: 'User does not exist' });
   return res.status(200).json(UserByPk);
 };
 

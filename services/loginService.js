@@ -16,6 +16,7 @@ const createToken = async (email, password) => {
   const data = {
     email,
   };
+  console.log(data);
 
   const token = jwt.sign({ data }, SECRET, jwtConfig);
   return { status: 200, token };
