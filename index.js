@@ -41,3 +41,10 @@ app.get(
   auth,
   userController.findAll,
 );
+
+app.get(
+  '/user/:id',
+  missingToken,
+  auth,
+  userController.findById,
+);

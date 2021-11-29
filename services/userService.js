@@ -20,7 +20,6 @@ const createUser = async (displayName, email, password, image) => {
 
 const login = async (email, password) => {
   const findUser = await User.findOne({ where: { email } });
-  // console.log(findUser.email);
 
   if (!findUser || findUser.password !== password) {
     return { status: 400, message: 'Invalid fields' }; 
@@ -39,8 +38,20 @@ const findAll = async () => {
   return result;
 };
 
+const findById = async (params) => {
+  try {
+    const result = await User.findByPk(params);
+    const { id, displayName, email, image } = result;
+
+    return { id, displayName, email, image };
+  } catch (error) {
+    return { status: 404, message: 'User does not exist' };
+  }
+};
+
 module.exports = {
   createUser,
   login,
   findAll,
+  findById,
 };

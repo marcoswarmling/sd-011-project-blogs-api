@@ -19,9 +19,17 @@ const login = async (req, res) => {
   return res.status(200).json({ token });
 };
 
-const findAll = async (req, res) => {
+const findAll = async (_req, res) => {
   const result = await userSevice.findAll();
 
+  return res.status(200).json(result);
+};
+
+const findById = async (req, res) => {
+  const result = await userSevice.findById(req.params.id);
+
+  if (result.status) return res.status(result.status).json({ message: result.message });
+  
   return res.status(200).json(result);
 };
 
@@ -29,4 +37,5 @@ module.exports = {
   createUser,
   login,
   findAll,
+  findById,
 };
