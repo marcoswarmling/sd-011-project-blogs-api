@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(bodyParser.json());
 
-app.use('/', user);
+app.use('/user', user);
 app.use('/login', login);
 
 // não remova esse endpoint, e para o avaliador funcionar

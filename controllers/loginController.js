@@ -10,7 +10,6 @@ class controllerLogin {
       });
       const { id, displayName, image } = user;
       const token = jwt({ id, displayName, email, image });
-      console.log(token);
       return res.status(200).json(token);
     } catch (error) {
       return res.status(400).json(error.message);

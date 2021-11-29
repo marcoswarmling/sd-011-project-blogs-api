@@ -5,9 +5,11 @@ const {
   validDisplayName,
   validPassword,
 } = require('../validation/userValidation');
-const user = require('../controllers/userController');
+const { createUser, userController } = require('../controllers/userController');
+const tokenValidation = require('../middlewares/tokenValidation');
 
-router.post('/user', 
-  validDisplayName, validEmail, validPassword, validEmailExist, user.createNewUser);
+router.get('/', tokenValidation, userController.getAllUsers);
+router.post('/', 
+  validDisplayName, validEmail, validPassword, validEmailExist, createUser);
 
 module.exports = router;
