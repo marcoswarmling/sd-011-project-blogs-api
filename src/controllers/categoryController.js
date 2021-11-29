@@ -1,22 +1,7 @@
 // @ts-nocheck
 require('dotenv').config();
 
-const express = require('express');
-const Sequelize = require('sequelize');
-const jwt = require('jsonwebtoken');
-const { BlogPost, Category, PostsCategory, User } = require('../models');
-const config = require('../config/config');
-const { userSchema, loginSchema } = require('../validators');
-
-const key = process.env.JWT_SECRET;
-const sequelize = new Sequelize(
-  process.env.NODE_ENV === 'test' ? config.test : config.development,
-);
-
-const jtwConfig = {
-  expiresIn: '1h',
-  algorithm: 'HS256',
-};
+const { Category } = require('../models');
 
 const getAll = async (req, res) => {
   try {

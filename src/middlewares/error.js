@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 const errorStatus = {
   MissingAuthToken: { code: 401, message: 'missing auth token' },
   ENOENT: { code: 404, message: 'resource not found' },

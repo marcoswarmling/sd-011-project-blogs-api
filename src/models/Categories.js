@@ -1,8 +1,5 @@
-/* eslint-disable max-lines-per-function */
-/* eslint-disable no-shadow */
-// prettier-ignore
 const Category = (sequelize, DataTypes) => {
-  const Category = sequelize.define('Category', {
+  const Cat = sequelize.define('Category', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -15,7 +12,7 @@ const Category = (sequelize, DataTypes) => {
     tableName: 'Categories',
   });
   
-  return Category;
+  return Cat;
 };
 
 module.exports = Category;

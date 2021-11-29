@@ -1,7 +1,6 @@
 // @ts-nocheck
 require('dotenv').config();
 
-const rescue = require('express-rescue');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const { BlogPost, Category, User } = require('../models');
@@ -18,13 +17,15 @@ const jtwConfig = {
   algorithm: 'HS256',
 };
 
+const errorHappened = { message: 'Ocorreu um erro' };
+
 const getAll = async (req, res) => {
   try {
     const employees = await User.findAll({});
     return res.status(200).json(employees);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Ocorreu um erro' });
+    res.status(500).json(errorHappened);
   }
 };
 
@@ -43,7 +44,7 @@ const createUser = async (req, res) => {
     return res.status(201).json(user);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Ocorreu um erro' });
+    res.status(500).json(errorHappened);
   }
 };
 
@@ -64,7 +65,7 @@ const getUserById = async (req, res) => {
     return res.status(200).json(user);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Ocorreu um erro' });
+    res.status(500).json(errorHappened);
   }
 };
 
@@ -82,11 +83,11 @@ const login = async (req, res) => {
     return res.status(200).json({ token });
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Ocorreu um erro' });
+    res.status(500).json(errorHappened);
   }
 };
 
-const deleteOwnUser = rescue(async (req, res, next) => {
+const deleteOwnUser = async (req, res) => {
   try {
     const user = await User.findByPk(req.data.id);
     if (!user) {
@@ -99,9 +100,9 @@ const deleteOwnUser = rescue(async (req, res, next) => {
     });
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Ocorreu um erro' });
+    res.status(500).json(errorHappened);
   }
-});
+};
 
 module.exports = {
   getAll,

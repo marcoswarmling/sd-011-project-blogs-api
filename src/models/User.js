@@ -1,8 +1,5 @@
-/* eslint-disable max-lines-per-function */
 const User = (sequelize, DataTypes) => {
-  // eslint-disable-next-line no-shadow
-  const User = sequelize.define('User', {
-    id: {
+  const UserX = sequelize.define('User', { id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -12,17 +9,14 @@ const User = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       image: DataTypes.STRING,
     },
-    {
-      timestamps: false,
-      tableName: 'Users',
-    });
-  User.associate = (models) => {
-    User.hasMany(models.BlogPost, {
+    { timestamps: false, tableName: 'Users' });
+    UserX.associate = (models) => {
+    UserX.hasMany(models.BlogPost, {
       foreignKey: 'userId',
       as: 'userPosts',
     });
   };
-  return User;
+  return UserX;
 };
 
 module.exports = User;
