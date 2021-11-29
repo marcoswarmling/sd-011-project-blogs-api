@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const CategoriesService = require('../services/categoriesService');
-const PostsController = require('../controllers/postsController');
+const PostsService = require('../services/postsService');
+const { BlogPosts } = require('../models');
 
 const schemaPost = Joi.object().keys({
   title: Joi.string().required(),
@@ -33,10 +34,15 @@ const validateCategory = async (req, res, next) => {
 
     const validadeUserIdOnDeleted = async (req, res, next) => {
       const { id } = req.params;
-      const post = await PostsController.findByID(id);
-      console.log(post);
+      console.log(id);
+      const post = await BlogPosts.findByPk(id);
       if (
-        post.message) {
+        !post) {
+        return res.status(404).json({ 
+          message: 'Post does not exist',
+        });
+      }
+      if (post.dataValues.userId !== req.user.id) {
         return res.status(401).json({ 
           message: 'Unauthorized user',
         });

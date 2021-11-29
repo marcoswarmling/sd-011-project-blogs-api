@@ -42,6 +42,7 @@ const findByID = async (id) => {
         through: { attributes: [] } },
     ],
   });
+  console.log(post);
   if (!post) {
     throw new Error('Post does not exist');
   }
@@ -49,7 +50,7 @@ const findByID = async (id) => {
 };
 
 const deleteByID = async (userId, id) => {
-  const postDeleted = await BlogPosts.destroy({
+  const postDeleted = await BlogPosts.findAll({
     where: {
       id,
       userId,
