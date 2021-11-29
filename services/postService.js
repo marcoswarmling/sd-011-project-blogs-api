@@ -1,5 +1,4 @@
-const { BlogPosts } = require('../models');
-const { Categories } = require('../models');
+const { BlogPosts, Categories, User } = require('../models');
 
 const isTitleValid = (title) => {
   if (!title) {
@@ -52,6 +51,23 @@ const create = async ({ title, userId, content, categoryIds }) => {
   return newCategory;
 };
 
+const getAll = async () => {
+  const posts = await BlogPosts.findAll({
+    include: [
+      {
+        model: User,
+        as: 'user',
+      },
+      {
+        model: Categories,
+        as: 'categories',
+      },
+  ],
+  });
+  return posts;
+};
+
 module.exports = {
   create,
+  getAll,
 };
