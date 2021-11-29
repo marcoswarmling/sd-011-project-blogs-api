@@ -7,11 +7,11 @@ async function createCategory(req, res, next) {
     const { name } = req.body;
 
     if (name) {
-      const createdCategory = await CategoryServices.createCategoryInDB(name);
-      return res.status(HttpCodes.code.CREATED).json({ createdCategory });
+      const id = await CategoryServices.createCategoryInDB(name);
+      return res.status(HttpCodes.code.CREATED).json({ id, name });
     }
   
-    return next(ApiError.categoryNameRequired());
+    return next(ApiError.requiredCategoryName());
   } catch (err) {
     console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRROR', err);
     return next(ApiError.internalServerError());

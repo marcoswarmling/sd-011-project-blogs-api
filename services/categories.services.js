@@ -1,8 +1,9 @@
 const { Category } = require('../models');
 
 async function createCategoryInDB(categoryName) {
-  await Category.create(categoryName);
-  return true;
+  const { dataValues } = await Category.create(categoryName);
+  console.log('category:', dataValues);
+  return dataValues.id;
 }
 
 module.exports = {
