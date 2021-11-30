@@ -12,7 +12,7 @@ const create = async ({ title, categoryIds, content, user }) => {
   const newPost = await BlogPost.create({ title, content, userId: user.id });
 
   await newPost.setCategories(categoryIds);
-  await newPost.setUserID(user);
+  await newPost.setUser(user);
 
   return { responseMessage: newPost, statusCode: 201 };
 };
