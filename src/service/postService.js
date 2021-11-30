@@ -1,10 +1,11 @@
 const { BlogPost } = require('../models');
 
-const createNewPost = async ({ title, content, categoryIds, id }) => {
-  const userId = id;
-  const post = await BlogPost.create({ title, content, categoryIds, userId });
+const createNewPost = async ({ title, content, categoryIds, id: userId }) => {
+  const post = await BlogPost.create({ title, content, userId });
 
-  return { statusCode: 200, response: post };
+  await post.setCategories(categoryIds);
+
+  return { statusCode: 201, response: post };
  };
 
  module.exports = {
