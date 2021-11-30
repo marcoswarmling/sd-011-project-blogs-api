@@ -1,6 +1,6 @@
 const { BlogPosts, Users, Categories } = require('../models');
 // Categories
-// const servicePostsCategories = require('../service/servicePostsCategories');
+const servicePostsCategories = require('../service/servicePostsCategories');
 
 async function controllerPostBlog(req, res) {
   const { title, content, categoryIds } = req.body;
@@ -17,7 +17,7 @@ async function controllerPostBlog(req, res) {
       updated: date,
     });
     // Inserir categoria dos Posts na tabela PostsCategories
-    // await servicePostsCategories(id, categoryIds);
+    await servicePostsCategories(id, categoryIds);
 
     res.status(201).json(result);
   } catch (error) {
