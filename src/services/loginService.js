@@ -1,5 +1,5 @@
 const { createError } = require('../middlewares/errors');
-const { Users } = require('../models');
+const { User } = require('../models');
 const { createToken } = require('../validations/token');
 const { validateCredentials } = require('../validations/validations');
 
@@ -9,7 +9,7 @@ const loginUser = async (data) => {
 
   const { email, password } = data;
 
-  const user = await Users.findOne({
+  const user = await User.findOne({
     where: { email, password },
   });
 

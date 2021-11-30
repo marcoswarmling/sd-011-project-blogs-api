@@ -1,9 +1,9 @@
 const { createError } = require('../middlewares/errors');
-const { BlogPosts, PostsCategories, Categories } = require('../models');
+const { BlogPost, PostCategory, Category } = require('../models');
 const { validatePost } = require('../validations/validations');
 
 const areValidIds = async (arrayOfIds) => {
-  const categories = await Promise.all(arrayOfIds.map((id) => Categories.findByPk(id)));
+  const categories = await Promise.all(arrayOfIds.map((id) => Category.findByPk(id)));
   return categories.every((category) => category !== null);
 };
 
@@ -17,10 +17,10 @@ const createPost = async (data, userId) => {
   const { error: validationError } = validatePost(data);
   if (validationError) return createError('badRequest', validationError.message);
 
-  const user = await BlogPosts.create({ title, content, userId });
+  const user = await BlogPost.create({ title, content, userId });
   console.log('USER', user);
 
-  return categoryIds.forEach((category) => PostsCategories.create({ category, id: user.id }));
+  return categoryIds.forEach((category) => PostCategory.create({ category, id: user.id }));
 };
 
 module.exports = {
