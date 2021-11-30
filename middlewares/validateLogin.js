@@ -1,9 +1,9 @@
-const { User } = require('../models');
+const { Users } = require('../models');
 const newToken = require('../auth/newToken');
 
 const validateLogin = async (req, res) => {
   const { email: userEmail } = req.body;
-  const user = await User.findOne({
+  const user = await Users.findOne({
     where: { email: userEmail },
   });
   if (!user) {

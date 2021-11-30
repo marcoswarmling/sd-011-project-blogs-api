@@ -1,8 +1,8 @@
-const { User } = require('../models');
+const { Users } = require('../models');
 
 const validateUser = async (req, res, next) => {
   const { email: userEmail } = req.body;
-  const user = await User.findOne({
+  const user = await Users.findOne({
     where: { email: userEmail },
   });
   if (user) {
