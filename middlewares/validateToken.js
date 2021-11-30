@@ -6,7 +6,10 @@ module.exports = (req, res, next) => {
     
     if (!authorization) return res.status(401).json({ message: 'Token not found' });
   
-    validateToken(authorization);
+    const { payload: { id } } = validateToken(authorization);
+    
+    req.userId = id;
+
     next();
   } catch (error) {
     res.status(401).json({ message: 'Expired or invalid token' });
