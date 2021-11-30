@@ -20,7 +20,6 @@ const contentValidation = (req, res, next) => {
 
 const categoryValidation = async (req, res, next) => {
   const { categoryIds } = req.body;
-  console.log(categoryIds);
   if (!categoryIds) {
     return res.status(400)
     .json({ message: '"categoryIds" is required' });

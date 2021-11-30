@@ -9,5 +9,5 @@ const {
 const blogPostValidation = [titleValidation, contentValidation, categoryValidation];
 
 router.post('/', tokenValidation, blogPostValidation, BlogPostController.createBlogPost);
-
+router.get('/', tokenValidation, BlogPostController.getAllBlogPosts);
 module.exports = router;
