@@ -1,25 +1,30 @@
 const { Op } = require('sequelize');
+const Sequelize = require('sequelize');
+
+const config = require('../config/config');
+
+const sequelize = new Sequelize(config.test);
 
 const { BlogPost, User, PostCategory, Category } = require('../models');
 
 const messageErrorServer = { code: 500, result: { message: 'Internal Error Server' } };
 
 const createBlogPost = async (userEmail, title, content, categoryIds) => {
+  const t = await sequelize.transaction();
   const today = new Date();
   try {
     const [dataValues] = await User.findAll({ where: { email: userEmail } });
     const userId = await dataValues.id;
-    const postCreated = await BlogPost.create({
-      title, content, userId, published: today, updated: today });
-    const postId = await postCreated.dataValues.id;
-    categoryIds.forEach((categoryId) => {
-      PostCategory.create({ categoryId, postId });
-    });
-    return {
-      code: 201,
-      result: { id: postCreated.id, userId, title, content },
+    const post = await BlogPost.create({ title, content, userId, published: today, updated: today },
+      { transaction: t });
+    const postId = await post.dataValues.id;
+    categoryIds.forEach((categoryId) => PostCategory.create({ categoryId, postId },
+      { transaction: t }));
+    await t.commit();
+    return { code: 201, result: { id: post.id, userId, title, content },
     };
   } catch (error) {
+    await t.rollback();
     return messageErrorServer;
   }
 };
