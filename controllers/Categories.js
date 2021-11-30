@@ -1,4 +1,3 @@
-const Category = require('../models/Category');
 const Categories = require('../services/Categories');
 
 const create = async (req, res) => {

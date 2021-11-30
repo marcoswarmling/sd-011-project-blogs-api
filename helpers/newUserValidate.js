@@ -36,6 +36,7 @@ const checkPassword = (password) => {
 module.exports = async ({ displayName, email, password }) => {
   if (checkName(displayName)) return checkName(displayName);
   if (checkPassword(password)) return checkPassword(password);
-  if (checkEmail(email)) return checkEmail(email);
+  const emailCheck = await checkEmail(email);
+  if (emailCheck) return emailCheck;
   return null;
 };
