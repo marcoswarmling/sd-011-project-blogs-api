@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { getUserByName } = require('../services/getUserByName');
+const { getUserByName } = require('../services/users');
 
 const secret = process.env.JWT_SECRET;
 
