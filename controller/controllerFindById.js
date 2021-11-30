@@ -5,11 +5,10 @@ const controllerFindById = async (req, res) => {
   try {
     const user = await serviceFindById(id);
     if (user) {
-      res.status(200).json(user);
-      return;
+      return res.status(200).json(user);
     }
     if (!user) {
-      res.status(404).json({ message: 'User does not exist' });
+      return res.status(404).json({ message: 'User does not exist' });
     }
   } catch (error) {
     console.log(error);
