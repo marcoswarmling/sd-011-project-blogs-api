@@ -42,4 +42,10 @@ router.get('/post', blogPost.getPosts.bind(blogPost));
 
 router.get('/post/:id', blogPost.getPostById.bind(blogPost));
 
+router.put('/post/:id',
+  validations.validPostTitle.bind(validations),
+  validations.validPostContent.bind(validations),
+  validations.validCannotUpadateCategory.bind(validations),
+  blogPost.updatePost.bind(blogPost));
+
 module.exports = router;

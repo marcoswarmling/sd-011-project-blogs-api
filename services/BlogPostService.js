@@ -88,6 +88,27 @@ through: { attributes: [] } },
       return { code: 401, message: 'Expired or invalid token' };
     }
   }
+
+  async updatePost(token, id, data) {
+    try {
+      if (token.length === this.zero) {
+        return { code: 401, message: 'Token not found' };
+      }
+
+      const validadeToken = this.token.validate(token);
+      const testpost = await this.getIdPost(id);
+      if (validadeToken.id !== testpost.userId) return { code: 401, message: 'Unauthorized user' };
+      const { title, content } = data;
+      await this.blogPost.update({ title, content }, { where: { id } });
+      const post = await this.getIdPost(id);
+      if (!post) {
+        return { code: 404, message: 'Post does not exist' };
+      }
+      return { code: 200, data: post };
+    } catch (error) {
+      return { code: 401, message: 'Expired or invalid token' };
+    }
+  }
 }
 
 module.exports = BlogPostService;

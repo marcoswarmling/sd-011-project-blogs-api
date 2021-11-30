@@ -10,6 +10,7 @@ class Validations {
       empty: 0,
     };
     this.category = Categorie;
+    this.cannot = 'Categories cannot be edited';
   }
 
   // validação de nome
@@ -97,6 +98,15 @@ class Validations {
     if (categoryIdsExist.length !== categoryIds.length) {
       return res.status(400).json({ message: '"categoryIds" not found' });
     }
+    return next();
+  }
+
+  async validCannotUpadateCategory(req, res, next) {
+    const { categoryIds } = req.body;
+    if (categoryIds) {
+      return res.status(400).json({ message: this.cannot });
+    }
+
     return next();
   }
 }
