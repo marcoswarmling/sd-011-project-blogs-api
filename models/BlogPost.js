@@ -7,12 +7,12 @@ const BlogPost = (sequelize, DataTypes) => {
     updated: DataTypes.DATE,
   }, { timestamps: false });
 
+  BlogPost.associate = (models) => {
+    BlogPost.belongsTo(models.User,
+      { foreignKey: 'userId', as: 'user' });
+  };
+  
   return blogPost;
-};
-
-BlogPost.associate = (models) => {
-  BlogPost.belongsTo(models.User,
-    { foreignKey: 'userId', as: 'user' });
 };
 
 module.exports = BlogPost;

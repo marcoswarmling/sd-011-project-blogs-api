@@ -1,6 +1,16 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const Users = require('./controllers/Users');
+const validateJwt = require('./auth/validateJwt');
 
 const app = express();
+
+app.use(bodyParser.json());
+
+app.post('/user', Users.create);
+app.post('/login', Users.login);
+app.get('/user', validateJwt, Users.getAll);
+app.get('/user/:id', validateJwt, Users.getById);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
