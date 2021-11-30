@@ -26,7 +26,19 @@ const userService = require('../services/userService');
     }
   };
 
+  const getById = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+      const user = await userService.getById(id);
+   
+      return res.status(status.ok).json(user);
+    } catch (error) {
+      return next(error);
+    }
+  };
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

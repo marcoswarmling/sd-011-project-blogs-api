@@ -63,4 +63,10 @@ module.exports = {
       message: 'Token not found',
     },
   },
+  getByID: {
+    notExistent: {
+      statusCode: status.notFound,
+      message: 'User does not exist',
+    },
+  },
 };

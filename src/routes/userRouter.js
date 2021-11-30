@@ -1,5 +1,5 @@
 const express = require('express');
-const { create, getAll } = require('../controllers/userController');
+const { create, getAll, getById } = require('../controllers/userController');
 
 const userValidations = require('../middlewares/validations/user/userValidations');
 
@@ -10,5 +10,7 @@ const userRouter = express.Router();
 userRouter.post('/', userValidations, create);
 
 userRouter.get('/', tokenValidation, getAll);
+
+userRouter.get('/:id', tokenValidation, getById);
 
 module.exports = userRouter;
