@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const userRouter = require('./src/routers/user');
-const rootRouter = require('./src/routers/user');
+const rootRouter = require('./src/routers/root');
 const handleError = require('./src/middlewares/handleError');
 
 const app = express();
