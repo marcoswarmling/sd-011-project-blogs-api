@@ -48,4 +48,5 @@ router.put('/post/:id',
   validations.validCannotUpadateCategory.bind(validations),
   blogPost.updatePost.bind(blogPost));
 
+router.delete('/post/:id', blogPost.deletePost.bind(blogPost));
 module.exports = router;

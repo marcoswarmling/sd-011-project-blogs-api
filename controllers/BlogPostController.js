@@ -48,6 +48,15 @@ class BlogPostController {
 
     res.status(code).json(data);
   }
+
+  async deletePost(req, res) {
+    const token = req.headers.authorization;
+    const { code, message } = await this.blogPostService.deletePost(token, req.params.id);
+    if (message) {
+      return res.status(code).json({ message });
+    }
+    res.status(code).json();
+  }
 }
 
 module.exports = BlogPostController;
