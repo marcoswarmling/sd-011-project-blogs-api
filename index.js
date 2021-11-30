@@ -22,7 +22,7 @@ app.get('/categories', validateJwt, Categories.getAll);
 
 // Categories
 app.post('/post', validateJwt, Posts.create);
-// app.get('/post', validateJwt, Posts.getAll);
+app.get('/post', validateJwt, Posts.getAll);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
