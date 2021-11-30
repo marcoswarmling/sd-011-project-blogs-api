@@ -1,5 +1,17 @@
+const Joi = require('joi');
+
 const { User, BlogPost } = require('../models');
-const { checkBodyUpdate } = require('../helpers/checkUpdatePostData');
+
+const checkBodyUpdate = async (title, content) => {
+  const updateData = { title, content };
+  const schema = Joi.object().keys({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  });
+  const { error } = schema.validate(updateData);
+  if (!error) return false;
+  return error;
+};
 
 const checkUserPost = async (req, res, next) => {
   const { id } = req.params;
