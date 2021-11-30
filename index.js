@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const userRoutes = require('./routes/user');
 
 const app = express();
 
@@ -11,5 +12,7 @@ app.get('/', (request, response) => {
 });
 
 const PORT = process.env.PORT || 3000;
+
+app.use('/user', userRoutes);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
