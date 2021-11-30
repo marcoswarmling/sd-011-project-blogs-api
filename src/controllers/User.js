@@ -35,7 +35,7 @@ const login = (credentialsInput) => {
 
     const token = sign({ userId: foundUser.id });
 
-    return token;
+    return { token };
   });
 };
 
