@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
     const foundUser = await User.findOne({ where: { email, password } });
     if (!foundUser) throw new DefaultError('Invalid fields');
 
-    const token = generateToken({ email });
+    const token = generateToken({ userId: foundUser.id });
     res.status(200).json({ token });
   } catch (error) {
     return next(error);

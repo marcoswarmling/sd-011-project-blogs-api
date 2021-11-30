@@ -3,9 +3,7 @@ const DefaultError = require('./errors/DefaultError');
 
 const SECRET = process.env.JWT_SECRET;
 
-exports.generateToken = ({ email }) => {
-  const payload = { email };
-
+exports.generateToken = (payload) => {
   const OPTIONS = {
     expiresIn: '1d',
     algorithm: 'HS256',
@@ -20,7 +18,7 @@ exports.verifyToken = (token) => {
   if (!token) throw new DefaultError('Token not found', 401);
 
   try {
-  const { decode } = jwt.verify(token, SECRET);
+  const decode = jwt.verify(token, SECRET);
   return decode;
   } catch (_) {
     throw new DefaultError('Expired or invalid token', 401);

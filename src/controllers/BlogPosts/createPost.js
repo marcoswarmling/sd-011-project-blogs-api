@@ -1,23 +1,26 @@
 const { BlogPost, PostCategory } = require('../../models');
 
 const { verifyToken } = require('../../jwt');
-const verifyFields = require('../../validations/verifyFields');
-const { rules } = require('../../validations/requestsParams/blogPost');
+// const verifyFields = require('../../validations/verifyFields');
+// const { rules } = require('../../validations/requestsParams/blogPost');
 
-const createCategory = async (req, res, next) => {
-  const { name } = req.body;
+const createPost = async (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
   const { authorization: token } = req.headers;
 
   try {
-    verifyToken(token);
-    verifyFields({ name }, rules);
+    const { userId } = verifyToken(token);
+    // verifyFields({ title, content, categoryIds }, rules);
 
-    const createdCategory = await Category.create({ name });
+    const createdPost = await BlogPost.create({ title, content, userId });
 
-    res.status(201).json(createdCategory);
+    categoryIds.forEach(async (categoryId) => 
+      PostCategory.create({ categoryId, postId: createPost.id }));
+
+    res.status(201).json(createdPost);
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = createCategory;
+module.exports = createPost;

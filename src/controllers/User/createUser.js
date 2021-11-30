@@ -7,9 +7,9 @@ const createUser = async (req, res, next) => {
     const { displayName, email, password, image } = req.body;
 
     await verifyIsUserUnique(User, email);
-    await User.create({ displayName, email, password, image });
+    const { id: userId } = await User.create({ displayName, email, password, image });
     
-    const token = generateToken({ email });
+    const token = generateToken({ userId });
 
     return res.status(201).json({ token });
   } catch (error) {
