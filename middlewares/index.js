@@ -2,7 +2,7 @@ const { registerUserValidation } = require('./UserValidations');
 const { loginValidation } = require('./LoginValidations');
 const { validateJWT } = require('./ValidateJWT');
 const { registerCategoryValidation } = require('./CategoryValidations');
-const { postValidation, updateValidation } = require('./BlogPostsValidations');
+const { postValidation, updateValidation, deleteValidation } = require('./BlogPostsValidations');
 
 module.exports = {
   registerUserValidation,
@@ -11,4 +11,5 @@ module.exports = {
   registerCategoryValidation,
   postValidation,
   updateValidation,
+  deleteValidation,
 };

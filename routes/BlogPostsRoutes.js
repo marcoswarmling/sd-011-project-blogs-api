@@ -20,4 +20,11 @@ router.put(
   BlogPostController.updateOnePost,
 );
 
+router.delete(
+  '/:id',
+  Validations.validateJWT,
+  Validations.deleteValidation,
+  BlogPostController.deleteOnePost,
+);
+
 module.exports = router;

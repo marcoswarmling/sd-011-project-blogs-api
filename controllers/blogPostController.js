@@ -34,16 +34,27 @@ const getOnePost = async (req, res) => {
 };
 
 const updateOnePost = async (req, res) => {
-try {
-  const { data } = req.userInfo;
-  const { title, content } = req.body;
-  const { id } = req.params;
-  const updatedPost = await blogPostServices.updateOnePost(data, title, content, id);
-  return res.status(200).json(updatedPost);
-} catch (e) {
-  console.error(e);
-  return res.status(401).json({ message: e.message });
-}
+  try {
+    const { data } = req.userInfo;
+    const { title, content } = req.body;
+    const { id } = req.params;
+    const updatedPost = await blogPostServices.updateOnePost(data, title, content, id);
+    return res.status(200).json(updatedPost);
+  } catch (e) {
+    console.error(e);
+    return res.status(401).json({ message: e.message });
+  }
+};
+
+const deleteOnePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await blogPostServices.deleteOnePost(id);
+    return res.status(204).json();
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: e.message });
+  }
 };
 
 module.exports = {
@@ -51,4 +62,5 @@ module.exports = {
   getAllPosts,
   getOnePost,
   updateOnePost,
+  deleteOnePost,
 };
