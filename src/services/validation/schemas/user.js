@@ -30,7 +30,16 @@ const login = {
     password: { type: 'string', minLength: 6, maxLength: 256 },
   },
   required: ['email', 'password'],
-  errorMessage: 'Invalid fields',
+  errorMessage: {
+    required: {
+      email: getRequiredFieldMessage('email'),
+      password: getRequiredFieldMessage('password'),
+    },
+    properties: {
+      email: '"email" is not allowed to be empty',
+      password: '"password" is not allowed to be empty',
+    },
+  },
 };
 
 module.exports = {
