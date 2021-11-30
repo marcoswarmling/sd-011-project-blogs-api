@@ -76,5 +76,7 @@ app.post(
 
 app.get(
   '/post',
+  missingToken,
+  auth,
   blogPostController.findAll,
 );

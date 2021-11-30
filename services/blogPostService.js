@@ -28,7 +28,12 @@ const createBlogPost = async (title, content, categoryIds, authorization) => {
 };
 
 const findAll = async () => {
-  const result = await BlogPost.findAll({ include: { model: User, as: 'user' } });
+  const result = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
 
   return result;
 };
