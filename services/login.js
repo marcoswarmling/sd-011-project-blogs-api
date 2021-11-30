@@ -4,7 +4,7 @@ const { generateToken } = require('./register');
 const loginUser = async (email, password) => {
   try {
     const user = await User.findOne({ where: { email, password } });
-    console.log(user);
+
     if (user) {
       const token = generateToken(user.displayName);
       return token;
@@ -12,7 +12,7 @@ const loginUser = async (email, password) => {
 
     return null;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
 
