@@ -6,8 +6,9 @@ const Categories = (sequelize, DataTypes) => {
     },
     { timestamps: false },
   );
-  Categorie.associate = function (models) {
+  Categorie.associate = (models) => {
     Categorie.hasMany(models.PostsCategories, {
+      as: 'PostsCategory',
       foreignKey: 'categoryId',
     });
   };
