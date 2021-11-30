@@ -13,9 +13,11 @@ const validateJWT = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
-    const user = await getUserByName(decoded.data.displayName);
+    console.log(decoded.data);
+    const user = await getUserByName(decoded.data);
 
     if (user) {
+      req.user = user.dataValues.id;
       return next();
     }
 

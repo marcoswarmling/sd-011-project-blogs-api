@@ -2,7 +2,6 @@ const { registerUser } = require('../services/register');
 
 const register = async (req, res) => {
   const userData = req.body;
-
   try {
     const userToken = await registerUser(userData);
 

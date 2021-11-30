@@ -1,11 +1,11 @@
-const { Categorie } = require('../models');
+const { Category } = require('../models');
 
-const registerCategorie = async (name) => {
+const registerCategory = async (name) => {
   try {
-    const categorie = await Categorie.create({
+    const category = await Category.create({
       name,
     });
-    return categorie;
+    return category;
   } catch (err) {
     return err;
   }
@@ -13,14 +13,29 @@ const registerCategorie = async (name) => {
 
 const getAllCategories = async () => {
   try {
-    const categories = await Categorie.findAll();
+    const categories = await Category.findAll();
     return categories;
   } catch (err) {
     return err;
   }
 };
 
+const getCategoryById = async (id) => {
+  try {
+    const category = await Category.findOne({ where: { id } });
+
+    if (category) {
+      return category;
+    }
+
+    return null;
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
-  registerCategorie,
+  registerCategory,
   getAllCategories,
+  getCategoryById,
 };

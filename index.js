@@ -5,6 +5,7 @@ const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
 const usersRoutes = require('./routes/user');
 const categorieRoutes = require('./routes/categories');
+const postRoutes = require('./routes/post');
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(registerRoutes);
 app.use(loginRoutes);
 app.use(usersRoutes);
 app.use(categorieRoutes);
+app.use(postRoutes);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

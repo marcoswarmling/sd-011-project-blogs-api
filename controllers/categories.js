@@ -1,11 +1,11 @@
 const {
-  registerCategorie,
+  registerCategory,
   getAllCategories,
 } = require('../services/categories');
 
 const insertCategorie = async (req, res) => {
   const { name } = req.body;
-  const categorie = await registerCategorie(name);
+  const categorie = await registerCategory(name);
 
   return res.status(201).json(categorie);
 };

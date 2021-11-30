@@ -12,4 +12,5 @@ router.post('/categories',
 router.get('/categories', 
   validateJWT,
   getCategories);
+
 module.exports = router;
