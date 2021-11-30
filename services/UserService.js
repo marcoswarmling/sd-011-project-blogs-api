@@ -45,6 +45,23 @@ class UserServices {
     const user = await this.user.create(userData);
     return { code: 201, data: user };
   }
+
+  async deleteUser(token) {
+    try {
+      if (token.length === this.zero) {
+        return { code: 401, message: 'Token not found' };
+      }
+      const { id } = this.token.validate(token);
+      const user = await this.user.findByPk(id);
+      if (!user) {
+        return { code: 404, message: 'User does not exist' };
+      }
+      await this.user.destroy({ where: { id } });
+      return { code: 204, message: 'User deleted' };
+    } catch (error) {
+      return { code: 401, message: 'Expired or invalid token' };
+    }
+  }
 }
 
 module.exports = UserServices;

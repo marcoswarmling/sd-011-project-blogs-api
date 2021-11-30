@@ -49,4 +49,6 @@ router.put('/post/:id',
   blogPost.updatePost.bind(blogPost));
 
 router.delete('/post/:id', blogPost.deletePost.bind(blogPost));
+
+router.delete('/user/me', useController.deleteUser.bind(useController));
 module.exports = router;
