@@ -6,4 +6,6 @@ const create = async (name) => {
   return result;
 };
 
-module.exports = { create };
+const getAll = async () => Categories.findAll();
+
+module.exports = { create, getAll };
