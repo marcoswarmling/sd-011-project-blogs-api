@@ -8,6 +8,7 @@ function validedPassword(req, res, next) {
     res.status(400).json({
       message: '"password" length must be 6 characters long',
     });
+    return;
   }
   next();
 }
