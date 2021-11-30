@@ -1,7 +1,18 @@
 exports.rules = {
-  name: {
+  title: {
     presence: {
-      message: '^"name" is required',
+      message: '^"title" is required',
     },
   },
+  content: {
+    presence: {
+      message: '^"content" is required',
+    },
+  },
+  categoryIds: {
+    presence: {
+      message: '^"categoryIds" is required',
+    },
+  },
+  
 };
