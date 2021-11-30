@@ -1,17 +1,17 @@
 const { BlogPosts } = require('../models');
 
-const createBlogPost = async (title, content, categoryIds, userId) => {
-  const result = await BlogPosts.create({ title, content, userId });
+const createBlogPost = async (title, content, userId) => {
+  const result = await BlogPosts.create({ userId, title, content });
+  console.log(result);
 
-  const insert = {
-    id: result.id,
-    userId,
-    title: result.title,
-    content: result.content,
-  };
-  // return console.log('terminou o caminho');
-  
-  return insert; 
+  // const insert = {
+  //   userId,
+  //   id: result.id,
+  //   title: result.title,
+  //   content: result.content,
+  // };
+
+  return result; 
 };
 
 module.exports = {

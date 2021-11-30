@@ -17,10 +17,16 @@ const createNewUser = async (displayName, email, password, image) => {
   }   
 };
 
-const login = async (email, _password) => {
+const login = async (email, password) => {
   try {
-    const token = jwt.sign({ email }, secret, jwtConfig);
-    return token;
+    const findUser = await User.findOne({ where: { email } });
+
+    // verifica se a senha é correta
+    if (password === findUser.password) { 
+      const token = jwt.sign({ email, id: findUser.id }, secret, jwtConfig);
+      return token;
+    }
+      throw new Error('Senha incorreta!');
   } catch (error) {
     return error.message;
   }

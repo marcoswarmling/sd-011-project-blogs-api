@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const BlogPostController = require('../controllers/CategoryController');
+const BlogPostController = require('../controllers/BlogPostController');
 const { validateJWT } = require('../middlewares/validateJWT');
 
 const {

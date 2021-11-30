@@ -11,10 +11,12 @@ const jwtConfig = {
 const create = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
-    await UserService.createNewUser(displayName, email, password, image);
+    const user = await UserService.createNewUser(displayName, email, password, image);
 
-    const token = jwt.sign({ displayName, email }, secret, jwtConfig);
-    
+    // const getUser = User.findOne({ where: { email } });
+    // console.log(getUser.id);
+
+    const token = jwt.sign({ displayName, email, id: user.id }, secret, jwtConfig);
     return res.status(201).json({ token });
   } catch (error) {
     return res.status(500).json({ message: error });

@@ -1,15 +1,14 @@
 const BlogPostService = require('../services/BlogPostService');
-const { getById } = require('../services/UserService');
 
 const create = async (req, res) => {
   try {
-    const { title, content, categoryIds } = req.body;
+    const { title, content } = req.body;
+    const { id } = req.user;
+    const userId = id;
+    // console.log(req.user);
 
-    const { id } = req.params;
-    const userId = getById(id);
-
-    const register = await BlogPostService.createBlogPost(title, content, categoryIds, userId);
-
+    const register = await BlogPostService.createBlogPost(title, content, userId);
+    console.log(register);
     return res.status(201).json(register);
   } catch (error) {
     return error.message;
