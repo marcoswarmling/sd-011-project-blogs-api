@@ -2,14 +2,14 @@ const router = require('express').Router();
 const Validations = require('../middlewares/index');
 const BlogPostController = require('../controllers/blogPostController');
 
+router.get('/search?q=:searchTerm', (req, res) => { console.log('DEU CERTO!!!!!'); });
+
 router.post(
   '/', 
   Validations.validateJWT,
   Validations.postValidation,
   BlogPostController.post,
 );
-
-router.get('/search?q=:searchTerm', BlogPostController.getPostByTerms);
 
 router.get('/:id', Validations.validateJWT, BlogPostController.getOnePost);
 

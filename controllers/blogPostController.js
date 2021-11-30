@@ -24,6 +24,7 @@ const getAllPosts = async (req, res) => {
 
 const getOnePost = async (req, res) => {
   try {
+    console.log('DEU ERRO');
     const { id } = req.params;
     const result = await blogPostServices.getOnePost(id);
     return res.status(200).json(result);
