@@ -1,16 +1,15 @@
 const express = require('express');
 
-const app = express();
+const userRouter = require('./routes/userRoutes');
 
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
+const app = express();
+app.use(express.json());
+
+app.use('/user', userRouter);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
 });
 
-const userRouter = require('./routes/userRoutes');
-
-app.use(express.json());
-
-app.use('/user', userRouter);
+app.listen(3000, () => console.log('ouvindo porta 3000!'));
