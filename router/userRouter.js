@@ -6,10 +6,11 @@ const {
   isPasswordValid,
   checkIfEmailIsRegistered,
 } = require('../validations/usersValidations');
+const isTokenValid = require('../validations/tokenValidation');
 
 const validations = [isDisplayNameValid, isEmailValid, isPasswordValid, checkIfEmailIsRegistered];
 
-router.get('/', userController.getAllUsers);
+router.get('/', isTokenValid, userController.getAllUsers);
 
 router.post('/', validations, userController.createUser);
 
