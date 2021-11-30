@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRouter');
+const error = require('./err/errors');
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,3 +14,4 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', userRoutes);
+app.use(error);
