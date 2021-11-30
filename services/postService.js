@@ -73,10 +73,22 @@ const deletePost = async (id, { userId }) => {
   await BlogPosts.destroy({ where: { id } });
 };
 
+const getPostsByQuery = async (searchTerm) => {
+  const posts = await BlogPosts.findAll({
+    include: [{ all: true, attributes: { exclude: ['password'] } }],
+  });
+
+  const filteredPosts = posts.filter(({ title, content }) => 
+  title.includes(searchTerm) || content.includes(searchTerm));
+
+  return filteredPosts;
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  getPostsByQuery,
 };
