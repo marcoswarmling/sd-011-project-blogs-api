@@ -12,6 +12,8 @@ const validations = [isDisplayNameValid, isEmailValid, isPasswordValid, checkIfE
 
 router.get('/', isTokenValid, userController.getAllUsers);
 
+router.get('/:id', isTokenValid, userController.getUserById);
+
 router.post('/', validations, userController.createUser);
 
 module.exports = router;

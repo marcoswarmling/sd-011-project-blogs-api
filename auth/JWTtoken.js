@@ -6,6 +6,7 @@ const jwtSecret = process.env.JWT_SECRET || 'secret';
 const jwtToken = (login) => {
   try {
     const jwtConfig = {
+      expiresIn: '7d',
       algorithm: 'HS256',
     };
 
