@@ -1,19 +1,19 @@
-const { BlogPost, Category } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 const { hasCategories } = require('../helpers/categoryHelper');
-const { getUsers, getUser } = require('../helpers/userHelper');
 const errors = require('../schemas/errorsSchema');
 
 const getById = async (id) => {
   const post = await BlogPost.findOne({
     where: { id },
-    include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
+    include: [
+      { model: Category, as: 'categories', through: { attributes: [] } },
+      { model: User, as: 'user' },
+    ],
   });
 
   if (!post) throw errors.post.notFound;
 
-  const user = await getUser(post.userId);
-
-  return { ...post.dataValues, user: user.dataValues };
+  return post;
 };
 
 const getPostBasicInfo = async (id) => {
@@ -24,13 +24,13 @@ const getPostBasicInfo = async (id) => {
 
 const getAll = async () => {
   const posts = await BlogPost.findAll({
-    include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
+    include: [
+      { model: Category, as: 'categories', through: { attributes: [] } },
+      { model: User, as: 'user' },
+    ],
   });
 
-  const userIds = posts.map(({ userId }) => userId);
-  const users = await getUsers(userIds);
-
-  return posts.map((post, index) => ({ ...post.dataValues, user: users[index] }));
+  return posts;
 };
 
 module.exports = {
