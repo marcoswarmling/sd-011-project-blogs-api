@@ -9,12 +9,18 @@ const {
   chekCategorisExist,
 } = require('../middleware');
 
-const { controllerPostBlog, controllerGetPostsBlog } = require('../controller/controllerBlogPost');
+const {
+  controllerPostBlog,
+  controllerGetPostsBlog,
+  controllerGetPostsBlogId,
+} = require('../controller/controllerBlogPost');
 
 router.post('/',
   checkTitle, checkContent, checkCategoryIds,
   checkToken, checkValidToken, chekCategorisExist, controllerPostBlog);
 
 router.get('/', checkToken, checkValidToken, controllerGetPostsBlog);
+
+router.get('/:id', checkToken, checkValidToken, controllerGetPostsBlogId);
 
 module.exports = router;

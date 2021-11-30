@@ -45,7 +45,28 @@ async function controllerGetPostsBlog(req, res) {
   }
 }
 
+async function controllerGetPostsBlogId(req, res) {
+  const { id } = req.params;
+  try {
+    const result = await BlogPosts.findOne({
+      where: { id },
+      include: [
+        { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Categories, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    if (result === null) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   controllerPostBlog,
   controllerGetPostsBlog,
+  controllerGetPostsBlogId,
 };
