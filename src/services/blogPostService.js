@@ -13,9 +13,9 @@ const createBlogPost = async (userEmail, title, content, categoryIds) => {
     const post = await BlogPost.create({ title, content, userId, published: today, updated: today },
       { transaction: t });
     const postId = await post.dataValues.id;
-    categoryIds.forEach(async (categoryId) => {
+    await Promise.all(categoryIds.forEach(async (categoryId) => {
       await PostCategory.create({ categoryId, postId }, { transaction: t });
-    });
+    }));
     await t.commit();
     return { code: 201, result: { id: post.id, userId, title, content },
     };
