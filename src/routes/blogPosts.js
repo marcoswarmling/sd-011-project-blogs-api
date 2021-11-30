@@ -13,7 +13,8 @@ const { postRegistration,
          getAllPosts,
           getPostById,
            getPostUpdate,
-            deletePost } = require('../controllers/blogPostController');
+            deletePost,
+             queryPost } = require('../controllers/blogPostController');
 
     router.post('/', 
     titleIsRequired,
@@ -25,6 +26,8 @@ const { postRegistration,
 
     router.get('/', JWTisValid, getAllPosts);
 
+    router.get('/search', JWTisValid, queryPost);   
+    
     router.get('/:id', JWTisValid,
                          verifyPostIdExists,
                           getPostById);
@@ -42,5 +45,6 @@ const { postRegistration,
                            verifyPostIdExists,
                             userIsEqualToPostAuthor,
                              deletePost);
+     
 
     module.exports = router;

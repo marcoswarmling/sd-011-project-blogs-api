@@ -1,5 +1,8 @@
-const { BlogPosts, Categories, Users } = require('../models');
+const { BlogPosts} = require('../models');
 const { tokenJwtIsValid } = require('../auth/verifyJWT');
+const { postUpdate,
+         findAllPosts,
+          findAllPostsById,} = require('../services/postsService')
 
 const postRegistration = async (req, res) => {
     const { title, content } = req.body;
@@ -15,39 +18,20 @@ const postRegistration = async (req, res) => {
 };
 
 const getAllPosts = async (_req, res) => {
-    const posts = await BlogPosts.findAll({ 
-        include: [{ model: Users, as: 'user', attributes: { exclude: ['password'] } }, 
-          { model: Categories, as: 'categories', through: { attributes: [] } },
-        ],
-      });
+    const posts = await findAllPosts()
     return res.status(200).json(posts);
 };
 
 const getPostById = async (req, res) => {
  const { id } = req.params;
-    const posts = await BlogPosts.findAll({ where: { id },
-        include: [{ model: Users, as: 'user', attributes: { exclude: ['password'] } }, 
-          { model: Categories, as: 'categories', through: { attributes: [] } },
-        ],
-      });
+ const posts = await findAllPostsById(id)
     return res.status(200).json(posts[0]);
-};
-
-const postUpdate = async (req) => {
-    const { id } = req.params;
-    const { title, content } = req.body;
-    const posts = await BlogPosts.update({ title, content }, { where: { id } });
-    return posts;
 };
 
 const getPostUpdate = async (req, res) => {
     const { id } = req.params;
     await postUpdate(req);
-    const posts = await BlogPosts.findAll({ where: { id },
-        include: [{ model: Users, as: 'user', attributes: { exclude: ['password'] } }, 
-          { model: Categories, as: 'categories', through: { attributes: [] } },
-        ],
-      });
+    const posts = await findAllPostsById(id)
     return res.status(200).json(posts[0]);
 };
 
@@ -57,10 +41,23 @@ const deletePost = async (req, res) => {
     return res.status(204).json(posts);
 };
 
+const queryPost = async (req, res) => {
+    const searchTerm = req.query.q;
+    const posts = await findAllPosts();
+    if (!searchTerm || searchTerm.length === 0){
+        return res.status(200).json(posts);
+    };
+    const filteredPosts = posts.filter(({ title, content }) => (
+      title.includes(searchTerm) || content.includes(searchTerm)
+    ));
+return res.status(200).json(filteredPosts);
+}
+
 module.exports = {
     postRegistration,
     getAllPosts,
     getPostById,
     getPostUpdate,
     deletePost,
+    queryPost,
 };
