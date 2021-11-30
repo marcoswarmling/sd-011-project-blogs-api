@@ -11,7 +11,6 @@ const verifyCategoryExists = async (categoryIds) => {
   }
 };
 
-// eslint-disable-next-line max-lines-per-function
 const createPost = async (title, content, categoryIds, authorization) => {
   try {
     tokenValidation.tokenFieldValidation(authorization);
@@ -24,12 +23,7 @@ const createPost = async (title, content, categoryIds, authorization) => {
     const { id: postId } = response;
 
     await categoryIds.forEach(async (categoryId) => {
-      console.log(postId);
-      console.log(categoryId);
-      await PostsCategories.create({
-        categoryId,
-        postId,
-      });
+      await PostsCategories.create({ categoryId, postId });
     });
 
     return response;
