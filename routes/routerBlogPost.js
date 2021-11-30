@@ -15,4 +15,6 @@ router.post('/',
   checkTitle, checkContent, checkCategoryIds,
   checkToken, checkValidToken, chekCategorisExist, controllerPostBlog);
 
+router.get('/', checkToken, checkValidToken);
+
 module.exports = router;
