@@ -2,9 +2,9 @@ const BlogPosts = require('../Services/blogPostsServices');
 
 const addPost = async (req, res) => {
   try {
-    const { data } = req.user;
     const { title, content } = req.body;
-    const posts = await BlogPosts.createPosts(data, title, content);
+    const { data } = req.user;
+    const posts = await BlogPosts.createPosts({ title, content, data });
     return res.status(201).json(posts);
   } catch (error) {
     return res.status(500).json({ message: `Erro: ${error}` });

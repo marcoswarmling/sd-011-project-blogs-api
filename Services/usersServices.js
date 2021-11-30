@@ -28,7 +28,7 @@ const getAllUsers = async () => {
 };
 
 const getById = async (id) => {
-  const user = Users.findByPk(id);
+  const user = await Users.findByPk(id);
   return user;
 };
 
