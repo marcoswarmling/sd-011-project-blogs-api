@@ -11,6 +11,7 @@ const {
   createCategory,
   getCategories,
   createPost,
+  getAllPosts,
  } = require('./controllers/indexController');
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -27,6 +28,7 @@ app.post('/categories', createCategory);
 app.get('/categories', getCategories);
 
 app.post('/post', createPost);
+app.get('/post', getAllPosts);
 
 app.post('/login', loginUser);
 

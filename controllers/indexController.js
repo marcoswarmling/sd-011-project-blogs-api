@@ -1,7 +1,7 @@
 const loginUser = require('./loginController');
 const { getAllUsers, createUser, getUserById } = require('./userController');
 const { createCategory, getCategories } = require('./categoryController');
-const { createPost } = require('./postController');
+const { createPost, getAllPosts } = require('./postController');
 
 module.exports = {
   createUser,
@@ -11,4 +11,5 @@ module.exports = {
   createCategory,
   getCategories,
   createPost,
+  getAllPosts,
 };

@@ -1,4 +1,4 @@
-const { BlogPosts, PostsCategories, Categories } = require('../models');
+const { BlogPosts, PostsCategories, Categories, Users } = require('../models');
 const createPostValidatiton = require('../validations/createPostValidation');
 const tokenValidation = require('../validations/tokenValidation');
 
@@ -32,4 +32,21 @@ const createPost = async (title, content, categoryIds, authorization) => {
   }
 };
 
-module.exports = { createPost };
+const getAllPosts = async (authorization) => {
+  try {
+    tokenValidation.tokenFieldValidation(authorization);
+    // const { id: userId } = createPostValidatiton.getUserFromToken(authorization);
+
+    const posts = await BlogPosts.findAll({
+      include: [
+        { model: Categories, as: 'categories', through: { attributes: [] } },
+        { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      ] });
+    console.log(posts);
+    return posts;
+  } catch (e) {
+    return { error: { message: e.message, code: e.code } };
+  }
+};
+
+module.exports = { createPost, getAllPosts };
