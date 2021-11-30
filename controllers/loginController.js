@@ -1,6 +1,6 @@
 const userServices = require('../services/index');
 const { status } = require('../schemas');
-const { generateTokenOnLogin } = require('../helpers/JWTfunctions');
+const { generateToken } = require('../helpers/JWTfunctions');
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -15,7 +15,7 @@ const loginUser = async (req, res) => {
     return res.status(code).json({ message });
   }
 
-  const token = generateTokenOnLogin(responseFromValidation);
+  const token = generateToken(responseFromValidation);
 
   return res.status(status.OK).json({ token });
 };

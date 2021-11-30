@@ -20,20 +20,19 @@ module.exports = {
       published: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn('NOW'),
       },
       updated: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn('NOW'),
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-        }
+        references: { model: 'Users', key: 'id' },
       }
     })
   },
