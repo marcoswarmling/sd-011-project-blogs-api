@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 
 const config = require('../config/config');
 
-const sequelize = new Sequelize(config.test);
+const sequelize = new Sequelize(config.development);
 
 const { BlogPost, User, PostCategory, Category } = require('../models');
 
