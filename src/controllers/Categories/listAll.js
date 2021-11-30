@@ -1,13 +1,13 @@
 const { verifyToken } = require('../../jwt');
-const { User } = require('../../models');
+const { Category } = require('../../models');
 
 const listAll = async (req, res, next) => {
   try {
     const { authorization: token } = req.headers;
     verifyToken(token);
 
-    const users = await User.findAll();
-    return res.status(200).json(users);
+    const categories = await Category.findAll();
+    return res.status(200).json(categories);
   } catch (error) {
     next(error);
   }
