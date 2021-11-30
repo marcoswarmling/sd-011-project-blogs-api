@@ -10,9 +10,8 @@ const {
   isValidateToken,
 } = require('../middlewares/auth/validateAuth');
 
-router.get('/', isValidateToken, BlogPosts.getAllBlogPosts);
-router
-  .post(
+router.get('/', isValidateToken, BlogPosts.getAllPostCategories);
+router.post(
     '/', validateBlogPostJoi, isValidateToken, checkCategoriesExists, BlogPosts.createBlogPosts,
     );
 

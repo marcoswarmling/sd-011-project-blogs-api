@@ -1,18 +1,17 @@
 const blogPostsServices = require('../services/blogPostsServices');
 
-const getAllBlogPosts = async (_req, res) => {
+const getAllPostCategories = async (req, res) => {
   try {
     const blogposts = await blogPostsServices.getAllBlogPosts();
     return res.status(200).json(blogposts);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro no servidor!' });
+    return res.status(400).json({ message: 'Erro no Servidor' });
   }
 };
 
 const createBlogPosts = async (req, res) => {
   const { title, content } = req.body;
   const { id } = req.user;
-  console.log(id, 'ID PEGO NO JWT');
   try {
     const blogposts = await blogPostsServices.createBlogPosts({ title, content, id });
     return res.status(201).json(blogposts);
@@ -21,4 +20,4 @@ const createBlogPosts = async (req, res) => {
   }
 };
 
-module.exports = { createBlogPosts, getAllBlogPosts };
+module.exports = { createBlogPosts, getAllPostCategories };
