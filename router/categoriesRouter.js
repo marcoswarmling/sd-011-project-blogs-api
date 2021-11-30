@@ -5,6 +5,8 @@ const isTokenValid = require('../validations/tokenValidation');
 
 const validations = [isTokenValid, isCategoryValid];
 
+router.get('/', isTokenValid, categoryController.getAllCategories);
+
 router.post('/', validations, categoryController.createCategory);
 
 module.exports = router;

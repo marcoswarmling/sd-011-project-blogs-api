@@ -1,5 +1,14 @@
 const db = require('../models');
 
+const getAllCategories = async (_req, res) => {
+  try {
+    const response = await db.Category.findAll();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+};
+
 const createCategory = async (req, res) => {
   const category = req.body;
 
@@ -13,4 +22,5 @@ const createCategory = async (req, res) => {
 
 module.exports = {
   createCategory,
+  getAllCategories,
 };
