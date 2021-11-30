@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { user } = require('../services');
+const userValidMiddle = require('../validators/middlewares/userValidMiddle');
 
 const STATUS_CREATED = 201;
 
@@ -13,7 +14,7 @@ router.get('/', async (_req, res) => { // For model test
   res.status(200).json(result);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', userValidMiddle, async (req, res) => {
   const { body } = req;
 
   const result = await user.createIt(body);
