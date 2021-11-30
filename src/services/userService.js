@@ -1,6 +1,6 @@
 const { createError } = require('../middlewares/errors');
 const { createToken } = require('../validations/token');
-const { User } = require('../models');
+const { Users } = require('../models');
 const { validateUser } = require('../validations/validations');
 
 const addUser = async (data) => {
@@ -10,10 +10,10 @@ const addUser = async (data) => {
 
   const { displayName, email, password, image } = data;
 
-  const user = await User.findOne({ where: { email } });
+  const user = await Users.findOne({ where: { email } });
   
   if (!user) {
-    await User.create({ email, password, displayName, image });
+    await Users.create({ email, password, displayName, image });
     const token = createToken(email);
     return token;
   }
@@ -22,13 +22,13 @@ const addUser = async (data) => {
 };
 
 const getAllUsers = async () => {
-  const user = await User.findAll();
+  const user = await Users.findAll();
 
   return user;
 };
 
 const getUserById = async (id) => {
-  const user = await User.findByPk(id);
+  const user = await Users.findByPk(id);
 
   if (!user) return createError('notFound', 'User does not exist');
 

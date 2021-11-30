@@ -1,5 +1,5 @@
 const { createError } = require('../middlewares/errors');
-const { Category } = require('../models');
+const { Categories } = require('../models');
 const { validateCategory } = require('../validations/validations');
 
 const create = async (data) => {
@@ -9,10 +9,10 @@ const create = async (data) => {
 
   const { name } = data;
 
-  const user = await Category.findOne({ where: { name } });
+  const user = await Categories.findOne({ where: { name } });
   
   if (!user) {
-    const newCategory = Category.create({ name });
+    const newCategory = Categories.create({ name });
     return newCategory;
   }
 
@@ -20,7 +20,7 @@ const create = async (data) => {
 };
 
 const getAll = async () => {
-  const categories = Category.findAll();
+  const categories = Categories.findAll();
 
   return categories;
 };
