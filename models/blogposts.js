@@ -8,7 +8,7 @@ const BlogPosts = (sequelize, DataTypes) => {
       published: DataTypes.DATE,
       updated: DataTypes.DATE,
     },
-    { timestamps: false }
+    { timestamps: false },
   );
   Blog.associate = function (models) {
     Blog.belongsTo(models.Users, {
