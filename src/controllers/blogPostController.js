@@ -3,9 +3,9 @@ const blogPostService = require('../services/blogPostService');
 const create = async (req, res) => {
   try {
     const { title, categoryIds, content } = req.body;
-    const { id } = req.user;
+    const { user } = req;
   
-    const insert = await blogPostService.create({ title, categoryIds, content, id });
+    const insert = await blogPostService.create({ title, categoryIds, content, user });
   
     return res.status(insert.statusCode).json(insert.responseMessage);
   } catch (error) {
@@ -13,16 +13,17 @@ const create = async (req, res) => {
   }
 };
 
-/* const getAllCategories = async (req, res) => {
+const getAllPosts = async (req, res) => {
   try {
-    const findCategories = await categorieService.getAllCategories();
+    const findPosts = await blogPostService.getAllPosts();
 
-    return res.status(findCategories.statusCode).json(findCategories.responseMessage);
+    return res.status(findPosts.statusCode).json(findPosts.responseMessage);
   } catch (error) {
     console.error(error);
   }
-};  */
+}; 
 
 module.exports = {
   create,
+  getAllPosts,
 };

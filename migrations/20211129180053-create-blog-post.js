@@ -16,9 +16,15 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
-      published: { type: Sequelize.DATE, defaultValue: Sequelize.fn('NOW') },
-      updated: { type: Sequelize.DATE, defaultValue: Sequelize.fn('NOW') }, 
+      published: { type: Sequelize.DATE, defaultValue: Sequelize.fn('NOW') }, // https://stackoverflow.com/questions/14653913/rename-node-js-sequelize-timestamp-columns
+      updated: { type: Sequelize.DATE, defaultValue: Sequelize.fn('NOW') }, // https://stackoverflow.com/questions/40694689/set-defaultvalue-to-todays-date-in-a-sequelize-migration
     });
   },
   down: async (queryInterface, Sequelize) => {

@@ -14,7 +14,6 @@ const createLogin = async ({ email, password }) => {
   if (invalidPassword) return { statusCode: 400, responseMessage };
 
   const access = await User.findOne({ where: { email, password } });
-  console.log(access);
 
   if (!access) return { statusCode: 400, responseMessage: { message: 'Invalid fields' } };
 
