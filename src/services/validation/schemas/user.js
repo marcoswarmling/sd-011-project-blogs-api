@@ -23,6 +23,17 @@ const create = {
   },
 };
 
+const login = {
+  type: 'object',
+  properties: {
+    email: { type: 'string', minLength: 3, maxLength: 100, pattern: '.+@.+' },
+    password: { type: 'string', minLength: 6, maxLength: 256 },
+  },
+  required: ['email', 'password'],
+  errorMessage: 'Invalid fields',
+};
+
 module.exports = {
   create,
+  login,
 };

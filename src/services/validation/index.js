@@ -11,6 +11,7 @@ const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
 
 ajv.addSchema(userSchemas.create, 'createUser');
+ajv.addSchema(userSchemas.login, 'loginUser');
 
 class Schema {
   constructor(name) {
