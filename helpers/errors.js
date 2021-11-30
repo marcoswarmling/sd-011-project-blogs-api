@@ -14,9 +14,14 @@ const invalidToken = {
   message: 'Expired or invalid token',
 };
 
+const userNotFound = {
+  message: 'User does not exist',
+};
+
 module.exports = {
   userAlreadyRegistered,
   invalidFields,
   tokenNotFound,
   invalidToken,
+  userNotFound,
 };

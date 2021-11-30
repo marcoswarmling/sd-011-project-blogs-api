@@ -16,4 +16,8 @@ router.get('/',
   authToken,
   userController.searchAllUsers);
 
+router.get('/:id',
+  authToken,
+  userController.searchUser);
+
 module.exports = router;

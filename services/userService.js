@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const err = require('../helpers/errors');
 
 const registerUser = async (displayName, email, password, image) => {
   const result = await User.create(
@@ -14,7 +15,16 @@ const searchAllUsers = async () => {
   return result;
 };
 
+const searchUser = async (id) => {
+  const result = await User.findByPk(id);
+
+  if (!result) return { err: err.userNotFound };
+
+  return result;
+};
+
 module.exports = {
   registerUser,
   searchAllUsers,
+  searchUser,
 };

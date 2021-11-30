@@ -14,7 +14,19 @@ const searchAllUsers = async (_req, res) => {
   return res.status(200).json(response);
 };
 
+const searchUser = async (req, res) => {
+  const { id } = req.params;
+
+  const response = await userService.searchUser(id);
+
+  const { err } = response;
+  if (err) return res.status(404).json(err);
+
+  return res.status(200).json(response);
+};
+
 module.exports = {
   registerUser,
   searchAllUsers,
+  searchUser,
 };
