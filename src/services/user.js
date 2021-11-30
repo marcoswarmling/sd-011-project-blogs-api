@@ -1,6 +1,6 @@
 const { User } = require('../models');
 
-const getAll = async () => { // Para teste de model
+const getAll = async () => { // For model test
   try {
     const result = await User.findAll();
 
@@ -10,4 +10,14 @@ const getAll = async () => { // Para teste de model
   }
 };
 
-module.exports = { getAll };
+const createIt = async (userData) => {
+  try {
+    const result = await User.create(userData);
+
+   return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = { getAll, createIt };
