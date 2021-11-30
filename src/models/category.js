@@ -1,12 +1,16 @@
-const Category = (sequelize, DataTypes) => {
-  const sequelizeCategory = sequelize.define('Category', {
+const Categories = (sequelize, DataTypes) => {
+  const categories = sequelize.define('Category', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     name: DataTypes.STRING,
-  },
-  {
+  }, {
+    tableName: 'Categories',
     timestamps: false,
   });
 
-  return sequelizeCategory;
+  return categories;
 };
 
-module.exports = Category;
+module.exports = Categories;
