@@ -57,10 +57,21 @@ const deleteOnePost = async (req, res) => {
   }
 };
 
+const getPostByTerms = async (req, res) => {
+  try {
+    console.log(req.query);
+    console.log(req.searchTerm);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: e.message });
+  }
+};
+
 module.exports = {
   post,
   getAllPosts,
   getOnePost,
   updateOnePost,
   deleteOnePost,
+  getPostByTerms,
 };

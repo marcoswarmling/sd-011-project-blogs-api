@@ -1,3 +1,4 @@
+// const { Op } = require('sequelize');
 const { BlogPosts, Categories, Users } = require('../models/index');
 const checkAllExists = require('../helpers/checkAllExists');
 
@@ -21,6 +22,13 @@ const post = async (title, content, categoryIds, data) => {
 
   return postResult;
 };
+
+// where: { 
+//   [Op.or]: [
+//     { title: { [Op.substring]: { searchParam } } },
+//     { content: { [Op.substring]: { searchParam } } },
+//   ],
+// }, 
 
 const getAllPost = async () => {
   const allPosts = await BlogPosts.findAll({

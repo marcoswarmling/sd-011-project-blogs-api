@@ -9,6 +9,8 @@ router.post(
   BlogPostController.post,
 );
 
+router.get('/search?q=:searchTerm', BlogPostController.getPostByTerms);
+
 router.get('/:id', Validations.validateJWT, BlogPostController.getOnePost);
 
 router.get('/', Validations.validateJWT, BlogPostController.getAllPosts);

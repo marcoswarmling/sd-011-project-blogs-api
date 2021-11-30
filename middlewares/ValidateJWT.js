@@ -8,9 +8,12 @@ const validateJWT = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
 
+  console.log(req.query, 'QUERYPARAM DENTRO DO JWT');
+
   try {
     const payload = jwt.verify(token, secret);
     req.userInfo = payload;
+    req.searchTerm = req.query;
     next();
   } catch (e) {
     console.error(e);
