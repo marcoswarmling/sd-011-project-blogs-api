@@ -17,6 +17,7 @@ app.get('/user/:id', validateJwt, Users.getById);
 
 // Categories
 app.post('/categories', validateJwt, Categories.create);
+app.get('/categories', validateJwt, Categories.getAll);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

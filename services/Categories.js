@@ -11,6 +11,13 @@ const create = async (object) => {
   return { code: 201, category: dataValues };
 };
 
+const getAll = async () => {
+  const categories = await Category.findAll();
+  
+  return categories;
+};
+
 module.exports = {
   create,
+  getAll,
 };
