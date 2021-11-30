@@ -2,8 +2,7 @@ const { JWT } = require('../helppers/jwt');
 const status = require('../schemas/errorCodes');
 const userService = require('../services/userService');
 
-module.exports = {
-  create: async (req, res, next) => {
+  const create = async (req, res, next) => {
     const { displayName, email, password, image } = req.body;
 
     try {
@@ -15,5 +14,19 @@ module.exports = {
     } catch (error) {
       return next(error);
     }
-  },
+  };
+
+  const getAll = async (_req, res, next) => {
+    try {
+      const listUsers = await userService.getAll();
+
+      return res.status(status.ok).json(listUsers);
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+module.exports = {
+  create,
+  getAll,
 };

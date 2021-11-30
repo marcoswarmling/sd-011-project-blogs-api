@@ -11,7 +11,7 @@ const login = async ({ email, password }) => {
   const userExists = await getByEmail({ email, password });
 
   if (!userExists || userExists === null) throw errors.login.notExistent;
-  console.log(userExists);
+
   return true;
 };
 

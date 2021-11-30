@@ -18,6 +18,13 @@ const create = async (user) => {
   return newUser;
 };
 
+const getAll = async () => {
+  const listUsers = await Users.findAll({ attributes: { exclude: ['password'] } });
+
+  return listUsers;
+};
+
 module.exports = {
   create,
+  getAll,
 };

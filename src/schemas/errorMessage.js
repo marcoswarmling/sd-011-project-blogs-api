@@ -53,4 +53,14 @@ module.exports = {
       message: 'Invalid fields',
     },
   },
+  token: {
+    expired: {
+      statusCode: status.unauthorized,
+      message: 'Expired or invalid token',
+    },
+    notExistent: {
+      statusCode: status.unauthorized,
+      message: 'Token not found',
+    },
+  },
 };
