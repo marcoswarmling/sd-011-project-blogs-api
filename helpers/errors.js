@@ -18,10 +18,15 @@ const userNotFound = {
   message: 'User does not exist',
 };
 
+const categoryAlreadyExists = {
+  message: 'Category already registered',
+};
+
 module.exports = {
   userAlreadyRegistered,
   invalidFields,
   tokenNotFound,
   invalidToken,
   userNotFound,
+  categoryAlreadyExists,
 };
