@@ -20,6 +20,13 @@ const getPost = async (req, res) => {
   return res.status(status).json(response);
 };
 
+const listPosts = async (req, res) => {
+  const { authorization } = req.headers;
+  const query = req.query.q;
+  const { status, response } = await postService.listPosts(authorization, query);
+  return res.status(status).json(response);
+};
+
 const updatePost = async (req, res) => {
   const { authorization } = req.headers;
   const { id } = req.params;
@@ -42,4 +49,5 @@ module.exports = {
   getPost,
   updatePost,
   deletePost,
+  listPosts,
 };

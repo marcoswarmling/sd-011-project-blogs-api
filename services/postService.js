@@ -1,5 +1,5 @@
 require('dotenv').config();
-// const { Op } = require('sequelize');
+const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 const postSchema = require('../schema/postSchema');
 const basicSchema = require('../schema/basicSchema');
@@ -120,6 +120,24 @@ const postDoesNotFound = postSchema.postDoesNotExist(post);
   return { status: noContent, response: deleted };
 };
 
+const listPosts = async (token, query) => {
+  const unauthorizedToken = basicSchema.unauthorizedToken(token);
+  if (unauthorizedToken) return unauthorizedToken;
+  const result = await BlogPost.findAll({
+    include: [{ model: User, as: 'user' }, { model: Category, as: 'categories' }],
+    where:
+      { [Op.or]: [
+        { title: 
+          { [Op.like]: `%${query}%` },
+        },
+        { content: 
+          { [Op.like]: `%${query}%` },
+        }] },
+  });
+  const clearData = getValuesFromArray(result);
+  return { status: ok, response: clearData };
+};
+
 // teste
 
 /* const formatBlogPostObject = (user, blogPost) => {
@@ -169,5 +187,6 @@ module.exports = {
   findPostById,
   updatePost,
   deletePost,
+  listPosts,
   // getPostsBySearchTerm,
 };
