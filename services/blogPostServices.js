@@ -31,6 +31,7 @@ const post = async (title, content, categoryIds, data) => {
 // }, 
 
 const getAllPost = async () => {
+  console.log('entrou no getAllPoSTS');
   const allPosts = await BlogPosts.findAll({
     attributes: { exclude: ['UserId'] },
     include: [
@@ -43,6 +44,7 @@ const getAllPost = async () => {
 };
 
 const getOnePost = async (id) => {
+  console.log('entrou no getONEPOST');
   const foundPost = await BlogPosts.findByPk(id, {
     include: [
       { model: Users, as: 'user', attributes: { exclude: ['password'] } },
