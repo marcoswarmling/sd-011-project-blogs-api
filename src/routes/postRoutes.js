@@ -13,8 +13,9 @@ route.post(
   BlogPostController.createBlogPost,
   );
 
-route.get('/', TokenValidate.checkAuthenticatedUser, BlogPostController.getAllBlogPosts);
+route.get('/search', TokenValidate.checkAuthenticatedUser, BlogPostController.findPostByQueryParam);
 route.get('/:id', TokenValidate.checkAuthenticatedUser, BlogPostController.getBlogPostById);
+route.get('/', TokenValidate.checkAuthenticatedUser, BlogPostController.getAllBlogPosts);
 route.put(
   '/:id',
   TokenValidate.checkAuthenticatedUser,

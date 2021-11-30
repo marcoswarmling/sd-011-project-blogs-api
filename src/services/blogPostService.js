@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 const { BlogPost, User, PostCategory, Category } = require('../models');
 
 const messageErrorServer = { code: 500, result: { message: 'Internal Error Server' } };
@@ -79,10 +81,32 @@ const excludeBlogPost = async (id) => {
   }
 };
 
+const findPostByQueryParam = async (search) => {
+  let posts = [];
+  try {
+    if (!search) {
+      posts = await BlogPost.findAll({
+        include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+      });
+    } else {
+      posts = await BlogPost.findAll({
+        where: { [Op.or]: [{ title: search }, { content: search }] },
+        include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+      });
+    }
+    return { code: 200, result: posts };
+  } catch (error) {
+    return messageErrorServer;
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
   getBlogPostById,
   updatePostById,
   excludeBlogPost,
+  findPostByQueryParam,
 };
