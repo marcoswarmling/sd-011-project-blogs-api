@@ -4,13 +4,14 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
-  }, { 
-    timestamps: false,
-  });
+  }, { timestamps: false });
   BlogPosts.associate = (models) => {
-    BlogPosts.belongsTo(models.Users, {
-      foreignKey: 'userId',
+    BlogPosts.belongsToMany(models.Categories, {
+      foreignKey: 'postId',
+      as: 'categories',
+      through: models.PostsCategories,
     });
+    BlogPosts.belongsTo(models.Users, { foreignKey: 'userId', as: 'user' });
   };
   return BlogPosts;
 };

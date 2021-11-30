@@ -11,11 +11,13 @@ const getAllUsers = async (_req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const { displayName, email, password, image } = req.body;
+  const { email } = req.body;
   try {
-    await db.Users.create({ displayName, email, password, image });
+    await db.Users.create(req.body);
+    const getUser = await db.Users.findOne({ where: { email } });
+    const { id, displayName, image } = getUser;
 
-    const token = jwtToken({ displayName, email });
+    const token = jwtToken({ id, displayName, email, image });
 
     return res.status(201).json({ token });
   } catch (error) {

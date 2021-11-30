@@ -9,6 +9,8 @@ const isTokenValid = require('../validations/tokenValidation');
 
 const validations = [isTokenValid, isTitleValid, isContentValid, isCategoryIdsValid];
 
+router.get('/', isTokenValid, blogPostController.getAllBlogPosts);
+
 router.post('/', validations, blogPostController.createBlogPost);
 
 module.exports = router;
