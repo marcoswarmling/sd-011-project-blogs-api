@@ -6,10 +6,12 @@ const {
   passwordValidation,
   missingToken,
   auth,
+  postValidation,
 } = require('./validations/middlewares');
 
 const userController = require('./controllers/userController');
 const categoriesController = require('./controllers/categoriesController');
+const blogPostController = require('./controllers/blogPostController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -62,4 +64,17 @@ app.get(
   missingToken,
   auth,
   categoriesController.findAll,
+);
+
+app.post(
+  '/post',
+  postValidation,
+  missingToken,
+  auth,
+  blogPostController.createBlogPost,
+);
+
+app.get(
+  '/post',
+  blogPostController.findAll,
 );
