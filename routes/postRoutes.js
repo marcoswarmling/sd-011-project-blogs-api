@@ -9,6 +9,12 @@ const postRoutes = express.Router();
 // /post
 postRoutes
   .route('/')
-  .post(protect, validateSchemas(blogPostsSchemas), postControllers.createPostController);
+  .post(protect, validateSchemas(blogPostsSchemas), postControllers.createPostController)
+  .get(protect, postControllers.getAllPostControllers);
+
+// /post:id
+postRoutes
+  .route('/:id')
+  .get(protect, postControllers.getByIdControllers);
 
 module.exports = postRoutes;
