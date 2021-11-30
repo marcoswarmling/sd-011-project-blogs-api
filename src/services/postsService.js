@@ -1,4 +1,4 @@
-const {Categories, Users, BlogPosts } = require('../models');
+const { Categories, Users, BlogPosts } = require('../models');
 
 const postUpdate = async (req) => {
     const { id } = req.params;
@@ -14,7 +14,7 @@ const findAllPosts = async () => {
         ],
       });
     return posts;
-}
+};
 
 const findAllPostsById = async (id) => {
     const posts = await BlogPosts.findAll({ where: { id },
@@ -23,10 +23,10 @@ const findAllPostsById = async (id) => {
         ],
       });
     return posts;
-}
+};
 
 module.exports = {
     postUpdate,
     findAllPosts,
     findAllPostsById,
-}
+};

@@ -45,6 +45,5 @@ const { postRegistration,
                            verifyPostIdExists,
                             userIsEqualToPostAuthor,
                              deletePost);
-     
 
     module.exports = router;
