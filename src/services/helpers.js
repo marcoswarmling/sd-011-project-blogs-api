@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+const { User, Categories } = require('../../models');
 
 const invalidReqBodyResponse = (invalidReqBody) => ({
   statusCode: invalidReqBody.statusCode,
@@ -72,10 +72,34 @@ const userNotFoundResponse = () => {
   return { statusCode, responseMessage };
 };
 
+const invalidBlogPostReqBody = ({ title, content, categoryIds }) => {
+  const statusCode = 400;
+  if (!title) return { statusCode, errorMessage: { message: '"title" is required' } };
+  if (!content) return { statusCode, errorMessage: { message: '"content" is required' } };
+  if (!categoryIds) return { statusCode, errorMessage: { message: '"categoryIds" is required' } };
+  return false;
+};
+
+const validateCategoryArray = async (categoryIds) => {
+  const findCategories = await Categories.findAll();
+  const categories = findCategories.map((category) => category.id);
+  
+  let isValid = true;
+  categoryIds.forEach((id) => {
+    if (!categories.includes(id)) isValid = false;
+  });
+
+  if (!isValid) return { message: '"categoryIds" not found' };
+
+  return false;
+};
+
 module.exports = {
   validateReqBody,
   invalidReqBodyResponse,
   validateEmail,
   validatePassword,
   userNotFoundResponse,
+  invalidBlogPostReqBody,
+  validateCategoryArray,
 };
