@@ -8,4 +8,6 @@ router.get('/', Validations.validateJWT, UserController.getAllUsers);
 
 router.post('/', Validations.registerUserValidation, UserController.signUpUser);
 
+router.delete('/me', Validations.validateJWT, UserController.deleteOwnUser);
+
 module.exports = router;

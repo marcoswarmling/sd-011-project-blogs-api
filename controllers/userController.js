@@ -30,8 +30,20 @@ const getOneUser = async (req, res) => {
   }
 };
 
+const deleteOwnUser = async (req, res) => {
+  try {
+    const { data: { id } } = req.userInfo;
+    await userServices.deleteOwnUser(id);
+    return res.status(204).json();
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ message: e.message });
+  }
+};
+
 module.exports = {
   signUpUser,
   getAllUsers,
   getOneUser,
+  deleteOwnUser,
 };
