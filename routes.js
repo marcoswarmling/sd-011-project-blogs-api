@@ -38,6 +38,8 @@ router.post('/post',
   validations.validPostCategoryIds.bind(validations),
   blogPost.createPost.bind(blogPost));
 
+router.get('/post/search', blogPost.getPostsByQuery.bind(blogPost));
+
 router.get('/post', blogPost.getPosts.bind(blogPost));
 
 router.get('/post/:id', blogPost.getPostById.bind(blogPost));
@@ -51,4 +53,5 @@ router.put('/post/:id',
 router.delete('/post/:id', blogPost.deletePost.bind(blogPost));
 
 router.delete('/user/me', useController.deleteUser.bind(useController));
+
 module.exports = router;

@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, User, Categorie } = require('../models');
 const TokenJWT = require('../validations/TokenJwt');
 
@@ -126,6 +127,40 @@ through: { attributes: [] } },
       if (validadeToken.id !== testpost.userId) return { code: 401, message: 'Unauthorized user' };
       await this.blogPost.destroy({ where: { id } });
       return { code: 204, message: 'Post deleted' };
+    } catch (error) {
+      return { code: 401, message: this.ExpiredToken };
+    }
+  }
+
+  async auxGetPostsByQuery(query) {
+    const posts = await this.blogPost.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${query}%` } },
+          { content: { [Op.like]: `%${query}%` } },
+        ],
+      },
+      include: [
+        { model: this.user,
+          as: 'user',
+          attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
+        { model: this.categories,
+          as: 'categories',
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
+          through: { attributes: [] } },
+      ],
+    });
+    return posts;
+  }
+
+  async getPostsByQuery(token, query) {
+    try {
+      if (token.length === this.zero) {
+        return { code: 401, message: this.TokenNotFound };
+      }
+      this.token.validate(token);
+      const posts = await this.auxGetPostsByQuery(query);
+      return { code: 200, data: posts };
     } catch (error) {
       return { code: 401, message: this.ExpiredToken };
     }
