@@ -1,11 +1,6 @@
 const { Op } = require('sequelize');
-const Sequelize = require('sequelize');
 
-const config = require('../config/config');
-
-const sequelize = new Sequelize(config.development);
-
-const { BlogPost, User, PostCategory, Category } = require('../models');
+const { BlogPost, User, PostCategory, Category, sequelize } = require('../models');
 
 const messageErrorServer = { code: 500, result: { message: 'Internal Error Server' } };
 
