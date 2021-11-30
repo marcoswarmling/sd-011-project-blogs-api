@@ -60,9 +60,23 @@ const updatePost = async ({ title, content }, { userId }, id) => {
   return response;
 };
 
+const deletePost = async (id, { userId }) => {
+  const post = await BlogPosts.findOne({
+    where: { id },
+    include: [{ all: true }],
+  });
+
+  if (!post) throw new Error('INEXISTENT_POST');
+
+  checkPermission(post, userId);
+
+  await BlogPosts.destroy({ where: { id } });
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
+  deletePost,
 };
