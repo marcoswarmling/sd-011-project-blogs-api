@@ -9,8 +9,10 @@ module.exports = (sequelize, DataTypes) => {
   }, { timestamps: false });
   //   remove a obrigatoriedade de utilizar os campos `createdAt` e `updatedAt`
   Categories.associate = (models) => {
-    Categories.hasMany(models.PostsCategories, {
-      foreignKey: 'postId',
+    Categories.belongsToMany(models.BlogPosts, {
+      foreignKey: 'categoryId',
+      as: 'post',
+      through: models.PostsCategories,
     });
   };
   return Categories;

@@ -1,4 +1,5 @@
-const { BlogPosts } = require('../models');
+const { BlogPosts, Users, Categories } = require('../models');
+// Categories
 const servicePostsCategories = require('../service/servicePostsCategories');
 
 async function controllerPostBlog(req, res) {
@@ -24,6 +25,27 @@ async function controllerPostBlog(req, res) {
   }
 }
 
+async function controllerGetPostsBlog(req, res) {
+  try {
+    const result = await BlogPosts.findAll({
+      include: [{
+        model: Users,
+        as: 'user',
+        attributes: { exclude: ['password'] },
+      }, {
+        model: Categories,
+        as: 'categories',
+        through: { attributes: [] },
+      }],
+    });
+
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   controllerPostBlog,
+  controllerGetPostsBlog,
 };
