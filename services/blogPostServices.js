@@ -49,12 +49,16 @@ const updateOnePost = async (data, title, content, id) => {
   const postToUpdate = await BlogPosts.findByPk(id);
   const isUserAllowed = data.id === postToUpdate.userId;
   if (!isUserAllowed) throw new Error('Unauthorized user');
-  const updatedPost = await BlogPosts.update(
+  await BlogPosts.update(
     { title, content }, 
-    { where: { id }, returning: true },
+    { where: { id } },
   );
-  console.log(updatedPost);
-  return updatedPost;
+  const result = await BlogPosts.findByPk(id, {
+    include: {
+      model: Categories, as: 'categories', through: { attributes: [] },
+    },
+  });
+  return result;
 };
 
 module.exports = {
