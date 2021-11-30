@@ -9,7 +9,7 @@ const tokenValidation = async (req, res, next) => {
   }
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        
+    console.log(decodedToken);
     const checkTokenAlreadyExists = await db.Users.findOne({
       where: { email: decodedToken.login.email },
     });

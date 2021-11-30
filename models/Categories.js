@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
   Categories.associate = (models) => {
     Categories.belongsToMany(models.BlogPosts, {
       foreignKey: 'categoryId',
-      as: 'posts',
       through: models.PostsCategories,
     });
   };

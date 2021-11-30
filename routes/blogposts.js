@@ -10,4 +10,6 @@ const blogPostValidation = [titleValidation, contentValidation, categoryValidati
 
 router.post('/', tokenValidation, blogPostValidation, BlogPostController.createBlogPost);
 router.get('/', tokenValidation, BlogPostController.getAllBlogPosts);
+router.get('/:id', tokenValidation, BlogPostController.getBlogPostsById);
+
 module.exports = router;
