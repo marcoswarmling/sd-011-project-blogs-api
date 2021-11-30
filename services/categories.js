@@ -11,6 +11,16 @@ const registerCategorie = async (name) => {
   }
 };
 
+const getAllCategories = async () => {
+  try {
+    const categories = await Categorie.findAll();
+    return categories;
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
   registerCategorie,
+  getAllCategories,
 };
