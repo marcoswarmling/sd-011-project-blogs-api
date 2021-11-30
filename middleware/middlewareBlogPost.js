@@ -48,8 +48,6 @@ async function chekCategorisExist(req, res, next) {
   const convertNumber = Object.values(result).map(({ id }) => id);
   const check = result.every((num) => convertNumber.includes(num));
 
-  console.log(check);
-
   if (check) {
     return res.status(400).json({ message: '"categoryIds" not found' });
   }

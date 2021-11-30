@@ -8,6 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     postId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER,
   }, { timestamps: false });
-  //   remove a obrigatoriedade de utilizar os campos `createdAt` e `updatedAt`
+
+  PostsCategories.associate = (models) => {
+    PostsCategories.belongsTo(models.BlogPosts, { foreignKey: 'postId' });
+  };
+  PostsCategories.associate = (models) => {
+    PostsCategories.belongsTo(models.Categories, { foreignKey: 'categoryId' });
+  };
+  PostsCategories.removeAttribute('id');
   return PostsCategories;
 };
