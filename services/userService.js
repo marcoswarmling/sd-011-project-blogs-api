@@ -8,4 +8,13 @@ const registerUser = async (displayName, email, password, image) => {
   return result;
 };
 
-module.exports = { registerUser };
+const searchAllUsers = async () => {
+  const result = await User.findAll();
+
+  return result;
+};
+
+module.exports = {
+  registerUser,
+  searchAllUsers,
+};

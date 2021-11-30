@@ -8,4 +8,13 @@ const registerUser = async (req, res) => {
   return res.status(201).json(response);
 };
 
-module.exports = { registerUser };
+const searchAllUsers = async (_req, res) => {
+  const response = await userService.searchAllUsers();
+
+  return res.status(200).json(response);
+};
+
+module.exports = {
+  registerUser,
+  searchAllUsers,
+};
