@@ -26,5 +26,6 @@ const getAll = async () => {
 
 module.exports = {
   create,
+  getByEmail,
   getAll,
 };

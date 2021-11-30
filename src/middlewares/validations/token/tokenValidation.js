@@ -1,24 +1,26 @@
 const errors = require('../../../schemas/errorMessage');
 const JWT = require('../../../helppers/jwt');
+const { getByEmail } = require('../../../services/userService');
 
-const tokenValidation = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const jwt = req.headers.authorization;
-
+  
   if (!jwt) {
     const { statusCode, message } = errors.token.notExistent;
 
-    res.status(statusCode).json(message);
+    return res.status(statusCode).json({ message });
   }
 
-  if (JWT.validateToken(jwt)) {
-    next();
-  }
-
-  const { statusCode, message } = errors.token.expired;
-  
-  res.status(statusCode).json(message);
-};
-
-module.exports = {
-  tokenValidation,
+  try {
+    const { email } = JWT.validateToken(jwt);
+    const user = await getByEmail(email);
+    
+    if (user) {
+      return next();
+    }
+  } catch (error) {
+    const { statusCode, message } = errors.token.expired;
+    
+    return res.status(statusCode).json({ message });
+  } 
 };
