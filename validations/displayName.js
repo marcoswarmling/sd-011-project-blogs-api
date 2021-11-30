@@ -6,17 +6,15 @@ const joiDisplayNameSchema = Joi.object({
     .required(),
 });
 
-const validDisplayName = (req, res, _next) => {
+const validDisplayName = (req) => {
   const { displayName } = req.body;
-
-  console.log(`--> ${displayName}`);
 
   const validationResult = joiDisplayNameSchema.validate({ displayName });
 
   if (validationResult.error) {
     const { message } = validationResult.error.details[0];
 
-    return res.status(400).json({ message });
+    return { message };
   }
 };
 

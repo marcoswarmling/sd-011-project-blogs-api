@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const { User } = require('../models');
-const err = require('./errors');
+const err = require('../helpers/errors');
 
 const joiEmailSchema = Joi.object({
   email: Joi.string()
@@ -9,7 +9,7 @@ const joiEmailSchema = Joi.object({
     .required(),
 });
 
-const validEmail = (req, res, _next) => {
+const validEmail = (req) => {
   const { email } = req.body;
 
   const validationResult = joiEmailSchema.validate({ email });
@@ -17,7 +17,7 @@ const validEmail = (req, res, _next) => {
   if (validationResult.error) {
     const { message } = validationResult.error.details[0];
 
-    return res.status(400).json({ message });
+    return { message };
   }
 };
 

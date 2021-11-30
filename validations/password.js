@@ -9,7 +9,7 @@ const joiPasswordSchema = Joi.object({
     }),
 });
 
-const validPassword = (req, res, _next) => {
+const validPassword = (req) => {
   const { password } = req.body;
 
   const validationResult = joiPasswordSchema.validate({ password });
@@ -17,7 +17,7 @@ const validPassword = (req, res, _next) => {
   if (validationResult.error) {
     const { message } = validationResult.error.details[0];
 
-    return res.status(400).json({ message });
+    return { message };
   }
 };
 

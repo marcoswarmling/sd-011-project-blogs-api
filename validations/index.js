@@ -10,6 +10,7 @@ const validationFunctions = {
 
 const endpointsValidation = {
   user: ['displayName', 'email', 'password'],
+  login: ['email', 'password'],
 };
 
 const validationFields = (req, res, next) => {
@@ -17,10 +18,14 @@ const validationFields = (req, res, next) => {
   const endpoint = req.originalUrl.split('/')[1];
   const fields = endpointsValidation[endpoint];
 
-  fields.forEach((field) => {
-    // Valida se a função existe
-    if (validationFunctions[field]) validationFunctions[field](req, res);
+  const errors = fields.map((field) => {
+    if (validationFunctions[field]) return validationFunctions[field](req, res);
+
+    return false;
   });
+
+  const err = errors.find((error) => error !== undefined);
+  if (err) return res.status(400).json(err);
 
   next();
 };
