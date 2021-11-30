@@ -3,7 +3,7 @@ const jwtToken = require('../auth/JWTtoken');
 
 const getAllUsers = async (_req, res) => {
   try {
-    const response = await db.User.findAll();
+    const response = await db.Users.findAll();
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json(error.message);
@@ -13,7 +13,7 @@ const getAllUsers = async (_req, res) => {
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   try {
-    await db.User.create({ displayName, email, password, image });
+    await db.Users.create({ displayName, email, password, image });
 
     const token = jwtToken({ displayName, email });
 
@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
 const getUserById = async (req, res) => {
   const { id } = req.params;
   
-  const getUser = await db.User.findOne({ where: { id } });
+  const getUser = await db.Users.findOne({ where: { id } });
 
   if (getUser) {
     return res.status(200).json(getUser);

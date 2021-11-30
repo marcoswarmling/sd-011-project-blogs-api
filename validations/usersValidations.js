@@ -40,7 +40,7 @@ const isPasswordValid = (req, res, next) => {
 
 const checkIfEmailIsRegistered = async (req, res, next) => {
   const { email } = req.body;
-  const getUsers = await db.User.findAll();
+  const getUsers = await db.Users.findAll();
   const checkRegisteredUser = getUsers.some((user) => user.email === email);
 
   if (checkRegisteredUser) {

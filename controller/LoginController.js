@@ -4,11 +4,11 @@ const jwtToken = require('../auth/JWTtoken');
 const login = async (req, res) => {
   const { email } = req.body;
   try {
-    const getUser = await db.User.findOne({
+    const getUser = await db.Users.findOne({
       where: { email },
     });
-    const { id, displayName, image } = getUser;
-    const token = jwtToken({ id, displayName, email, image });
+    const { id, displayName } = getUser;
+    const token = jwtToken({ id, displayName, email });
 
     return res.status(200).json(token);
   } catch (error) {
