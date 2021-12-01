@@ -4,7 +4,7 @@ const secret = 't0k3n';
 
 module.exports = (user) => {
   const jwtConfig = {
-    expiresIn: '1m',
+    expiresIn: '60d',
     algorithm: 'HS256',
   };
 
