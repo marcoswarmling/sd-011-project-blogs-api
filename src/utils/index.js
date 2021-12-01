@@ -8,7 +8,15 @@ module.exports = {
     status: 400,
   },
   invalidPasswordFormat: {
-    message: '"password" length must be6 characters long',
+    message: '"password" length must be 6 characters long',
+    status: 400,
+  },
+  nullPassword: {
+    message: '"password" is required',
+    status: 400,
+  },
+  emptyField: {
+    message: 'Preencha displayName e email validos ',
     status: 400,
   },
   userAlreadyRegistered: {
