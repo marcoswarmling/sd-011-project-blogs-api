@@ -1,8 +1,6 @@
-const jwt = require('jsonwebtoken');
+const { generateToken } = require('../Helpers/jwt');
 const { User } = require('../models');
 const { status, usersMessages } = require('../Helpers/status&messages');
-
-const JWT = 'SECRET';
 
 const createNewUser = async (displayName, email, password, image) => {
     const user = await User.findOne({ where: { email } });
@@ -10,7 +8,7 @@ const createNewUser = async (displayName, email, password, image) => {
       return { status: status.conflict, message: usersMessages.emailConflict };
     }
     await User.create({ displayName, email, password, image });
-    const token = jwt.sign({ email }, JWT);
+    const token = generateToken(email);
     return token;
 };
 
