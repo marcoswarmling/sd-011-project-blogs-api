@@ -35,6 +35,10 @@ const userError = {
     code: 400,
     message: 'Invalid fields',
   },
+  unexistingId: {
+    code: 404,
+    message: 'User does not exist',
+  },
 };
 
 module.exports = {
