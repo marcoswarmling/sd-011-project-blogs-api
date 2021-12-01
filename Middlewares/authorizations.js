@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { status, tokenMessages } = require('../Helpers/status&messages');
 
-const { JWT } = process.env;
+const JWT = 'JWT_SECRET';
 
 const validateToken = (req, res, next) => {
   const { authorization } = req.headers;
