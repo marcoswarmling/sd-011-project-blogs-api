@@ -1,8 +1,8 @@
 const express = require('express');
+require('dotenv').config();
 
 const app = express();
-
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/user', require('./router/user'));
@@ -11,3 +11,5 @@ app.use('/user', require('./router/user'));
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
