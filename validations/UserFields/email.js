@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
-const { User } = require('../models');
-const err = require('../helpers/errors');
+const { User } = require('../../models');
+const err = require('../../helpers/errors');
 
 const joiEmailSchema = Joi.object({
   email: Joi.string()

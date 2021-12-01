@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
-const { Category } = require('../models');
-const err = require('../helpers/errors');
+const { Category } = require('../../models');
+const err = require('../../helpers/errors');
 
 const joiNameSchema = Joi.object({
   name: Joi.string()
