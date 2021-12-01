@@ -41,6 +41,14 @@ const userError = {
   },
 };
 
+const categoryError = {
+  requiredName: {
+    code: 400,
+    message: '"name" is required',
+  },
+};
+
 module.exports = {
   userError,
+  categoryError,
 };
