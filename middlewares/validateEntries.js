@@ -1,9 +1,9 @@
 const {
-  passwordExists,
+  entryExists,
   passwordLength,
-  emailExists,
   displayNameLength,
   isEmail,
+  entryNotEmpty,
 } = require('../services/verifyEntries');
 
 function validateEntries(req, res, next) {
@@ -27,13 +27,26 @@ function validateEntries(req, res, next) {
 function entriesExists(req, res, next) {
   const { email, password } = req.body;
 
-  if (!passwordExists(password)) return res.status(400).json({ message: '"password" is required' });
+  if (!entryExists(password)) return res.status(400).json({ message: '"password" is required' });
 
-  if (!emailExists(email)) return res.status(400).json({ message: '"email" is required' });
+  if (!entryExists(email)) return res.status(400).json({ message: '"email" is required' });
+
+  next();
+}
+
+function entriesNotEmpty(req, res, next) {
+  const { email, password } = req.body;
+  if (!entryNotEmpty(email)) { 
+    return res.status(400).json({ message: '"email" is not allowed to be empty' });
+  }
+  if (!entryNotEmpty(password)) { 
+    return res.status(400).json({ message: '"password" is not allowed to be empty' }); 
+  }
 
   next();
 }
 module.exports = {
   validateEntries,
   entriesExists,
+  entriesNotEmpty,
 };

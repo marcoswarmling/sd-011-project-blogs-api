@@ -12,7 +12,6 @@ router.get('/', async (_req, res) => {
 
     return res.status(200).json(allUsers);
   } catch (e) {
-    console.log(e.message);
     return res.status(500).json({ message: 'Algo deu errado' });
   }
 });

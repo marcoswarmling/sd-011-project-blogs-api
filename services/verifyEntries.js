@@ -6,21 +6,9 @@ if (password.length !== 6) return false;
 return true;
 }
 
-function passwordExists(password) {
-  if (!password) return false;
-  
-  return true;
-}
-
 function displayNameLength(displayName) {
   if (displayName.length < 8) return false;
     
-  return true;
-}
-
-function emailExists(email) {
-  if (!email) return false;
-
   return true;
 }
 
@@ -31,10 +19,20 @@ function isEmail(email) {
 
   return true;
 }
+
+function entryNotEmpty(entry) {
+  if (entry === '') return false;
+
+  return true;
+}
+
+function entryExists(entry) {
+  return entry !== undefined && entry !== null;
+}
 module.exports = {
-  passwordExists,
   passwordLength,
   displayNameLength,
-  emailExists,
   isEmail,
+  entryNotEmpty,
+  entryExists,
 };
