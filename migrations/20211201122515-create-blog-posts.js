@@ -15,13 +15,25 @@ module.exports = {
         type: Sequelize.STRING
       },
       userId: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        field: 'userId',
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
       },
       published: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       updated: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
     });
   },

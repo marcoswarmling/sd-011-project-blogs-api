@@ -1,9 +1,10 @@
-const service = require('../service/userService');
+const service = require('../service/blogPostsService');
 
 const create = async (req, res) => { 
   try {
-    const { displayName, email, password, image } = req.body;
-    const result = await service.create(displayName, email, password, image);
+    const { title, content } = req.body;
+    const { userId } = req;
+    const result = await service.create(title, content, userId);
 
     return res.status(201).json(result);
   } catch (error) {
@@ -21,12 +22,12 @@ const getAll = async (req, res) => {
   }
 };
 
-const getAllId = async (req, res) => {
+const getId = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await service.getAllId(id);
+    const result = await service.getId(id);
 
-    if (!result) return res.status(404).json({ message: 'User does not exist' });
+    if (result.message) return res.status(404).json(result);
   
     return res.status(200).json(result);
   } catch (error) {
@@ -34,4 +35,4 @@ const getAllId = async (req, res) => {
   }
 };
 
-module.exports = { create, getAll, getAllId };
+module.exports = { create, getAll, getId };
