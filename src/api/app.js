@@ -1,5 +1,5 @@
 const express = require('express');
-const { user } = require('../controllers');
+const { user, login } = require('../controllers');
 
 const app = express();
 app.use(express.json());
@@ -20,6 +20,7 @@ app.get('/ping', (_req, res) => res.send('tá rodando de boa')); // Para teste d
 // });
 
 app.use('/user', user);
+app.use('/login', login);
 
 app.all('*', (_req, res) => res.status(404).send('Router not found'));
 
