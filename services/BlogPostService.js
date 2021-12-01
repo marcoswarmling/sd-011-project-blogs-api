@@ -11,26 +11,16 @@ const getAllBP = async () => {
   const data = await BlogPosts.findAll({
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      // { model: Categories, as: 'categories', attributes: { include: ['id', 'name'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
     ],    
   });
 
+  // Referência da sintaxe acima
   // https://stackoverflow.com/questions/49095292/exclude-primary-key-attributes-from-a-sequelize-query/49098682
-
-  // { model: User, as: 'user', attributes: { exclude: ['password'] } },
-  // { model: Categories, as: 'categories' },
-
-  // const data = await BlogPosts.findAll({
-  //   include: [
-  //     { model: User, as: 'user', attributes: { exclude: ['password'] } },
-  //     { model: Categories, as: 'Categories', through: { attributes: [] } },
-  //   ],
-  // });
 
   if (data) {
     return data;
   } 
-  // console.log('Nao há BlogPosts');
   throw new Error('Não há nenhum BlogPost!');
 };
 
