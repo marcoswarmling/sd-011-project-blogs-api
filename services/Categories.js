@@ -11,6 +11,16 @@ const create = async (categoryData) => {
   }
 };
 
+const getAll = async () => {
+  try {
+    const response = await Categories.findAll({ raw: true });   
+    return response;
+  } catch (e) {
+    return { error: serverError };
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };
