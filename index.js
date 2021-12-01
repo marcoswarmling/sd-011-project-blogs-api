@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/userRouter');
+const routes = require('./routes');
 const error = require('./err/errors');
 
 const app = express();
@@ -13,5 +13,6 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.use('/user', userRoutes);
+app.use('/user', routes.user);
+app.use('/login', routes.login);
 app.use(error);
