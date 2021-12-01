@@ -13,7 +13,16 @@ async function findOne(req, res) {
 
   return res.status(200).json({ token: userToken });
 }
+
+async function findAll(req, res) {
+  // const { email, password } = req.body;
+  const users = await userSevice.findAll();
+
+  return res.status(200).json(users);
+}
+
 module.exports = {
   findOrCreate,
   findOne,
+  findAll,
 };

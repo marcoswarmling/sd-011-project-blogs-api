@@ -35,7 +35,25 @@ const findOne = async (email, password) => {
 
   return token;
 };
+
+const findAll = async () => {
+  const users = await User.findAll();
+
+  // if (!user) {
+  //   throw new Error('invalidField');
+  // }
+
+  // const token = jwt.sign(
+  //   { data: { displayName: user.displayName, email: user.email } },
+  //   process.env.SECRET,
+  //   jwtConfig,
+  // );
+
+  return users;
+};
+
 module.exports = {
   findOrCreate,
   findOne,
+  findAll,
 };
