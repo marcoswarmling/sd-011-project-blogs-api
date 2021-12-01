@@ -5,6 +5,7 @@ const validateDisplayName = (name) => {
 };
 
 const validateEmail = (email) => {
+  if (email === '') return userError.emptyEmail;
   if (!email) return userError.requiredEmail;
   
   const emailRegex = /[\w\d.+_-]+@[\w]+.com/;
@@ -14,11 +15,12 @@ const validateEmail = (email) => {
 };
 
 const validatePassword = (password) => {
+  if (password === '') return userError.emptyPassword;
   if (!password) return userError.requiredPassword;
   if (password.length < 6) return userError.invalidPassword;
 };
 
-module.exports = async (req, _res, next) => {
+const validateNewUser = async (req, _res, next) => {
   const { displayName, email, password } = req.body;
 
   const invalidName = validateDisplayName(displayName);
@@ -31,4 +33,21 @@ module.exports = async (req, _res, next) => {
   if (invalidPassword) return next(invalidPassword);
 
   next();
+};
+
+const validateLogin = async (req, _res, next) => {
+  const { email, password } = req.body;
+
+  const invalidEmail = validateEmail(email);
+  if (invalidEmail) return next(invalidEmail);
+
+  const invalidPassword = validatePassword(password);
+  if (invalidPassword) return next(invalidPassword);
+
+  next();
+};
+
+module.exports = {
+  validateNewUser,
+  validateLogin,
 };

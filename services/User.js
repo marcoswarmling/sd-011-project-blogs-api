@@ -29,6 +29,17 @@ const createUser = async (user) => {
   return token;
 };
 
+const login = async (email, password) => {
+  const user = await findByEmail(email);
+
+  if (!user || user.password !== password) throw userError.invalidFields;
+
+  const token = await generateToken(user);
+
+  return token;
+};
+
 module.exports = {
   createUser,
+  login,
 };

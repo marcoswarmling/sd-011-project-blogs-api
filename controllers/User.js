@@ -12,6 +12,19 @@ const createUser = async (req, res, next) => {
   }
 };
 
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const token = await User.login(email, password);
+
+    return res.status(200).json({ token });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   createUser,
+  login,
 };
