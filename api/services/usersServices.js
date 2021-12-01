@@ -13,7 +13,13 @@ const createLogin = async ({ email, password }) => {
   return validateTokenUser;
 };
 
+const getUsers = async () => {
+  const allUsers = await Users.findAll();
+  return allUsers;
+};
+
 module.exports = {
   createUser,
   createLogin,
+  getUsers,
 };

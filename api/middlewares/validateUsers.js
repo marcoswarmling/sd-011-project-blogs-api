@@ -1,4 +1,5 @@
 const { Users } = require('../models');
+const { verify } = require('../auth/jwtFunctions');
 
 const displayNameIsValid = (req, res, next) => {
   const { displayName } = req.body;
@@ -90,6 +91,26 @@ const passwordNotNull = async (req, res, next) => {
   next();
 };
 
+const hasToken = (req, res, next) => {
+  const { authorization: token } = req.headers;
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  next();
+};
+
+const isTokenValid = (req, res, next) => {
+  const { authorization: token } = req.headers;
+  try {
+     verify(token);  
+  } catch (error) {
+    if (error) {
+      return res.status(401).json({ message: 'Expired or invalid token' });
+    }
+  }
+  next();
+};
+
 const validateUser = [
   displayNameIsValid,
   hasEmail,
@@ -105,7 +126,13 @@ const loginIsValid = [
   isNotEmail,
 ];
 
+const validateToken = [
+  hasToken,
+  isTokenValid,
+];
+
 module.exports = {
   validateUser,
   loginIsValid,
+  validateToken,
 };
