@@ -38,6 +38,7 @@ const requiredPassword = (req, res, next) => {
 
   next();
 };
+
 module.exports = {
   displayNameValidation,
   emailValidation,
