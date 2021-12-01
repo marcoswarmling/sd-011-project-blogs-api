@@ -6,7 +6,7 @@ const jwtSecret = process.env.JWT_SECRET;
 module.exports = {
   createToken: (payload) => {
     const jwtConfig = {
-      expiresIn: '2h',
+      expiresIn: '7d',
       algorithm: 'HS256',
     };
 
