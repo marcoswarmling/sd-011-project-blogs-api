@@ -8,4 +8,13 @@ const registerCategory = async (req, res) => {
   return res.status(201).json(response);
 };
 
-module.exports = { registerCategory };
+const searchAllCategories = async (_req, res) => {
+  const response = await categoryService.searchAllCategories();
+
+  return res.status(200).json(response);
+};
+
+module.exports = {
+  registerCategory,
+  searchAllCategories,
+};

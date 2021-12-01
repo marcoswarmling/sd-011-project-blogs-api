@@ -13,4 +13,8 @@ router.post('/',
   categoryAlreadyExists,
   categController.registerCategory);
 
+router.get('/',
+  authToken,
+  categController.searchAllCategories);
+
 module.exports = router;
