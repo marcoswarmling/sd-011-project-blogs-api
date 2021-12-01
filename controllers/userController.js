@@ -13,7 +13,7 @@ router.get('/', async (_req, res) => {
     return res.status(200).json(allUsers);
   } catch (e) {
     console.log(e.message);
-    res.status(500).json({ message: 'Algo deu errado' });
+    return res.status(500).json({ message: 'Algo deu errado' });
   }
 });
 
@@ -27,7 +27,7 @@ validateEntries,
     return res.status(201).json({ token });
   } catch (e) {
     console.log(e.message);
-    res.status(409).json({ message: 'User already registered' }); 
+    return res.status(409).json({ message: 'User already registered' }); 
 }
 });
 
