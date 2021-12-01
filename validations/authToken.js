@@ -10,9 +10,11 @@ const validToken = (req, res, next) => {
 
   if (!token) return res.status(401).json(err.tokenNotFound);
 
-  jwt.verify(token, PRIVATE_KEY, (error, _decoded) => {
+  jwt.verify(token, PRIVATE_KEY, (error, decoded) => {
     if (error) return res.status(401).json(err.invalidToken);
 
+    console.log(decoded);
+    req.userId = decoded.id;
     next();
   });
 };
