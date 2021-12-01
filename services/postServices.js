@@ -2,6 +2,8 @@ const { BlogPosts, PostsCategories, Categories, Users } = require('../models');
 const createPostValidatiton = require('../validations/createPostValidation');
 const tokenValidation = require('../validations/tokenValidation');
 
+// Para usar o parâmetro raw, consultei este tópico:
+// https://stackoverflow.com/questions/46380563/get-only-datavalues-from-sequelize-orm
 const verifyCategoryExists = async (categoryIds) => {
   const category = await Categories.findAll({ raw: true, where: { id: categoryIds } });
   if (category.length === 0) {
