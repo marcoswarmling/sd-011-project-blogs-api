@@ -1,13 +1,10 @@
 const { User } = require('../../models');
 
 const STATUS_BAD_REQUEST = 400;
-
 const MSG_MISSING_EMAIL = '"email" is required';
 const MSG_MISSING_PASSW = '"password" is required';
-
 const MSG_EMPTY_EMAIL = '"email" is not allowed to be empty';
 const MSG_EMPTY_PASSW = '"password" is not allowed to be empty';
-
 const MSG_INVALID_FIELDS = 'Invalid fields';
 
 function passwordValidator(password, userData) {
@@ -26,7 +23,7 @@ function passwordValidator(password, userData) {
   return {};
 }
 
-const loginValidator = async (email, password) => {
+async function emailValidator(email) {
   if (typeof email === 'undefined') {
     return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_EMAIL };
   }
@@ -41,14 +38,25 @@ const loginValidator = async (email, password) => {
     return { status: STATUS_BAD_REQUEST, message: MSG_INVALID_FIELDS };
   }
 
-  const passResult = passwordValidator(password, userData); // Not asked by Trybe "functional requirements", but I implemented it
+  return userData;
+}
+
+const loginValidator = async (email, password) => {
+  const emailResult = await emailValidator(email);
+
+  if (emailResult.status) {
+    const { status, message } = emailResult;
+    return { status, message };
+  }
+
+  const passResult = passwordValidator(password, emailResult); // Not asked by Trybe "functional requirements", but I did implemented it
 
   if (passResult.status) {
     const { status, message } = passResult;
     return { status, message };
   }
 
-  return userData;
+  return emailResult;
 };
 
 module.exports = {
