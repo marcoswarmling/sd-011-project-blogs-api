@@ -17,6 +17,7 @@ const validateJWT = async (req, res, next) => {
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
+  console.log('validei o token');
 };
 
 module.exports = {

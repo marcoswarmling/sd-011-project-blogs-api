@@ -13,9 +13,6 @@ const create = async (req, res) => {
     const { displayName, email, password, image } = req.body;
     const user = await UserService.createNewUser(displayName, email, password, image);
 
-    // const getUser = User.findOne({ where: { email } });
-    // console.log(getUser.id);
-
     const token = jwt.sign({ displayName, email, id: user.id }, secret, jwtConfig);
     return res.status(201).json({ token });
   } catch (error) {

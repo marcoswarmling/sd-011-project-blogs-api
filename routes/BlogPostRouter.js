@@ -20,4 +20,7 @@ const req7Validations = [
 // Req 7
 router.post('/post', req7Validations, BlogPostController.create);
 
+// Req 8
+router.get('/post', validateJWT, BlogPostController.getAll);
+
 module.exports = router;
