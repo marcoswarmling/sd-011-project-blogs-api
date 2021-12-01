@@ -16,7 +16,7 @@ const createCategory = async (req, res) => {
 
 const getCategories = async (req, res) => {
   try { 
-    const allCategories = await categoriesService.getAllCategories();
+    const allCategories = await categoriesService.getCategories();
     return res.status(status.sucess).json(allCategories);
   } catch (error) {
     return res.status(status.intServerError).json({ message: intServerError.unknown });
