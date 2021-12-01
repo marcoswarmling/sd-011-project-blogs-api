@@ -11,6 +11,15 @@ const createUser = async (userData) => {
   return getToken(newUser.dataValues);
 };
 
+const getUsers = async () => {
+  const users = await User.findAll();
+
+  if (!users) return { code: 'notFound', message: 'no user' };
+
+  return users;
+};
+
 module.exports = {
   createUser,
+  getUsers,
 };

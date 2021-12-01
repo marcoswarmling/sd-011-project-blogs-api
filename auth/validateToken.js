@@ -1,25 +1,25 @@
-// const jwt = require('jsonwebtoken');
-// const model = require('../api/models/usersModel');
+const jwt = require('jsonwebtoken');
+const { User } = require('../models');
 
-// const secret = 't0k3n';
-// const tokenErr = { code: 'unauthorized', message: 'jwt malformed' };
-// const tokenMiss = { code: 'unauthorized', message: 'missing auth token' };
+const secret = 't0k3n';
+const tokenErr = { code: 'unauthorized', message: 'Expired or invalid token' };
+const tokenMiss = { code: 'unauthorized', message: 'Token not found' };
 
-// module.exports = async (req, _res, next) => {
-//   const token = req.headers.authorization;
+module.exports = async (req, _res, next) => {
+  const token = req.headers.authorization;
 
-//   if (!token) return next(tokenMiss);
+  if (!token) return next(tokenMiss);
 
-//   try {
-//     const { email } = jwt.verify(token, secret);
-//     const { _id, role } = await model.getUser(email);
+  try {
+    const { id } = jwt.verify(token, secret);
+    const { displayName, email } = await User.findOne({ where: { id } });
 
-//     if (!_id) return next(tokenErr);
+    if (!email) return next(tokenErr);
 
-//     req.user = { userId: _id, email, role };
+    req.user = { userId: id, displayName, email };
 
-//     next();
-//   } catch (error) {
-//     return next(tokenErr);
-//   }
-// };
+    next();
+  } catch (error) {
+    return next(tokenErr);
+  }
+};

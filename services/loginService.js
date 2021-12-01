@@ -9,7 +9,9 @@ const login = async (loginData) => {
     return { code: 'invalidData', message: 'Invalid fields' };
   }
 
-  return getToken(user.dataValues);
+  const token = getToken(user.dataValues);
+
+  return { token };
 };
 
 module.exports = {
