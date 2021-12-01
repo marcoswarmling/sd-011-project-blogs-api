@@ -24,7 +24,7 @@ const createUser = async (user) => {
 
   const newUser = await User.create(user);
 
-  const token = await generateToken(newUser);
+  const token = generateToken(newUser);
 
   return token;
 };
@@ -34,12 +34,19 @@ const login = async (email, password) => {
 
   if (!user || user.password !== password) throw userError.invalidFields;
 
-  const token = await generateToken(user);
+  const token = generateToken(user);
 
   return token;
+};
+
+const getAllUsers = async () => {
+  const users = await User.findAll();
+
+  return users;
 };
 
 module.exports = {
   createUser,
   login,
+  getAllUsers,
 };
