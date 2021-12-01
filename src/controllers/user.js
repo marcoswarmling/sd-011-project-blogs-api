@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { user } = require('../services');
 const userValidMiddle = require('../validators/middlewares/userValidMiddle');
+const tokenValidMiddle = require('../validators/middlewares/tokenValidMiddle');
 
 const STATUS_CREATED = 201;
 
-router.get('/', async (_req, res) => { // For model test
+router.get('/', tokenValidMiddle, async (_req, res) => { // For model test
   const result = await user.getAll();
 
   if (result.message) {
