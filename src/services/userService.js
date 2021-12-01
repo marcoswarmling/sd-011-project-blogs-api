@@ -1,5 +1,5 @@
 const { User } = require('../../models');
-// const {} = require('../helpers/user');
+// const {} = require('../helpers/index');
 
 const createUser = async ({ displayName, email, password, image }) => {
   await User.create({ displayName, email, password, image });

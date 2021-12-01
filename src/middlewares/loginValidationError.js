@@ -1,16 +1,13 @@
 const Joi = require('joi');
 
 const schema = Joi.object({
-  displayName: Joi.string().min(8).not().empty()
-  .required(),
-  email: Joi.string().not().empty().email()  
+  email: Joi.string().email().not().empty()
   .required(),
   password: Joi.string().length(6).not().empty()
   .required(),
-  image: Joi.string(),
 });
 
-const validationError = (req, res, next) => {
+const loginValidationError = (req, res, next) => {
   const { error } = schema.validate(req.body);
   if (error) {
     return res.status(400).json({
@@ -20,4 +17,4 @@ const validationError = (req, res, next) => {
   return next();
 };
 
-module.exports = validationError;
+module.exports = loginValidationError;

@@ -4,7 +4,7 @@ const userService = require('../services/userService');
 const {
   // STATUS_CODE_OK,
   STATUS_CODE_CREATED,
-} = require('../helpers/user.js');
+} = require('../helpers/index.js');
 
 const JWT_SECRET = 'hardcoded-secret';
 const jwtConfig = {
