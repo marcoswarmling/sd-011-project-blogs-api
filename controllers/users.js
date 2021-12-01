@@ -24,4 +24,17 @@ const findAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { createNewUser, findAllUsers };
+const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userById = await usersServices.getUserById(id);
+    if (userById.status) {
+      return res.status(userById.status).json({ message: userById.message });
+    }
+    return res.status(status.sucess).json(userById);
+  } catch (error) {
+    return res.status(status.intServerError).json({ message: intServerError.unknown });
+  }
+};
+
+module.exports = { createNewUser, findAllUsers, getUserById };
