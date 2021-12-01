@@ -26,7 +26,23 @@ const create = async (userData) => {
   }
 };
 
+const login = async (loginData) => {
+  try {
+    const { email, password } = loginData;
+    const userExists = await findUserByEmail(email);
+    if (!userExists || userExists.password !== password) {
+      return { message: 'Invalid fields' };
+    }
+    const { id } = userExists;
+    const token = generateJWT({ id, email });    
+    return token;
+  } catch (e) {
+    return { error: 'Something went wrong' };
+  }
+};
+
 module.exports = {
   create,
   findUserByEmail,
+  login,
 };
