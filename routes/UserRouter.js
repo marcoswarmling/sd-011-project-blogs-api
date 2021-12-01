@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const UserController = require('../controllers/UserController');
-// const validateJWT = require('../middlewares/validateJWT');
+const { validateJWT } = require('../middlewares/validateJWT');
 
 const {
   displayNameLength,
@@ -41,9 +41,9 @@ router.post('/user', Req1Validations, UserController.create);
 router.post('/login', Req2Validations, UserController.login);
 
 // Req 3
-router.get('/user', UserController.getAll);
+router.get('/user', validateJWT, UserController.getAll);
 
 // Req 4
-router.get('/user/:id', UserController.getById);
+router.get('/user/:id', validateJWT, UserController.getById);
 
 module.exports = router;

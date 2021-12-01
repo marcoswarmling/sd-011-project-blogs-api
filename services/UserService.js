@@ -21,7 +21,8 @@ const login = async (email, password) => {
   try {
     const findUser = await User.findOne({ where: { email } });
 
-    // verifica se a senha é correta
+    /* verifica se a senha é correta, ajuda do plantão, essa validação basicamente verifica se
+       a senha inserida é igual a registrada no banco, liberando o login ao usuário */
     if (password === findUser.password) { 
       const token = jwt.sign({ email, id: findUser.id }, secret, jwtConfig);
       return token;

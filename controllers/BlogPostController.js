@@ -16,12 +16,6 @@ const create = async (req, res) => {
 const getAll = async (req, res) => {
   console.log('cheguei no controller');
   try {
-    const token = req.headers.authorization;
-
-    if (!token) {
-      return res.status(401).json({ message: 'Token not found' });
-    }
-
     const data = await BlogPostService.getAllBP();
     return res.status(200).json(data);
   } catch (error) {

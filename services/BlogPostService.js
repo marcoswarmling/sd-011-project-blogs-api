@@ -15,8 +15,8 @@ const getAllBP = async () => {
     ],    
   });
 
-  // Referência da sintaxe acima
-  // https://stackoverflow.com/questions/49095292/exclude-primary-key-attributes-from-a-sequelize-query/49098682
+  /* Referência da sintaxe acima
+   https://stackoverflow.com/questions/49095292/exclude-primary-key-attributes-from-a-sequelize-query/49098682 */
 
   if (data) {
     return data;

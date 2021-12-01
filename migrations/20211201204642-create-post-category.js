@@ -2,6 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('PostsCategories', {
+      /* tabela de junção para realização do requisito 8 */
       postId: {
         type: Sequelize.INTEGER,
         primaryKey: true,

@@ -34,11 +34,6 @@ const login = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     const data = await UserService.getAll();
-    
-    const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ message: 'Token not found' });
-    if (token.length < 15) return res.status(401).json({ message: 'Expired or invalid token' });
-
     return res.status(200).json(data);
   } catch (error) {
     return error.message;
@@ -49,10 +44,6 @@ const getById = async (req, res) => {
   const { id } = req.params;
   const user = await UserService.getById(id);
   if (!user) return res.status(404).json({ message: 'User does not exist' });
-
-  const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ message: 'Token not found' });
-    if (token.length < 15) return res.status(401).json({ message: 'Expired or invalid token' });
 
   return res.status(200).json(user);
 };

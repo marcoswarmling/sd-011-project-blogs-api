@@ -5,10 +5,6 @@ const create = async (req, res) => {
     const { name } = req.body;
     const register = await CategoryService.createCategory(name);
 
-    const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ message: 'Token not found' });
-    if (token.length < 15) return res.status(401).json({ message: 'Expired or invalid token' });
-
     return res.status(201).json(register);
   } catch (error) {
     return error.message;
@@ -18,11 +14,6 @@ const create = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     const data = await CategoryService.getAll();
-    
-    const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ message: 'Token not found' });
-    if (token.length < 15) return res.status(401).json({ message: 'Expired or invalid token' });
-
     return res.status(200).json(data);
   } catch (error) {
     return error.message;
