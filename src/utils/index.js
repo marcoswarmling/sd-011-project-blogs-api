@@ -7,6 +7,14 @@ module.exports = {
     message: '"email" must be a valid email',
     status: 400,
   },
+  invalidPasswordFormat: {
+    message: '"password" length must be6 characters long',
+    status: 400,
+  },
+  userAlreadyRegistered: {
+    message: 'User already registered',
+    status: 409,
+  },
   // invalidJWT: {
   //   message: 'jwt malformed',
   //   status: 401,
@@ -23,10 +31,10 @@ module.exports = {
   //   message: 'recipe not found',
   //   status: 404,
   // },
-  // emailAreadyExists: {
-  //   message: 'Email already registered',
-  //   status: 409,
-  // },
+  testeError: {
+    message: 'Deu erro teste do middleware global',
+    status: 501,
+  },
   default: {
     status: 500,
     message: 'Internal error.',

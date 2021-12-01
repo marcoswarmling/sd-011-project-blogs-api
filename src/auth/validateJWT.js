@@ -1,6 +1,14 @@
-// // validateJWT.js
-// const jwt = require('jsonwebtoken');
-// const model = require('../../models/user');
+const jwt = require('jsonwebtoken');
+
+const jwtConfig = {
+  expiresIn: '1d',
+  algorithm: 'HS256',
+};
+
+module.exports = {
+  jwt,
+  jwtConfig,
+};
 
 // /* Mesma chave privada que usamos para criptografar o token.
 //    Agora, vamos usá-la para descriptografá-lo.

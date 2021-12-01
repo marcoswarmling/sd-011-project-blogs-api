@@ -1,4 +1,27 @@
-// const REGEX_VALID_EMAIL = /^\w+@\w[^]+\.com(\.br)?$/;
+const ROLES = {
+  minNameLengh: 8,
+  passwordLengh: 6,
+  validEmailRegex: new RegExp('\\S+@\\S+\\.\\S+'),
+};
+
+function isValidNameLength(displayName) {
+  const isValid = (displayName.length >= ROLES.minNameLengh);
+  return isValid;
+}
+
+function isValidEmail(email) {
+  return (ROLES.validEmailRegex.test(email));
+}
+
+function isValidPassword(password) {
+  return (password.length === ROLES.passwordLengh);
+}
+
+module.exports = {
+  isValidNameLength,
+  isValidEmail,
+  isValidPassword,
+};
 
 // function isValidUser({ name, email, password }) {
 //   if (!name || !password || !email) return false;
@@ -18,21 +41,3 @@
 //   if (role !== 'admin' && ReqPassword.length < 7) return false;
 //   if (password !== ReqPassword) return false;
 // }
-const ROLES = {
-  minNameLengh: 8,
-  validEmailRegex: /^\w+@\w[^]+\.com(\.br)?$/,
-};
-
-function isValidNameLength(displayName) {
-  const isValid = (displayName.length >= ROLES.minNameLengh);
-  return isValid;
-}
-
-function isValidEmail(email) {
-  return (ROLES.validEmailRegex.test(email));
-}
-
-module.exports = {
-  isValidNameLength,
-  isValidEmail,
-};

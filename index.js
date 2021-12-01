@@ -4,7 +4,6 @@ const userRouter = require('./src/routes/userRouter');
 const middlewareError = require('./src/middlewares/errors');
 
 const app = express();
-app.use(bodyparser);
 
 const PORT = process.env.PORT || 3000;
 
@@ -15,6 +14,6 @@ app.get('/', (request, response) => {
   response.send();
 });
 
+app.use(bodyparser);
 app.use('/user', userRouter);
-
 app.use(middlewareError);
