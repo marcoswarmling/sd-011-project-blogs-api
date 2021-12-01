@@ -10,7 +10,8 @@ const login = async (email, password) => {
 
   if (!search) return { err: err.invalidFields };
 
-  const token = createToken(email, password);
+  const { id } = search.dataValues;
+  const token = createToken({ email, password, id });
 
   return { token };
 };

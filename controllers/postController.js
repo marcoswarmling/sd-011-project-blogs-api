@@ -1,0 +1,12 @@
+const postService = require('../services/postService');
+
+const registerNewPost = async (req, res) => {
+  const { title, content, categoryIds } = req.body;
+  const { userId } = req;
+
+  const response = await postService.registerNewPost(title, content, categoryIds, userId);
+
+  return res.status(201).json(response);
+};
+
+module.exports = { registerNewPost };
