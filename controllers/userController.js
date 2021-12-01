@@ -1,6 +1,7 @@
 const express = require('express');
 const { Users } = require('../models');
 const { validateEntries, entriesExists } = require('../middlewares/validateEntries');
+const { createToken } = require('../auth/authentication');
 
 const router = express.Router();
 
@@ -17,13 +18,13 @@ router.get('/', async (_req, res) => {
 });
 
 router.post('/', 
-validateEntries,
 entriesExists,
+validateEntries,
   async (req, res) => {
   try {
-    const user = await Users.create(req.body);
-
-    return res.status(201).json(user);
+    await Users.create(req.body);
+    const token = createToken(req.body);
+    return res.status(201).json({ token });
   } catch (e) {
     console.log(e.message);
     res.status(409).json({ message: 'User already registered' }); 
