@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const rescue = require('express-rescue');
 const userService = require('../services/userService');
 const {
-  // STATUS_CODE_OK,
+  STATUS_CODE_OK,
   STATUS_CODE_CREATED,
 } = require('../helpers/index.js');
 
@@ -47,18 +47,15 @@ const createUser = rescue(async (req, res) => {
 //   }
 // });
 
-// const getAllUsers = rescue(async (req, res) => {
-//   try {
-//   const user = await User.findAll();
-//     res.status(STATUS_CODE_OK).json(user);
-//   } catch (error) {
-//     res.status(500).json({ message: 'erro ao pegar os usuários' });
-//   }
-// });
+const getAllUsers = rescue(async (req, res) => {
+  const { id, displayName, email, image } = req.user;
+  const allUsers = await userService.getAllUsers({ id, displayName, email, image });
+    res.status(STATUS_CODE_OK).json({ allUsers });
+});
 
 module.exports = {
   createUser,
   // getUserByEmail,
   // getById,
-  // getAllUsers,
+  getAllUsers,
 };
