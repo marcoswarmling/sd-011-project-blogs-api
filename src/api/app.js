@@ -1,5 +1,6 @@
 const express = require('express');
 const { user, login } = require('../controllers');
+const errorMiddleware = require('../utils/errorMiddleware');
 
 const app = express();
 app.use(express.json());
@@ -23,5 +24,6 @@ app.use('/user', user);
 app.use('/login', login);
 
 app.all('*', (_req, res) => res.status(404).send('Router not found'));
+app.use(errorMiddleware);
 
 module.exports = app;
