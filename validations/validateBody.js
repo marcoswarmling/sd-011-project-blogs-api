@@ -36,7 +36,25 @@ const validateLogin = (req, _res, next) => {
     : next();
 };
 
+const validateCategory = (req, _res, next) => {
+  const joiDefault = Joi.string().not().empty().required();
+
+  const JoiResult = Joi.object({
+    name: joiDefault,
+  }).validate(req.body);
+
+  return JoiResult.error
+    ? next(
+      {
+        code: 'invalidData',
+        message: JoiResult.error.details[0].message,
+      },
+    )
+    : next();
+};
+
 module.exports = {
   validateUser,
   validateLogin,
+  validateCategory,
 };
