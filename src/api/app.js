@@ -19,7 +19,7 @@ app.get('/ping', (_req, res) => res.send('tá rodando de boa')); // Para teste d
 //   // res.json({ message: ` aqui o body: ${body}` }); 
 // });
 
-app.use('/users', user);
+app.use('/user', user);
 
 app.all('*', (_req, res) => res.status(404).send('Router not found'));
 
