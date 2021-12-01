@@ -19,8 +19,20 @@ module.exports = {
     message: '"email" is required',
     status: 400,
   },
+  emptyPassword: {
+    message: '"password" is not allowed to be empty',
+    status: 400,
+  },
+  emptyEmail: {
+    message: '"email" is not allowed to be empty',
+    status: 400,
+  },
   emptyField: {
-    message: 'Preencha displayName e email validos ',
+    message: 'Preencha displayName e email validos',
+    status: 400,
+  },
+  invalidField: {
+    message: 'Invalid fields',
     status: 400,
   },
   userAlreadyRegistered: {

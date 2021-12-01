@@ -15,5 +15,5 @@ app.get('/', (request, response) => {
 });
 
 app.use(bodyparser);
-app.use('/user', userRouter);
+app.use(userRouter);
 app.use(middlewareError);

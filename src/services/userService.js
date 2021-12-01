@@ -20,6 +20,22 @@ const findOrCreate = async (displayName, email, password, image) => {
   return token;
 };
 
+const findOne = async (email, password) => {
+  const user = await User.findOne({ where: { email, password } });
+
+  if (!user) {
+    throw new Error('invalidField');
+  }
+
+  const token = jwt.sign(
+    { data: { displayName: user.displayName, email: user.email } },
+    process.env.SECRET,
+    jwtConfig,
+  );
+
+  return token;
+};
 module.exports = {
   findOrCreate,
+  findOne,
 };
