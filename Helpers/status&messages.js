@@ -42,5 +42,16 @@ const categoriesMessages = {
   nameRequired: '"name" is required',
 };
 
-module.exports = { 
-  status, intServerError, usersMessages, loginMessages, tokenMessages, categoriesMessages };
+const postMessages = {
+  titleRequired: '"title" is required',
+  contentRequired: '"content" is required',
+  categoryIdRequired: '"categoryId" is required',
+};
+
+module.exports = { status,
+  intServerError,
+  usersMessages,
+  loginMessages,
+  tokenMessages,
+  categoriesMessages,
+  postMessages };
