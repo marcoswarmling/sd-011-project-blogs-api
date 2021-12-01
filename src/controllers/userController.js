@@ -14,7 +14,13 @@ algorithm: 'HS256',
 
 const createUser = rescue(async (req, res) => {
   const { displayName, email, password, image } = req.body;
-  // await userService.getUserByEmail(email);
+  
+  const duplicateEmail = await userService.getUserByEmail(email);
+  if (duplicateEmail) {
+    return res.status(409).json({
+      message: 'User already registered',
+    });
+  }
   
   const token = jwt.sign({ email }, JWT_SECRET, jwtConfig);
   // console.log(token);
