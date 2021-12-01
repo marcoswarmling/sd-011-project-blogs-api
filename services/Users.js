@@ -1,12 +1,14 @@
 const { Users } = require('../models');
 const generateJWT = require('../auth/generateJWT');
 
+const serverError = 'Something went wrong';
+
 const findUserByEmail = async (email) => {
   try {
     const response = Users.findOne({ where: { email }, raw: true });
     return response;
   } catch (e) {
-    return { error: 'Something went wrong' };
+    return { error: serverError };
   }
 };
 
@@ -22,7 +24,7 @@ const create = async (userData) => {
     const token = generateJWT({ id, email });    
     return token;
   } catch (e) {
-    return { error: 'Something went wrong' };
+    return { error: serverError };
   }
 };
 
@@ -37,7 +39,7 @@ const login = async (loginData) => {
     const token = generateJWT({ id, email });    
     return token;
   } catch (e) {
-    return { error: 'Something went wrong' };
+    return { error: serverError };
   }
 };
 
@@ -46,7 +48,19 @@ const getAll = async () => {
     const response = await Users.findAll({ raw: true });   
     return response;
   } catch (e) {
-    return { error: 'Something went wrong' };
+    return { error: serverError };
+  }
+};
+
+const getById = async (id) => {
+  try {
+    const response = await Users.findOne({ where: { id }, raw: true });
+    if (!response) {
+      return { message: 'User does not exist' };
+    }
+    return response;
+  } catch (e) {
+    return { error: serverError };
   }
 };
 
@@ -55,4 +69,5 @@ module.exports = {
   findUserByEmail,
   login,
   getAll,
+  getById,
 };
