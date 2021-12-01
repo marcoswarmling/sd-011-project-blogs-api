@@ -6,6 +6,14 @@ const serverError = 'Something went wrong';
 const someCategoryNotExist = (categories) => categories.some((category) => !category);
 
 const categoryNotFoundMessage = { message: '"categoryIds" not found' };
+const includeUserAndCategoriesInformations = [
+  { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+  { model: Categories,
+    as: 'categories',
+    through: { attributes: [] }, 
+    attributes: { exclude: ['PostsCategories'] },
+  },
+];
 
 const create = async (postData) => {
   try {
@@ -34,20 +42,26 @@ const create = async (postData) => {
 const getAll = async () => {
   try {
     const response = await BlogPosts.findAll({ 
-      include: [
-        { model: Users, as: 'user', attributes: { exclude: ['password'] } },
-        { 
-          model: Categories,
-          as: 'categories',
-          through: { attributes: [] }, 
-          attributes: { exclude: ['PostsCategories'] },
-        },
-      ],
+      include: includeUserAndCategoriesInformations,
     });
-    
+
     return response;
   } catch (e) {
-    console.log(e);
+    return { error: serverError };
+  }
+};
+
+const getById = async (id) => {
+  try {
+    const response = await BlogPosts.findOne({
+      where: { id },
+      include: includeUserAndCategoriesInformations,
+    });
+    if (!response) {
+      return { message: 'Post does not exist' };
+    }
+    return response;
+  } catch (e) {
     return { error: serverError };
   }
 };
@@ -55,4 +69,5 @@ const getAll = async () => {
 module.exports = {
   create,
   getAll,
+  getById,
 };
