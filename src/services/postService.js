@@ -1,5 +1,5 @@
 const { createError } = require('../middlewares/errors');
-const { BlogPost, PostCategory, Category } = require('../models');
+const { BlogPost, PostCategory, Category, User } = require('../models');
 const { validatePost } = require('../validations/validations');
 
 const areValidIds = async (arrayOfIds) => {
@@ -25,6 +25,19 @@ const createPost = async (data, userId) => {
   return newPost;
 };
 
+const getAll = async () => {
+  const allPosts = await BlogPost.findAll(
+    { include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', attributes: { exclude: 'postCategory' } },
+    ] },
+  );
+
+  console.log(allPosts);
+  return allPosts;
+};
+
 module.exports = {
   createPost,
+  getAll,
 };
