@@ -8,5 +8,9 @@ router.post('/user', valUser, async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
   const response = await createUser(displayName, email, password, image);
+
+  console.log(response);
   res.status(201).json(response);
 });
+
+module.exports = router;
