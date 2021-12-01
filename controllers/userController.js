@@ -19,7 +19,17 @@ const getUsers = rescue(async (_req, res, next) => {
     : res.status(200).json(result);
 });
 
+const getUserById = rescue(async (req, res, next) => {
+  const { id } = req.params;
+
+  const result = await service.getUserById(id);
+
+  return result.code
+    ? next(result)
+    : res.status(200).json(result);
+});
 module.exports = {
   createUser,
   getUsers,
+  getUserById,
 };
