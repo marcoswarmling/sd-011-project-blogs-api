@@ -12,4 +12,8 @@ router.post('/',
   validExistsCategory,
   postController.registerNewPost);
 
+router.get('/',
+  authToken,
+  postController.searchAllPosts);
+
 module.exports = router;

@@ -9,4 +9,13 @@ const registerNewPost = async (req, res) => {
   return res.status(201).json(response);
 };
 
-module.exports = { registerNewPost };
+const searchAllPosts = async (_req, res) => {
+  const response = await postService.searchAllPosts();
+
+  return res.status(200).json(response);
+};
+
+module.exports = {
+  registerNewPost,
+  searchAllPosts,
+};
