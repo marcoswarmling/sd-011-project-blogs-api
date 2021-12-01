@@ -10,7 +10,14 @@ const getPosts = async () => {
   return blogPosts;
 };
 
+const getPostById = async (id) => {
+  const blogPosts = await BlogPost.findByPk(id);
+  console.log(`${id} id do service`);
+  return blogPosts;
+};
+
 module.exports = {
   createPost,
   getPosts,
+  getPostById,
 };

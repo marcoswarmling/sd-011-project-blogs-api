@@ -5,5 +5,6 @@ const blogPostsValidationError = require('../middlewares/blogPostsValidationErro
 
 router.post('/', tokenValidation, blogPostsValidationError, postController.createPost);
 router.get('/', tokenValidation, postController.getPosts);
+router.get('/:id', tokenValidation, postController.getPostById);
 
 module.exports = router;
