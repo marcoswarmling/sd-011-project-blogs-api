@@ -17,10 +17,12 @@ const createPost = async (data, userId) => {
   const { error: validationError } = validatePost(data);
   if (validationError) return createError('badRequest', validationError.message);
 
-  const user = await BlogPost.create({ title, content, userId });
-  console.log('USER', user);
+  const newPost = await BlogPost.create({ title, content, userId });
 
-  return categoryIds.forEach((category) => PostCategory.create({ category, id: user.id }));
+  await categoryIds.forEach((categoryId) => PostCategory.create(
+    { categoryId, postId: newPost.dataValues.id },
+  ));
+  return newPost;
 };
 
 module.exports = {

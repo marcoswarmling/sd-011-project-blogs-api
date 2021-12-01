@@ -5,9 +5,10 @@ const createPost = async (req, res, next) => {
 
   const post = await postService.createPost(body, userId);
  
+  console.log('POST', post);
   if (post.err) return next(post.err);
 
-  return res.status(200).json({ post });
+  return res.status(201).json(post);
 };
 
 module.exports = {
