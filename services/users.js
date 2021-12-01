@@ -1,18 +1,12 @@
-const { user } = require('../models');
+const { Users } = require('../models');
 
-const createUser = async (displayName, email, password, image) => {
-  try {
-    await user.create({
-      displayName,
-      email,
-      password,
-      image,
-    });
-  } catch (err) {
-    return err;
-  }
-};
+const findUserByEmail = async (email) => Users.findOne({ where: { email }, raw: true });
+
+const createUser = async (displayName, email, password, image) => Users.create({
+  displayName, email, password, image,
+});
 
 module.exports = {
+  findUserByEmail,
   createUser,
 };

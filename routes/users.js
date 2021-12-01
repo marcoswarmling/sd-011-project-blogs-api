@@ -8,8 +8,10 @@ const controllers = require('../controllers/users');
 routes.post('/',
   middlewares.displayNameValidation,
   middlewares.emailValidation,
-  middlewares.passwordValidation,
   middlewares.requiredPassword,
-  controllers.createUser);
+  middlewares.passwordValidation,
+  middlewares.validateRegistereduser,
+  controllers.createUser,
+  () => console.log('Cheguei aqui'));
 
 module.exports = routes;
