@@ -12,7 +12,11 @@ const getUserByEmail = async (email) => {
 };
 
 const getAllUsers = async () => {
-  const allUsers = await User.findAll();
+  const allUsers = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  // const { password, ...allUsersWithoutPwd } = allUsers;
+  // console.log(allUsersWithoutPwd);
   // const { id, displayName, email, image } = allUsers;
   // console.log(` ${allUsers} aqui`);
   return allUsers;

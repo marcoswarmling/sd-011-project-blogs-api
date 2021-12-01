@@ -48,9 +48,11 @@ const createUser = rescue(async (req, res) => {
 // });
 
 const getAllUsers = rescue(async (req, res) => {
-  const { id, displayName, email, image } = req.user;
-  const allUsers = await userService.getAllUsers({ id, displayName, email, image });
-    res.status(STATUS_CODE_OK).json({ allUsers });
+  // const { dataValues } = req.user;
+  // console.log(dataValues);
+  
+  const allUsers = await userService.getAllUsers();
+    res.status(STATUS_CODE_OK).json(allUsers);
 });
 
 module.exports = {
