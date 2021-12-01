@@ -10,7 +10,7 @@ const valUser = async (req, res, next) => {
     password,
   });
   
-  console.log('ESSE É O MEU ERROR', error);
+  /* console.log('ESSE É O MEU ERROR', error); */
 
   if (error) {
     return res.status(400).json({ message: error.details[0].message });

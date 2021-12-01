@@ -15,4 +15,18 @@ const createUser = Joi.object({
   }),
 });
 
-module.exports = { createUser };
+const loginUser = Joi.object({
+  email: Joi.string()
+    .email()
+    .min(1)
+    .required()
+    .messages({
+    'any.required': '"email" is required',
+    'string.min': '"email" is not allowed to be empty',
+  }),
+  password: Joi.string().required().messages({
+    'any.required': '"password" is required',
+  }),
+});
+
+module.exports = { createUser, loginUser };
