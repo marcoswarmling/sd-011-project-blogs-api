@@ -14,4 +14,12 @@ const createNewUser = async (displayName, email, password, image) => {
 
 const findAllUsers = async () => User.findAll();
 
-module.exports = { createNewUser, findAllUsers };
+const getUserById = async (id) => {
+ const userById = await User.findByPk(id);
+ if (!userById) {
+   return { status: status.notFound, message: usersMessages.userDontExists };
+ }
+ return userById;
+};
+
+module.exports = { createNewUser, findAllUsers, getUserById };
