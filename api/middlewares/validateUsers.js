@@ -111,6 +111,15 @@ const isTokenValid = (req, res, next) => {
   next();
 };
 
+const userExists = async (req, res, next) => {
+  const { id } = req.params;
+  const findUser = await Users.findOne({ where: { id: Number(id) } });
+  if (!findUser) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+  next();
+};
+
 const validateUser = [
   displayNameIsValid,
   hasEmail,
@@ -131,8 +140,15 @@ const validateToken = [
   isTokenValid,
 ];
 
+const userIsThere = [
+  hasToken,
+  isTokenValid,
+  userExists,
+];
+
 module.exports = {
   validateUser,
   loginIsValid,
   validateToken,
+  userIsThere,
 };

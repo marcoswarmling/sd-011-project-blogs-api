@@ -7,6 +7,7 @@ const middleware = require('../middlewares/validateUsers');
 
 router.post('/', middleware.validateUser, rescue(usersController.createUser));
 
+router.get('/:id', middleware.userIsThere, rescue(usersController.getUserbyId));
 router.get('/', middleware.validateToken, rescue(usersController.getAllUsers));
 
 module.exports = router;
