@@ -5,15 +5,15 @@ const tokenValidMiddle = require('../validators/middlewares/tokenValidMiddle');
 
 const STATUS_CREATED = 201;
 
-// router.get('/', tokenValidMiddle, async (_req, res) => { // For model test
-//   const result = await category.getAll();
+router.get('/', tokenValidMiddle, async (_req, res) => {
+  const result = await category.getAll();
 
-//   if (result.message) {
-//     return res.status(500).json({ message: `Error in Controller. Error.msg: ${result.message}` });
-//   }
+  if (result.message) {
+    return res.status(500).json({ message: `Error in Controller. Error.msg: ${result.message}` });
+  }
 
-//   res.status(200).json(result);
-// });
+  res.status(200).json(result);
+});
 
 router.post('/', tokenValidMiddle, categoryValidMiddle, async (req, res) => {
   const { body } = req;
