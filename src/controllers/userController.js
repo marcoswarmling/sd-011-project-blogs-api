@@ -6,23 +6,31 @@ const {
   STATUS_CODE_CREATED,
 } = require('../helpers/user.js');
 
-const secret = 'hardcoded-secret';
+const JWT_SECRET = 'hardcoded-secret';
 const jwtConfig = {
-  expiresIn: '7d',
-  algorithm: 'HS256',
+expiresIn: '7d',
+algorithm: 'HS256',
 };
 
 const createUser = rescue(async (req, res) => {
   const { displayName, email, password, image } = req.body;
+  // await userService.getUserByEmail(email);
   
-  const user = await userService.createUser({ displayName, email, password, image });
+  const token = jwt.sign({ email }, JWT_SECRET, jwtConfig);
+  // console.log(token);
 
-  if (user.err) {
-    res.status().json({ message: user.err.message });
-  }
-
-  return res.status(STATUS_CODE_CREATED).json(user);
+  await userService.createUser({ displayName, email, password, image });
+  // console.log(user);
+  return res.status(STATUS_CODE_CREATED).json({ token });
 });
+
+// const getUserByEmail = rescue(async (req, res) => {
+//   const { email } = req.body;
+//   const userFound = await userService.getUserByEmail(email);
+//   console.log(userFound);
+  
+//   return res.status(STATUS_CODE_OK).json({ userFound });
+// });
 
 // const getById = rescue(async (req, res) => {
 //   try {
@@ -44,6 +52,7 @@ const createUser = rescue(async (req, res) => {
 
 module.exports = {
   createUser,
+  // getUserByEmail,
   // getById,
   // getAllUsers,
 };

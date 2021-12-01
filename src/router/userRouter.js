@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const userController = require('../controllers/userController');
-const userValidation = require('../middlewares/userValidation');
+const validationError = require('../middlewares/validationError');
 
-router.post('/', userValidation, userController.createUser);
+router.post('/', validationError, userController.createUser);
 // router.get('/', userController.getAllUsers);
 // router.get('/:id', userController.getById);
 

@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const schema = Joi.object().keys({
+const schema = Joi.object({
   displayName: Joi.string().min(8).not().empty()
   .required(),
   email: Joi.string().not().empty().email()  
@@ -10,7 +10,7 @@ const schema = Joi.object().keys({
   image: Joi.string(),
 });
 
-const userValidation = (req, res, next) => {
+const validationError = (req, res, next) => {
   const { error } = schema.validate(req.body);
   if (error) {
     return res.status(400).json({
@@ -20,4 +20,4 @@ const userValidation = (req, res, next) => {
   return next();
 };
 
-module.exports = userValidation;
+module.exports = validationError;
