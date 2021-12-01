@@ -6,7 +6,7 @@ const { errorMiddleware } = require('./Middlewares/errorMiddleware');
 const app = express();
 app.use(express.json());
 
-app.use('/users', usersRoutes);
+app.use('/user', usersRoutes);
 // app.use('/login', loginRoutes);
 
 app.use(errorMiddleware);
