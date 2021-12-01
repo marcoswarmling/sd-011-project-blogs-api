@@ -23,6 +23,7 @@ const post = async (title, content, categoryIds, data) => {
   return postResult;
 };
 
+// código inicial, antes da ajuda no plantão.
 // where: { 
 //   [Op.or]: [
 //     { title: { [Op.substring]: { searchParam } } },

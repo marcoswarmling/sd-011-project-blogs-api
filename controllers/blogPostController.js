@@ -7,7 +7,7 @@ const post = async (req, res) => {
     const result = await blogPostServices.post(title, content, categoryIds, data);
     return res.status(201).json(result);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return res.status(400).json({ message: e.message });
   }
 };
@@ -18,19 +18,18 @@ const getAllPosts = async (req, res) => {
     const allPosts = await blogPostServices.getAllPost(q);
     return res.status(200).json(allPosts);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return res.status(401).json({ message: e.message });
   }
 };
 
 const getOnePost = async (req, res) => {
   try {
-    console.log('DEU ERRO');
     const { id } = req.params;
     const result = await blogPostServices.getOnePost(id);
     return res.status(200).json(result);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return res.status(404).json({ message: e.message });
   }
 };
@@ -59,21 +58,10 @@ const deleteOnePost = async (req, res) => {
   }
 };
 
-const getPostByTerms = async (req, res) => {
-  try {
-    console.log(req.query);
-    console.log(req.searchTerm);
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json({ message: e.message });
-  }
-};
-
 module.exports = {
   post,
   getAllPosts,
   getOnePost,
   updateOnePost,
   deleteOnePost,
-  getPostByTerms,
 };
