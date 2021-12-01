@@ -5,29 +5,26 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
+function jwtValidation(req, res, next) {
+  const token = req.headers.authorization;
+
+  if (!token) throw new Error('missingToken');
+
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET);
+
+    req.token = decoded;
+    next();
+  } catch (error) {
+    throw new Error('jwtTokenError');
+  }
+}
+
 module.exports = {
   jwt,
   jwtConfig,
+  jwtValidation,
 };
-
-// /* Mesma chave privada que usamos para criptografar o token.
-//    Agora, vamos usá-la para descriptografá-lo.
-//    Numa aplicação real, essa chave jamais ficaria hardcoded no código assim,
-//    e muitos menos de forma duplicada, mas aqui só estamos interessados em
-//    ilustrar seu uso ;) */
-// const segredo = 'seusecretdetoken';
-
-// module.exports = async (req, res, next) => {
-//   /* Aquele token gerado anteriormente virá na requisição através do
-//      header Authorization em todas as rotas que queremos que
-//      sejam autenticadas. */
-//   const token = req.headers['authorization'];
-
-//   /* Caso o token não seja informado, simplesmente retornamos
-//      o código de status 401 - não autorizado. */
-//   if (!token) {
-//     return res.status(401).json({ error: 'Token não encontrado' });
-//   }
 
 //   try {
 //     /* Através o método verify, podemos validar e decodificar o nosso JWT. */
@@ -45,9 +42,6 @@ module.exports = {
 //       }
 //     */
 
-//     /* Caso o token esteja expirado, a própria biblioteca irá retornar um erro,
-//        por isso não é necessário fazer validação do tempo.
-//        Caso esteja tudo certo, nós então buscamos o usuário na base para obter seus dados atualizados */
 //     const user = await model.findUser(decoded.data.username);
 
 //     /* Não existe um usuário na nossa base com o id informado no token. */

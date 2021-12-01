@@ -14,9 +14,9 @@ async function findOne(req, res) {
   return res.status(200).json({ token: userToken });
 }
 
-async function findAll(req, res) {
+async function getAllUsers(req, res) {
   // const { email, password } = req.body;
-  const users = await userSevice.findAll();
+  const users = await userSevice.getAllUsers();
 
   return res.status(200).json(users);
 }
@@ -24,5 +24,5 @@ async function findAll(req, res) {
 module.exports = {
   findOrCreate,
   findOne,
-  findAll,
+  getAllUsers,
 };

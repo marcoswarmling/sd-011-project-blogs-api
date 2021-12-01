@@ -39,14 +39,14 @@ module.exports = {
     message: 'User already registered',
     status: 409,
   },
-  // invalidJWT: {
-  //   message: 'jwt malformed',
-  //   status: 401,
-  // },
-  // missingToken: {
-  //   message: 'missing auth token',
-  //   status: 401,
-  // },
+  jwtTokenError: {
+    message: 'Expired or invalid token',
+    status: 401,
+  },
+  missingToken: {
+    message: 'Token not found',
+    status: 401,
+  },
   // errorData: {
   //   message: 'Incorrect username or password',
   //   status: 401,
