@@ -1,4 +1,3 @@
-// const { ObjectId } = require('mongodb');
 const { User } = require('../../models');
 
 const STATUS_BAD_REQUEST = 400;
