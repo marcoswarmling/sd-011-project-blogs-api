@@ -14,4 +14,4 @@ module.exports = function login(user) {
   } catch (error) {
     return { status: 500, message: error };
   }
-}
+};

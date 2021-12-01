@@ -27,7 +27,6 @@ function passwordValidator(password, userData) {
 }
 
 const loginValidator = async (email, password) => {
-
     if (!email) {
       return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_EMAIL };
     }

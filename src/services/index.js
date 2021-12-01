@@ -3,5 +3,5 @@ const login = require('./login.js');
 
 module.exports = { 
 user,
-login
+login,
 };
