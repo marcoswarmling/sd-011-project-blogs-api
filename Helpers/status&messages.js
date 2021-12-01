@@ -22,6 +22,7 @@ const usersMessages = {
   password: '"password" length must be 6 characters long',
   passwordRequired: '"password" is required',
   emailConflict: 'User already registered',
+  userDontExists: 'User does not exist',
 };
 
 const loginMessages = {
