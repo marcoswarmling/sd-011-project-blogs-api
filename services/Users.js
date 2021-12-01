@@ -41,8 +41,18 @@ const login = async (loginData) => {
   }
 };
 
+const getAll = async () => {
+  try {
+    const response = await Users.findAll({ raw: true });   
+    return response;
+  } catch (e) {
+    return { error: 'Something went wrong' };
+  }
+};
+
 module.exports = {
   create,
   findUserByEmail,
   login,
+  getAll,
 };

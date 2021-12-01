@@ -20,7 +20,13 @@ const login = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const getAll = async (_req, res) => {
+  const response = await userService.getAll();
+  return res.status(200).json(response);
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 };
