@@ -26,10 +26,10 @@ const usersMessages = {
 
 const loginMessages = {
   emailRequired: '"email" is required',
-  passwordRequired: '"password" is required',
   emailEmpty: '"email" is not allowed to be empty',
+  passwordRequired: '"password" is required',
   passwordEmpty: '"password" is not allowed to be empty',
-  notRegistered: 'invalid fields',
+  notRegistered: 'Invalid fields',
 };
 
 const tokenMessages = {
