@@ -38,14 +38,13 @@ const createUser = rescue(async (req, res) => {
 //   return res.status(STATUS_CODE_OK).json({ userFound });
 // });
 
-// const getById = rescue(async (req, res) => {
-//   try {
-//   const user = await User.findByPk(req.params.id);
-//     res.status(STATUS_CODE_OK).json(user);
-//   } catch (error) {
-//     res.status(500).json({ message: 'erro ao pegar os usuários' });
-//   }
-// });
+const getById = rescue(async (req, res) => {
+  const user = await userService.getById(req.params.id);
+  if (!user) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+    res.status(STATUS_CODE_OK).json(user);
+});
 
 const getAllUsers = rescue(async (req, res) => {
   // const { dataValues } = req.user;
@@ -58,6 +57,6 @@ const getAllUsers = rescue(async (req, res) => {
 module.exports = {
   createUser,
   // getUserByEmail,
-  // getById,
+  getById,
   getAllUsers,
 };

@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+const { User } = require('../models');
 // const {} = require('../helpers/index');
 
 const createUser = async ({ displayName, email, password, image }) => {
@@ -28,8 +28,14 @@ const getAllUsers = async () => {
   // };
 };
 
+const getById = async (id) => {
+  const getUserById = await User.findByPk(id);
+  return getUserById;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
   getAllUsers,
+  getById,
 };
