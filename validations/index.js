@@ -1,8 +1,9 @@
-const { validDisplayName } = require('./displayName');
-const { validEmail } = require('./email');
-const { validPassword } = require('./password');
-const { validName } = require('./name');
-const { validTitle } = require('./title');
+const { validDisplayName } = require('./UserFields/displayName');
+const { validEmail } = require('./UserFields/email');
+const { validPassword } = require('./UserFields/password');
+const { validName } = require('./UserFields/name');
+
+const { validTitle } = require('./BlogPosts/title');
 
 const validationFunctions = {
   displayName: validDisplayName,

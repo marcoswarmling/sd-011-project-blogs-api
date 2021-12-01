@@ -3,7 +3,7 @@ const router = require('express').Router();
 const userController = require('../controllers/userController');
 
 const { validationFields } = require('../validations');
-const { emailAlredyExists } = require('../validations/email');
+const { emailAlredyExists } = require('../validations/UserFields/email');
 
 const authToken = require('../validations/authToken');
 
