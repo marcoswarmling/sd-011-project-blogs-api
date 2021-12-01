@@ -22,6 +22,14 @@ const categoryAlreadyExists = {
   message: 'Category already registered',
 };
 
+const nonExistentCategory = {
+  message: '"categoryIds" not found',
+};
+
+const categoryRequired = {
+  message: '"categoryIds" is required',
+};
+
 module.exports = {
   userAlreadyRegistered,
   invalidFields,
@@ -29,4 +37,6 @@ module.exports = {
   invalidToken,
   userNotFound,
   categoryAlreadyExists,
+  nonExistentCategory,
+  categoryRequired,
 };
