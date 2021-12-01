@@ -1,30 +1,24 @@
-const createError = require('http-errors');
+// const createError = require('http-errors');
 const { status, loginMessages } = require('./status&messages');
 
-const validEmail = (email) => {
-  if (!email) { 
-    throw createError(status.badRequest, loginMessages.emailRequired);
+const verifyEmail = (email) => {
+  if (email === undefined) { 
+    return { status: status.badRequest, message: loginMessages.emailRequired };
   }
   if (email.length === 0) {
-    throw createError(status.badRequest, loginMessages.emailEmpty);
+    return { status: status.badRequest, message: loginMessages.emailEmpty };
   }
   return false;
 };
 
-const validPassword = (password) => {
-  if (!password) {
-    throw createError(status.badRequest, loginMessages.passwordRequired);
+const verifyPassword = (password) => {
+  if (password === undefined) {
+    return { status: status.badRequest, message: loginMessages.passwordRequired };
   }
   if (password.length === 0) {
-    throw createError(status.badRequest, loginMessages.passwordEmpty);
+    return { status: status.badRequest, message: loginMessages.passwordEmpty };
   }
   return false;
 };
 
-const validLogin = (email, password) => {
-  validEmail(email);
-  validPassword(password);
-  return false;
-};
-
-module.exports = { validLogin };
+module.exports = { verifyEmail, verifyPassword };
