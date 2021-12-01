@@ -5,6 +5,7 @@ const {
   isEmail,
   entryNotEmpty,
 } = require('../services/verifyEntries');
+const { verifyToken } = require('../auth/authentication');
 
 function validateEntries(req, res, next) {
   const { displayName, email, password } = req.body;
@@ -45,8 +46,21 @@ function entriesNotEmpty(req, res, next) {
 
   next();
 }
+
+function validationToken(req, res, next) {
+  const { authorization } = req.headers;
+  if (authorization === '') { 
+    return res.status(401).json({ message: 'Token not found' }); 
+}
+  if (!verifyToken(authorization)) { 
+    return res.status(401).json({ message: 'Expired or invalid token' }); 
+}
+console.log(verifyToken(authorization));
+next();
+}
 module.exports = {
   validateEntries,
   entriesExists,
   entriesNotEmpty,
+  validationToken,
 };

@@ -1,12 +1,17 @@
 const express = require('express');
 const { Users } = require('../models');
-const { validateEntries, entriesExists } = require('../middlewares/validateEntries');
+const { validateEntries,
+  entriesExists,
+  validationToken, 
+} = require('../middlewares/validateEntries');
 const { createToken } = require('../auth/authentication');
 
 const router = express.Router();
 
 // Este endpoint usa o método findAll do Sequelize para retorno todos os users.
-router.get('/', async (_req, res) => {
+router.get('/',
+validationToken,
+async (_req, res) => {
   try {
     const allUsers = await Users.findAll();
 
