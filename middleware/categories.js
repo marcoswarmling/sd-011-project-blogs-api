@@ -5,9 +5,7 @@ const checkCategories = async (req, res, next) => {
     name: Joi.string().required(),
   }).validate(req.body);
 
-  if (error) res.status(400).json({ message: error.message });
-
-  console.log('chegou aqui', error);
+  if (error) return res.status(400).json({ message: error.message });
   
   next();
 };

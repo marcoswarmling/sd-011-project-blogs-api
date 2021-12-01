@@ -8,9 +8,7 @@ const checkPost = async (req, res, next) => {
     categoryIds: Joi.required(),
   }).validate(req.body);
 
-  if (error) res.status(400).json({ message: error.message });
-
-  console.log('veio aqui', error);
+  if (error) return res.status(400).json({ message: error.message });
 
   next();
 };

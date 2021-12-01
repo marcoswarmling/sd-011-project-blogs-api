@@ -17,7 +17,7 @@ const existsEmail = async (req, res, next) => {
   const { email } = req.body;
 
   const result = await User.findOne({ where: { email } });
-  if (result) res.status(409).json({ message: 'User already registered' });
+  if (result) return res.status(409).json({ message: 'User already registered' });
 
   next();
 };
@@ -25,10 +25,10 @@ const existsEmail = async (req, res, next) => {
 const authorizationToken = async (req, res, next) => {
   const token = req.header('Authorization');
 
-  if (!token) res.status(401).json({ message: 'Token not found' });
+  if (!token) return res.status(401).json({ message: 'Token not found' });
 
   jwt.verify(token, secret, (err, authorizedData) => {
-    if (err) res.status(401).json({ message: 'Expired or invalid token' });
+    if (err) return res.status(401).json({ message: 'Expired or invalid token' });
     req.userId = authorizedData.data.id;
     
     next();
@@ -39,7 +39,7 @@ const userExists = async (req, res, next) => {
   const user = req.body;
 
   const { error } = schema.validate(user);
-  if (error) res.status(400).json({ message: error.message });
+  if (error) return res.status(400).json({ message: error.message });
 
   next();
 };

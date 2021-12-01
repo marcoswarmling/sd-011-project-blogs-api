@@ -7,7 +7,7 @@ const create = async (req, res) => {
 
     return res.status(201).json(result);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 

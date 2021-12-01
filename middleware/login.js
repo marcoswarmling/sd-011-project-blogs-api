@@ -7,7 +7,7 @@ const authentication = async (req, res, next) => {
     password: Joi.string().required().length(6),
   }).validate(req.body);
 
-  if (error) res.status(400).json({ message: error.message });
+  if (error) return res.status(400).json({ message: error.message });
 
   next();
 };
@@ -16,7 +16,7 @@ const existsUser = async (req, res, next) => {
   const { email, password } = req.body;
 
   const result = await User.findOne({ where: { email, password } });
-  if (!result) res.status(400).json({ message: 'Invalid fields' });
+  if (!result) return res.status(400).json({ message: 'Invalid fields' });
 
   next();
 };
