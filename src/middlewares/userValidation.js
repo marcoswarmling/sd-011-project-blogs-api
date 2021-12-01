@@ -8,7 +8,7 @@ const invalidNameLength = new Error('invalidNameLength');
 const invalidEmailFormat = new Error('invalidEmailFormat');
 const invalidPasswordFormat = new Error('invalidPasswordFormat');
 // const nullName = new Error('nullName');
-// const nullEmail = new Error('nullEmail');
+const nullemail = new Error('nullemail');
 const nullPassword = new Error('nullPassword');
 const emptyField = new Error('emptyField');
 // const errorData = new Error('errorData');
@@ -27,7 +27,7 @@ function nameValidation(name) {
 
 function emailValidation(email) {
   if (!email) {
-    throw emptyField;
+    throw nullemail;
   }
 
   if (!isValidEmail(email)) {

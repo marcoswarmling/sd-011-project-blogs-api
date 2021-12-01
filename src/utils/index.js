@@ -15,6 +15,10 @@ module.exports = {
     message: '"password" is required',
     status: 400,
   },
+  nullemail: {
+    message: '"email" is required',
+    status: 400,
+  },
   emptyField: {
     message: 'Preencha displayName e email validos ',
     status: 400,
