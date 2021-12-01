@@ -1,18 +1,32 @@
+const jwt = require('jsonwebtoken');
 const rescue = require('express-rescue');
-// const loginService = require('../services/loginService');
-const { STATUS_CODE_BAD_REQUEST } = require('../helpers');
+const { STATUS_CODE_BAD_REQUEST, STATUS_CODE_OK } = require('../helpers');
 const userService = require('../services/userService');
+
+const JWT_SECRET = 'hardcoded-secret';
+const jwtConfig = {
+  expiresIn: '7d',
+  algorithm: 'HS256',
+};
 
 const login = rescue(async (req, res) => {
   const { email, password } = req.body;
+  // console.log(email);
+
   const findUserByEmail = await userService.getUserByEmail(email);
+  console.log(findUserByEmail);
+
+  // console.log(findUserByEmail);
   if (!findUserByEmail || findUserByEmail.password !== password) {
     return res.status(STATUS_CODE_BAD_REQUEST).json({
-      message: 'Campos inválidos',
+      message: 'Invalid fields',
     });
   }
-  console.log(findUserByEmail);
-  return res.json(findUserByEmail);
+
+  // console.log(findUserByEmail);
+  const token = jwt.sign({ email }, JWT_SECRET, jwtConfig);
+  console.log(token);
+  return res.status(STATUS_CODE_OK).json({ token });
 });
 
 module.exports = { login };
