@@ -5,5 +5,6 @@ const checkToken = require('../middlewares/checkToken.js');
 postRoute.post('/', checkToken, postController.createPost);
 postRoute.get('/', checkToken, postController.getAll);
 postRoute.get('/:id', checkToken, postController.getById);
+postRoute.put('/:id', checkToken, postController.updateById);
 
 module.exports = postRoute;

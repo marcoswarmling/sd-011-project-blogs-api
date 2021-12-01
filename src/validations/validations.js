@@ -39,9 +39,20 @@ const validateCredentials = (data) => {
   return schema;
 };
 
+const validateContentToUpdatePost = (data) => {
+  const schema = Joi.object({
+    content: Joi.string().required(),
+    title: Joi.string().required(),
+  })
+    .validate(data);
+
+  return schema; 
+};
+
 module.exports = {
   validateUser,
   validateCredentials,
   validateCategory,
   validatePost,
+  validateContentToUpdatePost,
 };
