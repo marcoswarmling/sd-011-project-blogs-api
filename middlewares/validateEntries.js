@@ -27,9 +27,9 @@ function validateEntries(req, res, next) {
 function entriesExists(req, res, next) {
   const { email, password } = req.body;
 
-  if (!passwordExists(password)) res.status(400).json({ message: '"password" is required' });
+  if (!passwordExists(password)) return res.status(400).json({ message: '"password" is required' });
 
-  if (!emailExists(email))res.status(400).json({ message: '"email" is required' });
+  if (!emailExists(email)) return res.status(400).json({ message: '"email" is required' });
 
   next();
 }

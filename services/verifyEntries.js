@@ -1,4 +1,4 @@
-// const Joi = require('joi');
+const Joi = require('joi');
 
 function passwordLength(password) {
 if (password.length !== 6) return false;
@@ -25,9 +25,9 @@ function emailExists(email) {
 }
 
 function isEmail(email) {
-  // const schema = Joi.string().email();
-  // const { error } = schema.validate(email);
-  // if (error) return false;
+  const schema = Joi.string().email();
+  const { error } = schema.validate(email);
+  if (error) return false;
 
   return true;
 }
