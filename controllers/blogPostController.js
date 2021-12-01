@@ -14,7 +14,8 @@ const post = async (req, res) => {
 
 const getAllPosts = async (req, res) => {
   try {
-    const allPosts = await blogPostServices.getAllPost();
+    const { q } = req.query;
+    const allPosts = await blogPostServices.getAllPost(q);
     return res.status(200).json(allPosts);
   } catch (e) {
     console.log(e);

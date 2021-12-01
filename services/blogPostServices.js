@@ -1,4 +1,4 @@
-// const { Op } = require('sequelize');
+const { Op } = require('sequelize');
 const { BlogPosts, Categories, Users } = require('../models/index');
 const checkAllExists = require('../helpers/checkAllExists');
 
@@ -30,15 +30,22 @@ const post = async (title, content, categoryIds, data) => {
 //   ],
 // }, 
 
-const getAllPost = async () => {
-  console.log('entrou no getAllPoSTS');
+// Resolvido com ajuda do Pablo no plantão;
+const getAllPost = async (searchParam) => {
   const allPosts = await BlogPosts.findAll({
+    where: searchParam && searchParam !== '' ? { 
+        [Op.or]: [
+          { title: { [Op.like]: `%${searchParam}%` } },
+          { content: { [Op.like]: `%${searchParam}%` } },
+        ],
+      } : null,
     attributes: { exclude: ['UserId'] },
     include: [
       { model: Users, as: 'user', attributes: { exclude: ['password'] } },
       { model: Categories, as: 'categories', through: { attributes: [] } },
     ],
   });
+
   if (!allPosts) throw new Error('No posts found');
   return allPosts;
 };
