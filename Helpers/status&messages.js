@@ -38,4 +38,9 @@ const tokenMessages = {
   invalid: 'Expired or invalid token',
 };
 
-module.exports = { status, intServerError, usersMessages, loginMessages, tokenMessages };
+const categoriesMessages = {
+  nameRequired: '"name" is required',
+};
+
+module.exports = { 
+  status, intServerError, usersMessages, loginMessages, tokenMessages, categoriesMessages };
