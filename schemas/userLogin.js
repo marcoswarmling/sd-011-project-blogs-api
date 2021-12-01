@@ -11,16 +11,17 @@ const jwtConfig = {
 };
 
 const messages = {
-    sn: 'displayName length must be at least 8 characters long',  
-    sp: 'password length must be at least 6 characers long',
-    ie: 'email must be a valid email',
-    er: 'email is required',
-    dr: 'displayName is required',
-    pr: 'password is required',
+    sn: '"displayName" length must be at least 8 characters long',  
+    sp: '"password" length must be 6 characters long',
+    ie: '"email" must be a valid email',
+    er: '"email" is required',
+    dr: '"displayName" is required',
+    pr: '"password" is required',
 };
 
 function tooShort(value, length) {
-    if (value < length) return true;
+    console.log(value.length, length);
+    if (value.length < length) return true;
 }
 
 const validateEmail = (email) => {
@@ -39,8 +40,8 @@ const emailCheck = (email) => {
 
 const nameCheck = (name) => {
     switch (true) {
-        case !name: return { code, message: messages.er };
-        case tooShort(name, 8): return { code, messages: messages.sn };
+        case !name: return { code, message: messages.dr };
+        case tooShort(name, 8): return { code, message: messages.sn };
         default: return {};
     }
 };
@@ -48,7 +49,7 @@ const nameCheck = (name) => {
 const passCheck = (password) => {
     switch (true) {
         case !password: return { code, message: messages.pr };
-        case tooShort(password, 8): return { code, message: messages.sp };
+        case tooShort(password, 6): return { code, message: messages.sp };
         default: return {};
     }
 };
