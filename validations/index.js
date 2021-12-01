@@ -4,6 +4,8 @@ const { validPassword } = require('./UserFields/password');
 const { validName } = require('./UserFields/name');
 
 const { validTitle } = require('./BlogPosts/title');
+const { validContent } = require('./BlogPosts/content');
+const { validCategoryIds } = require('./BlogPosts/categoryId');
 
 const validationFunctions = {
   displayName: validDisplayName,
@@ -11,13 +13,15 @@ const validationFunctions = {
   password: validPassword,
   name: validName,
   title: validTitle,
+  content: validContent,
+  categoryIds: validCategoryIds,
 };
 
 const endpointsValidation = {
   user: ['displayName', 'email', 'password'],
   login: ['email', 'password'],
   categories: ['name'],
-  post: ['title'],
+  post: ['title', 'content', 'categoryIds'],
 };
 
 const validationFields = (req, res, next) => {
