@@ -9,6 +9,15 @@ const createCategory = async (name) => {
   return dataValues;
 };
 
+const getCategories = async () => {
+  const categories = await Category.findAll();
+
+  if (!categories) return { code: 'notFound', message: 'No categories' };
+
+  return categories;
+};
+
 module.exports = {
   createCategory,
+  getCategories,
 };
