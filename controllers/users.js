@@ -14,4 +14,14 @@ const createNewUser = async (req, res) => {
   }
 };
 
-module.exports = { createNewUser };
+const findAllUsers = async (req, res) => {
+  try {
+    const allUsers = await usersServices.findAllUsers();
+    if (!allUsers) return res.status(404).json({ message: 'User not found' });
+    return res.status(status.sucess).json(allUsers);
+  } catch (error) {
+    return res.status(status.intServerError).json({ message: intServerError.unknown });
+  }
+};
+
+module.exports = { createNewUser, findAllUsers };
