@@ -20,7 +20,20 @@ const getAll = async () => {
   }
 };
 
+const getById = async (id) => {
+  try {
+    const response = await Categories.findOne({ where: { id }, raw: true });
+    if (!response) {
+      return null;
+    }
+    return response;
+  } catch (e) {
+    return { error: serverError };
+  }
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
