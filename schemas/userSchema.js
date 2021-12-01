@@ -15,14 +15,15 @@ const messages = {
     sp: '"password" length must be 6 characters long',
     ie: '"email" must be a valid email',
     er: '"email" is required',
+    ee: '"email" is not allowed to be empty',
+    ep: '"password" is not allowed to be empty',
     dr: '"displayName" is required',
     pr: '"password" is required',
 };
 
-function tooShort(value, length) {
-    console.log(value.length, length);
+const tooShort = (value, length) => {
     if (value.length < length) return true;
-}
+};
 
 const validateEmail = (email) => {
         const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -32,7 +33,8 @@ const validateEmail = (email) => {
 
 const emailCheck = (email) => {
     switch (true) {
-        case !email: return { code, message: messages.er };
+        case typeof email === 'undefined': return { code, message: messages.er };
+        case email.length === 0: return { code, message: messages.ee };
         case validateEmail(email) !== true: return { code, message: messages.ie };
         default: return {};
     }
@@ -48,7 +50,8 @@ const nameCheck = (name) => {
 
 const passCheck = (password) => {
     switch (true) {
-        case !password: return { code, message: messages.pr };
+        case typeof password === 'undefined': return { code, message: messages.pr };
+        case password.length === 0: return { code, message: messages.ep };
         case tooShort(password, 6): return { code, message: messages.sp };
         default: return {};
     }
@@ -84,4 +87,6 @@ module.exports = {
     secret,
     jwtConfig,
     isValid,
+    emailCheck,
+    passCheck,
 };

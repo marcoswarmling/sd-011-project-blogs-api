@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-const { isValid, jwtConfig, secret } = require('../schemas/userLogin');
+const { isValid, jwtConfig, secret } = require('../schemas/userSchema');
 
 const create = async (userToCreate) => {
     const { displayName, email, password, image } = userToCreate;
