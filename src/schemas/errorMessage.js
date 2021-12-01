@@ -69,4 +69,14 @@ module.exports = {
       message: 'User does not exist',
     },
   },
+  categories: {
+    nameRequired: {
+      statusCode: status.badRequest,
+      message: '"name" is required',
+    },
+    alreadyExists: {
+      statusCode: status.badRequest,
+      message: '"Categories" already registered',
+    },
+  },
 };
