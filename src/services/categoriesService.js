@@ -7,7 +7,7 @@ const getByName = async (name) => {
   return category;
 };
 
-const createCategory = async (name) => {
+const createCategories = async (name) => {
   const nameExists = await getByName(name);
 
   if (nameExists) throw errors.categories.alreadyExists;
@@ -17,6 +17,13 @@ const createCategory = async (name) => {
   return getByName(name);
 };
 
+const getAll = async () => {
+  const listCategories = await Categories.findAll({ raw: true });
+
+  return listCategories;
+};
+
 module.exports = {
-  createCategory,
+  createCategories,
+  getAll,
 };
