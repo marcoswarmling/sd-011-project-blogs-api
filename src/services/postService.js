@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { createError } = require('../middlewares/errors');
 const { BlogPost, PostCategory, Category, User } = require('../models');
 const { validatePost, validateContentToUpdatePost } = require('../validations/validations');
@@ -84,6 +85,29 @@ const deleteById = async (id) => {
   return deletedUser;
 };
 
+const getByTerm = async (term) => {
+  const post = await BlogPost.findAll(
+    { where: { [Op.or]: [
+      { title: { [Op.substring]: term } },
+      { content: { [Op.substring]: term } },
+    ] }, 
+      include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+        { model: Category, as: 'categories', attributes: { exclude: 'postCategory' } },
+      ],
+    },
+  );
+
+  if (!post) {
+    return BlogPost.findAl({}, { include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', attributes: { exclude: 'postCategory' } },
+    ] }); 
+  }
+
+  return post;
+};
+
 module.exports = {
   createPost,
   getAll,
@@ -91,4 +115,5 @@ module.exports = {
   updateById,
   findPost,
   deleteById,
+  getByTerm,
 };

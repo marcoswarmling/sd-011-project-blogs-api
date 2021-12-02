@@ -46,10 +46,20 @@ const deleteById = async (req, res, next) => {
   return res.status(204).end();
 };
 
+const getByTerm = async (req, res, next) => {
+  const term = req.query.q;
+
+  const post = await postService.getByTerm(term);
+  if (post.err) return next(post.err);
+
+  return res.status(200).json(post);
+};
+
 module.exports = {
   createPost,
   getAll,
   getById,
   updateById,
   deleteById,
+  getByTerm,
 };

@@ -4,6 +4,7 @@ const checkToken = require('../middlewares/checkToken.js');
 const checkPostOwner = require('../middlewares/checkPostOwner.js');
 
 postRoute.post('/', checkToken, postController.createPost);
+postRoute.get('/search', checkToken, postController.getByTerm);
 postRoute.get('/', checkToken, postController.getAll);
 postRoute.get('/:id', checkToken, postController.getById);
 postRoute.put('/:id', checkToken, checkPostOwner, postController.updateById);
