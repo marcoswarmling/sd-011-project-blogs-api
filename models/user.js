@@ -1,12 +1,16 @@
-const User = (sequelize, DataTypes) => {
-  const user = sequelize.define('User', {
+const Users = (sequelize, DataTypes) => {
+  const user = sequelize.define('Users', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     image: DataTypes.STRING,
+  }, {
+    tableName: 'Users',
+    timestamps: false, // coloco esse objeto infomando para timestamps false, pq o seeders do test está com time stamps false. e quando chega aqui se tiver os timestamps ele coloca automatico e dá erro.
   });
   
   return user;
 };
 
-module.exports = User;
+module.exports = Users;

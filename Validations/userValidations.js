@@ -22,7 +22,7 @@ async function validateEmail(req, res, next) {
 
   const registeredEmail = await getUserEmailCtrl(email);
   if (registeredEmail) {
-    res.status(409).json({ message: 'User already registered' });
+    return res.status(409).json({ message: 'User already registered' });
   }
   next();
 }

@@ -1,11 +1,11 @@
 const service = require('../services/user');
 
 async function getUserEmailCtrl(email) {
-  const registeredEmail = await service.getUserEmailServ(email);
-  if (!registeredEmail) {
+  const registeredUser = await service.getUserEmailServ(email);
+  if (!registeredUser) {
     return null;
   }
-  return registeredEmail;
+  return registeredUser;
 }
 
 async function insertUserCtrl(req, res) {

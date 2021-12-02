@@ -20,14 +20,14 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
+      // createdAt: {
+      //   allowNull: false,
+      //   type: Sequelize.DATE
+      // },
+      // updatedAt: {                   // deixei essa parte do código comentada pq o seeder passa somente id, displayName, email, password e image, deixando de lado a o createdAt e updatedAt. então eu 
+      //   allowNull: false,
+      //   type: Sequelize.DATE
+      // }
     });
   },
   down: async (queryInterface, Sequelize) => {
