@@ -6,6 +6,7 @@ const {
   entryNotEmpty,
 } = require('../services/verifyEntries');
 const { verifyToken } = require('../auth/authentication');
+const { Categories } = require('../models');
 
 function validateEntries(req, res, next) {
   const { displayName, email, password } = req.body;
@@ -67,10 +68,21 @@ function postEntrysRequired(req, res, next) {
 
   next();
 }
+
+async function categoriesExists(req, res, next) {
+const { categoryIds } = req.body;
+
+ const resposta = await Categories.findAll({ where: { id: categoryIds } });
+ 
+  if (resposta.length > 0) return next();
+
+  return res.status(400).json({ message: '"categoryIds" not found' });
+}
 module.exports = {
   validateEntries,
   entriesExists,
   entriesNotEmpty,
   validationToken,
   postEntrysRequired,
+  categoriesExists,
 };
