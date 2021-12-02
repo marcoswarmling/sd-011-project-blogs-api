@@ -49,7 +49,7 @@ const getById = async (id) => {
   return post;
 };
 
-const findOne = async (id) => BlogPost.findOne({ 
+const findPost = async (id) => BlogPost.findOne({ 
     where: { id }, 
     include: [
       { model: User, as: 'user', attributes: { exclude: 'password' } },
@@ -58,24 +58,22 @@ const findOne = async (id) => BlogPost.findOne({
   });
 
 const updateById = async (...params) => {
-  const [id, userId, content, title, categoryIds] = params;
+  const [id, content, title, categoryIds] = params;
 
   if (categoryIds) return createError('badRequest', 'Categories cannot be edited');
   
   const { error: validationError } = validateContentToUpdatePost({ content, title });
   if (validationError) return createError('badRequest', validationError.message);
 
-  const post = await findOne(id);
+  const post = await findPost(id);
   if (!post) return createError('notFound', 'Post does not exist');
   
-  if (post.dataValues.userId !== userId) return createError('unauthorized', 'Unauthorized user');
-
   await BlogPost.update(
     { title, content },
     { where: { id } },
   );
 
-  const updatedPost = await findOne(id);
+  const updatedPost = await findPost(id);
 
   return updatedPost;
 };
@@ -85,4 +83,5 @@ module.exports = {
   getAll,
   getById,
   updateById,
+  findPost,
 };

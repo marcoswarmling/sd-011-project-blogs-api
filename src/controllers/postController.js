@@ -26,11 +26,10 @@ const getById = async (req, res, next) => {
 };
 
 const updateById = async (req, res, next) => {
-  const { userId } = req;
   const { id } = req.params;
   const { content, title, categoryIds } = req.body;
 
-  const updatedPost = await postService.updateById(id, userId, content, title, categoryIds);
+  const updatedPost = await postService.updateById(id, content, title, categoryIds);
 
   if (updatedPost.err) return next(updatedPost.err);
 
