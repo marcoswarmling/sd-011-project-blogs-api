@@ -28,6 +28,31 @@ const create = async (displayName, email, password, image) => {
   return token;
 };
 
+const login = async (email, password) => {
+  const newUser = await Users.create(email, password);
+  // console.log('newUserService:', newUser);
+  if (!newUser) {
+    return {
+      err: {
+        code: 401,
+        message: 'Incorrect login',
+      },
+    };
+  }
+
+  // config com tempo e alg de assinatura
+  const jwtConfig = {
+    expiresIn: '1h',
+    algorithm: 'HS256',
+  };
+  
+  // Assina com a secret e retorna o token, em caso de suceso.
+  const token = jwt.sign({ email, password }, secret, jwtConfig);
+  
+  return token;
+};
+
 module.exports = {
   create,
+  login,
 }; 

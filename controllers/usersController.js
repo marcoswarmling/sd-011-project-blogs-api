@@ -19,6 +19,26 @@ const create = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const userExists = await Users.findOne({ where: { email, password } });
+
+    if (!userExists) {
+      return res.status(400).json({ message: 'Invalid fields' });
+    }
+    // console.log('loginController', req.body);
+ 
+    const token = await service.login({ email, password });
+    // console.log('tokenController', token); --> recebe o token
+
+    return res.status(200).json(token);
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+
 module.exports = {
   create,
+  login,
 };
