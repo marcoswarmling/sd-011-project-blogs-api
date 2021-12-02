@@ -20,6 +20,8 @@ const create = (userDataInput) => {
     });
 };
 
+const getAll = () => undefined;
+
 const login = (credentialsInput) => {
   new Schema('loginUser').validate(credentialsInput);
 
@@ -42,4 +44,5 @@ const login = (credentialsInput) => {
 module.exports = {
   create,
   login,
+  getAll,
 };
