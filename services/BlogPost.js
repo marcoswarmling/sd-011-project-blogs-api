@@ -1,5 +1,5 @@
 const { postValid } = require('../schemas/postSchema');
-const { BlogPost, Category, PostsCategory } = require('../models');
+const { BlogPost, Category, PostCategory } = require('../models');
 
 const create = async (body, user) => {
     const { title, content, categoryIds } = body;
@@ -14,7 +14,7 @@ const create = async (body, user) => {
 
     const post = await BlogPost.create({ title, content, userId: id });
     await categoryIds.map(async (catId) => {
-        await PostsCategory.create({ postId: post.id, categoryId: catId });
+        await PostCategory.create({ postId: post.id, categoryId: catId });
     });
     return { statusCode: 201, post };
 };
@@ -22,7 +22,7 @@ const create = async (body, user) => {
 const getAll = async () => {
     const resultData = await BlogPost.findAll({ include: [{ all: true }] });
     const result = resultData.map((i) => i.dataValues);
-
+    console.log(result);
     return result;
 };
 
