@@ -35,3 +35,9 @@ app.get(
   userValidations.validateJWT,
   userController.getAll,
 );
+
+app.get(
+  '/user/:id',
+  userValidations.validateJWT,
+  userController.getId,
+);
