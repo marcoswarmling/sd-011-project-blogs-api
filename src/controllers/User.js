@@ -31,6 +31,9 @@ const create = (userDataInput) => {
 const getAll = () => User.findAll()
   .then(mapModelResultToDisplayResult);
 
+const getById = (id) => User.findOne({ where: { id } })
+  .then(console.log);
+
 const login = (credentialsInput) => {
   new Schema('loginUser').validate(credentialsInput);
 
@@ -54,4 +57,5 @@ module.exports = {
   create,
   login,
   getAll,
+  getById,
 };
