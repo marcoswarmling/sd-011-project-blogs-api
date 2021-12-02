@@ -38,8 +38,17 @@ const listAllUsers = async (_req, res) => {
   return res.status(200).json(getUsers);
 };
 
+const listUserById = async (req, res) => {
+  const { id } = req.params;
+
+  const getUserId = await User.findByPk(id);
+
+  res.status(200).json(getUserId);
+};
+
 module.exports = {
   addNewUser,
   loginUser,
   listAllUsers,
+  listUserById,
 };

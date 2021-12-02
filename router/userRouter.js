@@ -4,6 +4,7 @@ const {
   addNewUser,
   loginUser,
   listAllUsers,
+  listUserById,
 } = require('../controllers/user-controllers');
 
 const {
@@ -11,6 +12,7 @@ const {
   validateEmail,
   validatePassword,
   emailExists,
+  userExists,
 } = require('../middleware/validateUser');
 
 const {
@@ -21,6 +23,11 @@ const {
 const { validToken } = require('../middleware/validateToken');
 
 const router = express.Router();
+
+router.get('/user/:id',
+validToken,
+userExists,
+listUserById);
 
 router.get('/user',
 validToken,
