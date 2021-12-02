@@ -3,7 +3,7 @@ const rescue = require('express-rescue');
 
 const usersController = require('../controllers/UsersControllers');
 
-const middleware = require('../middlewares/validateUsers');
+const middleware = require('../middlewares/validates');
 
 router.post('/', middleware.validateUser, rescue(usersController.createUser));
 

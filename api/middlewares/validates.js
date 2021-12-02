@@ -120,6 +120,14 @@ const userExists = async (req, res, next) => {
   next();
 };
 
+const hasName = async (req, res, next) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ message: '"name" is required' });
+  }
+  next();
+};
+
 const validateUser = [
   displayNameIsValid,
   hasEmail,
@@ -146,9 +154,16 @@ const userIsThere = [
   userExists,
 ];
 
+const validateCategories = [
+  hasName,
+  hasToken,
+  isTokenValid,
+];
+
 module.exports = {
   validateUser,
   loginIsValid,
   validateToken,
   userIsThere,
+  validateCategories,
 };
