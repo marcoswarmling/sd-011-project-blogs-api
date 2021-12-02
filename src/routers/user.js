@@ -20,4 +20,8 @@ router.get('/', validateToken, (_req, res) => {
     });
 });
 
+router.get('/:id', validateToken, (req, res) => {
+  res.status(200).end();
+});
+
 module.exports = router;
