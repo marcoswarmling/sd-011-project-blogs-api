@@ -7,5 +7,6 @@ const { validateJWT } = require('../middlewares/validateJWT');
 
 router.post('/', validateBody, controllers.create);
 router.get('/', validateJWT, controllers.getAll);
+router.get('/:id', validateJWT, controllers.getById);
 
 module.exports = router;

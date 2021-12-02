@@ -48,8 +48,19 @@ const getAll = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  // console.log('userControllerID', id);
+  const user = await service.getById(id);
+  // console.log('userGetIDController', user);
+  if (user.err) {
+    return res.status(user.err.code).json({ message: user.err.message });
+  }
+  return res.status(200).json(user);
+};
 module.exports = {
   create,
   login,
   getAll,
+  getById,
 };
