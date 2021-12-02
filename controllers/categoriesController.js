@@ -7,6 +7,13 @@ async function findOrCreate(req, res) {
   return res.status(201).json(category);
 }
 
+async function getAllcategories(req, res) {
+  // const { email, password } = req.body;
+  const categoriess = await categoriesSevice.getAllcategories();
+
+  return res.status(200).json(categoriess);
+}
+
 // async function findOne(req, res) {
 //   const { email, password } = req.body;
 //   const categoriesToken = await categoriesSevice.findOne(email, password);
@@ -14,12 +21,6 @@ async function findOrCreate(req, res) {
 //   return res.status(200).json({ token: categoriesToken });
 // }
 
-// async function getAllcategoriess(req, res) {
-//   // const { email, password } = req.body;
-//   const categoriess = await categoriesSevice.getAllcategoriess();
-
-//   return res.status(200).json(categoriess);
-// }
 
 // async function getcategories(req, res) {
 //   const { id } = req.params;
@@ -30,7 +31,7 @@ async function findOrCreate(req, res) {
 
 module.exports = {
   findOrCreate,
+  getAllcategories,
   // findOne,
-  // getAllcategoriess,
   // getcategories,
 };

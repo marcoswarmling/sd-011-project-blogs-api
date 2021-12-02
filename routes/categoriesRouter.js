@@ -11,9 +11,9 @@ router.post(
   rescue(nameValidation),
   rescue(jwtValidation),
   rescue(categoriesController.findOrCreate),
-);
+)
+.get('/cagetories', jwtValidation, rescue(categoriesController.getAllcategories));
 // .post('/login', rescue(loginValidation), rescue(userController.findOne))
 // .get('/user/:id', jwtValidation, rescue(userController.getUser))
-// .get('/user', jwtValidation, rescue(userController.getAllUsers));
 
 module.exports = router;

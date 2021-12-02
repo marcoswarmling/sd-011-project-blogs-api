@@ -1,4 +1,5 @@
 const { Categories } = require('../models');
+// require("dotenv").config();
 
 const findOrCreate = async (name) => {
   const [categories, created] = await Categories.findOrCreate({
