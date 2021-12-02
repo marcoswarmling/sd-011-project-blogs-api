@@ -23,6 +23,25 @@ const createUser = async (req, res) => {
   }
 };
 
+const userLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const userExists = await User.findOne({ where: { email, password } });
+
+    if (!userExists) {
+      return res.status(400).json({ message: 'Invalid fields' });
+    }
+
+    const token = jwt.sign({ email }, process.env.JWT_SECRET);
+
+    return res.status(200).json({ token });
+  } catch (error) {
+    res.status(500).json(somethingIsWrong);
+  }
+};
+
 module.exports = {
   createUser,
+  userLogin,
 };
