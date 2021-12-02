@@ -1,9 +1,12 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+// const { User } = require('../models');
 
 const secret = process.env.SECRET || 'somethingForTheEvaluator';
 
-const code = 400;
+const codes = {
+    nf: 400,
+    na: 401,
+};
 
 const jwtConfig = {
     expiresIn: '7d',
@@ -19,6 +22,8 @@ const messages = {
     ep: '"password" is not allowed to be empty',
     dr: '"displayName" is required',
     pr: '"password" is required',
+    jwtm: 'Token not found',
+    jwti: 'Expired or invalid token',
 };
 
 const tooShort = (value, length) => {
@@ -33,26 +38,26 @@ const validateEmail = (email) => {
 
 const emailCheck = (email) => {
     switch (true) {
-        case typeof email === 'undefined': return { code, message: messages.er };
-        case email.length === 0: return { code, message: messages.ee };
-        case validateEmail(email) !== true: return { code, message: messages.ie };
+        case typeof email === 'undefined': return { code: codes.nf, message: messages.er };
+        case email.length === 0: return { code: codes.nf, message: messages.ee };
+        case validateEmail(email) !== true: return { code: codes.nf, message: messages.ie };
         default: return {};
     }
 };
 
 const nameCheck = (name) => {
     switch (true) {
-        case !name: return { code, message: messages.dr };
-        case tooShort(name, 8): return { code, message: messages.sn };
+        case !name: return { code: codes.nf, message: messages.dr };
+        case tooShort(name, 8): return { code: codes.nf, message: messages.sn };
         default: return {};
     }
 };
 
 const passCheck = (password) => {
     switch (true) {
-        case typeof password === 'undefined': return { code, message: messages.pr };
-        case password.length === 0: return { code, message: messages.ep };
-        case tooShort(password, 6): return { code, message: messages.sp };
+        case typeof password === 'undefined': return { code: codes.nf, message: messages.pr };
+        case password.length === 0: return { code: codes.nf, message: messages.ep };
+        case tooShort(password, 6): return { code: codes.nf, message: messages.sp };
         default: return {};
     }
 };
@@ -69,16 +74,18 @@ const isValid = (displayName, email, password) => {
 
 const validateJWT = async (req, res, next) => {
     const token = req.headers.authorization;
-    if (!token) return res.status(code).json({ message: messages.mt });
+    if (!token) { 
+        return res.status(codes.na).json({ message: messages.jwtm });
+    }
     try {
         const decoded = jwt.verify(token, secret);
-        if (!decoded) return res.status(code).json({ message: messages.jwt });
-        const user = await User.findByEmail(decoded.data.email);
-        if (!user) return res.status(code).json({ message: messages.jwt });
-        req.user = user;
+        if (!decoded) return res.status(codes.na).json({ message: messages.jwti });
+        // const user = await User.findByEmail(decoded.data.email);
+        // if (!user) return res.status(code).json({ message: messages.jwt });
+        // req.user = user;
         next();
     } catch (err) {
-       return res.status(code).json({ message: err.message });
+       return res.status(codes.na).json({ message: messages.jwti });
    }
 };
 

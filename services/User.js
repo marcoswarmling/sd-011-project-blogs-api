@@ -10,7 +10,6 @@ const create = async (userToCreate) => {
     if (validations.message) return validations;
 
     const userExists = await User.findOne({ where: { email: userToCreate.email } });
-    console.log(userExists);
 
     if (userExists) return { statusCode: 409, message: 'User already registered' };
 
@@ -21,6 +20,12 @@ const create = async (userToCreate) => {
     return { statusCode: 201, token };
 };
 
+const getAll = async () => {
+    const result = await User.findAll();
+    return result;
+};
+
 module.exports = {
     create,
+    getAll,
 };
