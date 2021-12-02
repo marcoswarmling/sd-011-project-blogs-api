@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-// const { User } = require('../models');
+const { User } = require('../models');
 
 const secret = process.env.SECRET || 'somethingForTheEvaluator';
 
@@ -22,6 +22,9 @@ const messages = {
     ep: '"password" is not allowed to be empty',
     dr: '"displayName" is required',
     pr: '"password" is required',
+    tr: '"title" is required',
+    cr: '"content" is required',
+    cir: '"categoryIds" is required',
     jwtm: 'Token not found',
     jwti: 'Expired or invalid token',
 };
@@ -80,9 +83,10 @@ const validateJWT = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, secret);
         if (!decoded) return res.status(codes.na).json({ message: messages.jwti });
-        // const user = await User.findByEmail(decoded.data.email);
+        console.log(decoded.data);
+        const user = await User.findOne({ where: { email: decoded.data.email } });
         // if (!user) return res.status(code).json({ message: messages.jwt });
-        // req.user = user;
+        req.user = user;
         next();
     } catch (err) {
        return res.status(codes.na).json({ message: messages.jwti });
@@ -96,4 +100,6 @@ module.exports = {
     isValid,
     emailCheck,
     passCheck,
+    codes,
+    messages,
 };
