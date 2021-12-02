@@ -14,7 +14,7 @@ const findOrCreate = async (displayName, email, password, image) => {
 
   const token = jwt.sign(
     { data: { displayName: user.displayName, email: user.email } },
-    process.env.SECRET,
+    process.env.JWT_SECRET,
     jwtConfig,
   );
 
@@ -30,7 +30,7 @@ const findOne = async (email, password) => {
 
   const token = jwt.sign(
     { data: { displayName: user.displayName, email: user.email } },
-    process.env.SECRET,
+    process.env.JWT_SECRET,
     jwtConfig,
   );
 

@@ -23,7 +23,7 @@ const findOrCreate = async (name) => {
 
 //   const token = jwt.sign(
 //     { data: { displayName: 'Categories.displayName, email: 'Categories.email } },
-//     process.env.SECRET,
+//     process.env.JWT_SECRET,
 //     jwtConfig,
 //   );
 

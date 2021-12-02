@@ -12,7 +12,7 @@ function jwtValidation(req, res, next) {
   if (!token) throw new Error('missingToken');
 
   try {
-    const decoded = jwt.verify(token, process.env.SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.token = decoded;
     next();
