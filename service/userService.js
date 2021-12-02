@@ -10,7 +10,7 @@ const jwtConfig = {
 const userModelRegister = async (displayName, email, password, image) => {
     const userEmail = email;
     const findUser = await User.findOne({ where: { email: userEmail } });
-
+    
     if (findUser !== null) {
         return { error: 'Email_Exists' };
     }
