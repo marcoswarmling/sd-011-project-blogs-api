@@ -17,7 +17,7 @@ const getUserEmail = async (email) => {
 const createUser = async ({ name, email, password, image }) => {
   await User.create({ name, email, password, image });
 
-  const token = jwt.sign({ data: name }, secret, jwtConfig);
+  const token = jwt.sign({ data: email }, secret, jwtConfig);
   return token;
 };
 
@@ -32,8 +32,15 @@ const login = async (email) => {
   return false;
 };
 
+const getAll = async () => {
+  const users = await User.findAll();
+
+  return users;
+};
+
 module.exports = {
   getUserEmail,
   createUser,
   login,
+  getAll,
 };

@@ -27,7 +27,14 @@ const login = async (req, res) => {
   return res.status(200).json({ token: findEmail });
 };
 
+const getAll = async (_req, res) => {
+  const users = await service.getAll();
+
+  return res.status(200).json(users);
+};
+
 module.exports = {
   createUser,
   login,
+  getAll,
 };

@@ -29,3 +29,9 @@ app.post(
   userValidations.validatePassword,
   userController.login,
 );
+
+app.get(
+  '/user',
+  userValidations.validateJWT,
+  userController.getAll,
+);
