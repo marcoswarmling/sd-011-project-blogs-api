@@ -64,9 +64,6 @@ const updateById = async (...params) => {
   
   const { error: validationError } = validateContentToUpdatePost({ content, title });
   if (validationError) return createError('badRequest', validationError.message);
-
-  const post = await findPost(id);
-  if (!post) return createError('notFound', 'Post does not exist');
   
   await BlogPost.update(
     { title, content },
@@ -78,10 +75,20 @@ const updateById = async (...params) => {
   return updatedPost;
 };
 
+const deleteById = async (id) => {
+  const post = await findPost(id);
+  if (!post) return createError('notFound', 'Post does not exist');
+  
+  const deletedUser = await BlogPost.destroy({ where: { id } });
+
+  return deletedUser;
+};
+
 module.exports = {
   createPost,
   getAll,
   getById,
   updateById,
   findPost,
+  deleteById,
 };

@@ -7,5 +7,6 @@ postRoute.post('/', checkToken, postController.createPost);
 postRoute.get('/', checkToken, postController.getAll);
 postRoute.get('/:id', checkToken, postController.getById);
 postRoute.put('/:id', checkToken, checkPostOwner, postController.updateById);
+postRoute.delete('/:id', checkToken, checkPostOwner, postController.deleteById);
 
 module.exports = postRoute;
