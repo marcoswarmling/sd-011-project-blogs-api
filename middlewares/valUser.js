@@ -1,5 +1,8 @@
+const jwt = require('jsonwebtoken');
 const { createUser } = require('../schema');
 const { User } = require('../models');
+
+const { JWT_SECRET } = process.env;
 
 const valUser = async (req, res, next) => {
   const { displayName, email, password } = req.body;
@@ -25,4 +28,18 @@ const valUser = async (req, res, next) => {
   next();
 };
 
-module.exports = { valUser };
+const valToken = async (req, res, next) => {
+  const token = req.header('Authorization');
+
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+
+  jwt.verify(token, JWT_SECRET, (error) => {
+    if (error) {
+      return res.status(401).json({ message: 'Expired or invalid token' });
+    }
+  });
+
+  next();
+};
+
+module.exports = { valUser, valToken };
