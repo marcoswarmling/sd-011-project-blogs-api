@@ -11,4 +11,10 @@ router.post('/', validationToken, async (req, res) => {
     return res.status(201).json(data);
 });
 
+router.get('/', validationToken, async (_req, res) => {
+  const data = await Categories.findAll();
+
+  return res.status(200).json(data);
+});
+
 module.exports = router;
