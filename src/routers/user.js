@@ -13,7 +13,11 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/', validateToken, (_req, res) => {
-  res.status(200).end();
+  Controller.getAll()
+    .then((users) => {
+      res.status(200).json(users);
+      console.log(users);
+    });
 });
 
 module.exports = router;

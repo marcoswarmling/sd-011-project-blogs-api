@@ -3,6 +3,14 @@ const { Schema } = require('../services/validation');
 const { sign } = require('../services/token');
 const { ConflictError, ValidationError } = require('../errors');
 
+const getDisplayResultFromModelResult = ({ dataValues }) => {
+  const displayResult = { ...dataValues };
+  delete displayResult.password;
+  return displayResult;
+};
+
+const mapModelResultToDisplayResult = (result) => result.map(getDisplayResultFromModelResult);
+
 const create = (userDataInput) => {
   new Schema('createUser').validate(userDataInput);
 
@@ -20,7 +28,8 @@ const create = (userDataInput) => {
     });
 };
 
-const getAll = () => undefined;
+const getAll = () => User.findAll()
+  .then(mapModelResultToDisplayResult);
 
 const login = (credentialsInput) => {
   new Schema('loginUser').validate(credentialsInput);
