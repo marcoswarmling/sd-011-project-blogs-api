@@ -8,10 +8,9 @@ async function findOrCreate(req, res) {
 }
 
 async function getAllcategories(req, res) {
-  // const { email, password } = req.body;
-  const categoriess = await categoriesSevice.getAllcategories();
+  const categories = await categoriesSevice.getAllcategories();
 
-  return res.status(200).json(categoriess);
+  return res.status(200).json(categories);
 }
 
 // async function findOne(req, res) {
@@ -20,7 +19,6 @@ async function getAllcategories(req, res) {
 
 //   return res.status(200).json({ token: categoriesToken });
 // }
-
 
 // async function getcategories(req, res) {
 //   const { id } = req.params;

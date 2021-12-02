@@ -14,6 +14,8 @@ const findOrCreate = async (name) => {
   return categories;
 };
 
+const getAllcategories = async () => Categories.findAll();
+
 // const findOne = async (email, password) => {
 //   const 'Categories = await 'Categories.findOne({ where: { email, password } });
 
@@ -30,10 +32,6 @@ const findOrCreate = async (name) => {
 //   return token;
 // };
 
-// const getAll'Categoriess = async () => 'Categories.findAll({
-//   attributes: ['id', 'displayName', 'email', 'image'],
-// });
-
 // const get'Categories = async (id) => {
 //   const 'Categories = await 'Categories.findByPk(id, {
 //     attributes: ['id', 'displayName', 'email', 'image'],
@@ -48,4 +46,5 @@ const findOrCreate = async (name) => {
 
 module.exports = {
   findOrCreate,
+  getAllcategories,
 };
