@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const categoriesRouter = require('./src/routers/categories');
 const userRouter = require('./src/routers/user');
 const rootRouter = require('./src/routers/root');
 const handleError = require('./src/middlewares/handleError');
@@ -8,8 +9,8 @@ const handleError = require('./src/middlewares/handleError');
 const app = express();
 app.use(express.json());
 
+app.use('/categories', categoriesRouter);
 app.use('/user', userRouter);
-
 app.use('/', rootRouter);
 
 app.use(handleError);
