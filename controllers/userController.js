@@ -26,8 +26,8 @@ router.post('/',
   validateEntries,
   async (req, res) => {
     try {
-     await Users.create(req.body);
-     const token = createToken(req.body);
+     const { dataValues } = await Users.create(req.body);
+     const token = createToken(dataValues);
      return res.status(201).json({ token });
     } catch (e) {
      return res.status(409).json({ message: 'User already registered' }); 
