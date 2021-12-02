@@ -1,4 +1,18 @@
+const Joi = require('joi');
 const { findUserByEmail } = require('../services/users');
+
+const validateUserWithJoi = async (req, res, next) => {
+  const { error } = Joi.object({
+    displayName: Joi.string().min(8),
+    email: Joi.string().email().required(),
+    password: Joi.string().length(6).required(),
+    image: Joi.string().not().required(),
+  }).validate(req.body);
+
+  if (error) return next(error);
+
+  next();
+};
 
 const displayNameValidation = (req, res, next) => {
   const { displayName } = req.body;
@@ -58,6 +72,7 @@ const validateRegistereduser = async (req, res, next) => {
 };
 
 module.exports = {
+  validateUserWithJoi,
   displayNameValidation,
   emailValidation,
   passwordValidation,

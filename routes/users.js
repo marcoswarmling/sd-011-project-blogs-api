@@ -6,10 +6,7 @@ const middlewares = require('../middlewares/users');
 const controllers = require('../controllers/users');
 
 routes.post('/',
-  middlewares.displayNameValidation,
-  middlewares.emailValidation,
-  middlewares.requiredPassword,
-  middlewares.passwordValidation,
+  middlewares.validateUserWithJoi,
   middlewares.validateRegistereduser,
   controllers.createUser,
   () => console.log('Cheguei aqui'));
