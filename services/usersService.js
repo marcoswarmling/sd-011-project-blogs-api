@@ -18,8 +18,7 @@ const create = async (displayName, email, password, image) => {
   }
 
   const jwtConfig = {
-    expiresIn: '1h',
-    algorithm: 'HS256',
+    expiresIn: '10d',
   };
  
   // gero o token e o retorno
@@ -42,8 +41,7 @@ const login = async (email, password) => {
 
   // config com tempo e alg de assinatura
   const jwtConfig = {
-    expiresIn: '1h',
-    algorithm: 'HS256',
+    expiresIn: '10d',
   };
   
   // Assina com a secret e retorna o token, em caso de suceso.
@@ -52,7 +50,14 @@ const login = async (email, password) => {
   return token;
 };
 
+const getAll = async () => {
+  const users = await Users.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
+  console.log('getAllUserService', users);
+  return users;
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 }; 

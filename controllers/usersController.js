@@ -38,7 +38,18 @@ const login = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  try {
+    const users = await service.getAll();
+    console.log('getAllUsersController', users);
+    return res.status(200).json(users);
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 };
