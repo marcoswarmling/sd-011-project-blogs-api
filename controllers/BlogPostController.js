@@ -14,7 +14,7 @@ const create = async (req, res) => {
 };
 
 const getAll = async (req, res) => {
-  console.log('cheguei no controller');
+  // console.log('cheguei no controller');
   try {
     const data = await BlogPostService.getAllBP();
     return res.status(200).json(data);
@@ -23,7 +23,19 @@ const getAll = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const blogPost = await BlogPostService.getById(id);
+
+    return res.status(200).json(blogPost);
+  } catch (error) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

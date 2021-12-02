@@ -6,7 +6,7 @@ const createBlogPost = async (title, content, userId) => {
 };
 
 const getAllBP = async () => {
-  console.log('cheguei no service');
+  // console.log('cheguei no service');
 
   const data = await BlogPosts.findAll({
     include: [
@@ -24,7 +24,22 @@ const getAllBP = async () => {
   throw new Error('Não há nenhum BlogPost!');
 };
 
+const getById = async (id) => {
+    const getPost = await BlogPosts.findByPk(id);
+    if (getPost.id === null) throw new Error('Post does not exist');
+  
+    const data = await BlogPosts.findByPk(id, {
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Categories, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+  
+    return data;
+};
+
 module.exports = {
   createBlogPost,
   getAllBP,
+  getById,
 };
