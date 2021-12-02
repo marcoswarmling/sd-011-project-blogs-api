@@ -14,7 +14,7 @@ const createUser = async (displayName, email, password, image) => {
 
   const getAll = async () => {
   const users = await User.findAll();
-  console.log('ESSE É O MEU RESPONSE DO USERS');
+  /* console.log('ESSE É O MEU RESPONSE DO USERS', users); */
   
   // .map para atender os requisitos de retornar um array de objeto da linha 20
   const getUserWithoutPassword = users.map(

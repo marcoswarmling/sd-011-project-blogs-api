@@ -28,7 +28,6 @@ const valUser = async (req, res, next) => {
 
 const valToken = (req, res, next) => {
   const token = req.header('Authorization');
-  console.log('Cannot set headers after they are sent to the client', token);
 
   if (!token) return res.status(401).json({ message: 'Token not found' });
 

@@ -9,13 +9,13 @@ router.post('/user', valUser, async (req, res) => {
 
   const token = await createUser(displayName, email, password, image);
 
- /*  console.log('ESSE É O MEU TOKEN', token); */
-  res.status(201).json(token);
+  /* console.log('ESSE É O MEU TOKEN', { token });  */
+  res.status(201).json({ token });
 });
 
 router.get('/user', valToken, async (_req, res) => {
   const response = await getAll();
-  console.log('ESSE É O MEU RESPONSE DO CONTROLLER', response);
+  /* console.log('ESSE É O MEU RESPONSE DO CONTROLLER', response); */
   res.status(200).json(response);
 });
 

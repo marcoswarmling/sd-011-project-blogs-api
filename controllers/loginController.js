@@ -9,7 +9,8 @@ router.post('/login', valLogin, async (req, res) => {
 
   const token = await loginUser(email, password);
 
-  res.status(200).json(token);
+  console.log('ESSE É O MEU TOKEN DO LOGIN', { token }); 
+  res.status(200).json({ token });
 });
 
 module.exports = router;
