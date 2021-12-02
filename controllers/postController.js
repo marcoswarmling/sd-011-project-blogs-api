@@ -12,6 +12,13 @@ const createPost = rescue(async (req, res, next) => {
     : res.status(201).json(result);
 });
 
+const getPosts = rescue(async (_req, res, _next) => {
+  const result = await service.getPosts();
+
+  return res.status(200).json(result);
+});
+
 module.exports = {
   createPost,
+  getPosts,
 };
