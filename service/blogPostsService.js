@@ -2,6 +2,8 @@ const { BlogPosts } = require('../models');
 
 const create = async (title, content, userId) => {
   const result = await BlogPosts.create({ title, content, userId });
+
+  console.log('teste agora 3', userId);
   
   return result;
 };

@@ -4,7 +4,12 @@ const create = async (req, res) => {
   try {
     const { title, content } = req.body;
     const { userId } = req;
+    
+    console.log('teste agora 1', userId);
+    
     const result = await service.create(title, content, userId);
+
+    console.log('teste agora 2', result.userId);
 
     return res.status(201).json(result);
   } catch (error) {

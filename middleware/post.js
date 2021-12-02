@@ -18,19 +18,6 @@ const checkPost = async (req, res, next) => {
   next();
 };
 
-const authorizationTokenPost = async (req, res, next) => {
-  const token = req.header('Authorization');
-
-  if (!token) return res.status(401).json({ message: 'Token not found' });
-
-  jwt.verify(token, secret, (err, authorizedData) => {
-    if (err) return res.status(401).json({ message: 'Expired or invalid token' });
-    req.userId = authorizedData.data.id;
-    
-    next();
-  });
-};
-
 const categoryExists = async (req, res, next) => {
   const { categoryIds } = req.body;
 
@@ -41,6 +28,17 @@ const categoryExists = async (req, res, next) => {
   if (!resultFinal) return res.status(400).json({ message: '"categoryIds" not found' });
 
   next();
+};
+
+const authorizationTokenPost = async (req, res) => {
+  const token = req.header('Authorization');
+
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+
+  const { data: { id } } = jwt.verify(token, secret, (err) => {
+    if (err) return res.status(401).json({ message: 'Expired or invalid token' });
+    return id;
+  });
 };
 
 module.exports = { checkPost, authorizationTokenPost, categoryExists };
