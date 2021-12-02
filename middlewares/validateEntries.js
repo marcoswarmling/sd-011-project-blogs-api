@@ -55,7 +55,6 @@ function validationToken(req, res, next) {
   if (!verifyToken(authorization)) { 
     return res.status(401).json({ message: 'Expired or invalid token' }); 
 }
-console.log(verifyToken(authorization));
 next();
 }
 module.exports = {
