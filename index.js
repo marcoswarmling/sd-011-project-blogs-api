@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userValidations = require('./validations/userValidate');
 const userController = require('./controllers/userController');
+const categoryValidations = require('./validations/categoryValidate');
+const categoryController = require('./controllers/categoryController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -40,4 +42,11 @@ app.get(
   '/user/:id',
   userValidations.validateJWT,
   userController.getId,
+);
+
+app.post(
+  '/categories',
+  userValidations.validateJWT,
+  categoryValidations.validateName,
+  categoryController.createCategory,
 );
