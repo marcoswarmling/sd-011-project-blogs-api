@@ -22,3 +22,10 @@ app.post(
   userValidations.validatePassword,
   userController.createUser,
 );
+
+app.post(
+  '/login',
+  userValidations.validateEmail,
+  userValidations.validatePassword,
+  userController.login,
+);

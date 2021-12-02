@@ -21,7 +21,19 @@ const createUser = async ({ name, email, password, image }) => {
   return token;
 };
 
+const login = async (email) => {
+  const userEmail = await getUserEmail(email);
+
+  if (userEmail) {
+    const token = jwt.sign({ data: email }, secret, jwtConfig);
+    return token;
+  }
+
+  return false;
+};
+
 module.exports = {
   getUserEmail,
   createUser,
+  login,
 };

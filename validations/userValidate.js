@@ -19,14 +19,18 @@ const validateEmail = async (req, res, next) => {
 
   const msgRequired = '"email" is required';
   const msgValidEmail = '"email" must be a valid email';
+  const msgEmpty = '"email" is not allowed to be empty';
 
+  if (email === '') {
+    return res.status(400).json({ message: msgEmpty });
+  }
   if (!email || email === undefined) {
     return res.status(400).json({ message: msgRequired });
   }
   if (!emailRegex.test(email)) {
     return res.status(400).json({ message: msgValidEmail });
   }
-
+  
   next();
 };
 
@@ -34,9 +38,13 @@ const validatePassword = (req, res, next) => {
   const { password } = req.body;
 
   const msgRequired = '"password" is required';
-  const msgLength = '"password" length must be 6 characters long'; 
+  const msgLength = '"password" length must be 6 characters long';
+  const msgEmpty = '"password" is not allowed to be empty';
 
-  if (!password) {
+  if (password === '') {
+    return res.status(400).json({ message: msgEmpty });
+  }
+  if (!password || password === undefined) {
     return res.status(400).json({ message: msgRequired });
   }
   if (password.length < 6) {
