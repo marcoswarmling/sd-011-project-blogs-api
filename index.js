@@ -20,6 +20,5 @@ app.post(
   userValidations.validateEmail,
   userValidations.validateName,
   userValidations.validatePassword,
-  userValidations.checkEmailExists,
   userController.createUser,
 );
