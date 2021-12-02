@@ -5,6 +5,9 @@ const validedEmailLogin = require('./emailValidatorLogin');
 const validedPasswordLogin = require('./passwordValidatorLogin');
 const validedToken = require('./tokenValidator');
 const validedCategoryName = require('./nameCategoryValidator');
+const validedTitle = require('./titleValidator');
+const validedContent = require('./contentValidator');
+const validedCategoryId = require('./categoryIdValidation');
 
 module.exports = {
   validedEmail,
@@ -14,4 +17,7 @@ module.exports = {
   validedPasswordLogin,
   validedToken,
   validedCategoryName,
+  validedTitle,
+  validedContent,
+  validedCategoryId,
 };
