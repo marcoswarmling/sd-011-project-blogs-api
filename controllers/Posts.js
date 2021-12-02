@@ -52,10 +52,17 @@ const deleteById = async (req, res) => {
   return res.status(204).end();
 };
 
+const getByQuery = async (req, res) => {
+  const q = req.query.q || null;
+  const response = await postsServices.getByQuery(q);
+  return res.status(200).json(response);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updateById,
   deleteById,
+  getByQuery,
 };

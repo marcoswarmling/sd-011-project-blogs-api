@@ -126,10 +126,27 @@ const deleteById = async (postData) => {
   }
 };
 
+const getByQuery = async (q) => {
+  try {
+    const response = await getAll();
+    if (!q) {
+      return response;
+    }
+
+    const searchResult = response
+    .filter((posts) => posts.title.includes(q) || posts.content.includes(q));
+
+    return searchResult;
+  } catch (e) {
+    return { error: serverError };
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updateById,
   deleteById,
+  getByQuery,
 };
