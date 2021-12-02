@@ -106,9 +106,30 @@ const updateById = async (postData) => {
   }
 };
 
+const deleteById = async (postData) => {
+  const { id, userId } = postData;
+  try {
+    const postToDelete = await BlogPosts.findOne({ 
+      where: { id },
+    });
+    if (!postToDelete) {
+      return { message: 'Post does not exist' };
+    }
+
+    if (postToDelete.userId !== userId) {
+      return { message: 'Unauthorized user' };
+    }
+    const response = await BlogPosts.destroy({ where: { id } });
+    return response;
+  } catch (e) {
+    return { error: serverError };
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updateById,
+  deleteById,
 };

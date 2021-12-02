@@ -9,5 +9,6 @@ router.post('/', validationJWT, newPostValidations, postsController.create);
 router.get('/', validationJWT, postsController.getAll);
 router.get('/:id', validationJWT, postsController.getById);
 router.put('/:id', validationJWT, updatePostValidations, postsController.updateById);
+router.delete('/:id', validationJWT, postsController.deleteById);
 
 module.exports = router;

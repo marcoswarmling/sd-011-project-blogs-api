@@ -64,10 +64,20 @@ const getById = async (id) => {
   }
 };
 
+const deleteById = async (id) => {
+  try {
+    const response = await Users.destroy({ where: { id } });
+    return response;
+  } catch (e) {
+    return { error: serverError };
+  }
+};
+
 module.exports = {
   create,
   findUserByEmail,
   login,
   getAll,
   getById,
+  deleteById,
 };

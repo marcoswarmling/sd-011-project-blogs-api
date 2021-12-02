@@ -38,9 +38,24 @@ const updateById = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const deleteById = async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req.userData;
+  const response = await postsServices.deleteById({ id, userId });
+  const { message } = response;
+  if (message && message === 'Post does not exist') {
+    return res.status(404).json(response);
+  }
+  if (message) {
+    return res.status(401).json(response);
+  }
+  return res.status(204).end();
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updateById,
+  deleteById,
 };
