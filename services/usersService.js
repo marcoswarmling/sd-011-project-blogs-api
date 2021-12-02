@@ -47,12 +47,12 @@ const login = async (email, password) => {
   // Assina com a secret e retorna o token, em caso de suceso.
   const token = jwt.sign({ email, password }, secret, jwtConfig);
   
-  return token;
+  return { token };
 };
 
 const getAll = async () => {
   const users = await Users.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
-  console.log('getAllUserService', users);
+  // console.log('getAllUserService', users);
   return users;
 };
 

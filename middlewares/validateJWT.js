@@ -1,12 +1,13 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const secret = process.env.JWT_SECRET;   
+const secret = process.env.JWT_SECRET;
+// console.log('JWT_SECRET', secret);
 
 const validateJWT = (req, res, next) => {
   // Pego o token gerado do usuãrio
   const token = req.headers.authorization;
-  console.log('tokenValidation', token);
+  // console.log('tokenValidation', token);
 
   // Se não encontrar o token, retorna a mensagem de erro, especificamente não encontrou o token
   if (!token) {
@@ -16,7 +17,7 @@ const validateJWT = (req, res, next) => {
   try {
     // valida o jwt (verify)
     const decoded = jwt.verify(token, secret);
-    console.log('decoded', decoded);
+    // console.log('decoded', decoded);
 
     // deixa o usuário disponível ao colocá-lo em req
     req.user = decoded;
