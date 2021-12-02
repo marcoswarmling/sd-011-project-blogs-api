@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyparser = require('body-parser').json();
-const userRouter = require('./src/routes/userRouter');
-const middlewareError = require('./src/middlewares/errors');
+const userRouter = require('./routes/userRouter');
+const middlewareError = require('./middlewares/errors');
 
 const app = express();
 
