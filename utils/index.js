@@ -47,6 +47,10 @@ module.exports = {
     message: 'Token not found',
     status: 401,
   },
+  userNotExist: {
+    message: 'User does not exist',
+    status: 404,
+  },
   // errorData: {
   //   message: 'Incorrect username or password',
   //   status: 401,

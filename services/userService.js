@@ -40,8 +40,21 @@ const getAllUsers = async () => User.findAll({
   attributes: ['id', 'displayName', 'email', 'image'],
 });
 
+const getUser = async (id) => {
+  const user = await User.findByPk(id, {
+    attributes: ['id', 'displayName', 'email', 'image'],
+  });
+
+  if (user === null) {
+    throw new Error('userNotExist');
+  }
+
+  return user;
+};
+
 module.exports = {
   findOrCreate,
   findOne,
   getAllUsers,
+  getUser,
 };
