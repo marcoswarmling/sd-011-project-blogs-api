@@ -1,4 +1,4 @@
-const { BlogPosts, Users, Categories } = require('../models');
+const { BlogPosts, Users, Categories, PostsCategories } = require('../models');
 const categoriesServices = require('./Categories');
 
 const serverError = 'Something went wrong';
@@ -15,23 +15,43 @@ const includeUserAndCategoriesInformations = [
   },
 ];
 
+const includeCategoriesInformations = [
+  { model: Categories,
+    as: 'categories',
+    through: { attributes: [] }, 
+    attributes: { exclude: ['PostsCategories'] },
+  },
+];
+
+const createaPostCategoryAssociation = async (postId, categoryId) => {
+  try {
+    const response = await PostsCategories.create({ postId, categoryId });
+    return response;
+  } catch (e) {
+    return { error: serverError };
+  }
+};
+
 const create = async (postData) => {
   try {
-    const { categoryIds } = postData;
+    const { categories } = postData;
 
-    if (categoryIds.length === 0) {
+    if (categories.length === 0) {
       return categoryNotFoundMessage;
     }
 
     const searchResultCategories = await Promise
-    .all(categoryIds.map(async (id) => categoriesServices.getById(id)));
+    .all(categories.map(async (id) => categoriesServices.getById(id)));
 
     if (someCategoryNotExist(searchResultCategories)) {
       return categoryNotFoundMessage;
     }
-
+  
     const response = await BlogPosts.create(postData);
     const { id, userId, title, content } = response;
+
+    await Promise
+    .all(categories.map(async (categoryId) => createaPostCategoryAssociation(id, categoryId)));
 
     return { id, userId, title, content };
   } catch (e) {
@@ -60,7 +80,27 @@ const getById = async (id) => {
     if (!response) {
       return { message: 'Post does not exist' };
     }
+
     return response;
+  } catch (e) {
+    return { error: serverError };
+  }
+};
+
+const updateById = async (postData) => {
+  const { id, title, content, userId } = postData;
+  try {
+    const currentPost = await BlogPosts.findOne({ 
+      where: { id }, 
+      include: includeCategoriesInformations,
+    });
+    if (!currentPost || currentPost.userId !== userId) {
+      return { message: 'Unauthorized user' };
+    }
+
+    await BlogPosts.update({ title, content }, { where: { id } });
+    const { categories } = currentPost;
+    return { title, content, userId, categories };
   } catch (e) {
     return { error: serverError };
   }
@@ -70,4 +110,5 @@ module.exports = {
   create,
   getAll,
   getById,
+  updateById,
 };
