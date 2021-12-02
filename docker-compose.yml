@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  node:
+    image: node
+    container_name: blog-node
+    command: npm run debug
+    depends_on: 
+      - mysql
+    ports:
+      - "3000:3000"
+    volumes: 
+      - .:/project
+      - type: volume
+        source: mynode
+        target: /etc
+    networks: 
+      - app
+    working_dir: /project
+  mysql:
+    image: mysql
+    container_name: blog-mysql
+    volumes: 
+      - blogs-api-vol:/data
+    ports:
+      - "3306:3306"
+    networks: 
+      - app
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_tryber
+      - MYSQL_DATABASE=blogs_api
+      - MYSQL_USER=tryber
+      - MYSQL_PASSWORD=tryber123
+volumes:
+  blogs-api-vol:
+    external: true
+  mynode:
+    external: true
+networks: 
+  app:
+    name: app
