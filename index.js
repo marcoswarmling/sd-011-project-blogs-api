@@ -1,5 +1,5 @@
 const express = require('express');
-const { users, login, categories } = require('./api/routes');
+const { users, login, categories, blogPosts } = require('./api/routes');
 
 const app = express();
 
@@ -10,6 +10,8 @@ app.use('/user', users);
 app.use('/login', login);
 
 app.use('/categories', categories);
+
+app.use('/post', blogPosts);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

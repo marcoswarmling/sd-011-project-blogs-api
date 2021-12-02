@@ -102,7 +102,7 @@ const hasToken = (req, res, next) => {
 const isTokenValid = (req, res, next) => {
   const { authorization: token } = req.headers;
   try {
-     verify(token);  
+    verify(token);
   } catch (error) {
     if (error) {
       return res.status(401).json({ message: 'Expired or invalid token' });
@@ -124,6 +124,30 @@ const hasName = async (req, res, next) => {
   const { name } = req.body;
   if (!name) {
     return res.status(400).json({ message: '"name" is required' });
+  }
+  next();
+};
+
+const hasTitle = async (req, res, next) => {
+  const { title } = req.body;
+  if (!title) {
+    return res.status(400).json({ message: '"title" is required' });
+  }
+  next();
+};
+
+const hasContent = async (req, res, next) => {
+  const { content } = req.body;
+  if (!content) {
+    return res.status(400).json({ message: '"content" is required' });
+  }
+  next();
+};
+
+const hastCategoryId = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (!categoryIds) {
+    return res.status(400).json({ message: '"categoryIds" is required' });
   }
   next();
 };
@@ -160,10 +184,19 @@ const validateCategories = [
   isTokenValid,
 ];
 
+const validatePosts = [
+  hasTitle,
+  hasContent,
+  hastCategoryId,
+  hasToken,
+  isTokenValid,
+];
+
 module.exports = {
   validateUser,
   loginIsValid,
   validateToken,
   userIsThere,
   validateCategories,
+  validatePosts,
 };
