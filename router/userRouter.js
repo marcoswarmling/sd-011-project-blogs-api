@@ -3,6 +3,7 @@ const express = require('express');
 const {
   addNewUser,
   loginUser,
+  listAllUsers,
 } = require('../controllers/user-controllers');
 
 const {
@@ -17,7 +18,13 @@ const {
   validPasswordField,
 } = require('../middleware/validateLogin');
 
+const { validToken } = require('../middleware/validateToken');
+
 const router = express.Router();
+
+router.get('/user',
+validToken,
+listAllUsers);
 
 router.post('/user',
 validateName,

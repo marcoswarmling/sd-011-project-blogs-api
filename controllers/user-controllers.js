@@ -19,7 +19,6 @@ const addNewUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-
   const userExist = await User.findOne({ where: { email } });
 
   if (!userExist || password !== userExist.dataValues.password) {
@@ -33,7 +32,14 @@ const loginUser = async (req, res) => {
   return res.status(200).json({ token });
 };
 
+const listAllUsers = async (_req, res) => {
+  const getUsers = await User.findAll();
+
+  return res.status(200).json(getUsers);
+};
+
 module.exports = {
   addNewUser,
   loginUser,
+  listAllUsers,
 };
