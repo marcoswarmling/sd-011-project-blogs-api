@@ -1,5 +1,3 @@
-// const { User } = require('../models');
-// const service = require('../services/userServices');
 require('dotenv').config();
 
 const validateName = (req, res, next) => {
@@ -48,21 +46,8 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
-// const checkEmailExists = async (req, res, next) => {
-//   const { email } = req.body;
-//   const findEmail = await service.getUserEmail(email);
-//   console.log(email, 1);
-//   console.log(findEmail, 2);
-//   if (findEmail) { 
-//     res.status(409).json({ message: 'User already registered' });
-//   }
-
-//   next();
-// };
-
 module.exports = {
   validateName,
   validateEmail,
   validatePassword,
-  // checkEmailExists,
 };
