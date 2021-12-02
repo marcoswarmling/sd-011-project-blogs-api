@@ -55,11 +55,22 @@ function validationToken(req, res, next) {
   if (!verifyToken(authorization)) { 
     return res.status(401).json({ message: 'Expired or invalid token' }); 
 }
+req.userId = verifyToken(authorization);
 next();
+}
+
+function postEntrysRequired(req, res, next) {
+  const { title, content, categoryIds } = req.body;
+  if (!title) return res.status(400).json({ message: '"title" is required' });
+  if (!content) return res.status(400).json({ message: '"content" is required' });
+  if (!categoryIds) return res.status(400).json({ message: '"categoryIds" is required' });
+
+  next();
 }
 module.exports = {
   validateEntries,
   entriesExists,
   entriesNotEmpty,
   validationToken,
+  postEntrysRequired,
 };
