@@ -17,6 +17,23 @@ const addNewUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  const userExist = await User.findOne({ where: { email } });
+
+  if (!userExist || password !== userExist.dataValues.password) {
+    return res.status(400).json({
+      message: 'Invalid fields',
+    });
+  }
+
+  const token = newToken({ payload: userExist });
+
+  return res.status(200).json({ token });
+};
+
 module.exports = {
   addNewUser,
+  loginUser,
 };

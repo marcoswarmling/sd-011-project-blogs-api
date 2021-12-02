@@ -1,6 +1,9 @@
 const express = require('express');
 
-const { addNewUser } = require('../controllers/user-controllers');
+const {
+  addNewUser,
+  loginUser,
+} = require('../controllers/user-controllers');
 
 const {
   validateName,
@@ -8,6 +11,11 @@ const {
   validatePassword,
   emailExists,
 } = require('../middleware/validateUser');
+
+const {
+  validEmailField,
+  validPasswordField,
+} = require('../middleware/validateLogin');
 
 const router = express.Router();
 
@@ -17,5 +25,10 @@ validateEmail,
 validatePassword,
 emailExists,
 addNewUser);
+
+router.post('/login',
+validEmailField,
+validPasswordField,
+loginUser);
 
 module.exports = router;
