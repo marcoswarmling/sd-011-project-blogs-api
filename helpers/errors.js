@@ -30,6 +30,10 @@ const categoryRequired = {
   message: '"categoryIds" is required',
 };
 
+const nonExistentPost = {
+  message: 'Post does not exist',
+};
+
 module.exports = {
   userAlreadyRegistered,
   invalidFields,
@@ -39,4 +43,5 @@ module.exports = {
   categoryAlreadyExists,
   nonExistentCategory,
   categoryRequired,
+  nonExistentPost,
 };

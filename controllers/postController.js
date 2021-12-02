@@ -15,7 +15,19 @@ const searchAllPosts = async (_req, res) => {
   return res.status(200).json(response);
 };
 
+const searchById = async (req, res) => {
+  const { id } = req.params;
+
+  const response = await postService.searchById(id);
+
+  const { error } = response;
+  if (error) return res.status(404).json(error);
+
+  return res.status(200).json(response);
+};
+
 module.exports = {
   registerNewPost,
   searchAllPosts,
+  searchById,
 };

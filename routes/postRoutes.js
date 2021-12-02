@@ -12,6 +12,10 @@ router.post('/',
   validExistsCategory,
   postController.registerNewPost);
 
+router.get('/:id',
+  authToken,
+  postController.searchById);
+
 router.get('/',
   authToken,
   postController.searchAllPosts);
