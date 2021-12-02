@@ -18,14 +18,14 @@ const getAll = async (req, res) => {
   
     return res.status(200).json(result);
   } catch (error) {
-    return res.status(401).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 
 const getId = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await service.getId(id);
+    const result = await service.getId(Number(id));
 
     if (result.message) return res.status(404).json(result);
   

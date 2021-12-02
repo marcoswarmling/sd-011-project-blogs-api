@@ -9,7 +9,7 @@ const create = async (title, content, userId) => {
 const getAll = async () => BlogPosts.findAll({ include: [{ all: true }] });
 
 const getId = async (id) => {
-  const result = await BlogPosts.findByPk({ where: { id }, include: [{ all: true }] });
+  const result = await BlogPosts.findOne({ where: { id }, include: [{ all: true }] });
 
   if (!result) return { message: 'Post does not exist' };
   return result;
