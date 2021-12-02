@@ -5,6 +5,7 @@ const { ValidationError } = require('../../errors');
 const {
   user: userSchemas,
   category: categorySchemas,
+  post: postSchemas,
 } = require('./schemas');
 
 const ajv = new Ajv({ allErrors: true });
@@ -14,6 +15,7 @@ addErrors(ajv);
 ajv.addSchema(userSchemas.create, 'createUser');
 ajv.addSchema(userSchemas.login, 'loginUser');
 ajv.addSchema(categorySchemas.create, 'createCategory');
+ajv.addSchema(postSchemas.create, 'createPost');
 
 class Schema {
   constructor(name) {

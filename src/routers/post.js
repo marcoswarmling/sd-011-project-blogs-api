@@ -1,16 +1,15 @@
 const express = require('express');
 
 const router = express.Router();
-// const Controller = require('../controllers/Category');
+const Controller = require('../controllers/Post');
 const validateToken = require('../middlewares/validateToken');
 
 router.post('/', validateToken, (req, res, next) => {
-  res.status(200).end();
-  // Controller.create(req.body)
-  //   .then((createdCategory) => {
-  //     res.status(201).json(createdCategory);
-  //   })
-  //   .catch(next);
+  Controller.create(req.body)
+    .then((createdPost) => {
+      res.status(201).json(createdPost);
+    })
+    .catch(next);
 });
 
 module.exports = router;
