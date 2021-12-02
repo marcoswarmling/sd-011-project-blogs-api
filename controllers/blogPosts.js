@@ -18,4 +18,13 @@ try {
 }
 };
 
-module.exports = { createPost };
+const getAllPosts = async (_req, res) => {
+try {
+  const allPosts = await postServices.getAllPosts();
+  return res.status(200).json(allPosts);
+} catch (error) {
+  return res.status(status.intServerError).json({ message: intServerError.unknown });
+}
+};
+
+module.exports = { createPost, getAllPosts };
