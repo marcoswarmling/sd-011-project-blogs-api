@@ -2,6 +2,8 @@ const { loginUser } = require('../schema');
 const { User } = require('../models');
 
 const valLogin = async (req, res, next) => {
+  // async e await para a validação que não é possível
+  // fazer login com um usuário que não existe
   const { email, password } = req.body;
   
   const { error } = loginUser.validate({

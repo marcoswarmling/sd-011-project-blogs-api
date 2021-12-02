@@ -7,10 +7,10 @@ const router = express.Router();
 router.post('/user', valUser, async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
-  const response = await createUser(displayName, email, password, image);
+  const token = await createUser(displayName, email, password, image);
 
-/*   console.log(response); */
-  res.status(201).json(response);
+  console.log('ESSE É O MEU TOKEN', token);
+  res.status(201).json(token);
 });
 
 module.exports = router;

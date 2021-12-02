@@ -7,9 +7,9 @@ const router = express.Router();
 router.post('/login', valLogin, async (req, res) => {
   const { email, password } = req.body;
 
-  const response = await loginUser(email, password);
+  const token = await loginUser(email, password);
 
-  res.status(200).json(response);
+  res.status(200).json(token);
 });
 
 module.exports = router;
