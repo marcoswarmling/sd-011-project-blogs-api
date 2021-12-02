@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ControllerUser = require('./controllers/user');
 const ControllerCategories = require('./controllers/categories');
+const ControllerBlogPost = require('./controllers/blogpost');
 const Middleware = require('./middleware');
 
 const app = express();
@@ -20,3 +21,4 @@ app.get('/user', Middleware.validateToken, ControllerUser.getAllUsers);
 app.get('/user/:id', Middleware.validateToken, ControllerUser.getUserById);
 app.post('/categories', Middleware.validateToken, ControllerCategories.createCategory);
 app.get('/categories', Middleware.validateToken, ControllerCategories.getAllCategories);
+app.post('/post', Middleware.validateToken, ControllerBlogPost.createPost);

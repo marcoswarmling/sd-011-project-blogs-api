@@ -43,16 +43,16 @@ const validateLogin = async (data) => {
   try {
     const { email, password } = data;
 
-    const user = await User.findAll({ where: {
+    const user = await User.findOne({ where: {
         email,
         password,
     } });
 
-    if (user.length === 0) {
+    if (!user) {
       return { message: 'Invalid fields', status: 400 };
     }
 
-    return { token: generateToken({ email: user.email }) };
+    return { token: generateToken({ email: user.email, user_id: user.id }) };
   } catch (error) {
     console.log(error.message);
 

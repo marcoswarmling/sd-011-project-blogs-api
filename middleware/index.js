@@ -61,6 +61,8 @@ const validateToken = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, secret);
 
+    console.log('O DECODED TA AQ', decoded)
+
     req.userData = decoded;
   } catch (error) {
     return res.status(401).json({
