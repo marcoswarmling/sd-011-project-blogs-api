@@ -32,7 +32,21 @@ const validateLogin = async (req, res, next) => {
   return next();
 };
 
+const validateName = async (req, res, next) => {
+  const schema = Joi.object().keys({
+    name: Joi.string().required(),
+  }).validate(req.body);
+
+  if (schema.error) {
+    return res.status(400).json({
+      message: schema.error.details[0].message,
+    }); 
+  }
+  return next();
+};
+
 module.exports = {
   validateBody,
   validateLogin,
+  validateName,
 };

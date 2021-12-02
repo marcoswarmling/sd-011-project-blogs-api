@@ -13,3 +13,4 @@ app.get('/', (request, response) => {
 
 app.use('/user', require('./routes/index'));
 app.use('/login', require('./routes/login'));
+app.use('/categories', require('./routes/categories'));
