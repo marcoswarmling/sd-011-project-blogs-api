@@ -4,7 +4,6 @@ const { User } = require('../models');
 const secret = 'senhasecret';
 
 const jwtConfig = {
-    expiresIn: '7d',
     algorithm: 'HS256',
 };
 
@@ -22,16 +21,16 @@ const userModelRegister = async (displayName, email, password, image) => {
     return { token };
 };
 
-const userModelFind = async (token, email, password) => {
+const userModelFind = async (email, password) => {
     const userEmail = email;
     const senha = password;
     const findUser = await User.findOne({ where: { email: userEmail, password: senha } });
-
     if (findUser === null) {
         return { error: 'USER_NOT_FOUND' };
     }
-    const tokenUser = token;
-    return { token: tokenUser };
+    const token = jwt.sign({ email }, secret, jwtConfig);
+    const tokenGenerated = token;
+    return { token: tokenGenerated };
 };
 
 const userModelFindAll = async () => {
@@ -39,8 +38,17 @@ const userModelFindAll = async () => {
     return userAll;
 };
 
+const userModelFindId = async (idUser) => {
+    const findId = await User.findByPk(idUser);
+    if (findId === null) return { error: 'USER_NOT_FOUND' };
+    const { id, displayName, email, password, image } = findId;
+    console.log('namedoservice', displayName);
+    return { id, displayName, email, password, image };
+};
+
 module.exports = {
     userModelRegister,
     userModelFind,
     userModelFindAll,
+    userModelFindId,
 };

@@ -18,10 +18,8 @@ const controllerUserInsert = async (req, res) => {
 };
 
 const controllerFindUser = async (req, res) => {
-    const token = req.headers.authorization;
-    console.log('TOKEN ', token);
     const { email, password } = req.body;
-    const findEmailUser = await userService.userModelFind(token, email, password);
+    const findEmailUser = await userService.userModelFind(email, password);
     if (findEmailUser.error === 'USER_NOT_FOUND') {
         return res.status(400).json({
             message: 'Invalid fields',
@@ -35,8 +33,20 @@ const controllerFindAll = async (req, res) => {
     return res.status(200).json(userAll);
 };
 
+const controllerFindId = async (req, res) => {
+    const { id } = req.params;
+    const findId = await userService.userModelFindId(id);
+    if (findId.error === 'USER_NOT_FOUND') {
+        return res.status(404).json({
+            message: 'User does not exist',
+        });
+    }
+    return res.status(200).send(findId);
+};
+
 module.exports = {
     controllerUserInsert,
     controllerFindUser,
     controllerFindAll,
+    controllerFindId,
 };

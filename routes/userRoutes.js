@@ -13,4 +13,8 @@ routes.get('/',
 tokenValidation.tokenExists,
 controllerUser.controllerFindAll);
 
+routes.get('/:id',
+tokenValidation.tokenExists,
+controllerUser.controllerFindId);
+
 module.exports = routes;

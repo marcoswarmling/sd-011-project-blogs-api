@@ -4,23 +4,30 @@ const secret = 'senhasecret';
 
 const tokenExists = (req, res, next) => {
     const token = req.headers.authorization;
-    console.log('TOKEN >>', token);
 
     if (!token) {
         return res.status(401).json({
-            messege: 'Token not found',
+            message: 'Token not found',
         });
     }
 
     try {
-        const decoded = jwt.verify(token, secret);
-        console.log(decoded);
+        jwt.verify(token, secret);
+        next();
     } catch (error) {
-        return res.status(400).json({
+        console.log(error);
+        return res.status(401).json({
             message: 'Expired or invalid token',
         });
     }
-    next();
+
+    // jwt.verify(token, secret) => {
+    //     if (err) {
+    //         return res.status(401).json({
+    //             messege: 'Expired of invalid token',
+    //         });
+    //     }
+    // });
 };
 
 module.exports = {
