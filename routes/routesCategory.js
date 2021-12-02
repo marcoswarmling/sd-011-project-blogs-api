@@ -8,4 +8,8 @@ tokenValid.tokenExists,
 catNameValid.catNameValid,
 categorie.controllerInsertCategorie);
 
+routes.get('/', 
+tokenValid.tokenExists,
+categorie.controllerFindAll);
+
 module.exports = routes;

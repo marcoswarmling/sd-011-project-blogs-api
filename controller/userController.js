@@ -3,7 +3,7 @@ const userService = require('../service/userService');
 const controllerUserInsert = async (req, res) => {
     const { displayName, email, password, image } = req.body;
 
-    const insertUser = userService.userModelRegister(
+    const insertUser = await userService.userModelRegister(
         displayName,
         email,
         password,

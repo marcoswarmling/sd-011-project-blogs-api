@@ -10,6 +10,16 @@ const serviceInsertCategories = async (name) => {
     }
 };
 
+const serviceFindCategories = async () => {
+    try {
+        const findAll = await Categories.findAll();
+        return findAll;   
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 module.exports = {
     serviceInsertCategories,
+    serviceFindCategories,
 };

@@ -1,12 +1,10 @@
 const routes = require('express').Router();
-const userLoginValidations = require('../middlewares/loginValidations');
+const loginValid = require('../middlewares/loginValidations');
 const userController = require('../controller/userController');
 
 routes.post('/',
-userLoginValidations.userPasswordRequired,
-userLoginValidations.userPasswordEmpty,
-userLoginValidations.userEmailEmpty,
-userLoginValidations.userEmailRequired,
+loginValid.userEmailRequired,
+loginValid.userPasswordRequired,
 userController.controllerFindUser);
 
 module.exports = routes;
