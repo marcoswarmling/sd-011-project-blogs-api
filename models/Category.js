@@ -8,5 +8,14 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
+// PRECISO ASSOCIAR COM A TABELA BLOG POST SE TEM MINHA TABELA DE RELACIONAMENTO?
+// SER OU NÃO SER EIS A QUESTÃO🤔
+  // Category.associate = (models) => {
+  //   Category.belongsTo(models.BlogPost, {
+  //     foreignKey: 'userId',
+  //     as: 'userId',
+  //   });
+  // };
+
   return Category;
 };
