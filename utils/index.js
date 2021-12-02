@@ -3,6 +3,10 @@ module.exports = {
     status: 400,
     message: '"displayName" length must be at least 8 characters long',
   },
+  emptyCategorieField: {
+    status: 400,
+    message: '"name" is required',
+  },
   invalidEmailFormat: {
     message: '"email" must be a valid email',
     status: 400,
@@ -35,10 +39,6 @@ module.exports = {
     message: 'Invalid fields',
     status: 400,
   },
-  userAlreadyRegistered: {
-    message: 'User already registered',
-    status: 409,
-  },
   jwtTokenError: {
     message: 'Expired or invalid token',
     status: 401,
@@ -51,20 +51,20 @@ module.exports = {
     message: 'User does not exist',
     status: 404,
   },
-  // errorData: {
-  //   message: 'Incorrect username or password',
-  //   status: 401,
-  // },
-  // recipeNotFound: {
-  //   message: 'recipe not found',
-  //   status: 404,
-  // },
-  testeError: {
-    message: 'Deu erro teste do middleware global',
-    status: 501,
+  userAlreadyRegistered: {
+    message: 'User already registered',
+    status: 409,
+  },
+  CategoriesAlreadyRegistered: {
+    message: 'Categorie already registered',
+    status: 409,
   },
   default: {
     status: 500,
     message: 'Internal error.',
+  },
+  testeError: {
+    message: 'Deu erro teste do middleware global',
+    status: 501,
   },
 };
