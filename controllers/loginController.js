@@ -21,7 +21,6 @@ router.post('/',
       const token = createToken(data.dataValues);
       return res.status(200).json({ token });
     } catch (e) {
-      console.log(e);
       return res.status(400).json({ message: 'Invalid fields' });
     }
   });
