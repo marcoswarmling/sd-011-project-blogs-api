@@ -11,25 +11,25 @@ module.exports = {
       },
       displayName: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       email: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       password: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       image: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
     });
-    return UsersTable;
+    return await UsersTable;
   },
 
   down: async (queryInterface, _Sequelize) => {
-    queryInterface.dropTable('Users');
+    return await queryInterface.dropTable('Users');
   },
 };
