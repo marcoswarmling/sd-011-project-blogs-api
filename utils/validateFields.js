@@ -49,6 +49,12 @@ function verifyEmailFormat(body) {
     return false;
 }
 
+function validatePostFields(body) {
+  const { title, content, categoryIds } = body;
+
+  if (!title) return ApiError.invalidTitle;
+}
+
 module.exports = {
   verifyFieldLength,
   verifyFieldExists,

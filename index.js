@@ -2,6 +2,7 @@ const express = require('express');
 const UserRouter = require('./routes/user.router');
 const LoginRouter = require('./routes/login.router');
 const CategoriesRouter = require('./routes/categories.router');
+const PostRouter = require('./routes/post.router');
 
 const ApiErrorHandler = require('./middlewares/error.midddleware');
 
@@ -17,6 +18,7 @@ app.get('/', (request, response) => {
 app.use('/user', UserRouter);
 app.use('/login', LoginRouter);
 app.use('/categories', CategoriesRouter);
+app.use('/post', PostRouter);
 
 app.use(ApiErrorHandler);
 

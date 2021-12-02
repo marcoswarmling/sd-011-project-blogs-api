@@ -9,7 +9,9 @@ const HTTP_STATUS = {
     OK: 200,
     UNAUTHORIZED: 401,
   },
+  CATEGORY_IDS_REQUIRED: { message: '"categoryIds" is required' },
   CATEGORY_NAME_REQUIRED: { message: '"name" is required' },
+  CONTENT_REQUIRED: { message: '"content" is required' },
   EMAIL_ALREADY_EXIST: { message: 'User already registered' },
   EMAIL_REQUIRED: { message: '"email" is required' },
   EMAIL_NOT_ALLOWED: { message: '"email" is not allowed to be empty' },
@@ -24,6 +26,7 @@ const HTTP_STATUS = {
   PASSWORD_REQUIRED: { message: '"password" is required' },
   PASSWORD_NOT_ALLOWED: { message: '"password" is not allowed to be empty' },
   TOKEN_NOT_FOUND: { message: 'Token not found' },
+  TITLE_REQUIRED: { message: '"title" is required' },
   USER_NOT_FOUND: { message: 'User does not exist' },
 };
 

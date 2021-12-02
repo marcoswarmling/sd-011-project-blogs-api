@@ -97,6 +97,27 @@ class ApiError {
     );
   }
 
+  static requiredCategoryIds() {
+    return new ApiError(
+      HTTP_STATUS.code.BAD_REQUEST,
+      HTTP_STATUS.CATEGORY_IDS_REQUIRED,
+    );
+  }
+
+  static requiredContent() {
+    return new ApiError(
+      HTTP_STATUS.code.BAD_REQUEST,
+      HTTP_STATUS.CONTENT_REQUIRED,
+    );
+  }
+
+  static requiredTitle() {
+    return new ApiError(
+      HTTP_STATUS.code.BAD_REQUEST,
+      HTTP_STATUS.TITLE_REQUIRED,
+    );
+  }
+
   static userNotFound() {
     return new ApiError(
       HTTP_STATUS.code.NOT_FOUND,
