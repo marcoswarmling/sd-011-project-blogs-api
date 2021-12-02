@@ -5,12 +5,11 @@ const Controller = require('../controllers/Category');
 const validateToken = require('../middlewares/validateToken');
 
 router.post('/', validateToken, (req, res, next) => {
-  res.status(201).end();
-  // Controller.create(req.body)
-  //   .then(({ token }) => {
-  //     res.status(201).json({ token });
-  //   })
-  //   .catch(next);
+  Controller.create(req.body)
+    .then((createdCategory) => {
+      res.status(201).json(createdCategory);
+    })
+    .catch(next);
 });
 
 module.exports = router;
