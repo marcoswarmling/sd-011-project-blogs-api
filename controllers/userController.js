@@ -41,7 +41,23 @@ const userLogin = async (req, res) => {
   }
 };
 
+const verifyToken = async (req, res) => {
+  try {
+    const token = req.header('authorization');
+    if (!token) return res.status(401).json({ message: 'Token not found' });
+    
+    jwt.verify(token, process.env.JWT_SECRET);
+
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+
+    return res.status(200).json(users);
+  } catch (error) {
+    res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   createUser,
   userLogin,
+  verifyToken,
 };
