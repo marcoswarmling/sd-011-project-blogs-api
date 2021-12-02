@@ -21,7 +21,9 @@ async (req, res) => {
 router.get('/', validationToken, async (req, res) => {
   try {
     const data = await BlogPosts.findAll({
-      include: [{ model: Users, as: 'user' }, { model: Categories, as: 'categories', through: { attributes: [] } }],
+      include: [{ model: Users, as: 'user' }, { model: Categories, 
+        as: 'categories',
+      through: { attributes: [] } }],
     });
     console.log(data);
     res.status(200).json(data);
