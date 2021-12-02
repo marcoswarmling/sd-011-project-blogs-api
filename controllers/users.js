@@ -8,7 +8,6 @@ const createUser = async (req, res) => {
     password,
     image,
    } = req.body;
-  console.log(displayName);
   const { dataValues } = await services.createUser(displayName, email, password, image);
   delete dataValues.password;
   const userToken = createToken({ payload: dataValues });
@@ -20,16 +19,16 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   
   const alreadyRegisteredUser = await services.findUserByEmail(email);
-  console.log(alreadyRegisteredUser);
+
   if (!alreadyRegisteredUser || alreadyRegisteredUser.password !== password) {
     return res.status(400).json({ message: 'Invalid fields' });
   }
 
   delete alreadyRegisteredUser.password;
 
-  const userToken = createUser({ payload: alreadyRegisteredUser });
+  const loginToken = createToken({ payload: alreadyRegisteredUser });
 
-  return res.status(200).json({ token: userToken });
+  return res.status(200).json({ token: loginToken });
 };
 
 module.exports = {

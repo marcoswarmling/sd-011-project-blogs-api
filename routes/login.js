@@ -6,8 +6,7 @@ const middlewares = require('../middlewares/users');
 const controllers = require('../controllers/users');
 
 routes.post('/',
-  middlewares.validateUserWithJoi,
-  middlewares.validateRegistereduser,
-  controllers.createUser);
+  middlewares.validateLoginWithJoi,
+  controllers.loginUser);
 
 module.exports = routes;

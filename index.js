@@ -6,7 +6,8 @@ const routes = require('./routes/index');
 const errors = require('./errors/errors');
 
 app.use(express.json());
-app.use('/', routes.users);
+app.use('/user', routes.users);
+app.use('/login', routes.login);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
