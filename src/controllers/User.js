@@ -1,7 +1,7 @@
 const { User } = require('../models');
 const { Schema } = require('../services/validation');
 const { sign } = require('../services/token');
-const { ConflictError, ValidationError } = require('../errors');
+const { ConflictError, ValidationError, NotFoundError } = require('../errors');
 
 const getDisplayResultFromModelResult = ({ dataValues }) => {
   const displayResult = { ...dataValues };
@@ -32,7 +32,11 @@ const getAll = () => User.findAll()
   .then(mapModelResultToDisplayResult);
 
 const getById = (id) => User.findOne({ where: { id } })
-  .then(console.log);
+  .then((foundUser) => {
+    if (!foundUser) throw new NotFoundError('User does not exist');
+
+    return getDisplayResultFromModelResult(foundUser);
+  });
 
 const login = (credentialsInput) => {
   new Schema('loginUser').validate(credentialsInput);
