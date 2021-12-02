@@ -50,3 +50,9 @@ app.post(
   categoryValidations.validateName,
   categoryController.createCategory,
 );
+
+app.get(
+  '/categories',
+  userValidations.validateJWT,
+  categoryController.getAll,
+);
