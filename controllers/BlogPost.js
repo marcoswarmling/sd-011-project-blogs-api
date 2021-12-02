@@ -13,4 +13,9 @@ router.post('/', async (req, res) => {
     return res.status(statusCode).json(post);
 });
 
+router.get('/', async (req, res) => {
+    const result = await BlogPost.getAll();
+    return res.status(200).json(result);
+});
+
 module.exports = router;

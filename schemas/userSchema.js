@@ -83,7 +83,6 @@ const validateJWT = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, secret);
         if (!decoded) return res.status(codes.na).json({ message: messages.jwti });
-        console.log(decoded.data);
         const user = await User.findOne({ where: { email: decoded.data.email } });
         // if (!user) return res.status(code).json({ message: messages.jwt });
         req.user = user;
