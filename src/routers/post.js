@@ -5,7 +5,7 @@ const Controller = require('../controllers/Post');
 const validateToken = require('../middlewares/validateToken');
 
 router.post('/', validateToken, (req, res, next) => {
-  Controller.create(req.body)
+  Controller.create({ ...req.body, userId: res.locals.userId })
     .then((createdPost) => {
       res.status(201).json(createdPost);
     })

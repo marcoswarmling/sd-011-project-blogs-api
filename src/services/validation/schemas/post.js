@@ -6,8 +6,9 @@ const create = {
     title: { type: 'string', minLength: 8, maxLength: 100 },
     content: { type: 'string', minLength: 3, maxLength: 100 },
     categoryIds: { type: 'array', items: { type: 'number', minimum: 1 } },
+    userId: { type: 'number', minimum: 1 },
   },
-  required: ['title', 'content', 'categoryIds'],
+  required: ['title', 'content', 'categoryIds', 'userId'],
   errorMessage: {
     required: {
       title: getRequiredFieldMessage('title'),
