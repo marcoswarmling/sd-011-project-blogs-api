@@ -3,13 +3,13 @@ const { status, postMessages } = require('../Helpers/status&messages');
 const postMiddleware = (req, res, next) => {
   const { title, content, categoryIds } = req.body;
   if (!title) {
-    return res.status(status.bad).json({ message: postMessages.titleRequired });
+    return res.status(status.badRequest).json({ message: postMessages.titleRequired });
   }
   if (!content) {
-    return res.status(status.bad).json({ message: postMessages.contentRequired });
+    return res.status(status.badRequest).json({ message: postMessages.contentRequired });
   }
   if (!categoryIds) {
-    return res.status(status.bad).json({ message: postMessages.categoryIdRequired });
+    return res.status(status.badRequest).json({ message: postMessages.categoryIdRequired });
   }
   next();
 };
