@@ -4,9 +4,8 @@ const { status, intServerError } = require('../Helpers/status&messages');
 const createPost = async (req, res) => {
 try {
   const { title, content, categoryIds } = req.body;
-  const { id: userId } = req.user;
-  
-  const newPost = await postServices.createPost(title, content, categoryIds, userId);
+  const { id } = req.user;
+  const newPost = await postServices.createPost(title, content, categoryIds, id);
   if (newPost.status) {
     return res.status(newPost.status).json({ message: newPost.message });
   }
