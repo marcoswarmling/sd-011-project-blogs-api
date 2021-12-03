@@ -56,7 +56,9 @@ const loginValidator = async (email, password) => {
     return { status, message };
   }
 
-  return emailResult;
+  const { id, displayName } = emailResult;
+
+  return { id, displayName };
 };
 
 module.exports = {
