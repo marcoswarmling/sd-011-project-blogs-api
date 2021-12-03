@@ -1,8 +1,8 @@
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
 async function createPostInDB({ userId, title, content, categoryIds }) {
   const { dataValues } = await BlogPost.create({ userId, title, content, categoryIds });
-  console.log('Retorno::::::::::::::::::::::::::::', dataValues);
+
   return {
     id: dataValues.id,
     title: dataValues.title,
@@ -11,6 +11,18 @@ async function createPostInDB({ userId, title, content, categoryIds }) {
   };
 }
 
+async function getAllPostsInDB() {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user' }, 
+      { model: Category, through: { attributes: [] } },
+    ],
+  });
+  console.log(posts);
+  return posts;
+}
+
 module.exports = {
   createPostInDB,
+  getAllPostsInDB,
 };

@@ -25,6 +25,18 @@ async function createPost(req, res, next) {
   }
 }
 
+async function getAllPosts(_req, res, next) {
+  try {
+    const posts = await PostService.getAllPostsInDB();
+
+    return res.status(HttpCodes.code.OK).json(posts);
+  } catch (err) {
+    console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRROR', err);
+    return next(ApiError.internalServerError());
+  }
+}
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
