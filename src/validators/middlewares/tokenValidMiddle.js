@@ -15,7 +15,8 @@ module.exports = (req, res, next) => {
   if (!token) return res.status(STATUS_UNAUTHORIZED).json({ message: MSG_MISSING_TOKEN });
   
   try {
-    jwt.verify(token, segredo);
+    const { data } = jwt.verify(token, segredo);
+    req.user = data;
 
     next();
   } catch (err) {
