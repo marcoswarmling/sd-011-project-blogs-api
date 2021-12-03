@@ -26,11 +26,6 @@ const findAllPosts = async () => {
   return allPosts;
 };
 
-// const findAllPosts = async () => {
-//   const allPosts = await BlogPosts.findAll();
-//   return allPosts;
-// };
-
 module.exports = {
   createPost,
   findAllPosts,
