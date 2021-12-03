@@ -3,12 +3,15 @@ const { User } = require('../models');
 const { status, usersMessages } = require('../Helpers/status&messages');
 
 const createNewUser = async (displayName, email, password, image) => {
+  console.log('cheguei no service');
     const user = await User.findOne({ where: { email } });
     if (user !== null) {
       return { status: status.conflict, message: usersMessages.emailConflict };
     }
+    console.log('service2');
     await User.create({ displayName, email, password, image });
     const token = generateToken(email);
+    console.log('service3');
     return token;
 };
 
