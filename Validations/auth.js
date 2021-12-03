@@ -13,7 +13,6 @@ module.exports = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, secret); // para descriptografar utiliza-se o jwt.verify passando token e secret e portanto recebo como resposta o data contendo id name e mail e role e tambem caracteristicas como iat e exp.
     req.user = decoded; // por nao conseguir acessar diretamente da variavel decoded o email e consultá-lo no banco de dados, igualo req.user a decoded para então consultá-lo no banco de dados.
-    console.log(decoded);
     const user = await getUserEmailCtrl(decoded.data.email); // faz-se a consulta no banco de dados para verificar se o e-mail existe.
 
     if (!user) {

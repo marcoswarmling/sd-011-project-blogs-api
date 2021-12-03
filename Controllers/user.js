@@ -38,7 +38,6 @@ async function getUserByIdCtrl(req, res) {
   if (user.error) {
     return res.status(404).json({ message: user.error });
   }
-  console.log(user);
   return res.status(200).json(user);
 }
 
