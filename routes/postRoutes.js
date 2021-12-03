@@ -29,4 +29,8 @@ router.get('/:id',
   authToken,
   postController.searchById);
 
+router.delete('/:id',
+  authToken,
+  postController.deletePost);
+
 module.exports = router;

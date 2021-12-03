@@ -40,9 +40,22 @@ const searchById = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req;
+
+  const response = await postService.deletePost(id, userId);
+
+  const { status, error } = response;
+  if (error) return res.status(status).json(error);
+
+  return res.status(204).json();
+};
+
 module.exports = {
   registerNewPost,
   updatePost,
   searchAllPosts,
   searchById,
+  deletePost,
 };

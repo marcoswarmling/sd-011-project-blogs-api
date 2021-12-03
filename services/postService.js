@@ -51,9 +51,21 @@ const searchById = async (id) => {
   return result;
 };
 
+const deletePost = async (id, userId) => {
+  const existPost = await BlogPost.findByPk(id);
+
+  if (existPost === null) return { status: 404, error: err.nonExistentPost };
+  if (existPost.userId !== userId) return { status: 401, error: err.unauthorizedUser };
+
+  const response = await BlogPost.destroy({ where: { id } });
+  
+  return response;
+};
+
 module.exports = {
   registerNewPost,
   updatePost,
   searchAllPosts,
   searchById,
+  deletePost,
 };
