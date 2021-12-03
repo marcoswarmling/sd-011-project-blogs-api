@@ -79,4 +79,30 @@ module.exports = {
       message: '"Categories" already registered',
     },
   },
+  blogPost: {
+    titleNotExistent: {
+      statusCode: status.badRequest,
+      message: '"title" is required',
+    },
+    contentNotExistent: {
+      statusCode: status.badRequest,
+      message: '"content" is required',
+    },
+    categoryIdNotExistent: {
+      statusCode: status.badRequest,
+      message: '"categoryId" is required',
+    },
+    categoryIdNotFound: {
+      statusCode: status.badRequest,
+      message: '"categoryIds" not found',
+    },
+    Error: {
+      statusCode: status.notFound,
+      message: 'Error',
+    },
+    postNotExist: {
+      statusCode: status.notFound,
+      message: 'Post does not exist',
+    },
+  },
 };

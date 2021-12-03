@@ -10,7 +10,7 @@ const getByEmail = async ({ email, password }) => {
 const login = async ({ email, password }) => {
   const userExists = await getByEmail({ email, password });
 
-  if (!userExists || userExists === null) throw errors.login.notExistent;
+  if (!userExists) throw errors.login.notExistent;
 
   return true;
 };

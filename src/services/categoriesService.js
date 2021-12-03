@@ -23,7 +23,15 @@ const getAll = async () => {
   return listCategories;
 };
 
+const getById = async (categoriesID) => {
+  const { id } = categoriesID;
+  const listcategories = await Categories.findAll({ raw: true }, { id });
+  
+  return listcategories;
+};
+
 module.exports = {
   createCategories,
   getAll,
+  getById,
 };
