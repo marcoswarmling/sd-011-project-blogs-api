@@ -1,4 +1,4 @@
-const { BlogPost, Category, PostsCategory } = require('../models');
+const { User, BlogPost, Category, PostsCategory } = require('../models');
 
 const createPost = async (categoryIds, postData) => {
   const existingCategory = await Category.findOne({ where: { id: categoryIds } });
@@ -13,11 +13,25 @@ const createPost = async (categoryIds, postData) => {
 };
 
 const getPosts = async () => {
-  const categories = await PostsCategory.findAll();
-  const allPosts = await BlogPost.findAll();
-  console.log(categories, allPosts);
+  const allPosts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'User' }, // há alguma forma de renomear attributos para essa referencia?
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
 
-  return { ...allPosts, ...categories };
+  return allPosts.map((post) => {
+    // isso aqui não tá legal!
+    const changedPost = post.dataValues;
+    changedPost.published = post.createdAt;
+    changedPost.updated = post.updatedAt;
+    changedPost.user = post.User;
+    delete changedPost.createdAt;
+    delete changedPost.updatedAt;
+    delete changedPost.User;
+
+    return changedPost;
+  });
 };
 
 module.exports = {
