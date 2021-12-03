@@ -23,7 +23,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-/* const getOneUser = async (req, res) => {
+const getOneUser = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await userServices.getOneUser(id);
@@ -34,9 +34,8 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-*/
-
 module.exports = {
   createUser,
   getAllUsers,
+  getOneUser,
 };

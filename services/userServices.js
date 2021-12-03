@@ -28,15 +28,17 @@ const getAllUsers = async () => {
   return { status: STATUS_OK, message: allUsers };
 };
 
-/* const getOneUser = async (id) => {
+const getOneUser = async (id) => {
   const user = await Users.findOne({ where: { id } });
+  if (!user) {
+    return { status: NOT_FOUND, message: { message: 'User does not exist' } };
+  }
 
-  if (!user) throw new Error('User does not exist');
-
-  return user;
-}; */
+  return { status: STATUS_OK, message: user };
+};
 
 module.exports = {
   registerUser,
   getAllUsers,
+  getOneUser,
 };
