@@ -48,6 +48,8 @@ const postMessages = {
   categoryIdRequired: '"categoryIds" is required',
   categoryIdNotFound: '"categoryIds" not found',
   postNotExist: 'Post does not exist',
+  noEditCategory: 'Categories cannot be edited',
+  unauthUser: 'Unauthorized user',
 };
 
 module.exports = { status,
