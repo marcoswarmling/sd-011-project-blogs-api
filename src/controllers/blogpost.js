@@ -10,7 +10,7 @@ router.post('/', async (req, res, next) => {
   
     if (result.message) return next(result);
 
-    res.status(STATUS_CREATED).json({ result });
+    res.status(STATUS_CREATED).json(result);
 });
 
 module.exports = router;
