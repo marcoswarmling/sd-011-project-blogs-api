@@ -2,6 +2,7 @@ const express = require('express');
 
 const {
   createCategory,
+  listCategories,
 } = require('../controllers/category-controllers');
 
 const { validCategoryField } = require('../middleware/validateCategories');
@@ -50,6 +51,10 @@ router.post('/login',
 validEmailField,
 validPasswordField,
 loginUser);
+
+router.get('/categories',
+validToken,
+listCategories);
 
 router.post('/categories',
 validToken,
