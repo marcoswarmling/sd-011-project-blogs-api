@@ -13,6 +13,17 @@ const create = async (req, res) => {
   }
 };
 
+const getAll = async (_req, res) => {
+  try {
+    const categories = await service.getAll();
+    // console.log('getAllcategoriesController', categories);
+    return res.status(200).json(categories);
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };

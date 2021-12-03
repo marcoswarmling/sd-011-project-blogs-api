@@ -6,5 +6,6 @@ const controllers = require('../controllers/categoriesController');
 const { validateName } = require('../middlewares/validation');
 
 router.post('/', validateJWT, validateName, controllers.create);
+router.get('/', validateJWT, controllers.getAll);
 
 module.exports = router;
