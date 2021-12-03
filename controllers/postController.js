@@ -23,6 +23,14 @@ const updatePost = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const searchPostsByTerm = async (req, res) => {
+  const { q } = req.query;
+
+  const result = await postService.searchPostsByTerm(q);
+
+  return res.status(200).json(result);
+};
+
 const searchAllPosts = async (_req, res) => {
   const response = await postService.searchAllPosts();
 
@@ -55,6 +63,7 @@ const deletePost = async (req, res) => {
 module.exports = {
   registerNewPost,
   updatePost,
+  searchPostsByTerm,
   searchAllPosts,
   searchById,
   deletePost,

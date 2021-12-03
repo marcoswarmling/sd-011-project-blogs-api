@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 const { BlogPost } = require('../models');
 const { User } = require('../models');
 const { Category } = require('../models');
@@ -30,6 +32,23 @@ const updatePost = async (userId, id, title, content) => {
   });
 
   return postResult;
+};
+
+const searchPostsByTerm = async (term) => {
+  // https://sequelize.org/master/manual/model-querying-basics.html#operators
+  const postsResponse = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${term}%` } },
+        { content: { [Op.like]: `%${term}%` } },
+      ],
+    },
+    // Include all associantions: https://sequelize.org/master/manual/eager-loading.html#including-everything
+    // Exclude in associantion field: https://github.com/sequelize/sequelize/issues/6395
+    include: { all: true, attributes: { exclude: ['password'] } },
+  });
+
+  return postsResponse;
 };
 
 const searchAllPosts = async () => {
@@ -65,6 +84,7 @@ const deletePost = async (id, userId) => {
 module.exports = {
   registerNewPost,
   updatePost,
+  searchPostsByTerm,
   searchAllPosts,
   searchById,
   deletePost,

@@ -21,6 +21,10 @@ router.put('/:id',
   cannotBeEditedCategory,
   postController.updatePost);
   
+router.get('/search',
+  authToken,
+  postController.searchPostsByTerm);
+
 router.get('/',
   authToken,
   postController.searchAllPosts);
