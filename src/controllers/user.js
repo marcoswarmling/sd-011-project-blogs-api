@@ -5,7 +5,7 @@ const tokenValidMiddle = require('../validators/middlewares/tokenValidMiddle');
 
 const STATUS_CREATED = 201;
 
-router.get('/', tokenValidMiddle, async (_req, res) => { // For model test
+router.get('/', tokenValidMiddle, async (_req, res) => {
   const result = await user.getAll();
 
   if (result.message) {
