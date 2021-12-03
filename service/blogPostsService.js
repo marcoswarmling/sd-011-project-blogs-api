@@ -4,6 +4,7 @@ const categorieShow = [
   { model: User, as: 'user', attributes: { exclude: ['password'] } },
   { 
     model: Categories,
+    as: 'categories',
     through: { attributes: [] }, 
     attributes: { exclude: ['PostsCategories'] },
   },
@@ -30,13 +31,6 @@ const getAll = async () => {
     return console.log(e);
   }
 };
-
-// const getId = async (id) => {
-//   const result = await BlogPosts.findOne({ where: { id }, include: [{ all: true }] });
-
-//   if (!result) return { message: 'Post does not exist' };
-//   return result;
-// };
 
 const getId = async (id) => {
   const result = await BlogPosts.findOne({
