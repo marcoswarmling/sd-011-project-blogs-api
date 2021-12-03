@@ -5,7 +5,7 @@ const CategoryServices = require('../services/categories.services');
 async function createCategory(req, res, next) {
   try {
     const { name } = req.body;
-
+    console.log('CATEGORY NAME:::::::::::', req.body, name);
     if (name) {
       const id = await CategoryServices.createCategoryInDB(name);
       return res.status(HttpCodes.code.CREATED).json({ id, name });

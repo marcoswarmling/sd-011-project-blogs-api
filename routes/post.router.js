@@ -5,3 +5,5 @@ const validateCreatePostMiddleware = require('../middlewares/validateCreatePost.
 
 // POSTs
 router.post('/', authMiddleware, validateCreatePostMiddleware, PostController.createPost);
+
+module.exports = router;

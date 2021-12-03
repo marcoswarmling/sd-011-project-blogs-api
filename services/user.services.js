@@ -11,8 +11,8 @@ async function getUserById(id) {
 }
 
 async function createUserInDB(user) {
-  await User.create(user);
-  return true;
+  const createdUser = await User.create(user);
+  return createdUser;
 }
 
 async function getAllUsersInDB() {

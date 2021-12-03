@@ -14,9 +14,11 @@ module.exports = (req, _res, next) => {
         return next(ApiError.invalidToken());
       }
 
-      const { displayName, email } = decoded.data;
-      req.userName = displayName;
+      const { id, displayName, email } = decoded.data;
+
+      req.userId = id;
       req.email = email;
+      req.userName = displayName;
       next();
     });
   } catch (err) {

@@ -7,7 +7,7 @@ module.exports = {
         field: 'postId',
         references: {
           model: 'BlogPosts',
-          key: 'postId'
+          key: 'id'
         },
       },
         categoryId: {
@@ -15,11 +15,11 @@ module.exports = {
           field: 'categoryId',
           references: {
             model: 'Categories',
-            key: 'categoryId'
+            key: 'id'
           },
       },
-      onUpdate: 'CASCADE',
-      primaryKey: true,
+      // onUpdate: 'CASCADE',
+      // primaryKey: true,
     });
   },
 

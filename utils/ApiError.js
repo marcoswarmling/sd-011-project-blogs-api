@@ -13,6 +13,13 @@ class ApiError {
     );
   }
 
+  static categoryIdNotFound() {
+    return new ApiError(
+      HTTP_STATUS.code.BAD_REQUEST,
+      HTTP_STATUS.CATEGORY_ID_NOT_FOUND,
+    );
+  }
+
   static emptyEmail() {
     return new ApiError(
       HTTP_STATUS.code.BAD_REQUEST,

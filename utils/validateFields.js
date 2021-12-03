@@ -52,7 +52,11 @@ function verifyEmailFormat(body) {
 function validatePostFields(body) {
   const { title, content, categoryIds } = body;
 
-  if (!title) return ApiError.invalidTitle;
+  if (!title) return ApiError.requiredTitle;
+  if (!content) return ApiError.requiredContent;
+  if (!categoryIds) return ApiError.requiredCategoryIds;
+
+  return false;
 }
 
 module.exports = {
@@ -60,4 +64,5 @@ module.exports = {
   verifyFieldExists,
   verifyEmailFormat,
   validateEmailNotEmpty,
+  validatePostFields,
 };

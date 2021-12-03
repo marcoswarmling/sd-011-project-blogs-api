@@ -8,10 +8,12 @@ async function createUser(req, res, next) {
     const { displayName, email, password, image } = req.body;
 
     const emailExists = await UserService.getUserByEmail(email);
-
+    
     if (!emailExists) {
-      await UserService.createUserInDB({ displayName, email, password, image });
-      const token = generateJWT({ displayName, email });
+      const { dataValues: { id } } = await UserService.createUserInDB(
+        { displayName, email, password, image },
+      );
+      const token = generateJWT({ email, id });
       return res.status(HttpCodes.code.CREATED).json({ token });
     }
   

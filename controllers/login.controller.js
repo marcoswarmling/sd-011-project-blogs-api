@@ -12,8 +12,8 @@ async function logIn(req, res, next) {
       return next(ApiError.invalidFields());
     }
 
-    const { displayName } = emailExists.dataValues;
-    const token = generateJWT({ displayName, email });
+    const { displayName, id } = emailExists.dataValues;
+    const token = generateJWT({ id, displayName, email });
     return res.status(HttpCodes.code.OK).json({ token });
   } catch (err) {
     console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRROR', err);

@@ -10,6 +10,7 @@ const HTTP_STATUS = {
     UNAUTHORIZED: 401,
   },
   CATEGORY_IDS_REQUIRED: { message: '"categoryIds" is required' },
+  CATEGORY_ID_NOT_FOUND: { message: '"categoryIds" not found' },
   CATEGORY_NAME_REQUIRED: { message: '"name" is required' },
   CONTENT_REQUIRED: { message: '"content" is required' },
   EMAIL_ALREADY_EXIST: { message: 'User already registered' },
