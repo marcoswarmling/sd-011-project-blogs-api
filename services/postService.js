@@ -11,6 +11,27 @@ const registerNewPost = async (title, content, categoryIds, userId) => {
   return result;
 };
 
+const updatePost = async (userId, id, title, content) => {
+  const confirmUser = await BlogPost.findOne({
+    where: { userId },
+  });
+
+  if (confirmUser === null) return { error: err.unauthorizedUser };
+
+  await BlogPost.update(
+      { title, content, updated: new Date() },
+      { where: { id } },
+  );
+
+  const postResult = await BlogPost.findOne({
+    where: { id },
+    attributes: { exclude: ['id', 'published', 'updated'] },
+    include: [{ model: Category, as: 'categories' }],
+  });
+
+  return postResult;
+};
+
 const searchAllPosts = async () => {
   const result = await BlogPost.findAll({
     include: [
@@ -32,6 +53,7 @@ const searchById = async (id) => {
 
 module.exports = {
   registerNewPost,
+  updatePost,
   searchAllPosts,
   searchById,
 };

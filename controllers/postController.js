@@ -9,6 +9,20 @@ const registerNewPost = async (req, res) => {
   return res.status(201).json(response);
 };
 
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+
+  const { userId } = req;
+
+  const response = await postService.updatePost(userId, id, title, content);
+
+  const { error } = response;
+  if (error) return res.status(401).json(error);
+
+  return res.status(200).json(response);
+};
+
 const searchAllPosts = async (_req, res) => {
   const response = await postService.searchAllPosts();
 
@@ -28,6 +42,7 @@ const searchById = async (req, res) => {
 
 module.exports = {
   registerNewPost,
+  updatePost,
   searchAllPosts,
   searchById,
 };

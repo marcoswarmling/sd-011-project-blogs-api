@@ -34,6 +34,14 @@ const nonExistentPost = {
   message: 'Post does not exist',
 };
 
+const unauthorizedUser = {
+  message: 'Unauthorized user',
+};
+
+const categoriesCannotBeEdited = {
+  message: 'Categories cannot be edited',
+};
+
 module.exports = {
   userAlreadyRegistered,
   invalidFields,
@@ -44,4 +52,6 @@ module.exports = {
   nonExistentCategory,
   categoryRequired,
   nonExistentPost,
+  unauthorizedUser,
+  categoriesCannotBeEdited,
 };

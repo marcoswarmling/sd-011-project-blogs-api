@@ -18,16 +18,20 @@ const validationFunctions = {
 };
 
 const endpointsValidation = {
-  user: ['displayName', 'email', 'password'],
-  login: ['email', 'password'],
-  categories: ['name'],
-  post: ['title', 'content', 'categoryIds'],
+  'POST/user': ['displayName', 'email', 'password'],
+  'POST/login': ['email', 'password'],
+  'POST/categories': ['name'],
+  'POST/post': ['title', 'content', 'categoryIds'],
+  'PUT/post': ['title', 'content'],
 };
 
 const validationFields = (req, res, next) => {
-  // Pega URL do endpoint, ex: user, login
   const endpoint = req.originalUrl.split('/')[1];
-  const fields = endpointsValidation[endpoint];
+  const { method } = req;
+  // Gera uma string ex: "POST/user", "GET/post"
+  const methodEndpoint = `${method}/${endpoint}`;
+  
+  const fields = endpointsValidation[methodEndpoint];
 
   const errors = fields.map((field) => {
     if (validationFunctions[field]) return validationFunctions[field](req, res);

@@ -4,7 +4,10 @@ const postController = require('../controllers/postController');
 
 const authToken = require('../validations/authToken');
 const { validationFields } = require('../validations');
-const { validExistsCategory } = require('../validations/BlogPosts/categoryId');
+const {
+  validExistsCategory,
+  cannotBeEditedCategory,
+} = require('../validations/BlogPosts/categoryId');
 
 router.post('/',
   authToken,
@@ -12,12 +15,18 @@ router.post('/',
   validExistsCategory,
   postController.registerNewPost);
 
-router.get('/:id',
+router.put('/:id',
   authToken,
-  postController.searchById);
-
+  validationFields,
+  cannotBeEditedCategory,
+  postController.updatePost);
+  
 router.get('/',
   authToken,
   postController.searchAllPosts);
+  
+router.get('/:id',
+  authToken,
+  postController.searchById);
 
 module.exports = router;
