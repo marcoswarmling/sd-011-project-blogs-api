@@ -13,6 +13,30 @@ const createUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const response = await userServices.getAllUsers();
+    return res.status(response.status).json(response.message);
+  } catch (e) {
+    console.log(e);
+    return res.status(SERVER_ERROR).json({ message: `Erro de servidor ${e.message}` });
+  }
+};
+
+/* const getOneUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await userServices.getOneUser(id);
+    return res.status(response.status).json(response.message);
+  } catch (e) {
+    console.log(e);
+    return res.status(SERVER_ERROR).json({ message: `Erro de servidor ${e.message}` });
+  }
+};
+
+*/
+
 module.exports = {
   createUser,
+  getAllUsers,
 };

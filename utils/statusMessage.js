@@ -15,10 +15,6 @@ const CONFLICT = 409;
 
 const SERVER_ERROR = 500;
 
-// --- mensage ----/ 
-
-const UserAlreadyRegistered = 'User already registered';
-
 module.exports = {
   STATUS_OK,
   CREATED,
@@ -29,5 +25,4 @@ module.exports = {
   NOT_FOUND,
   CONFLICT,
   SERVER_ERROR,
-  UserAlreadyRegistered,
 };
