@@ -3,7 +3,7 @@ const { User } = require('../models');
 const { status, tokenMessages } = require('../Helpers/status&messages');
 require('dotenv').config();
 
-const JWT = process.env.JWT_SECRET;
+const JWT = process.env.JWT_SECRET || 'secret';
 
 const validateToken = async (req, res, next) => {
   const { authorization } = req.headers;
@@ -16,7 +16,7 @@ const validateToken = async (req, res, next) => {
   req.user = user;
   next();
   } catch (error) {
-    res.status(status.unauth).json({ message: tokenMessages.invalid });
+    return res.status(status.unauth).json({ message: tokenMessages.invalid });
   }
 };
 
