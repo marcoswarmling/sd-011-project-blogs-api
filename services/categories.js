@@ -5,4 +5,8 @@ async function insertCategServ(name) {
   return insertData;
 }
 
-module.exports = { insertCategServ };
+async function getCategoriesServ() {
+  const categoriesData = await Categories.findAll();
+  return categoriesData;
+}
+module.exports = { insertCategServ, getCategoriesServ };

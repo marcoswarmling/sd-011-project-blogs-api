@@ -20,8 +20,7 @@ async function insertUserCtrl(req, res) {
 
 async function getAllUsersCtrl(_req, res) {
   const usersData = await getAllUsersServ();
-  const test = usersData;
-  return res.status(200).send(Object.values(test));
+  return res.status(200).send(Object.values(usersData));
 }
 
 async function checkToken(req, res, next) {
