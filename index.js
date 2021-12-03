@@ -32,4 +32,6 @@ app.post('/login', isValidLoginEmail, isValidLoginPassword, loginController.logi
 
 app.get('/user', validateToken, userController.getAllUser);
 
+app.get('/user/:id', validateToken, userController.getUserById);
+
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
