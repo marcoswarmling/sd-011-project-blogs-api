@@ -2,7 +2,10 @@ const { BlogPost } = require('../models');
 
 const createIt = async (postData) => {
     try {
-      const result = await BlogPost.create(postData);
+      const { body, user } = postData;
+      const { id: userId } = user;
+
+      const result = await BlogPost.create({ ...body, userId });
   
       return result;
     } catch (error) {

@@ -5,9 +5,9 @@ const tokenValidMiddle = require('../validators/middlewares/tokenValidMiddle');
 const STATUS_CREATED = 201;
 
 router.post('/', tokenValidMiddle, async (req, res, next) => {
-    const { body } = req;
+    const { body, user } = req;
 
-    const result = await blogpost.createIt(body);
+    const result = await blogpost.createIt({ body, user });
   
     if (result.message) return next(result);
 
