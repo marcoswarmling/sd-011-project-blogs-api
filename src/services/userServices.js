@@ -18,7 +18,16 @@ const getAll = async () => {
   return userToArray;
 };
 
+const getById = async (id) => {
+  const userFind = await User.findOne({ where: { id } });
+
+  if (!userFind) return { message: 'User does not exist' };
+  
+  return userFind.dataValues;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
