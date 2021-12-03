@@ -3,10 +3,16 @@ const bodyParser = require('body-parser');
 
 const userController = require('./controllers/userController');
 
+const loginController = require('./controllers/loginController');
+
 const {
   isValidDisplayName,
   isValidEmail,
   isValidPassword } = require('./middlewares/validations');
+
+const {
+  isValidLoginEmail,
+  isValidLoginPassword } = require('./middlewares/loginValidations');
 
 const app = express();
 
@@ -19,5 +25,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', isValidDisplayName, isValidEmail, isValidPassword, userController.createNewUser);
+
+app.post('/login', isValidLoginEmail, isValidLoginPassword, loginController.login);
 
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
