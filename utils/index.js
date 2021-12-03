@@ -23,6 +23,18 @@ module.exports = {
     message: '"email" is required',
     status: 400,
   },
+  nullTitle: {
+    message: '"title" is required',
+    status: 400,
+  },
+  nullContent: {
+    message: '"content" is required',
+    status: 400,
+  },
+  nullCategory: {
+    message: '"categoryid" is required',
+    status: 400,
+  },
   emptyPassword: {
     message: '"password" is not allowed to be empty',
     status: 400,

@@ -17,8 +17,13 @@ function isValidPassword(password) {
   return (password.length === ROLES.passwordLengh);
 }
 
+function invalidField(field) {
+  return (!field || field === '');
+}
+
 module.exports = {
   isValidNameLength,
   isValidEmail,
   isValidPassword,
+  invalidField,
 };

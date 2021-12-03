@@ -6,14 +6,17 @@ const { jwtValidation } = require('../auth/validateJWT');
 
 const router = express.Router();
 
-router.post(
-  '/categories',
-  rescue(nameValidation),
-  rescue(jwtValidation),
-  rescue(categoriesController.findOrCreate),
-)
-.get('/cagetories', jwtValidation, rescue(categoriesController.getAllcategories));
-// .post('/login', rescue(loginValidation), rescue(userController.findOne))
-// .get('/user/:id', jwtValidation, rescue(userController.getUser))
+router
+  .post(
+    '/categories',
+    rescue(nameValidation),
+    rescue(jwtValidation),
+    rescue(categoriesController.findOrCreate),
+  )
+  .get(
+    '/categories',
+    jwtValidation,
+    rescue(categoriesController.getAllcategories),
+  );
 
 module.exports = router;
