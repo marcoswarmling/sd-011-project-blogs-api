@@ -1,5 +1,4 @@
 const { createToken } = require('../auth/createJWT');
-// const validateJWT = require('../auth/validateJWT');
 
 const { User } = require('../models');
 
@@ -11,6 +10,15 @@ const create = async (displayName, email, password, image) => {
   return token;
 };
 
+const getAll = async () => {
+  const users = await User.findAll();
+
+  const userToArray = users.map((user) => user.dataValues);
+
+  return userToArray;
+};
+
 module.exports = {
   create,
+  getAll,
 };
