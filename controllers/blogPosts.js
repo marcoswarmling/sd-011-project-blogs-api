@@ -38,4 +38,16 @@ const getById = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts, getById };
+const editPost = async (req, res) => {
+try {
+  const { id: postId } = req.params;
+  const { title, content } = req.body;
+
+  const updatedPost = await postServices.editPost(title, content, postId);
+  return res.status(status.sucess).json(updatedPost);
+} catch (error) {
+  return res.status(status.intServerError).json({ message: intServerError.unknown });
+}
+};
+
+module.exports = { createPost, getAllPosts, getById, editPost };
