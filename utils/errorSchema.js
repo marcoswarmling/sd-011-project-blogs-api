@@ -48,7 +48,27 @@ const categoryError = {
   },
 };
 
+const postError = {
+  unexistingCategory: {
+    code: 400,
+    message: '"categoryIds" not found',
+  },
+  requiredTitle: {
+    code: 400,
+    message: '"title" is required',
+  },
+  requiredContent: {
+    code: 400,
+    message: '"content" is required',
+  },
+  requiredCategoryIds: {
+    code: 400,
+    message: '"categoryIds" is required',
+  },
+};
+
 module.exports = {
   userError,
   categoryError,
+  postError,
 };
