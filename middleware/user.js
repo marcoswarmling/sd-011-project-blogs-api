@@ -30,8 +30,6 @@ const authorizationToken = async (req, res, next) => {
   jwt.verify(token, secret, (err, authorizedData) => {
     if (err) return res.status(401).json({ message: 'Expired or invalid token' });
     req.userId = authorizedData.data.id;
-
-    console.log('middleware', req.userId);
     
     next();
   });

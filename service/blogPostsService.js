@@ -1,17 +1,48 @@
-const { BlogPosts } = require('../models');
+const { BlogPosts, Categories, User } = require('../models');
+
+const categorieShow = [
+  { model: User, as: 'user', attributes: { exclude: ['password'] } },
+  { 
+    model: Categories,
+    through: { attributes: [] }, 
+    attributes: { exclude: ['PostsCategories'] },
+  },
+];
 
 const create = async (title, content, userId) => {
   const result = await BlogPosts.create({ title, content, userId });
-
-  console.log('teste agora 3', userId);
   
   return result;
 };
 
-const getAll = async () => BlogPosts.findAll({ include: [{ all: true }] });
+// const getAll = async () => BlogPosts.findAll({ include: [{ all: true }] });
+
+const getAll = async () => {
+  try {
+    const response = await BlogPosts.findAll({ 
+      include: categorieShow,
+    });
+
+    console.log('testando get post service', response);
+
+    return response;
+  } catch (e) {
+    return console.log(e);
+  }
+};
+
+// const getId = async (id) => {
+//   const result = await BlogPosts.findOne({ where: { id }, include: [{ all: true }] });
+
+//   if (!result) return { message: 'Post does not exist' };
+//   return result;
+// };
 
 const getId = async (id) => {
-  const result = await BlogPosts.findOne({ where: { id }, include: [{ all: true }] });
+  const result = await BlogPosts.findOne({
+    where: { id },
+    include: categorieShow,
+   });
 
   if (!result) return { message: 'Post does not exist' };
   return result;

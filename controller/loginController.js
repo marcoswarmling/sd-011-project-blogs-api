@@ -15,7 +15,6 @@ const login = async (req, res) => {
     
     const result = await service.login(email, password);
     const payload = { data: result };
-    console.log('aqui', payload);
     const token = jwt.sign(payload, secret, jwtConfig);
 
     return res.status(200).json({ token });
