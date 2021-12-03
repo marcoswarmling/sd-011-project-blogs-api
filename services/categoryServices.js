@@ -8,12 +8,13 @@ const createCategory = async ({ name }) => {
 
 const getAll = async () => {
   const categories = await Category.findAll();
+  
   return categories;
 };
 
 const getCategoryIds = async (categoryIds) => {
   const categories = await Category.findAll({ where: { id: categoryIds } });
-  console.log(categories);
+
   return categories;
 };
 

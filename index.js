@@ -67,3 +67,9 @@ app.post(
   bpValidations.validateTitle,
   bpController.createBlogPost,
 );
+
+app.get(
+  '/post',
+  userValidations.validateJWT,
+  bpController.getAll,
+);
