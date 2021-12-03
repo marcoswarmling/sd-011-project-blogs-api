@@ -1,5 +1,5 @@
 const { Categories } = require('../models/index');
-const { CREATED } = require('../utils/statusMessage');
+const { CREATED, NOT_FOUND, STATUS_OK } = require('../utils/statusMessage');
 
 const registerCategory = async (name) => {
   const result = await Categories.create({ name });
@@ -13,8 +13,10 @@ const registerCategory = async (name) => {
 
 const getAll = async () => {
   const result = await Categories.findAll();
-  if (!result) throw new Error('No category found');
-  return result;
+
+  if (!result) return { status: NOT_FOUND, message: { message: 'No users found' } };
+
+  return { status: STATUS_OK, message: result };
 };
 
 module.exports = {
