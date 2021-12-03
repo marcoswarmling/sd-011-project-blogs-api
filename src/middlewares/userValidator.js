@@ -17,9 +17,11 @@ const userSchema = Joi.object({
     }),
   password: Joi.string()
     .min(6)
+    .max(6)
     .required()
     .messages({
       'string.min': '"password" length must be 6 characters long',
+      'string.max': '"password" length must be 6 characters long',
       'any.required': '"password" is required',
     }),
 });
