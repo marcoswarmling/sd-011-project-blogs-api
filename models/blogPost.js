@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     published: DataTypes.DATE,
-    update: DataTypes.DATE, 
-    userId: DataTypes.INTEGER,
+    updated: DataTypes.DATE, 
+    userId: { type: DataTypes.INTEGER, foreignKey: true },
   }, {
     tableName: 'BlogPosts',
     timestamps: false,
@@ -13,8 +13,6 @@ module.exports = (sequelize, DataTypes) => {
 
   // Associação ao model de User
   BlogPost.associate = ({ User }) => {
-    // A publicação pertence a um User
-    // refencia na chave estrangeira, apresentada com nome (as)
     BlogPost.belongsTo(User, { foreignKey: 'userId', as: 'user' });
   };
 
