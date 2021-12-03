@@ -38,7 +38,18 @@ const validExistsCategory = async (req, res, next) => {
   next();
 };
 
+const cannotBeEditedCategory = async (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  console.log(categoryIds);
+
+  if (categoryIds) return res.status(400).json(err.categoriesCannotBeEdited);
+
+  next();
+};
+
 module.exports = {
   validCategoryIds,
   validExistsCategory,
+  cannotBeEditedCategory,
 };
