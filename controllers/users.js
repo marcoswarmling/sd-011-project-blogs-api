@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   
   const alreadyRegisteredUser = await services.findUserByEmail(email);
-
+  console.log(alreadyRegisteredUser);
   if (!alreadyRegisteredUser || alreadyRegisteredUser.password !== password) {
     return res.status(400).json({ message: 'Invalid fields' });
   }
@@ -31,7 +31,13 @@ const loginUser = async (req, res) => {
   return res.status(200).json({ token: loginToken });
 };
 
+const getAllUsers = async (_req, res) => {
+  const allUsers = await services.getAllUsers();
+  res.status(200).json(allUsers);
+};
+
 module.exports = {
   createUser,
   loginUser,
+  getAllUsers,
 };
