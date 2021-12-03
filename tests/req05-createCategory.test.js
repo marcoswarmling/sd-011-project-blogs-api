@@ -3,7 +3,7 @@ const shell = require('shelljs');
 
 const url = 'http://localhost:3000';
 
-describe.skip('5 - Sua aplicação deve ter o endpoint POST `/categories`', () => {
+describe('5 - Sua aplicação deve ter o endpoint POST `/categories`', () => {
   beforeEach(() => {
     shell.exec('npx sequelize-cli db:drop');
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
@@ -44,7 +44,7 @@ describe.skip('5 - Sua aplicação deve ter o endpoint POST `/categories`', () =
       });
   });
 
-  it('Será validado que não é possivel cadastrar uma categoria sem o campo name', async () => {
+  it.skip('Será validado que não é possivel cadastrar uma categoria sem o campo name', async () => {
     let token;
     await frisby
       .post(`${url}/login`,
@@ -78,7 +78,7 @@ describe.skip('5 - Sua aplicação deve ter o endpoint POST `/categories`', () =
       });
   });
 
-  it('Será validado que não é possível cadastrar uma categoria sem o token', async () => {
+  it.skip('Será validado que não é possível cadastrar uma categoria sem o token', async () => {
     await frisby
       .setup({
         request: {
@@ -98,7 +98,7 @@ describe.skip('5 - Sua aplicação deve ter o endpoint POST `/categories`', () =
       });
   });
 
-  it('Será validado que não é possível cadastrar uma categoria com o token inválido', async () => {
+  it.skip('Será validado que não é possível cadastrar uma categoria com o token inválido', async () => {
     await frisby
       .setup({
         request: {

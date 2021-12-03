@@ -9,8 +9,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use('/user', router.userRoutes);
 app.use('/login', router.loginRoutes);
-/* app.use('/categories', router.categoriesRoutes);
-app.use('/post', router.postRoutes); */
+app.use('/categories', router.categoriesRoutes);
+/* app.use('/post', router.postRoutes); */
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 

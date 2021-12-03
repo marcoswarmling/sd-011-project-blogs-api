@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
     return res.status(response.status).json(response.message);
   } catch (e) {
     console.log(e);
-    return res.status(SERVER_ERROR).json({ message: `Erro de servidor ${e.message}` });
+    return res.status(SERVER_ERROR).json({ message: `Server Unavailable ${e.message}` });
   }
 };
 
@@ -19,7 +19,7 @@ const getAllUsers = async (req, res) => {
     return res.status(response.status).json(response.message);
   } catch (e) {
     console.log(e);
-    return res.status(SERVER_ERROR).json({ message: `Erro de servidor ${e.message}` });
+    return res.status(SERVER_ERROR).json({ message: `Server Unavailable ${e.message}` });
   }
 };
 
@@ -30,7 +30,7 @@ const getOneUser = async (req, res) => {
     return res.status(response.status).json(response.message);
   } catch (e) {
     console.log(e);
-    return res.status(SERVER_ERROR).json({ message: `Erro de servidor ${e.message}` });
+    return res.status(SERVER_ERROR).json({ message: `Server Unavailable ${e.message}` });
   }
 };
 
