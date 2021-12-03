@@ -11,16 +11,16 @@ const createPost = async (title, content, categoryIds, userId) => {
 };
 
 const getAllPosts = async () => {
-  console.log('cheguei no service');
 const allPosts = await BlogPost.findAll({
   include: [
-    { model: User, as: 'User', attributes: { exclude: ['password'] } },
-    { model: Category, as: 'Categories' },
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories' },
   ],
 });
 if (!allPosts) {
   return { status: 404, message: 'no post' };
 }
+
   return allPosts;
 };
 
