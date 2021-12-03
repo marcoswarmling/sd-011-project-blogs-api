@@ -24,5 +24,16 @@ const createUser = async (displayName, email, password, image) => {
 
   return getUserWithoutPassword;
 };
+
+const getById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+
+  if (!user) { 
+    return { 
+      error: 'User does not exist', 
+    };
+  }
+  return user;
+};
  
-module.exports = { createUser, getAll };
+module.exports = { createUser, getAll, getById };

@@ -1,6 +1,6 @@
 const express = require('express');
 const { valUser, valToken } = require('../middlewares/valUser');
-const { createUser, getAll } = require('../services/userServices');
+const { createUser, getAll, getById } = require('../services/userServices');
 
 const router = express.Router();
 
@@ -17,6 +17,18 @@ router.get('/user', valToken, async (_req, res) => {
   const response = await getAll();
   /* console.log('ESSE É O MEU RESPONSE DO CONTROLLER', response); */
   res.status(200).json(response);
+});
+
+router.get('/user/:id', valToken, async (req, res) => {
+  const { id } = req.params;
+  const user = await getById(id);
+
+  if (user.error) {
+    return res.status(404).json({ message: user.error });
+  }
+  
+  /* console.log('ESSE É O MEU CONSOLE LOG USER:ID', user); */
+  return res.status(200).json(user);
 });
 
 module.exports = router;
