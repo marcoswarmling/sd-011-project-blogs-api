@@ -24,4 +24,17 @@ if (!allPosts) {
   return allPosts;
 };
 
-module.exports = { createPost, getAllPosts };
+const getById = async (id) => {
+  const postById = await BlogPost.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', attributes: { exclude: ['PostCategory'] } },
+    ],
+  });
+  if (!postById) {
+    return { status: status.notFound, message: postMessages.postNotExist };
+  }
+  return postById;
+};
+
+module.exports = { createPost, getAllPosts, getById };
