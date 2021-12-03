@@ -47,6 +47,7 @@ const postMessages = {
   contentRequired: '"content" is required',
   categoryIdRequired: '"categoryIds" is required',
   categoryIdNotFound: '"categoryIds" not found',
+  postNotExist: 'Post does not exist',
 };
 
 module.exports = { status,
