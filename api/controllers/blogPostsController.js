@@ -11,6 +11,12 @@ const createPostBlog = async (req, res) => {
   }
 };
 
+const findAllPostsBlog = async (req, res) => {
+  const allPosts = await blogPostsServices.findAllPosts();
+  return res.status(200).json(allPosts);
+};
+
 module.exports = {
   createPostBlog,
+  findAllPostsBlog,
 };

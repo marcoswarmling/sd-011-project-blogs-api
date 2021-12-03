@@ -1,4 +1,4 @@
-const { Categories, BlogPosts } = require('../models');
+const { Users, Categories, BlogPosts } = require('../models');
 
 const verifyCategory = async (categoryIds) => { // função auxiliar, criada para verificar se a categoria existe
   const findCategoryId = await Categories.findAll(); // lista todas as categorias
@@ -16,6 +16,22 @@ const createPost = async ({ title, categoryIds, content }) => {
   return null;
 };
 
+const findAllPosts = async () => {
+  const allPosts = await BlogPosts.findAll({
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return allPosts;
+};
+
+// const findAllPosts = async () => {
+//   const allPosts = await BlogPosts.findAll();
+//   return allPosts;
+// };
+
 module.exports = {
   createPost,
+  findAllPosts,
 };
