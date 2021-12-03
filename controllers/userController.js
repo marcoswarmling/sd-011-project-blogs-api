@@ -4,9 +4,9 @@ require('dotenv').config();
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
-  const findEmail = await service.getUserEmail(email);
+  const findUser = await service.getUserByEmail(email);
 
-  if (findEmail) {
+  if (findUser) {
     return res.status(409).json({ message: 'User already registered' });
   }
 

@@ -9,7 +9,7 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const getUserEmail = async (email) => {
+const getUserByEmail = async (email) => {
   const userEmail = await User.findOne({ where: { email } });
   return userEmail;
 };
@@ -17,15 +17,17 @@ const getUserEmail = async (email) => {
 const createUser = async ({ name, email, password, image }) => {
   await User.create({ name, email, password, image });
 
-  const token = jwt.sign({ data: email }, secret, jwtConfig);
+  const user = await getUserByEmail(email);
+
+  const token = jwt.sign({ data: user.id }, secret, jwtConfig);
   return token;
 };
 
 const login = async (email) => {
-  const userEmail = await getUserEmail(email);
+  const user = await getUserByEmail(email);
 
-  if (userEmail) {
-    const token = jwt.sign({ data: email }, secret, jwtConfig);
+  if (user) {
+    const token = jwt.sign({ data: user.id }, secret, jwtConfig);
     return token;
   }
 
@@ -45,7 +47,7 @@ const getId = async (id) => {
 };
 
 module.exports = {
-  getUserEmail,
+  getUserByEmail,
   createUser,
   login,
   getAll,

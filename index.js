@@ -4,6 +4,8 @@ const userValidations = require('./validations/userValidate');
 const userController = require('./controllers/userController');
 const categoryValidations = require('./validations/categoryValidate');
 const categoryController = require('./controllers/categoryController');
+const bpValidations = require('./validations/bpValidate');
+const bpController = require('./controllers/bpController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -55,4 +57,13 @@ app.get(
   '/categories',
   userValidations.validateJWT,
   categoryController.getAll,
+);
+
+app.post(
+  '/post',
+  userValidations.validateJWT,
+  bpValidations.validateCategories,
+  bpValidations.validateContent,
+  bpValidations.validateTitle,
+  bpController.createBlogPost,
 );
