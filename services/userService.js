@@ -23,8 +23,15 @@ const searchUser = async (id) => {
   return result;
 };
 
+const deleteUser = async (id) => {
+  const result = await User.destroy({ where: { id } });
+
+  return result;
+};
+
 module.exports = {
   registerUser,
   searchAllUsers,
   searchUser,
+  deleteUser,
 };
