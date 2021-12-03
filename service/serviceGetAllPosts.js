@@ -1,4 +1,4 @@
-const { Users, BlogPosts, Categories } = require('../models');
+const { Categories } = require('../models');
 
 const serviceGetAllCategories = async () => {
   const caterories = await Categories.findAll();

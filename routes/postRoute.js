@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const controllerCreatePost = require('../controller/controllerCreatePost');
-const controllerGetAllPosts = require('../controller/controllerGetAllPosts')
+const controllerGetAllPosts = require('../controller/controllerGetAllPosts');
 const {
   validedToken,
   validedCategoryId,
@@ -16,5 +16,5 @@ router.post(
   validedCategoryId,
   controllerCreatePost,
 );
- router.get('/', validedToken, controllerGetAllPosts)
+ router.get('/', validedToken, controllerGetAllPosts);
 module.exports = router;

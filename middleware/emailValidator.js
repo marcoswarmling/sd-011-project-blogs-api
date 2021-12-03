@@ -1,13 +1,13 @@
 const { Users } = require('../models');
 
 async function validedEmail(req, res, next) {
-  const {email} = req.body
+  const { email } = req.body;
   if (!email) {
     res.status(400).json({ message: '"email" is required' });
     return;
   }
-  const findEmail = await Users.findOne({where: {email: email}})
-  if(findEmail){
+  const findEmail = await Users.findOne({ where: { email } });
+  if (findEmail) {
     return res.status(409).json({ message: 'User already registered' });
   }
 
