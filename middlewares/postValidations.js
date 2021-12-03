@@ -4,8 +4,8 @@ const nullCategory = new Error('nullCategory');
 const nullContent = new Error('nullContent');
 const nullTitle = new Error('nullTitle');
 
-function passwordValidation(password) {
-  if (invalidField(password)) throw nullCategory;
+function categoryIdsValidation(categoryIds) {
+  if (invalidField(categoryIds)) throw nullCategory;
 
   return true;
 }
@@ -23,11 +23,11 @@ function titleValidation(title) {
 }
 
 function postValidation(req, _res, next) {
-  const { title, content, password } = req.body;
+  const { title, content, categoryIds } = req.body;
 
   titleValidation(title);
   contentValidation(content);
-  passwordValidation(password);
+  categoryIdsValidation(categoryIds);
 
   next();
 }

@@ -15,6 +15,7 @@ function jwtValidation(req, res, next) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.token = decoded;
+    console.log('decoded', decoded)
     next();
   } catch (error) {
     throw new Error('jwtTokenError');
