@@ -1,7 +1,8 @@
+const { Op } = require('sequelize');
 const { BlogPosts, Categories, Users } = require('../models/index');
 const { NOT_FOUND, STATUS_OK } = require('../utils/statusMessage');
 
-/* const getAllPost = async (searchParam) => {
+const getAllPost = async (searchParam) => {
   const allPosts = await BlogPosts.findAll({
     where: searchParam && searchParam !== '' ? { 
         [Op.or]: [
@@ -9,16 +10,17 @@ const { NOT_FOUND, STATUS_OK } = require('../utils/statusMessage');
           { content: { [Op.like]: `%${searchParam}%` } },
         ],
       } : null,
-    attributes: { exclude: ['UserId'] },
+/*     attributes: { exclude: ['UserId'] }, */
     include: [
       { model: Users, as: 'user', attributes: { exclude: ['password'] } },
       { model: Categories, as: 'categories', through: { attributes: [] } },
     ],
   });
 
-  if (!allPosts) throw new Error('No posts found');
-  return allPosts;
-}; */
+  if (!allPosts) return { status: NOT_FOUND, message: { message: 'No posts found' } };
+
+  return { status: STATUS_OK, message: allPosts };
+};
 
 const getOnePost = async (id) => {
   console.log('entrou no getONEPOST');
@@ -34,5 +36,6 @@ const getOnePost = async (id) => {
 };
 
 module.exports = {
+  getAllPost,
   getOnePost,
 };

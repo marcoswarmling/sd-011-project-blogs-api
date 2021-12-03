@@ -4,8 +4,8 @@ const { SERVER_ERROR } = require('../utils/statusMessage');
 const getAllPosts = async (req, res) => {
   try {
     const { q } = req.query;
-    const allPosts = await postServices.getAllPost(q);
-    return res.status(200).json(allPosts);
+    const response = await postServices.getAllPost(q);
+    return res.status(response.status).json(response.message);
   } catch (e) {
     console.error(e);
     return res.status(SERVER_ERROR).json({ message: `Server Unavailable ${e.message}` });
