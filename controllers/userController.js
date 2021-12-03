@@ -1,4 +1,5 @@
 const userServices = require('../services/userServices');
+const { SERVER_ERROR } = require('../utils/statusMessage');
 
 const createUser = async (req, res) => {
   console.log(req.body);
@@ -8,7 +9,7 @@ const createUser = async (req, res) => {
     return res.status(response.status).json(response.message);
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ message: `Erro de servidor ${e.message}` });
+    return res.status(SERVER_ERROR).json({ message: `Erro de servidor ${e.message}` });
   }
 };
 
