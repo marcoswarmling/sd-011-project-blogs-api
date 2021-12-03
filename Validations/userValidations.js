@@ -4,7 +4,8 @@ async function validateDisplayName(req, res, next) {
   const { displayName } = req.body;
   const minCharactersNumber = 8; 
   if (displayName.length < minCharactersNumber) {
-    res.status(400).json({ message: '"displayName" length must be at least 8 characters long' });
+    return res.status(400)
+      .json({ message: '"displayName" length must be at least 8 characters long' });
   }
   next();
 }
@@ -30,12 +31,12 @@ async function validateEmail(req, res, next) {
 async function validatePassword(req, res, next) {
   const { password } = req.body;
   if (!password) {
-    res.status(400).json({ message: '"password" is required' });
+    return res.status(400).json({ message: '"password" is required' });
   }
 
   const minCharactersNumber = 6;
   if (password.length !== minCharactersNumber) {
-    res.status(400).json({ message: '"password" length must be 6 characters long' });
+    return res.status(400).json({ message: '"password" length must be 6 characters long' });
   }
 
   next();

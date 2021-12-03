@@ -1,7 +1,11 @@
-const service = require('../services/user');
+const { 
+  getUserEmailServ,
+  insertUserServ,
+  getAllUsersServ,
+  getUserById } = require('../services/user');
 
 async function getUserEmailCtrl(email) {
-  const registeredUser = await service.getUserEmailServ(email);
+  const registeredUser = await getUserEmailServ(email);
   if (!registeredUser) {
     return null;
   }
@@ -10,11 +14,38 @@ async function getUserEmailCtrl(email) {
 
 async function insertUserCtrl(req, res) {
   const bodyData = req.body;
-  const insertData = await service.insertUserServ(bodyData);
+  const insertData = await insertUserServ(bodyData);
   return res.status(201).json({ token: insertData });
+}
+
+async function getAllUsersCtrl(_req, res) {
+  const usersData = await getAllUsersServ();
+  const test = usersData;
+  return res.status(200).send(Object.values(test));
+}
+
+async function checkToken(req, res, next) {
+  const { token } = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  next();
+}
+
+async function getUserByIdCtrl(req, res) {
+  const { id } = req.params;
+  const user = await getUserById(id);
+  if (user.error) {
+    return res.status(404).json({ message: user.error });
+  }
+  console.log(user);
+  return res.status(200).json(user);
 }
 
 module.exports = {
   insertUserCtrl,
   getUserEmailCtrl,
+  getAllUsersCtrl,
+  checkToken,
+  getUserByIdCtrl,
 };

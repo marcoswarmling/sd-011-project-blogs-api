@@ -1,3 +1,4 @@
+const res = require('express/lib/response');
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models'); // A IsaKoga me ajudou aqui. NÃO posso fazer o require de ../models/user porque se nao eu desestruturo USER do código de lá. Porém quando faço só usando ../models eu pego o users como função e é onde realmente o sequelize funciona. Para saber as funçoes e tudo que o sequelize pode fazer eu posso dar um console log de ../models.(no caso eu faço const index = require('../models') e dou um console.log nele. Ai vao aparecer mtaaaas funçoes que o seequelize tem)
 
@@ -29,8 +30,23 @@ async function insertUserServ(bodyData) {
   return token;
 }
 
+async function getAllUsersServ() {
+  const users = await Users.findAll();
+  return users;
+}
+
+async function getUserById(id) {
+  const user = await Users.findOne({ where: { id } });
+  if (!user) {
+    return { error: 'User does not exist' };
+  }
+  return user;
+}
+
 module.exports = {
   getToken,
   insertUserServ,
-  getUserEmailServ,  
+  getUserEmailServ,
+  getAllUsersServ,
+  getUserById,
 };
