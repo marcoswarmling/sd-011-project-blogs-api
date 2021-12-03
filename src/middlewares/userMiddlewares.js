@@ -16,7 +16,7 @@ const userValidation = async (req, res, next) => {
 
     next();
   } catch (e) {
-    return res.status().json(e);
+    return res.status(500).json(e.message);
   }
 };
 
