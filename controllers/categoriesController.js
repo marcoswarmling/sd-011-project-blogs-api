@@ -1,6 +1,6 @@
 const express = require('express');
 const { valToken } = require('../middlewares/valUser');
-const { createCategory } = require('../services/categoriesService');
+const { createCategory, getAll } = require('../services/categoriesService');
 
 const router = express.Router();
 
@@ -15,4 +15,8 @@ router.post('/categories', valToken, async (req, res) => {
   res.status(201).json(create);
 });
 
+router.get('/categories', valToken, async (_req, res) => {
+  const categorie = await getAll();
+  res.status(200).json(categorie);
+});
 module.exports = router;
