@@ -2,13 +2,11 @@ const { BlogPost, Category, User } = require('../models');
 const { status, postMessages } = require('../Helpers/status&messages');
 
 const createPost = async (title, content, categoryIds, userId) => {
-  console.log('cheguei no service');
   const categories = await Category.findAll({ where: { id: categoryIds } });
   if (categories.length !== categoryIds.length) {
     return { status: status.badRequest, message: postMessages.categoryIdNotFound };
   }
-  console.log('passei da verificação de categoria');
-  const newPost = await BlogPost.create({ title, content, userId });
+  const { dataValues: newPost } = await BlogPost.create({ title, content, userId });
   return newPost;
 };
 

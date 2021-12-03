@@ -3,12 +3,10 @@ const { status, intServerError } = require('../Helpers/status&messages');
 
 const createPost = async (req, res) => {
 try {
-  console.log('to no contrller');
   const { title, content, categoryIds } = req.body;
   const { id: userId } = req.user;
   
   const newPost = await postServices.createPost(title, content, categoryIds, userId);
-  console.log('newPost em CONTROLLER', newPost);
   if (newPost.status) {
     return res.status(newPost.status).json({ message: newPost.message });
   }
