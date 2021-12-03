@@ -15,6 +15,18 @@ const createNewUser = async (req, res) => {
   return res.status(201).json({ token });
 };
 
+const getAllUser = async (req, res) => {
+  const user = await User.findAll();
+  console.log(user);
+
+  if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+  }
+
+  return res.status(200).json(user);
+};
+
 module.exports = {
-    createNewUser,
+  createNewUser,
+  getAllUser,
 };

@@ -14,6 +14,8 @@ const {
   isValidLoginEmail,
   isValidLoginPassword } = require('./middlewares/loginValidations');
 
+const validateToken = require('./auth/validateToken');
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -27,5 +29,7 @@ app.get('/', (request, response) => {
 app.post('/user', isValidDisplayName, isValidEmail, isValidPassword, userController.createNewUser);
 
 app.post('/login', isValidLoginEmail, isValidLoginPassword, loginController.login);
+
+app.get('/user', validateToken, userController.getAllUser);
 
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
