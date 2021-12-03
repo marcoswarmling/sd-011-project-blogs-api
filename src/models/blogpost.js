@@ -1,24 +1,21 @@
-const {
-  Model,
-} = require('sequelize');
-
-module.exports = (sequelize, DataTypes) => {
-  class BlogPost extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  BlogPost.init({
+const blogPosts = (sequelize, DataTypes) => {
+  const blogPost = sequelize.define('BlogPost', {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
   }, {
-    sequelize,
-    modelName: 'BlogPost',
+    timestamps: true,
+    createdAt: 'published',
+    updatedAt: 'updated',
   });
-  return BlogPost;
+// Obs.: Eu não criei a associação "hasOne" na outra tabela ainda.
+
+  blogPost.associate = (models) => {
+    blogPost.belongsTo(models.user, { // Talves seja com 'u' maiúsculo, se referencia ao nome da tabela
+      foreignKey: 'userId', as: 'user',
+    });
+  };
+
+  return blogPost;
 };
+
+module.exports = blogPosts;
