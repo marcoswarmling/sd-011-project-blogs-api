@@ -7,7 +7,6 @@ const createPost = async (title, content, categoryIds, id) => {
     return { status: status.badRequest, message: postMessages.categoryIdNotFound };
   }
   const { dataValues: newPost } = await BlogPost.create({ title, content, userId: id });
-  console.log(newPost);
   return newPost;
 };
 
@@ -54,4 +53,9 @@ const editPost = async (title, content, postId) => {
   return dataValues;
 };
 
-module.exports = { createPost, getAllPosts, getById, editPost };
+const deletePost = async (id) => {
+  await BlogPost.destroy({ where: { id } });
+  return true;
+};
+
+module.exports = { createPost, getAllPosts, getById, editPost, deletePost };

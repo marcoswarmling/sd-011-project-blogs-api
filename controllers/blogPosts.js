@@ -49,4 +49,14 @@ try {
 }
 };
 
-module.exports = { createPost, getAllPosts, getById, editPost };
+const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await postServices.deletePost(id);
+    return res.status(status.noContent).json();
+  } catch (error) {
+    return res.status(status.intServerError).json({ message: intServerError.unknown });
+  }
+};
+
+module.exports = { createPost, getAllPosts, getById, editPost, deletePost };
