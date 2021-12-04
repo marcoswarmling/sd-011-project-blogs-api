@@ -39,4 +39,6 @@ app.get('/user/:id', validateToken, userController.getUserById);
 
 app.post('/categories', validateToken, isValidName, categoryController.createNewCategory);
 
+app.get('/categories', validateToken, categoryController.getAllCategory);
+
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
