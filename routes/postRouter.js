@@ -7,4 +7,7 @@ postRoutes.route('/')
   .post(validateToken, validatePost, controller.createPost)
   .get(validateToken, controller.getPosts);
 
+postRoutes.route('/:id')
+  .get(validateToken, controller.getPostById);
+
 module.exports = postRoutes;
