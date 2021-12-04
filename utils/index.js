@@ -32,7 +32,7 @@ module.exports = {
     status: 400,
   },
   nullCategory: {
-    message: '"categoryid" is required',
+    message: '"categoryIds" is required',
     status: 400,
   },
   emptyPassword: {
@@ -49,6 +49,10 @@ module.exports = {
   },
   invalidField: {
     message: 'Invalid fields',
+    status: 400,
+  },
+  categoryNotFound: {
+    message: '"categoryIds" not found',
     status: 400,
   },
   jwtTokenError: {

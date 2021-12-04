@@ -8,7 +8,9 @@ const router = express.Router();
 
 router.post(
   '/post',
-  rescue(rescue(postValidation), rescue(jwtValidation), postController.postCreate),
+  rescue(postValidation),
+  rescue(jwtValidation),
+  rescue(postController.postCreate),
 );
 
 module.exports = router;

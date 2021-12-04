@@ -21,8 +21,10 @@ const findOrCreate = async (displayName, email, password, image) => {
   return token;
 };
 
-const findOne = async (email, password) => {
-  const user = await User.findOne({ where: { email, password } });
+const findUserByEmail = async (email) => User.findOne({ where: { email } });
+
+const findOne = async (email) => {
+  const user = await findUserByEmail(email);
 
   if (!user) {
     throw new Error('invalidField');
@@ -58,4 +60,5 @@ module.exports = {
   findOne,
   getAllUsers,
   getUser,
+  findUserByEmail,
 };

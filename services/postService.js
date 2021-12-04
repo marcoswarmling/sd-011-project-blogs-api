@@ -1,45 +1,35 @@
-const { BlogPosts, Categories } = require('../models');
-// require("dotenv").config();
+const { BlogPost } = require('../models');
+const { getCategory } = require('./categoriesService');
+const { findUserByEmail } = require('./userService');
 
-const postCreate = async (bodyRequest, dataToken) => {
+const categoryNotFound = new Error('categoryNotFound');
 
-//  Conferir se todas as categorias existem
-//  Pegar o id do usuario
+async function checkAllCategoriesValid(categoryIds) {
+  const categoriesFound = await Promise.all(categoryIds.map(async (id) => getCategory(id)));
 
-  // const post = await BlogPosts.create(title, content, categoryIds);
+  if (categoriesFound.some((category) => category === null)) {
+    throw categoryNotFound;
+  }
 
-  return post;
+  return true;
+}
+
+const postCreate = async ({ title, content, categoryIds }, email) => {
+  const isAllCategoriesValid = await checkAllCategoriesValid(categoryIds);
+  if (!isAllCategoriesValid) { // corrigir essa logica
+    return categoryNotFound;
+  }
+
+  const { id } = await findUserByEmail(email);
+  const response = await BlogPost.create({ userId: id, title, content });
+  console.log('A resposta da gravação é ----> ', response);
+
+  return { id, title, content };
 };
-
-// const getAllcategories = async () => Categories.findAll();
-
-// // const findOne = async (email, password) => {
-// //   const 'Categories = await 'Categories.findOne({ where: { email, password } });
-
-// //   if (!'Categories) {
-// //     throw new Error('invalidField');
-// //   }
-
-// //   const token = jwt.sign(
-// //     { data: { displayName: 'Categories.displayName, email: 'Categories.email } },
-// //     process.env.JWT_SECRET,
-// //     jwtConfig,
-// //   );
-
-// //   return token;
-// // };
-
-// // const get'Categories = async (id) => {
-// //   const 'Categories = await 'Categories.findByPk(id, {
-// //     attributes: ['id', 'displayName', 'email', 'image'],
-// //   });
-
-// //   if ('Categories === null) {
-// //     throw new Error(''CategoriesNotExist');
-// //   }
-
-// //   return 'Categories;
-// // };
+//  Tem que salvar em blogpost title, content, categoryIds, iserId
+// tem que devolver de resposta  title, content iserId e id
+//  Tem que salvar em postCategories o post e as suas devidas categorias
+// async function createAssociateBetweenPostAndCategories(postId, )
 
 module.exports = {
   postCreate,

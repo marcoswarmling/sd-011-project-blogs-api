@@ -12,10 +12,9 @@ function jwtValidation(req, res, next) {
   if (!token) throw new Error('missingToken');
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { data } = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.token = decoded;
-    console.log('decoded', decoded)
+    req.token = data.email;
     next();
   } catch (error) {
     throw new Error('jwtTokenError');

@@ -8,14 +8,13 @@ async function findOrCreate(req, res) {
 }
 
 async function findOne(req, res) {
-  const { email, password } = req.body;
-  const userToken = await userSevice.findOne(email, password);
+  const { email } = req.body;
+  const userToken = await userSevice.findOne(email);
 
   return res.status(200).json({ token: userToken });
 }
 
 async function getAllUsers(req, res) {
-  // const { email, password } = req.body;
   const users = await userSevice.getAllUsers();
 
   return res.status(200).json(users);

@@ -6,9 +6,11 @@ module.exports = (sequelize, DataTypes) => {
       userId: { type: DataTypes.INTEGER, foreignKey: true },
     },
     {
-      timestamps: false,
-      tableName: 'BlogPosts',
+      createAt: 'publishe',
+      // timestamps: true,
+      // tableName: 'BlogPosts',
       // underscored: true,
+
     });
 
   BlogPost.associate = (models) => {

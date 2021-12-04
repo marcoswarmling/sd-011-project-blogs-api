@@ -24,7 +24,7 @@ function titleValidation(title) {
 
 function postValidation(req, _res, next) {
   const { title, content, categoryIds } = req.body;
-
+  
   titleValidation(title);
   contentValidation(content);
   categoryIdsValidation(categoryIds);
