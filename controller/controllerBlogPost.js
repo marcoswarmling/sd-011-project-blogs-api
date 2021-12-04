@@ -3,6 +3,18 @@ const { BlogPosts, Users, Categories } = require('../models');
 // Categories
 const servicePostsCategories = require('../service/servicePostsCategories');
 
+const includes = {
+  include: [{
+    model: Users,
+    as: 'user',
+    attributes: { exclude: ['password'] },
+  }, {
+    model: Categories,
+    as: 'categories',
+    through: { attributes: [] },
+  }],
+};
+
 async function controllerPostBlog(req, res) {
   const { title, content, categoryIds } = req.body;
   const { id } = req.userInfo;
@@ -51,10 +63,7 @@ async function controllerGetPostsBlogId(req, res) {
   try {
     const result = await BlogPosts.findOne({
       where: { id },
-      include: [
-        { model: Users, as: 'user', attributes: { exclude: ['password'] } },
-        { model: Categories, as: 'categories', through: { attributes: [] } },
-      ],
+      ...includes,
     });
 
     if (result === null) {
@@ -108,15 +117,18 @@ async function controllerGetSearchPost(req, res) {
   const result = await BlogPosts.findAll({
     where: {
       [Op.or]: [{
-        title: {
-          [Op.substring]: q,
+          title: {
+            [Op.substring]: q,
+          },
         },
-      }, {
-        content: {
-          [Op.substring]: q,
+        {
+          content: {
+            [Op.substring]: q,
+          },
         },
-      }],
+      ],
     },
+    ...includes,
   });
 
   res.status(200).send(result);

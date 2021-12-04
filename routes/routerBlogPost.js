@@ -27,7 +27,7 @@ router.post('/',
 
 router.get('/', checkToken, checkValidToken, controllerGetPostsBlog);
 
-router.get('/search', controllerGetSearchPost);
+router.get('/search', checkToken, checkValidToken, controllerGetSearchPost);
 
 router.get('/:id', checkToken, checkValidToken, controllerGetPostsBlogId);
 
