@@ -37,4 +37,14 @@ const getUserById = async (req, res) => {
   }
 };
 
-module.exports = { createNewUser, findAllUsers, getUserById };
+const deleteMe = async (req, res) => {
+  try {
+    const { id } = req.user;
+    await usersServices.deleteMe(id);
+    return res.status(status.noContent).json();
+  } catch (error) {
+  return res.status(status.intServerError).json({ message: intServerError.unknown });
+}
+};
+
+module.exports = { createNewUser, findAllUsers, getUserById, deleteMe };
