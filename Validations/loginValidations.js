@@ -29,7 +29,6 @@ const loginValidation = async (req, res, next) => {
 
   const loginUser = await db.Users.findOne({ where: { email, password } });
 
-    // if (!loginUser || email !== loginUser.email || password !== loginUser.password) 
     if (!loginUser || loginUser === null) {
     return res.status(400).json({ message: 'Invalid fields' });
   }

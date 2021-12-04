@@ -3,7 +3,8 @@ const jwtToken = require('../authorization/jwtToken');
 
 const getAllUsers = async (_req, res) => {
   try {
-    const allUsers = await db.Users.findAll();
+    const allUsers = await db.Users
+    .findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
     return res.status(200).json(allUsers);
   } catch (error) {
     return res.status(400).json(error.message); 
@@ -20,6 +21,7 @@ const createUser = async (req, res) => {
       });
       const { id, displayName, image } = getNewUser;
       const token = jwtToken({ id, displayName, email, image });
+      console.log({ token });
       return res.status(201).json(token);
     } catch (error) {
       return res.status(400).json(error.message);

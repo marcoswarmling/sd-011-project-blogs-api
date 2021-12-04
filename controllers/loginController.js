@@ -10,10 +10,10 @@ const loginUser = async (req, res) => {
     const { id, displayName, image } = user;
     const token = jwtToken({ id, displayName, email, image });
     return res.status(200).json(token);
-  } catch (error) {
-    return res.status(400).json(error.message);
-  }
-};
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  };
 
 module.exports = {
   loginUser,

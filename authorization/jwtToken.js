@@ -7,7 +7,7 @@ module.exports = (login) => {
       expiresIn: '1h',
       algorithm: 'HS256',
     };
-    const token = jwt.sign({ login }, process.env.SECRET, jwtConfig);
+    const token = jwt.sign({ login }, process.env.JWT_SECRET, jwtConfig);
     return { token };
   } catch (error) {
       return error.message;
