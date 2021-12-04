@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const userRouter = require('./src/routes/userRouter');
 const loginRouter = require('./src/routes/loginRouter');
+const categoriesRouter = require('./src/routes/categoriesRouter');
 
 const app = express();
 app.use(express.json());
@@ -16,5 +17,6 @@ app.get('/', (_request, response) => {
 
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
+app.use('/categories', categoriesRouter);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));

@@ -14,9 +14,14 @@ const invalidFields = {
   message: 'Invalid fields',
 };
 
+const nameRequired = {
+  message: '"name" is required',
+};
+
 module.exports = {
   tokenNotFound,
   tokenExpired,
   userRegistered,
   invalidFields,
+  nameRequired,
 };
