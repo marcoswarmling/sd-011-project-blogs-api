@@ -55,9 +55,28 @@ async function chekCategorisExist(req, res, next) {
   next();
 }
 
+function checkUserAutorizationPutPostId(req, res, next) {
+  const { id } = req.userInfo;
+
+  if (id !== Number(req.params.id)) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  next();
+}
+
+function notPutcategories(req, res, next) {
+  const { categoryIds } = req.body;
+  if (categoryIds) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+  next();
+}
+
 module.exports = {
   checkContent,
   checkCategoryIds,
   checkTitle,
   chekCategorisExist,
+  checkUserAutorizationPutPostId,
+  notPutcategories,
 };

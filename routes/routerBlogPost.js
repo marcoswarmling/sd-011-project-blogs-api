@@ -7,12 +7,15 @@ const {
   checkCategoryIds,
   checkTitle,
   chekCategorisExist,
+  checkUserAutorizationPutPostId,
+  notPutcategories,
 } = require('../middleware');
 
 const {
   controllerPostBlog,
   controllerGetPostsBlog,
   controllerGetPostsBlogId,
+  controllerPutPostsBlogId,
 } = require('../controller/controllerBlogPost');
 
 router.post('/',
@@ -22,5 +25,9 @@ router.post('/',
 router.get('/', checkToken, checkValidToken, controllerGetPostsBlog);
 
 router.get('/:id', checkToken, checkValidToken, controllerGetPostsBlogId);
+
+router.put('/:id',
+  checkToken, checkValidToken, notPutcategories, checkUserAutorizationPutPostId,
+  checkTitle, checkContent, controllerPutPostsBlogId);
 
 module.exports = router;

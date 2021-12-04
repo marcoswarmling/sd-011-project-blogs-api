@@ -65,8 +65,30 @@ async function controllerGetPostsBlogId(req, res) {
   }
 }
 
+async function controllerPutPostsBlogId(req, res) {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  try {
+    await BlogPosts.update({
+      title,
+      content,
+    }, { where: { id } });
+    const result = await BlogPosts.findOne({
+      where: { id },
+      attributes: { exclude: ['id', 'published', 'updated'] },
+      include: [
+        { model: Categories, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   controllerPostBlog,
   controllerGetPostsBlog,
   controllerGetPostsBlogId,
+  controllerPutPostsBlogId,
 };

@@ -3,6 +3,8 @@ const {
   checkCategoryIds,
   checkTitle,
   chekCategorisExist,
+  checkUserAutorizationPutPostId,
+  notPutcategories,
 } = require('./middlewareBlogPost');
 
 const { cheNameCategories } = require('./middlewareCategories');
@@ -29,4 +31,6 @@ module.exports = {
   checkToken,
   checkValidToken,
   cheNameCategories,
+  checkUserAutorizationPutPostId,
+  notPutcategories,
 };
