@@ -21,7 +21,7 @@ const PASSWORD_REQUIRED_ERROR = {
 const nameValidator = (req, res, next) => {
   const { displayName } = req.body;
 
-  if (displayName < 8) {
+  if (displayName.length < 8) {
     return res
       .status(400)
       .json(NAME_ERROR);
