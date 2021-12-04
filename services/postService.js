@@ -20,11 +20,12 @@ const postCreate = async ({ title, content, categoryIds }, email) => {
     return categoryNotFound;
   }
 
-  const { id } = await findUserByEmail(email);
-  const response = await BlogPost.create({ userId: id, title, content });
+  const result = await findUserByEmail(email);
+  console.log('A testando o blogpost ----> ', result);
+  const response = await BlogPost.create({ title, content, userId: result.dataValues.id });
   console.log('A resposta da gravação é ----> ', response);
 
-  return { id, title, content };
+  return { id: response.dataValues.id, userId: result.dataValues.id, title, content };
 };
 //  Tem que salvar em blogpost title, content, categoryIds, iserId
 // tem que devolver de resposta  title, content iserId e id
