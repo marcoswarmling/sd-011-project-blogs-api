@@ -77,8 +77,32 @@ const getAll = async (req, res) => {
   } 
 };
 
+const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await userService
+    .getUserById(id);
+
+    if (!user.displayName) {
+      return res
+        .status(404)
+        .json(user);
+    }
+
+    res
+      .status(200)
+      .json(user);
+  } catch (error) {
+    res
+      .status(500)
+      .json(ERROR_MESSAGE);
+  } 
+};
+
 module.exports = {
   createUser,
   login,
   getAll,
+  getUserById,
 };

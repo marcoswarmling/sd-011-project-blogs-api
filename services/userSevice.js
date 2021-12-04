@@ -8,6 +8,10 @@ const INVALID_FIELDS_ERROR = {
   message: 'Invalid fields',
 };
 
+const USER_NOT_FOUND_ERROR = {
+  message: 'User does not exist',
+};
+
 const emailExists = async (email) => {
   const user = await User
     .findOne({ where: { email } });
@@ -44,9 +48,19 @@ const getAll = async () => {
   return users;
 };
 
+const getUserById = async (id) => {
+  const user = await User
+    .findByPk(id);
+  
+  if (!user) return USER_NOT_FOUND_ERROR;
+
+  return user;
+};
+
 module.exports = {
   createUser,
   login,
   getAll,
   emailExists,
+  getUserById,
 };

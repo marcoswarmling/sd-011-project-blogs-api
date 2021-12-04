@@ -14,6 +14,7 @@ const {
   createUser,
   login,
   getAll,
+  getUserById,
 } = require('../controllers/userController');
 
 const { 
@@ -38,11 +39,18 @@ router.post(
   login,
   );
 
-  router.get(
+router.get(
     '/user',
     validateTokenExistence,
     validateToken,
     getAll,
-    );
+  );
+
+  router.get(
+    '/user/:id',
+    validateTokenExistence,
+    validateToken,
+    getUserById,
+  );
 
 module.exports = router;
