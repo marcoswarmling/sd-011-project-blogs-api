@@ -2,19 +2,13 @@ const userService = require('../service/userService');
 
 const controllerUserInsert = async (req, res) => {
     const { displayName, email, password, image } = req.body;
-
-    const insertUser = await userService.userModelRegister(
-        displayName,
-        email,
-        password,
-        image,
-);
-        if (insertUser.error === 'Email_Exists') {
-            return res.status(409).json({
-                message: 'User already registered',
-            });
-        }
-        return res.status(201).json(insertUser);
+    const insertUser = await userService.userModelRegister(displayName, email, password, image);
+    if (insertUser.error === 'Email_Exists') {
+        return res.status(409).json({
+            message: 'User already registered',
+        });
+    }
+    res.status(201).send(insertUser);
 };
 
 const controllerFindUser = async (req, res) => {

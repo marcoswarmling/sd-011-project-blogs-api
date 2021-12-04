@@ -5,6 +5,7 @@ const postControllerInsert = async (req, res) => {
     const insertPost = await post.ServiceInsertPost(
         id, title, content, categoryIds,
     );
+    console.log('O QUE TA VINDO', insertPost);
     if (insertPost.error === 'notFound') {
         return res.status(400).json({
             message: '"categoryIds" not found',
