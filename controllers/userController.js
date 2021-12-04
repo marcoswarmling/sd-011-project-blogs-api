@@ -37,6 +37,32 @@ const createUser = async (req, res) => {
   } 
 };
 
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await userService
+    .login(email, password);
+    
+    if (!user.displayName) {
+      return res
+        .status(400)
+        .json(user);
+    }
+
+    const token = jwt.sign({ data: user }, JWT_SECRET, jwtConfig);
+
+    res
+      .status(200)
+      .json({ token });
+  } catch (error) {
+    res
+      .status(500)
+      .json(ERROR_MESSAGE);
+  } 
+};
+
 module.exports = {
   createUser,
+  login,
 };

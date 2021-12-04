@@ -33,14 +33,14 @@ const nameValidator = (req, res, next) => {
 const emailValidator = (req, res, next) => {
   const { email } = req.body;
 
-  if (!email) {
+  if (email === undefined) {
     return res
       .status(400)
       .json(EMAIL_REQUIRED_ERROR);
   }
 
   const expReg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-  if (!expReg.test(email)) {
+  if (!expReg.test(email) && email.length !== 0) {
     return res
       .status(400)
       .json(EMAIL_VALID_ERROR);
@@ -52,13 +52,13 @@ const emailValidator = (req, res, next) => {
 const passwordValidator = (req, res, next) => {
   const { password } = req.body;
 
-  if (!password) {
+  if (password === undefined) {
     return res
       .status(400)
       .json(PASSWORD_REQUIRED_ERROR);
   }
 
-  if (password.length !== 6) {
+  if (password.length !== 6 && password.length !== 0) {
     return res
       .status(400)
       .json(PASSWORD_LENGTH_ERROR);
