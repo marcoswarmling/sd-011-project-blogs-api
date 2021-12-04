@@ -3,6 +3,8 @@ const MSG_MISSING_TITLE = '"title" is required';
 const MSG_EMPTY_TITLE = '"title" is not allowed to be empty';
 const MSG_MISSING_CONTENT = '"content" is required';
 const MSG_EMPTY_CONTENT = '"content" is not allowed to be empty';
+const MSG_MISSING_CATEGORY = '"categoryIds" is required';
+const MSG_EMPTY_CATEGORY = '"categoryIds" is not allowed to be empty';
 
 function titleValidator(title) {
   if (typeof title === 'undefined') {
@@ -32,8 +34,20 @@ function contentValidator(content) {
   return {};
 }
 
+function categoryIdsValidator(categoryIds) {
+  if (typeof categoryIds === 'undefined') {
+    return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_CATEGORY };
+  }
+
+  if (!categoryIds) {
+    return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_CATEGORY };
+  }
+
+  return {};
+}
+
 module.exports = async (req, res, next) => {
-  const { title, content } = req.body;
+  const { title, content, categoryIds } = req.body;
   
   const titleResult = titleValidator(title);
   if (titleResult.status) {
@@ -43,6 +57,11 @@ module.exports = async (req, res, next) => {
   const contentResult = contentValidator(content);
   if (contentResult.status) {
     return res.status(contentResult.status).json({ message: contentResult.message });
+  }
+
+  const categoryIdsResult = categoryIdsValidator(categoryIds);
+  if (categoryIdsResult.status) {
+    return res.status(categoryIdsResult.status).json({ message: categoryIdsResult.message });
   }
 
   next();
