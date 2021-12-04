@@ -4,5 +4,6 @@ const categoriesValidations = require('../Validations/categoriesValidations');
 const tokenValidation = require('../Validations/tokenValidation');
 
 router.post('/', tokenValidation, categoriesValidations, categoriesController.createCategories);
+router.get('/', tokenValidation, categoriesController.getAllCategories);
 
 module.exports = router;
