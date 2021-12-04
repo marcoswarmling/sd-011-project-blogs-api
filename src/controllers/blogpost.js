@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { blogpost, category } = require('../services');
 const tokenValidMiddle = require('../validators/middlewares/tokenValidMiddle');
+const postValidMiddle = require('../validators/middlewares/postValidMiddle');
 
 const STATUS_CREATED = 201;
 const STATUS_OK = 200;
@@ -22,7 +23,7 @@ const createPostsCategories = async (post, categories) => {
   post.addCategories(categories);
 };
 
-router.post('/', tokenValidMiddle, async (req, res, next) => {
+router.post('/', tokenValidMiddle, postValidMiddle, async (req, res, next) => {
     const { body, user } = req;
     const { categoryIds } = body;
 
