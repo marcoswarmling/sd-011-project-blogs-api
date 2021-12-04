@@ -21,7 +21,14 @@ async function create(req, res) {
   return res.status(201).json(user);
 }
 
+async function findAll(req, res) {
+  const user = await usersService.findAll();
+
+  return res.status(200).json(user);
+}
+
 module.exports = {
   create,
   login,
+  findAll,
 };

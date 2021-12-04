@@ -10,6 +10,7 @@ const {
   passwordLoginValid,
   validEmailLoginExists,
 } = require('./middlewares/usersValidations');
+const validateJWT = require('./auth/validateJWT');
 
 const app = express();
 app.use(bodyParser.json());
@@ -30,6 +31,8 @@ app.post(
   validEmailLoginExists,
   usersController.login,
 );
+
+app.get('/user', validateJWT, usersController.findAll);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
