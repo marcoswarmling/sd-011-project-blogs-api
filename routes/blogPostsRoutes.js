@@ -11,6 +11,7 @@ const {
 } = require('../middlewares/auth/validateAuth');
 
 router.get('/', isValidateToken, BlogPosts.getAllPostCategories);
+router.get('/:id', isValidateToken, BlogPosts.getByIdPostCategories);
 router.post(
     '/', validateBlogPostJoi, isValidateToken, checkCategoriesExists, BlogPosts.createBlogPosts,
     );
