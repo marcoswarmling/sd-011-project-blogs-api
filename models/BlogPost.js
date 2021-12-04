@@ -5,6 +5,7 @@ const BlogPost = (sequelize, DataTypes) => {
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   }, {
+    timestamps: false,
     table: 'BlogPosts',
   });
 
