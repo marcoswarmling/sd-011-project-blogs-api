@@ -1,4 +1,4 @@
-const { BlogPost } = require('../services');
+const { BlogPost, PostCategory } = require('../services');
 
 const createPost = async (req, res, next) => {
   const { body, user } = req;
@@ -7,6 +7,8 @@ const createPost = async (req, res, next) => {
 
   try {
     const newPost = await BlogPost.createPost({ title, content, categoryIds, userId });
+
+    await PostCategory.createPostsCategories(newPost.id, categoryIds);
 
     return res.status(201).json(newPost);
   } catch (error) {
