@@ -1,4 +1,4 @@
-const { Categories } = require('../models');
+const { Categories, BlogPosts } = require('../models');
 
 function checkTitle(req, res, next) {
   const { title } = req.body;
@@ -72,6 +72,21 @@ function notPutcategories(req, res, next) {
   next();
 }
 
+async function chekpostExist(req, res, next) {
+  const { id } = req.params;
+
+  const result = await BlogPosts.findOne({
+    where: {
+      id,
+    },
+  });
+
+  if (!result) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  next();
+}
+
 module.exports = {
   checkContent,
   checkCategoryIds,
@@ -79,4 +94,5 @@ module.exports = {
   chekCategorisExist,
   checkUserAutorizationPutPostId,
   notPutcategories,
+  chekpostExist,
 };

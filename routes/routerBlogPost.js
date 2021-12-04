@@ -9,6 +9,7 @@ const {
   chekCategorisExist,
   checkUserAutorizationPutPostId,
   notPutcategories,
+  chekpostExist,
 } = require('../middleware');
 
 const {
@@ -16,6 +17,7 @@ const {
   controllerGetPostsBlog,
   controllerGetPostsBlogId,
   controllerPutPostsBlogId,
+  controllerDeletePostBlogId,
 } = require('../controller/controllerBlogPost');
 
 router.post('/',
@@ -29,5 +31,9 @@ router.get('/:id', checkToken, checkValidToken, controllerGetPostsBlogId);
 router.put('/:id',
   checkToken, checkValidToken, notPutcategories, checkUserAutorizationPutPostId,
   checkTitle, checkContent, controllerPutPostsBlogId);
+
+router.delete('/:id',
+  checkToken, checkValidToken, chekpostExist, checkUserAutorizationPutPostId,
+  controllerDeletePostBlogId);
 
 module.exports = router;

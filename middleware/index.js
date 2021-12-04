@@ -5,6 +5,7 @@ const {
   chekCategorisExist,
   checkUserAutorizationPutPostId,
   notPutcategories,
+  chekpostExist,
 } = require('./middlewareBlogPost');
 
 const { cheNameCategories } = require('./middlewareCategories');
@@ -33,4 +34,5 @@ module.exports = {
   cheNameCategories,
   checkUserAutorizationPutPostId,
   notPutcategories,
+  chekpostExist,
 };

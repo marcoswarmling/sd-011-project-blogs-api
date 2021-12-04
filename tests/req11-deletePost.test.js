@@ -13,11 +13,10 @@ describe('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
   it('Será validado que é possível deletar um blogpost com sucesso', async () => {
     let token;
     await frisby
-      .post(`${url}/login`,
-        {
-          email: 'lewishamilton@gmail.com',
-          password: '123456',
-        })
+      .post(`${url}/login`, {
+        email: 'lewishamilton@gmail.com',
+        password: '123456',
+      })
       .expect('status', 200)
       .then((response) => {
         const { body } = response;
@@ -41,11 +40,10 @@ describe('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
   it('Será validado que não é possível deletar um blogpost com outro usuário', async () => {
     let token;
     await frisby
-      .post(`${url}/login`,
-        {
-          email: 'MichaelSchumacher@gmail.com',
-          password: '123456',
-        })
+      .post(`${url}/login`, {
+        email: 'MichaelSchumacher@gmail.com',
+        password: '123456',
+      })
       .expect('status', 200)
       .then((response) => {
         const { body } = response;
@@ -73,11 +71,10 @@ describe('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
   it('Será validado que não é possível deletar um blogpost inexistente', async () => {
     let token;
     await frisby
-      .post(`${url}/login`,
-        {
-          email: 'lewishamilton@gmail.com',
-          password: '123456',
-        })
+      .post(`${url}/login`, {
+        email: 'lewishamilton@gmail.com',
+        password: '123456',
+      })
       .expect('status', 200)
       .then((response) => {
         const { body } = response;

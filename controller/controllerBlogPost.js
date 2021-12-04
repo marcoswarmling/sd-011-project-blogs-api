@@ -86,9 +86,26 @@ async function controllerPutPostsBlogId(req, res) {
   }
 }
 
+async function controllerDeletePostBlogId(req, res) {
+  const { id } = req.params;
+  try {
+    const result = await BlogPosts.destroy({
+      where: { id },
+    });
+    console.log(result);
+    if (result) {
+      return res.status(204).send();
+    }
+    return res.status(404).json({ message: 'Post does not exist' });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   controllerPostBlog,
   controllerGetPostsBlog,
   controllerGetPostsBlogId,
   controllerPutPostsBlogId,
+  controllerDeletePostBlogId,
 };
