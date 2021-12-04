@@ -6,7 +6,7 @@ const schema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).messages({
     'string.min': '"password" length must be 6 characters long',
-  })
+  })  
 .required(),
   image: Joi.string(),
 });

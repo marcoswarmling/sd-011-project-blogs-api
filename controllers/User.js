@@ -30,6 +30,30 @@ const createNewUser = async (req, res) => {
 }
 };
 
+const loginUser = async (req, res) => {
+  try {
+  const { email, password } = req.body;
+  const user = { email, password };
+
+  const doesUserExists = await userService.loginUser(user);    
+  
+  if (doesUserExists.message) {
+    return res.status(400).json({ message: doesUserExists.message });
+  }  
+
+  const jwtConfig = {
+    expiresIn: '7d',
+    algorithm: 'HS256',
+  };    
+  const token = jwt.sign({ data: user }, JWT_SECRET, jwtConfig);
+  return res.status(200).json({ token });
+} catch (e) {
+  console.log(e);
+  return res.status(500).json({ message: 'algo deu errado!' });
+}
+};
+
 module.exports = {
   createNewUser,
+  loginUser,
 };

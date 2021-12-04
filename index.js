@@ -1,10 +1,12 @@
 const express = require('express');
 const userRouter = require('./routes/userRoutes');
+const loginRouter = require('./routes/loginRoutes');
 
 const app = express();
 app.use(express.json());
 
 app.use('/user', userRouter);
+app.use('/login', loginRouter);
 
 const { PORT = 3000 } = process.env;
 
