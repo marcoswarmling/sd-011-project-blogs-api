@@ -5,10 +5,13 @@ const userController = require('./controllers/userController');
 
 const loginController = require('./controllers/loginController');
 
+const categoryController = require('./controllers/categoryController');
+
 const {
   isValidDisplayName,
   isValidEmail,
-  isValidPassword } = require('./middlewares/validations');
+  isValidPassword,
+  isValidName } = require('./middlewares/validations');
 
 const {
   isValidLoginEmail,
@@ -33,5 +36,7 @@ app.post('/login', isValidLoginEmail, isValidLoginPassword, loginController.logi
 app.get('/user', validateToken, userController.getAllUser);
 
 app.get('/user/:id', validateToken, userController.getUserById);
+
+app.post('/categories', validateToken, isValidName, categoryController.createNewCategory);
 
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}!`));
