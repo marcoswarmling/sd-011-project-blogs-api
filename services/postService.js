@@ -5,7 +5,12 @@ const createPost = async (categoryIds, postData) => {
 
   if (!existingCategory) return { code: 'badRequest', message: '"categoryIds" not found' };
 
-  const { dataValues: { createdAt, updatedAt, ...newPost } } = await BlogPost.create(postData);
+  const currentDate = new Date();
+  const { dataValues: { published, updated, ...newPost } } = await BlogPost.create({
+    ...postData,
+    published: currentDate,
+    updated: currentDate,
+  });
 
   categoryIds.forEach(async (id) => PostsCategory.create({ postId: newPost.id, categoryId: id }));
 
@@ -15,23 +20,11 @@ const createPost = async (categoryIds, postData) => {
 const getPosts = async () => {
   const allPosts = await BlogPost.findAll({
     include: [
-      { model: User, as: 'user' }, // há alguma forma de renomear attributos para essa referencia?
+      { model: User, as: 'user' },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
   return allPosts;
-  // return allPosts.map((post) => {
-  //   // isso aqui não tá legal!
-  //   const changedPost = post.dataValues;
-  //   changedPost.published = post.createdAt;
-  //   changedPost.updated = post.updatedAt;
-  //   changedPost.user = post.User;
-  //   delete changedPost.createdAt;
-  //   delete changedPost.updatedAt;
-  //   delete changedPost.User;
-
-  //   return changedPost;
-  // });
 };
 
 module.exports = {
