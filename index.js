@@ -1,6 +1,24 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const usersController = require('./controllers/usersController');
+const {
+  validDisplayName,
+  validEmail,
+  validPassword,
+  validEmailExists,
+} = require('./middlewares/usersValidations');
 
 const app = express();
+app.use(bodyParser.json());
+
+app.post(
+  '/user',
+  validDisplayName,
+  validEmail,
+  validPassword,
+  validEmailExists,
+  usersController.create,
+);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
