@@ -18,10 +18,20 @@ const nameRequired = {
   message: '"name" is required',
 };
 
+const categoryRequired = {
+  message: '"categoryIds" is required',
+};
+
+const categoryNotFound = {
+  message: '"categoryIds" not found',
+};
+
 module.exports = {
   tokenNotFound,
   tokenExpired,
   userRegistered,
   invalidFields,
   nameRequired,
+  categoryRequired,
+  categoryNotFound,
 };
