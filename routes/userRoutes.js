@@ -10,6 +10,7 @@ const {
 const validateToken = require('../Validations/tokenValidation');
 
 router.get('/', validateToken, userController.getAllUsers);
+router.get('/:id', validateToken, userController.getUserById);
 router.post('/', 
 nameValidation,
 emailValidation,

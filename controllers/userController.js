@@ -28,7 +28,17 @@ const createUser = async (req, res) => {
     }
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const getUser = await db.Users.findOne({ where: { id } });
+  if (getUser) {
+    return res.status(200).json(getUser);
+  }
+    return res.status(404).json({ message: 'User does not exist' });
+};
+
 module.exports = {
   getAllUsers,
   createUser,
+  getUserById,
 };
