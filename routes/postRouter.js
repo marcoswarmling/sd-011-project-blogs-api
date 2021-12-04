@@ -6,11 +6,15 @@ const { jwtValidation } = require('../auth/validateJWT');
 
 const router = express.Router();
 
-router.post(
-  '/post',
-  rescue(postValidation),
+router
+  .post(
+    '/post',
+    rescue(postValidation),
+    rescue(jwtValidation),
+    rescue(postController.postCreate),
+  )
+  .get('/post',
   rescue(jwtValidation),
-  rescue(postController.postCreate),
-);
+  rescue(postController.getAllPost));
 
 module.exports = router;
