@@ -33,20 +33,4 @@ const getAllByArrayIds = async (categoryIds) => {
   }
 };
 
-// const getById = async (id) => {
-//   try {
-//     const result = await Category.findByPk(id);
-//     if (result === null) {
-//       return { 
-//         status: STATUS_NOT_FOUND, 
-//         message: MSG_CATEGORY_NOT_FOUND,
-//       };
-//     }
-
-//     return result;
-//   } catch (error) {
-//     return error;
-//   }
-// };
-
 module.exports = { createIt, getAll, getAllByArrayIds };
