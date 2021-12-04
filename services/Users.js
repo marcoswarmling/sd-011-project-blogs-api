@@ -1,12 +1,14 @@
 const { Users } = require('../models');
 const gerarJWT = require('../gerarJwt');
 
+const serverError = 'Something went wrong';
+
 const findUserByEmail = async (email) => {
   try {
     const response = Users.findOne({ where: { email }, raw: true });
     return response;
   } catch (e) {
-    return { error: 'Something went wrong' };
+    return { error: serverError };
   }
 };
 
@@ -26,7 +28,7 @@ const create = async (userData) => {
     return token;
   } catch (e) {
     console.log('erro');
-    return { error: 'Something went wrong' };
+    return { error: serverError };
   }
 };
 
@@ -53,9 +55,23 @@ const getAll = async () => {
     return { error: 'Something went wrong' };
   }
 };
+
+const getById = async (id) => {
+  try {
+    const response = await Users.findOne({ where: { id }, raw: true });
+    if (!response) {
+      return { message: 'User does not exist' };
+    }
+    return response;
+  } catch (e) {
+    return { error: 'Something went wrong' };
+  }
+};
+
 module.exports = {
   create,
   findUserByEmail,
   login,
   getAll,
+  getById,
 }; 
