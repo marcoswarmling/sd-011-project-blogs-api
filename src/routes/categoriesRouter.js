@@ -6,5 +6,6 @@ const {
 const validateJWT = require('../auth/validateJWT');
 
 router.post('/', validateJWT, categoriesValidation, categoriesControllers.newCategory);
+router.get('/', validateJWT, categoriesControllers.getAll);
 
 module.exports = router;

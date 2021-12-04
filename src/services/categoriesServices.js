@@ -6,6 +6,15 @@ const newCategory = async (name) => {
   return createdCategory.dataValues;
 };
 
+const getAll = async () => {
+  const categories = await Categorie.findAll();
+
+  const categoriesToArray = categories.map((categorie) => categorie.dataValues);
+
+  return categoriesToArray;
+};
+
 module.exports = {
   newCategory,
+  getAll,
 };
