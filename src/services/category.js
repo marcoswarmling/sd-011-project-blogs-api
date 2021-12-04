@@ -23,6 +23,16 @@ const createIt = async (CategoryData) => {
   }
 };
 
+const getAllByArrayIds = async (categoryIds) => {
+  try {
+    const result = await Category.findAll({ where: { id: categoryIds } });
+
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 // const getById = async (id) => {
 //   try {
 //     const result = await Category.findByPk(id);
@@ -39,4 +49,4 @@ const createIt = async (CategoryData) => {
 //   }
 // };
 
-module.exports = { createIt, getAll };
+module.exports = { createIt, getAll, getAllByArrayIds };
