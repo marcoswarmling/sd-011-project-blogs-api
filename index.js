@@ -6,6 +6,9 @@ const {
   validEmail,
   validPassword,
   validEmailExists,
+  emailLoginValid,
+  passwordLoginValid,
+  validEmailLoginExists,
 } = require('./middlewares/usersValidations');
 
 const app = express();
@@ -18,6 +21,14 @@ app.post(
   validPassword,
   validEmailExists,
   usersController.create,
+);
+
+app.post(
+  '/login',
+  emailLoginValid,
+  passwordLoginValid,
+  validEmailLoginExists,
+  usersController.login,
 );
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

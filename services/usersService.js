@@ -19,6 +19,23 @@ const create = async ({ displayName, email, password, image }) => {
   return { token };
 };
 
+const login = async ({ email, password }) => {
+  const secret = 'senha';
+
+  const payload = {
+    email,
+    password,
+  };
+
+  const token = jwt.sign(payload, secret, {
+    expiresIn: '7d',
+    algorithm: 'HS256',
+  });
+
+  return { token };
+};
+
 module.exports = {
   create,
+  login,
 };
