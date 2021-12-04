@@ -10,12 +10,12 @@ async function insertCategCtrl(req, res) {
   }
 }
 
-async function getCategoriesCtrl(req, res) {
+async function getCategoriesCtrl(_req, res) {
   try {
     const categoriesData = await getCategoriesServ();
     return res.status(200).json(categoriesData);
   } catch (error) {
-    return res.status(404).json({ error: 'quebrou' });
+    return res.status(404).json({ error: 'error' });
   }
 }
 

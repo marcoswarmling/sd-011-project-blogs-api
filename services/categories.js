@@ -9,4 +9,5 @@ async function getCategoriesServ() {
   const categoriesData = await Categories.findAll();
   return categoriesData;
 }
+
 module.exports = { insertCategServ, getCategoriesServ };
