@@ -10,13 +10,13 @@ const newPost = async (req, res) => {
   return res.status(201).json({ id, userId, title, content });
 };
 
-// const getAll = async (req, res) => {
-//   const allCategories = await categoriesServices.getAll();
+const getAll = async (req, res) => {
+  const allPosts = await postServices.getAll();
 
-//   return res.status(200).json(allCategories);
-// };
+  return res.status(200).json(allPosts);
+};
 
 module.exports = {
   newPost,
-  // getAll,
+  getAll,
 };
