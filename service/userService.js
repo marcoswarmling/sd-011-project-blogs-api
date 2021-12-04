@@ -28,7 +28,8 @@ const userModelFind = async (email, password) => {
     if (findUser === null) {
         return { error: 'USER_NOT_FOUND' };
     }
-    const token = jwt.sign({ email }, secret, jwtConfig);
+    const { id } = findUser;
+    const token = jwt.sign({ id }, secret, jwtConfig);
     const tokenGenerated = token;
     return { token: tokenGenerated };
 };
@@ -42,7 +43,6 @@ const userModelFindId = async (idUser) => {
     const findId = await User.findByPk(idUser);
     if (findId === null) return { error: 'USER_NOT_FOUND' };
     const { id, displayName, email, password, image } = findId;
-    console.log('namedoservice', displayName);
     return { id, displayName, email, password, image };
 };
 

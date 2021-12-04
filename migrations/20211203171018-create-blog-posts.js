@@ -10,25 +10,34 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       content: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      userId: {
+      userId: { 
         type: Sequelize.INTEGER,
+        allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
           key: 'id',
-        },
+        }
+      },
         published: {
           type: Sequelize.DATE,
+          isDate: true,
+          allowNull: false,
+          defaultValue: Sequelize.fn('now'),
         },
         updated: {
           type: Sequelize.DATE,
+          isDate: true,
+          allowNull: false,
+          defaultValue: Sequelize.fn('now'),
         }
-      }
     });
   },
   down: async (queryInterface, Sequelize) => {

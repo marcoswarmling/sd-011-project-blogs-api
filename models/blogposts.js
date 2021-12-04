@@ -7,9 +7,15 @@ module.exports = (sequelize, DataTypes) => {
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   },
-  {
-    timestamps: false, // remove a obrigatoriedade de utilizar os campos `createdAt` e `updatedAt`
- });
+    { timestamps: false,
+    });
+
+ BlogPosts.associate = (models) => {
+  BlogPosts.belongsTo(models.User, {
+    foreignKey: 'userId',
+    as: 'user',
+  });
+};
 
   return BlogPosts;
 };

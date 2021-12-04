@@ -12,7 +12,9 @@ const tokenExists = (req, res, next) => {
     }
 
     try {
-        jwt.verify(token, secret);
+        const decoded = jwt.verify(token, secret);
+        const { id } = decoded;
+        req.body = { ...req.body, id };
         next();
     } catch (error) {
         console.log(error);
