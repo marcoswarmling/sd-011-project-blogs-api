@@ -13,11 +13,10 @@ describe('13 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTer
   it('Será validado que é possível buscar um blogpost pelo `title`', async () => {
     let token;
     await frisby
-      .post(`${url}/login`,
-        {
-          email: 'lewishamilton@gmail.com',
-          password: '123456',
-        })
+      .post(`${url}/login`, {
+        email: 'lewishamilton@gmail.com',
+        password: '123456',
+      })
       .expect('status', 200)
       .then((response) => {
         const { body } = response;
@@ -56,11 +55,10 @@ describe('13 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTer
   it('Será validado que é possível buscar um blogpost pelo `content`', async () => {
     let token;
     await frisby
-      .post(`${url}/login`,
-        {
-          email: 'lewishamilton@gmail.com',
-          password: '123456',
-        })
+      .post(`${url}/login`, {
+        email: 'lewishamilton@gmail.com',
+        password: '123456',
+      })
       .expect('status', 200)
       .then((response) => {
         const { body } = response;
@@ -97,11 +95,10 @@ describe('13 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTer
   it('Será validado que é possível buscar todos os blogpost quando passa a busca vazia', async () => {
     let token;
     await frisby
-      .post(`${url}/login`,
-        {
-          email: 'lewishamilton@gmail.com',
-          password: '123456',
-        })
+      .post(`${url}/login`, {
+        email: 'lewishamilton@gmail.com',
+        password: '123456',
+      })
       .expect('status', 200)
       .then((response) => {
         const { body } = response;
@@ -150,11 +147,10 @@ describe('13 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTer
   it('Será validado que é possível buscar um blogpost inexistente e retornar array vazio', async () => {
     let token;
     await frisby
-      .post(`${url}/login`,
-        {
-          email: 'lewishamilton@gmail.com',
-          password: '123456',
-        })
+      .post(`${url}/login`, {
+        email: 'lewishamilton@gmail.com',
+        password: '123456',
+      })
       .expect('status', 200)
       .then((response) => {
         const { body } = response;

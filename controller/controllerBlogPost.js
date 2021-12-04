@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPosts, Users, Categories } = require('../models');
 // Categories
 const servicePostsCategories = require('../service/servicePostsCategories');
@@ -102,10 +103,30 @@ async function controllerDeletePostBlogId(req, res) {
   }
 }
 
+async function controllerGetSearchPost(req, res) {
+  const { q } = req.query;
+  const result = await BlogPosts.findAll({
+    where: {
+      [Op.or]: [{
+        title: {
+          [Op.substring]: q,
+        },
+      }, {
+        content: {
+          [Op.substring]: q,
+        },
+      }],
+    },
+  });
+
+  res.status(200).send(result);
+}
+
 module.exports = {
   controllerPostBlog,
   controllerGetPostsBlog,
   controllerGetPostsBlogId,
   controllerPutPostsBlogId,
   controllerDeletePostBlogId,
+  controllerGetSearchPost,
 };

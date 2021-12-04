@@ -18,6 +18,7 @@ const {
   controllerGetPostsBlogId,
   controllerPutPostsBlogId,
   controllerDeletePostBlogId,
+  controllerGetSearchPost,
 } = require('../controller/controllerBlogPost');
 
 router.post('/',
@@ -26,6 +27,8 @@ router.post('/',
 
 router.get('/', checkToken, checkValidToken, controllerGetPostsBlog);
 
+router.get('/search', controllerGetSearchPost);
+
 router.get('/:id', checkToken, checkValidToken, controllerGetPostsBlogId);
 
 router.put('/:id',
@@ -33,7 +36,7 @@ router.put('/:id',
   checkTitle, checkContent, controllerPutPostsBlogId);
 
 router.delete('/:id',
-  checkToken, checkValidToken, chekpostExist, checkUserAutorizationPutPostId,
-  controllerDeletePostBlogId);
+  checkToken, checkValidToken, chekpostExist,
+  checkUserAutorizationPutPostId, controllerDeletePostBlogId);
 
 module.exports = router;
