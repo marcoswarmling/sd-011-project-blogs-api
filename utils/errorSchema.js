@@ -65,6 +65,10 @@ const postError = {
     code: 400,
     message: '"categoryIds" is required',
   },
+  unexistingPost: {
+    code: 404,
+    message: 'Post does not exist',
+  },
 };
 
 module.exports = {
