@@ -15,7 +15,7 @@ async function getAllPostsInDB() {
   const posts = await BlogPost.findAll({
     include: [
       { model: User, as: 'user' }, 
-      { model: Category, through: { attributes: [] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
   console.log(posts);

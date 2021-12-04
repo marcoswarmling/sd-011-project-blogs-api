@@ -24,18 +24,21 @@ module.exports = {
         type: Sequelize.INTEGER,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        field: 'userId',
         references: {
           model: 'Users',
           key: 'id',
         }
       },
-      categoryIds: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Categories',
-          key: 'id',
-        }
-      },
+      // NÃO TEM NECESSIDADE ISSO É NA QUERY
+      // categoryIds: {
+      //   type: Sequelize.INTEGER,
+      //   field: 'categoryIds',
+      //   references: {
+      //     model: 'Categories',
+      //     key: 'id',
+      //   }
+      // },
     });
   },
   down: async (queryInterface, Sequelize) => {

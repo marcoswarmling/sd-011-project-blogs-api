@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
 
 // PRECISO ASSOCIAR COM A TABELA BLOG POST SE TEM MINHA TABELA DE RELACIONAMENTO?
 // SER OU NÃO SER EIS A QUESTÃO🤔
-  // Category.associate = (models) => {
-  //   Category.belongsTo(models.BlogPost, {
-  //     foreignKey: 'userId',
-  //     as: 'userId',
-  //   });
-  // };
+  Category.associate = (models) => {
+    Category.belongsToMany(models.BlogPost, {
+      foreignKey: 'categoryId',
+      through: models.PostCategory,
+    });
+  };
 
   return Category;
 };

@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: { type: DataTypes, foreignKey: true },
-    categoryIds: { type: DataTypes, foreignKey: true },
+    // REMOVI NA MIGRATION, ISSO DEVE SER NA QUERY RELACIONAMENTO N:N
+    // categoryIds: { type: DataTypes, foreignKey: true },
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   },
@@ -12,9 +13,11 @@ module.exports = (sequelize, DataTypes) => {
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-
-    // BlogPost.belongsToMany(models.Category, { foreignKey: 'categoryIds', through: BlogPost, as: 'category' });
+    
+    BlogPost.belongsToMany(models.Category, 
+      // O ERRO: O NOME É PostCategory e não PostCategories
+      { foreignKey: 'postId', through: models.PostCategory, as: 'categories' });
   };
-
+  
   return BlogPost;
 };
