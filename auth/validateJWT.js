@@ -1,22 +1,23 @@
-// validateJWT.js
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
+
+const { JWT_SECRET } = process.env;
 // const model = require('../models/users');
 
-const segredo = 'seusecretdetoken';
-
 const validateJWT = async (req, res, next) => {  
+  try {    
   const token = req.headers.authorization;
   
   if (!token) {    
-    return res.status(401).json({ message: 'missing auth token' });
+    return res.status(401).json({ message: 'Token not found' });
   }  
-  try {    
-    const decoded = jwt.verify(token, segredo);
+  const { data } = jwt.verify(token, JWT_SECRET); 
+  
+  req.token = data.email;
 
-    req.user = decoded.data;
-    next();
+  next();
   } catch (err) {
-    return res.status(401).json({ message: 'jwt malformed' });
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
 
