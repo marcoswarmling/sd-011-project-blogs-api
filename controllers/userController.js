@@ -62,7 +62,23 @@ const login = async (req, res) => {
   } 
 };
 
+const getAll = async (req, res) => {
+  try {
+    const users = await userService
+    .getAll();
+    
+    res
+      .status(200)
+      .json(users);
+  } catch (error) {
+    res
+      .status(500)
+      .json(ERROR_MESSAGE);
+  } 
+};
+
 module.exports = {
   createUser,
   login,
+  getAll,
 };

@@ -13,9 +13,21 @@ const {
 const {
   createUser,
   login,
+  getAll,
 } = require('../controllers/userController');
 
-router.post('/user', nameValidator, emailValidator, passwordValidator, createUser);
+const { 
+  validateTokenExistence,
+  validateToken,
+} = require('../middlewares/auth/tokenValidation');
+
+router.post(
+  '/user',
+  nameValidator,
+  emailValidator,
+  passwordValidator,
+  createUser,
+  );
 
 router.post(
   '/login',
@@ -25,5 +37,12 @@ router.post(
   passwordFieldValidator,
   login,
   );
+
+  router.get(
+    '/user',
+    validateTokenExistence,
+    validateToken,
+    getAll,
+    );
 
 module.exports = router;
