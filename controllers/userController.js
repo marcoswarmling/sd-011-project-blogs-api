@@ -1,7 +1,15 @@
+const jwt = require('jsonwebtoken');
 const userService = require('../services/userSevice');
 
 const ERROR_MESSAGE = {
   message: 'Internal Server Error',
+};
+
+const { JWT_SECRET } = process.env;
+
+const jwtConfig = {
+  expiresIn: '1d',
+  algorithm: 'HS256',
 };
 
 const createUser = async (req, res) => {
@@ -17,9 +25,11 @@ const createUser = async (req, res) => {
         .json(user);
     }
 
+    const token = jwt.sign({ data: user }, JWT_SECRET, jwtConfig);
+
     res
       .status(201)
-      .json({ user });
+      .json({ token });
   } catch (error) {
     res
       .status(500)

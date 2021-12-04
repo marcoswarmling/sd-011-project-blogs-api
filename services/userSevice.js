@@ -6,7 +6,7 @@ const EMAIL_EXISTS_ERROR = {
 
 const emailExists = async (email) => {
   const user = await User
-    .findOne({ where: { email }});
+    .findOne({ where: { email } });
 
   if (!user) return false;
 

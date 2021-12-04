@@ -12,11 +12,11 @@ const EMAIL_REQUIRED_ERROR = {
 
 const PASSWORD_LENGTH_ERROR = {
   message: '"password" length must be 6 characters long',
-}
+};
 
 const PASSWORD_REQUIRED_ERROR = {
   message: '"password" is required',
-}
+};
 
 const nameValidator = (req, res, next) => {
   const { displayName } = req.body;
@@ -33,7 +33,7 @@ const nameValidator = (req, res, next) => {
 const emailValidator = (req, res, next) => {
   const { email } = req.body;
 
-  if(!email) {
+  if (!email) {
     return res
       .status(400)
       .json(EMAIL_REQUIRED_ERROR);

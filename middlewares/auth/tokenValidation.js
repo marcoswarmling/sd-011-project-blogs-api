@@ -2,7 +2,7 @@ const TOKEN_NOT_FOUND_ERROR = {
   message: 'Token not found',
 };
 
-const validateToken= (req, res, next) => {
+const validateToken = (req, res, next) => {
   const { authorization: token } = req.headers;
   if (token) {
     next();
