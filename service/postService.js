@@ -18,6 +18,23 @@ const ServiceInsertPost = async (id, title, content, categoryIds) => {
     }
 };
 
+const serviceDeleteId = async (idPost, id) => {
+    try {
+        const findId = await BlogPosts.findByPk(idPost);
+
+    if (!findId) {
+        return 'NOTFOUND';
+    }
+    if (findId.userId !== id) {
+        return { error: 'Diferent User' };
+    }
+    return findId.destroy();
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 module.exports = {
     ServiceInsertPost,
+    serviceDeleteId,
 };

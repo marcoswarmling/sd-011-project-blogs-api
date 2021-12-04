@@ -22,14 +22,6 @@ const tokenExists = (req, res, next) => {
             message: 'Expired or invalid token',
         });
     }
-
-    // jwt.verify(token, secret) => {
-    //     if (err) {
-    //         return res.status(401).json({
-    //             messege: 'Expired of invalid token',
-    //         });
-    //     }
-    // });
 };
 
 module.exports = {
