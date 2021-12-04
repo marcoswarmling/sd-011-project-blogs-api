@@ -1,11 +1,7 @@
 require('dotenv').config();
 
 // syntax abbreviation
-const {
-  MYSQL_USER,
-  MYSQL_PASSWORD,
-  HOSTNAME,
-} = process.env;
+const { MYSQL_USER, MYSQL_PASSWORD, HOSTNAME } = process.env;
 
 module.exports = {
   development: {
