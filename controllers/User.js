@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-// const userService = require('../services/User');
+const userService = require('../services/User');
 const { Users } = require('../models');
 
 const { JWT_SECRET } = process.env;
@@ -10,10 +10,10 @@ const createNewUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const user = { displayName, email, password, image };
 
-  // const newUser = await userService.createNewUser(user);
-  // if (newUser.message) {
-  //   return res.status(400).json({ message: newUser.message });
-  // }
+  const newUser = await userService.createNewUser(user);
+  if (newUser.message) {
+    return res.status(409).json({ message: newUser.message });
+  }
 
   await Users.create(user);
   
