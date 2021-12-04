@@ -40,8 +40,15 @@ async function getUser(req, res) {
   res.status(200).json(result);
 }
 
+async function deleteUser(req, res) {
+  const { id } = req.userInfo;
+  await Users.destroy({ where: { id } });
+  res.status(204).send();
+}
+
 module.exports = {
   addNewUser,
   getUsers,
   getUser,
+  deleteUser,
 };

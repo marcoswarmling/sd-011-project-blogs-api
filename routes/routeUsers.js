@@ -4,6 +4,7 @@ const {
   checkEmail,
   checkPassword,
   checkToken,
+  checkValidToken,
 } = require('../middleware');
 
 const {
@@ -13,7 +14,12 @@ const {
   checkUserCredencies,
 } = require('../service');
 
-const { addNewUser, getUsers, getUser } = require('../controller/controllerUsers');
+const {
+  addNewUser,
+  getUsers,
+  getUser,
+  deleteUser,
+} = require('../controller/controllerUsers');
 
 router.post('/',
   checkfildEmail, checkfildPassword, checkName,
@@ -22,5 +28,7 @@ router.post('/',
 router.get('/', checkToken, checkUserCredencies, getUsers);
 
 router.get('/:id', checkToken, checkUserCredencies, getUser);
+
+router.delete('/me', checkToken, checkValidToken, checkUserCredencies, deleteUser);
 
 module.exports = router;
