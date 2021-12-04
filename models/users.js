@@ -7,3 +7,6 @@ module.exports = (sequelize, DataTypes) => {
   });
   return users;
 };
+
+// https://sequelize.org/master/manual/model-basics.html
+// https://sequelize.org/master/manual/validations-and-constraints.html
