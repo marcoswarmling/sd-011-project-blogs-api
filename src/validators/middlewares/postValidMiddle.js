@@ -20,12 +20,29 @@ function titleValidator(title) {
   return {};
 }
 
+function contentValidator(content) {
+  if (typeof content === 'undefined') {
+    return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_CONTENT };
+  }
+
+  if (!content) {
+    return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_CONTENT };
+  }
+
+  return {};
+}
+
 module.exports = async (req, res, next) => {
-  const { title } = req.body;
+  const { title, content } = req.body;
   
   const titleResult = titleValidator(title);
   if (titleResult.status) {
     return res.status(titleResult.status).json({ message: titleResult.message });
+  }
+
+  const contentResult = contentValidator(content);
+  if (contentResult.status) {
+    return res.status(contentResult.status).json({ message: contentResult.message });
   }
 
   next();
