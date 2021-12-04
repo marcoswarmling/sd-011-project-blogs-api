@@ -5,7 +5,7 @@ const getAllPostCategories = async (req, res) => {
     const blogposts = await blogPostsServices.getAllBlogPosts();
     return res.status(200).json(blogposts);
   } catch (error) {
-    return res.status(400).json({ message: 'Erro no Servidor' });
+    return res.status(400).json({ message: 'Erro no Servidor!' });
   }
 };
 
@@ -18,7 +18,7 @@ const getByIdPostCategories = async (req, res) => {
     }
     return res.status(200).json(blogposts);
   } catch (error) {
-    return res.status(400).json({ message: 'Erro no Servidor' });
+    return res.status(400).json({ message: 'Erro no Servidor!' });
   }
 };
 
@@ -33,4 +33,20 @@ const createBlogPosts = async (req, res) => {
   }
 };
 
-module.exports = { createBlogPosts, getAllPostCategories, getByIdPostCategories };
+const updateBlogPost = async (req, res) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+  const userId = req.user.id;
+  console.log(`CONTROLLERS ---> Title: ${title}, COntent: ${content}, UserId: ${id}`);
+  try {
+    const update = await blogPostsServices.updateBlogPost({ title, content, id, userId });
+    if (update.error === 'UserId_Not_Exists') {
+      return res.status(401).json({ message: 'Unauthorized user' });
+    }
+    return res.status(200).json(update);
+  } catch (error) {
+    return res.status(500).json({ message: 'Erro no servidor!' });
+  }
+};
+
+module.exports = { createBlogPosts, getAllPostCategories, getByIdPostCategories, updateBlogPost };

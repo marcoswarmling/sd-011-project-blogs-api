@@ -27,7 +27,20 @@ const checkCategoriesExists = async (req, res, next) => {
   next();
 };
 
+const checkParamBlogPost = async (req, res, next) => {
+  const { title, content } = req.body;
+  try {
+    if (title && content) {
+      return { title, content };
+    }
+  } catch (error) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+  next();
+};
+
 module.exports = {
   validateBlogPostJoi,
   checkCategoriesExists,
+  checkParamBlogPost,
 };

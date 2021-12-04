@@ -32,9 +32,24 @@ const getByIdPostCategories = async (id) => {
   return postCategoriesId; 
 };
 
-const createBlogPosts = async ({ title, content, id }) => {
+const createBlogPosts = async (title, content, id) => {
   const blogpostsCreate = await BlogPosts.create({ userId: id, title, content });
   return blogpostsCreate;
 };
 
-module.exports = { createBlogPosts, getAllBlogPosts, getByIdPostCategories };
+const updateBlogPost = async ({ title, content, id, userId }) => {
+  const currentPost = await BlogPosts.findOne({ where: { id } });
+  if (!currentPost || currentPost.userId !== userId) {
+    return { error: 'UserId_Not_Exists' };
+  }
+  console.log(`SERVICES ---> Title: ${title}, COntent: ${content}, UserId: ${id}`);
+  const update = await BlogPosts.update({ title, content }, { where: { userId: id } });
+  console.log(update);
+  return update;
+};
+
+module.exports = {
+  createBlogPosts,
+  getAllBlogPosts,
+  getByIdPostCategories,
+  updateBlogPost };

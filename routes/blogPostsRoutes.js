@@ -13,7 +13,15 @@ const {
 router.get('/', isValidateToken, BlogPosts.getAllPostCategories);
 router.get('/:id', isValidateToken, BlogPosts.getByIdPostCategories);
 router.post(
-    '/', validateBlogPostJoi, isValidateToken, checkCategoriesExists, BlogPosts.createBlogPosts,
-    );
+    '/',
+    validateBlogPostJoi,
+    isValidateToken,
+    checkCategoriesExists,
+    BlogPosts.createBlogPosts,
+);
+router.put('/:id',
+  isValidateToken,
+  validateBlogPostJoi,
+  BlogPosts.updateBlogPost);
 
 module.exports = router;
