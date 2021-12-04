@@ -23,10 +23,16 @@ const validateCategories = async (req, res, next) => {
     const { categoryIds } = req.body;
 
     const getCategories = await categoriesServices.getAll();
+
+    console.log('GETCATEGORIES >>>>>', getCategories);
   
     const checkCategories = getCategories.map((category) => category.id);
+
+    console.log('CHECKCATEGORIES >>>>', checkCategories);
   
     const check = categoryIds.every((item) => checkCategories.includes(item));
+
+    console.log('CHECK >>>>>', check);
   
     if (!check) return res.status(400).json(categoryNotFound);
   
