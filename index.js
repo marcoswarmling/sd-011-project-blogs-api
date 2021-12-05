@@ -13,5 +13,6 @@ app.get('/', (request, response) => {
 const PORT = process.env.PORT || 3000;
 
 app.use('/user', require('./route/userRouter'));
+app.use('/login', require('./route/loginRouter'));
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
