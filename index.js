@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const usersController = require('./controllers/usersController');
+const categoriesController = require('./controllers/categoriesController');
 const {
   validDisplayName,
   validEmail,
@@ -11,6 +12,7 @@ const {
   validEmailLoginExists,
 } = require('./middlewares/usersValidations');
 const validateJWT = require('./auth/validateJWT');
+const { validName } = require('./middlewares/categoriesValidations');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,6 +25,8 @@ app.post(
   validEmailExists,
   usersController.create,
 );
+
+app.post('/categories', validateJWT, validName, categoriesController.create);
 
 app.post(
   '/login',
