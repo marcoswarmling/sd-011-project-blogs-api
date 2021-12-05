@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define('Users', {
+  const users = sequelize.define('Users', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     displayName: DataTypes.STRING,
     email: DataTypes.STRING, // tem quer ser único
@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     tableName: 'Users',
     // underscored: true,
-  });
-  Users.associate = (models) => {
-    Users.hasMany(models.BlogPosts, { foreignKey: 'userId', as: 'posts' });
+  }, {});
+  users.associate = (models) => {
+    users.hasMany(models.BlogPosts, { foreignKey: 'userId', as: 'posts' });
   };
-  return Users;
+  return users;
 };
