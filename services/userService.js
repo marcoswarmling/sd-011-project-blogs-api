@@ -7,7 +7,6 @@ const validateUserName = (name) => {
   }
 
   return null;
-
 };
 
 const validateUserEmail = (email) => {
@@ -29,7 +28,7 @@ const validateUserEmail = (email) => {
   }
 
   return null;
-}
+};
 
 const validateUserPassword = (password) => {
   if (!password) {
@@ -37,7 +36,6 @@ const validateUserPassword = (password) => {
       message: '"password" is required',
       status: 400,
     };
-
   }
 
   if (password.length < 6) {
@@ -53,5 +51,5 @@ const validateUserPassword = (password) => {
 module.exports = {
   validateUserName,
   validateUserEmail,
-  validateUserPassword
+  validateUserPassword,
 };
