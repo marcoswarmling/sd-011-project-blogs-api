@@ -85,9 +85,18 @@ const editById = async ({ id, userId, newContentInput }) => {
   return { ...targetPost, ...newContentInput };
 };
 
+const deleteById = async ({ id, userId }) => {
+  await getPostAndValidateAuthor(id, userId);
+
+  await BlogPost.destroy({ where: { id } });
+
+  return null;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   editById,
+  deleteById,
 };

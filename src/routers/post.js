@@ -41,7 +41,14 @@ router.put('/:id', validateToken, (req, res, next) => {
 });
 
 router.delete('/:id', validateToken, (req, res, next) => {
-  res.status(200).end();
+  Controller.deleteById({
+    id: req.params.id,
+    userId: res.locals.userId,
+  })
+    .then(() => {
+      res.status(204).end();
+    })
+    .catch(next);
 });
 
 module.exports = router;
