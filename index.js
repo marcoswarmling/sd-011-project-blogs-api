@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const user = require('./controllers/userController');
+const category = require('./controllers/categoryController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -25,6 +26,10 @@ app.get('/user',
 app.get('/user/:id',
   user.validateJWT,
   user.listById);
+
+  app.post('/categories',
+  user.validateJWT,
+  category.createCategory);
 
 app.get('/', (request, response) => {
   response.send();

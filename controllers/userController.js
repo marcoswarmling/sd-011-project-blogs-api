@@ -88,7 +88,7 @@ const validateJWT = async (req, res, next) => {
   const validation = await userService.validateJWT(token);
 
   if (validation) {
-    return res.status(401).json({ message: validation.message });
+    return res.status(validation.status).json({ message: validation.message });
   }
 
   next();

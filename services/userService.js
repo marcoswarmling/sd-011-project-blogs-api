@@ -77,18 +77,18 @@ const validateEmptyCredentials = (email, password) => {
 
 const validateJWT = async (token) => {
   if (!token) {
-    return { message: 'Token not found' };
+    return { message: 'Token not found', statu: 401 };
   }
   try {
     const jwtValid = jwt.verify(token, SECRET);
 
     if (!jwtValid) {
-      return { message: 'token malformed' };
+      return { message: 'token malformed', status: 401 };
     }
 
     return null;
   } catch (err) {
-    return { message: 'Expired or invalid token' };
+    return { message: 'Expired or invalid token', status: 401 };
   }
 };
 
