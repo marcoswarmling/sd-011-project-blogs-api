@@ -5,8 +5,6 @@ const isValid = require('../validations/loginValidations');
 
 const loginController = require('../controllers/loginController');
 
-loginRoutes.post('/',
-  isValid.isValidLogin,
-  rescue(loginController.login));
+loginRoutes.post('/', isValid.isValidLogin, rescue(loginController.login));
 
 module.exports = loginRoutes;

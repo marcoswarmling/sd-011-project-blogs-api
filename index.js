@@ -11,7 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const user = require('./routes/userRouter');
 const login = require('./routes/loginRouter');
-const categorie = require('./routes/categorieRouter');
+const category = require('./routes/categoryRouter');
+const blogPost = require('./routes/blogPostRouter');
 
 const PORT = process.env.PORT || 3000;
 
@@ -23,4 +24,5 @@ app.get('/', (request, response) => {
 
 app.use('/user', user);
 app.use('/login', login);
-app.use('/categories', categorie);
+app.use('/categories', category);
+app.use('/post', blogPost);

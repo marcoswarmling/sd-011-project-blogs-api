@@ -6,19 +6,17 @@ const auth = require('../validations/authJWT');
 
 const userController = require('../controllers/userController');
 
-userRoutes.post('/',
+userRoutes.post(
+  '/',
   isValid.isValidDisplayName,
   isValid.isValidPassword,
   isValid.isValidEmail,
   isValid.userExists,
-  rescue(userController.createNewUser));
+  rescue(userController.createNewUser),
+);
 
-  userRoutes.get('/',
-  auth.validateJWT,
-  rescue(userController.getAllUsers));
+userRoutes.get('/', auth.validateJWT, rescue(userController.getAllUsers));
 
-  userRoutes.get('/:id',
-  auth.validateJWT,
-  rescue(userController.getUserByPk));
+userRoutes.get('/:id', auth.validateJWT, rescue(userController.getUserByPk));
 
 module.exports = userRoutes;
