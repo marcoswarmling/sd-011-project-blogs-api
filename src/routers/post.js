@@ -28,4 +28,8 @@ router.get('/:id', validateToken, (req, res, next) => {
     .catch(next);
 });
 
+router.put('/:id', validateToken, (req, res, next) => {
+  res.status(200).end();
+});
+
 module.exports = router;
