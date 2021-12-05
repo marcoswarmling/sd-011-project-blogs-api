@@ -8,6 +8,12 @@ services:
       - mysql
     ports:
       - "3000:3000"
+    environment:
+      MYSQL_HOSTNAME: mysql
+      MYSQL_DATABASE: "blogs_api"
+      MYSQL_USER: "tryber"
+      MYSQL_PASSWORD: "tryber123"
+
     volumes: 
       - .:/project
       - type: volume
@@ -26,10 +32,10 @@ services:
     networks: 
       - app
     environment:
-      - MYSQL_ROOT_PASSWORD=root_tryber
-      - MYSQL_DATABASE=blogs_api
-      - MYSQL_USER=tryber
-      - MYSQL_PASSWORD=tryber123
+      MYSQL_ROOT_PASSWORD: "root_tryber"
+      MYSQL_DATABASE: "blogs_api"
+      MYSQL_USER: "tryber"
+      MYSQL_PASSWORD: "tryber123"
 volumes:
   blogs-api-vol:
     external: true

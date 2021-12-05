@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "minLength": 1,
+      "nullable": false,
+      "errorMessage": {
+        "nullable": "\"email\" is not allowed to be empty",
+        "format": "\"email\" is not allowed to be empty",
+        "minLength": "\"email\" is not allowed to be empty"
+      }
+    },
+    "password": {
+      "type": "string",
+      "nullable": false,
+      "minLength": 1,
+      "errorMessage": {
+        "nullable": "\"password\" is not allowed to be empty",
+        "minLength": "\"password\" is not allowed to be empty"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["email", "password"],
+  "errorMessage": {
+    "required": {
+      "email": "\"email\" is required",
+      "password": "\"password\" is required"
+    }
+  }
+}

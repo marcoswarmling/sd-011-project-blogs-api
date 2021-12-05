@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "minLength": 8,
+      "errorMessage": {
+        "minLength": "\"displayName\" length must be at least 8 characters long"
+      }
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "errorMessage": {
+        "format": "\"email\" must be a valid email"
+      }
+    },
+    "password": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 6,
+      "errorMessage": {
+        "minLength": "\"password\" length must be 6 characters long",
+        "maxLength": "\"password\" length must be 6 characters long"
+      }
+    },
+    "image": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "additionalProperties": false,
+  "errorMessage": {
+    "required": {
+      "email": "\"email\" is required",
+      "password": "\"password\" is required"
+    }
+  },
+  "required": ["displayName", "email", "password", "image"]
+}
