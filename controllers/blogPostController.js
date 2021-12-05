@@ -20,7 +20,7 @@ const createCategory = async (req, res) => {
 
   const createdCategory = await BlogPost.create({ title, content, userId: id });
 
-  console.log('TESSSSSTE JWTTTTTT', req.);
+  console.log('TESSSSSTE JWTTTTTT', req.decryptedData);
 
   return res.status(201).json(createdCategory);
 };
