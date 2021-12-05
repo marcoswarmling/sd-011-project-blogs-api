@@ -32,6 +32,7 @@ app.post('/categories',
   category.createCategory);
 
 app.get('/categories',
+  user.validateJWT,
   category.listAllCategories);
 
 app.get('/', (request, response) => {
