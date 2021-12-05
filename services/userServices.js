@@ -5,9 +5,9 @@ const { JWT_SECRET } = process.env;
   // async e await para a validação que não é possível
   // cadastrar um usuário com email já existente
 const createUser = async (displayName, email, password, image) => {
-  await User.create({ displayName, email, password, image });
+  const { id } = await User.create({ displayName, email, password, image });
 
-  const token = jwt.sign({ user: { displayName, email } }, JWT_SECRET);
+  const token = jwt.sign({ user: { displayName, email, id } }, JWT_SECRET);
 
   return token;
 };

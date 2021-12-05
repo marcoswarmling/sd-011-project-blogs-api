@@ -1,6 +1,9 @@
+/* const jwt = require('jsonwebtoken'); */
 const { validateToken } = require('../helpers/jwt');
 const { createUser } = require('../schema');
 const { User } = require('../models');
+
+/* const { JWT_SECRET } = process.env; */
 
 const valUser = async (req, res, next) => {
   const { displayName, email, password } = req.body;

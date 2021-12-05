@@ -29,4 +29,10 @@ const loginUser = Joi.object({
   }),
 });
 
-module.exports = { createUser, loginUser };
+const createPost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array(),
+});
+
+module.exports = { createUser, loginUser, createPost };
