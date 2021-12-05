@@ -3,20 +3,26 @@ const { User } = require('../../models');
 const STATUS_BAD_REQUEST = 400;
 const STATUS_CONFLICT = 409;
 
+const MSG_MISSING_NAME = '"name" is required';
 const MSG_MISSING_EMAIL = '"email" is required';
 const MSG_MISSING_PASSW = '"password" is required';
+const MSG_EMPTY_NAME = '"name" is not allowed to be empty';
 const MSG_INVALID_EMAIL = '"email" must be a valid email';
 const MSG_EMAIL_EXISTS = 'User already registered';
-const MSG_NAME_LENGTH = '"displayName" length must be at least 8 characters long';
+const MSG_LENGTH_NAME = '"displayName" length must be at least 8 characters long';
 const MSG_PASSW_LENGTH = '"password" length must be 6 characters long';
 
 function nameValidator(name) {
-  // if (!name) {
-  //   return { status: STATUS_BAD_REQUEST, message: MSG_INVALID_ENTRIES };
-  // }
+  if (typeof name === 'undefined') {
+    return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_NAME };
+  }
+  
+  if (!name) {
+    return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_NAME };
+  }
 
   if (name.length < 8) {
-    return { status: STATUS_BAD_REQUEST, message: MSG_NAME_LENGTH };
+    return { status: STATUS_BAD_REQUEST, message: MSG_LENGTH_NAME };
   }
 
   return {};
