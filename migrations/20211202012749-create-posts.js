@@ -2,7 +2,7 @@
 // https://stackoverflow.com/questions/40694689/set-defaultvalue-to-todays-date-in-a-sequelize-migration
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const PostsTable = queryInterface.createTable('BlogsPosts', {
+    const PostsTable = queryInterface.createTable('BlogPosts', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -42,6 +42,6 @@ module.exports = {
   },
 
   down: async (queryInterface, _Sequelize) => {
-    return await queryInterface.dropTable('BlogsPosts');
+    return await queryInterface.dropTable('BlogPosts');
   }
 };
