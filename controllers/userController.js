@@ -7,9 +7,8 @@ const jwtConfig = { expiresIn: '120m', algorithm: 'HS256' };
 // Vini Gouveia me ajudou com o raw: true para mostrar defaultValues 
 const getAll = async (_req, res) => {
   try {
-    console.log('aquiii');
     const attributes = ['id', 'displayName', 'email', 'image'];
-    const users = await Users.findAll({ attributes }, { raw: true });
+    const users = await Users.findAll({ attributes, raw: true });
     // console.log('getAll', users);
     return res.status(200).json(users);
   } catch (err) {
@@ -43,8 +42,8 @@ const create = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const users = await Users.findAll();
-    console.log('users', users);
+    // const users = await Users.findAll();
+    // console.log('users', users);
     const { email, password } = req.body; 
     const token = jwt.sign({ email, password }, process.env.JWT_SECRET, jwtConfig);
     return res.status(200).json({ token });
