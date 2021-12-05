@@ -29,7 +29,15 @@ router.get('/:id', validateToken, (req, res, next) => {
 });
 
 router.put('/:id', validateToken, (req, res, next) => {
-  res.status(200).end();
+  Controller.editById({
+    id: req.params.id,
+    userId: res.locals.userId,
+    newContentInput: req.body,
+  })
+    .then((editedPost) => {
+      res.status(200).json(editedPost);
+    })
+    .catch(next);
 });
 
 module.exports = router;
