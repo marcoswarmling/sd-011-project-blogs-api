@@ -10,10 +10,10 @@ const validateUser = async (req, res, next) => {
   const { displayName, email, password } = req.body;
 
   const validation = userService.validateUserName(displayName, password)
-  || userService.validateUserEmail(email)
-  || userService.validateUserPassword(password);
+    || userService.validateUserEmail(email)
+    || userService.validateUserPassword(password);
 
-  if (validation.message) {
+  if (validation) {
     return res.status(validation.status).json({ message: validation.message });
   }
   next();
@@ -30,9 +30,9 @@ const createUser = async (req, res) => {
 const validateRepetitiveEmail = async (req, res, next) => {
   const { email } = req.body;
 
-  const existUser = await User.findOne({ where: { email } });
+  const isRepetitiveEmail = await User.findOne({ where: { email } });
 
-  if (existUser) {
+  if (isRepetitiveEmail) {
     return res.status(409).json({ message: 'User already registered' });
   }
 
@@ -53,10 +53,34 @@ const tokenCreate = (req, res, next) => {
   next();
 };
 
+const validateCredentials = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const validationCredentials = userService.validateEmptyCredentials(email, password)
+    || userService.validateLoginCredentials(email, password);
+
+  if (validationCredentials) {
+    return res.status(validationCredentials.status).json({
+      message: validationCredentials.message,
+    });
+  }
+
+  const isCredentialsValid = await User.findOne({ where: { email } });
+
+  if (!isCredentialsValid || isCredentialsValid.password !== password) {
+    return res.status(400).json({ message: 'Invalid fields' });
+  }
+
+  next();
+};
+
+const login = async (req, res) => res.status(200).json({ token: req.token });
+
 module.exports = {
   validateUser,
   tokenCreate,
   validateRepetitiveEmail,
   createUser,
-
+  validateCredentials,
+  login,
 };

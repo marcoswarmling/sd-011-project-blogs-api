@@ -13,6 +13,11 @@ user.tokenCreate,
 user.validateRepetitiveEmail,
 user.createUser);
 
+app.post('/login',
+user.validateCredentials,
+user.tokenCreate,
+user.login);
+
 app.get('/', (request, response) => {
   response.send();
 });

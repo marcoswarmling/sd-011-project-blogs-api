@@ -45,11 +45,37 @@ const validateUserPassword = (password) => {
     };
   }
 
-  return false;
+  return null;
+};
+
+const validateLoginCredentials = (email, password) => {
+  if (!email) return { message: '"email" is required', status: 400 };
+  if (!password) return { message: '"password" is required', status: 400 };
+
+  return null;
+};
+
+const validateEmptyCredentials = (email, password) => {
+  if (email === '') {
+    return {
+      message: '"email" is not allowed to be empty',
+      status: 400,
+    };
+  }
+  if (password === '') {
+    return {
+      message: '"password" is not allowed to be empty',
+      status: 400,
+    };
+  }
+
+  return null;
 };
 
 module.exports = {
   validateUserName,
   validateUserEmail,
   validateUserPassword,
+  validateLoginCredentials,
+  validateEmptyCredentials,
 };
