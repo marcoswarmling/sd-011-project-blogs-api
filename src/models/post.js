@@ -7,7 +7,7 @@ const blogPosts = (sequelize, DataTypes) => {
     createdAt: 'published',
     updatedAt: 'updated',
   });
-// Obs.: Eu não criei a associação "hasOne" na outra tabela ainda.
+// Note.: I did not create "hasOne" in the other table
 
   blogPost.associate = (models) => {
     blogPost.belongsTo(models.User, {

@@ -49,7 +49,7 @@ const loginValidator = async (email, password) => {
     return { status, message };
   }
 
-  const passResult = passwordValidator(password, emailResult); // Not asked by Trybe "functional requirements", but I did implemented it
+  const passResult = passwordValidator(password, emailResult); // Not asked by Trybe "functional requirements", but I did implement it
 
   if (passResult.status) {
     const { status, message } = passResult;

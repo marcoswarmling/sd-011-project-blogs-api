@@ -18,10 +18,6 @@ function titleValidator(title) {
   if (!title) {
     return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_TITLE };
   }
-
-  // if (title.length < 8) {
-  //   return { status: STATUS_BAD_REQUEST, message: MSG_TITLE_LENGTH };
-  // }
   
   return {};
 }

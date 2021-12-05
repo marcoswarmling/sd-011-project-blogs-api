@@ -1,8 +1,5 @@
 const { Category } = require('../models');
 
-// const STATUS_NOT_FOUND = 404;
-// const MSG_CATEGORY_NOT_FOUND = 'Category does not exist';
-
 const getAll = async () => {
   try {
     const result = await Category.findAll();
