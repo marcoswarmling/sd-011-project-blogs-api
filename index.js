@@ -27,7 +27,7 @@ app.get('/user/:id',
   user.validateJWT,
   user.listById);
 
-  app.post('/categories',
+app.post('/categories',
   user.validateJWT,
   category.createCategory);
 
