@@ -80,8 +80,15 @@ const getAllUsers = async () => {
   return response;
 };
 
+const getUserById = async (id) => {
+  const response = await User.findOne({ where: { id } });
+  if (!response) return { message: 'User does not exist', status: 404 };
+  return response;
+};
+
 module.exports = {
   create,
   generateToken,
   getAllUsers,
+  getUserById,
 };
