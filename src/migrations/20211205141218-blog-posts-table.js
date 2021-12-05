@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('BlogPosts', {
       id: {
         primaryKey: true,
         allowNull: false,
@@ -17,9 +17,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      password: {
+      userId: {
+        // Foreign Key Constrains: https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        references: { model: 'Users', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       published: {
         allowNull: false,
@@ -43,6 +47,6 @@ module.exports = {
   },
 
   down: async (queryInterface, _Sequelize) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('BlogPosts');
   },
 };
