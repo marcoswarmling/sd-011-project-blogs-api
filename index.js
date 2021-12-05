@@ -22,10 +22,10 @@ app.get('/user',
   user.validateJWT,
   user.listAllUsers);
 
-  app.get('/user/:id',
+app.get('/user/:id',
   user.validateJWT,
   user.listById);
-  
+
 app.get('/', (request, response) => {
   response.send();
 });
