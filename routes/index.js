@@ -13,4 +13,12 @@ router.post('/login',
   userValidate.validatePassword,
   userController.userLogin);
 
+router.get('/user',
+  userValidate.validateToken,
+  userController.getAll);
+
+router.get('/user/:id', 
+  userValidate.validateToken,
+  userController.getById);
+
 module.exports = router;

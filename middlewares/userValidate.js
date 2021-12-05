@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const validateName = (req, res, next) => {
   const { displayName } = req.body;
   if (displayName.length < 8) {
@@ -38,8 +40,22 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+const validateToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   validateName,
   validateEmail,
   validatePassword,
+  validateToken,
 };
