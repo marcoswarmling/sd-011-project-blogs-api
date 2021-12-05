@@ -9,6 +9,7 @@ const create = {
     image: { type: 'string', minLength: 3, maxLength: 512 },
   },
   required: ['displayName', 'email', 'password'],
+  additionalProperties: false,
   errorMessage: {
     required: {
       displayName: getRequiredFieldMessage('displayName'),
@@ -30,6 +31,7 @@ const login = {
     password: { type: 'string', minLength: 6, maxLength: 256 },
   },
   required: ['email', 'password'],
+  additionalProperties: false,
   errorMessage: {
     required: {
       email: getRequiredFieldMessage('email'),

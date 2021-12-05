@@ -11,6 +11,7 @@ const create = {
       name: getRequiredFieldMessage('name'),
     },
   },
+  additionalProperties: false,
 };
 
 module.exports = {

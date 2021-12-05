@@ -65,6 +65,8 @@ const getById = (id) => BlogPost.findOne({
   });
 
 const editById = async ({ id, userId, newContentInput }) => {
+  new Schema('editPost').validate(newContentInput);
+
   const targetPost = await getById(id);
 
   if (targetPost.userId !== userId) {

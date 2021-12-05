@@ -9,6 +9,7 @@ const create = {
     userId: { type: 'number', minimum: 1 },
   },
   required: ['title', 'content', 'categoryIds', 'userId'],
+  additionalProperties: false,
   errorMessage: {
     required: {
       title: getRequiredFieldMessage('title'),
@@ -18,6 +19,27 @@ const create = {
   },
 };
 
+const edit = {
+  type: 'object',
+  properties: {
+    title: { type: 'string', minLength: 8, maxLength: 100 },
+    content: { type: 'string', minLength: 3, maxLength: 100 },
+    categoryIds: { type: 'array', maxItems: 0 },
+  },
+  required: ['title', 'content'],
+  additionalProperties: false,
+  errorMessage: {
+    required: {
+      title: getRequiredFieldMessage('title'),
+      content: getRequiredFieldMessage('content'),
+    },
+    properties: {
+      categoryIds: 'Categories cannot be edited',
+    },
+  },
+};
+
 module.exports = {
   create,
+  edit,
 };

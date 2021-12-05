@@ -16,6 +16,7 @@ ajv.addSchema(userSchemas.create, 'createUser');
 ajv.addSchema(userSchemas.login, 'loginUser');
 ajv.addSchema(categorySchemas.create, 'createCategory');
 ajv.addSchema(postSchemas.create, 'createPost');
+ajv.addSchema(postSchemas.edit, 'editPost');
 
 class Schema {
   constructor(name) {
