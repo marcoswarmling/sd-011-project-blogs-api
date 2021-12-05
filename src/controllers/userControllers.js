@@ -13,14 +13,13 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   const { authorization } = req.headers;
+  const token = authorization;
 
-  if (!authorization) {
+  if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  const token = authorization;
   const users = await userServices.getUsers(token);
-  console.log(users);
   if (users.message) {
     return res.status(401).json({ message: users.message });
   }
@@ -28,7 +27,30 @@ const getUsers = async (req, res) => {
   return res.status(200).json(users);
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const { authorization } = req.headers;
+  const token = authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+
+  const user = await userServices.getUserById(id, token);
+  
+  if (!user) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+
+  if (user.message) {
+    return res.status(401).json({ message: user.message });
+  }
+
+  return res.status(200).json(user);
+};
+
 module.exports = {
   createUser,
   getUsers,
+  getUserById,
 };

@@ -25,7 +25,18 @@ const getUsers = async (token) => {
   }
 };
 
+const getUserById = async (id, token) => {
+  try {
+    verifyToken(token);
+    const user = await Users.findByPk(id);
+    return user;
+  } catch (error) {
+    return { message: 'Expired or invalid token' };
+  }
+};
+
 module.exports = {
   createUser,
   getUsers,
+  getUserById,
 };
