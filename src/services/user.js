@@ -11,3 +11,5 @@ exports.createUserSvc = async (user) => {
 };
 
 exports.getAllUsers = async () => User.findAll();
+
+exports.getByUserId = async (id) => User.findByPk(id);

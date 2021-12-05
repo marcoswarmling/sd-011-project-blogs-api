@@ -5,7 +5,7 @@
   "ADMIN_ONLY": "Only admins can register new admins",
   "MISSING_AUTH": "Token not found",
   "RECIPE_NOT_FOUND": "recipe not found",
-  "NOT_FOUND": "not_found",
+  "USER_NOT_FOUND": "User does not exist",
   "INTERNAL_ERROR": "internal_error",
   "DATABASE_ERROR": "database_error",
   "STOCK_PROBLEM": "stock_problem"

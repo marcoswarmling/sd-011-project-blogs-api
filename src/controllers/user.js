@@ -32,3 +32,14 @@ exports.getAllUsers = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getByUserId = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await userServices.getByUserId(id);
+    if (user) return res.status(httpCodes.HTTP_OK).json(user);
+    throw new AppError(httpCodes.HTTP_NOT_FOUND, errorMessages.USER_NOT_FOUND);
+  } catch (error) {
+    next(error);
+  }
+};
