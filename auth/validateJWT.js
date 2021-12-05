@@ -13,7 +13,7 @@ function jwtValidation(req, res, next) {
 
   try {
     const { data } = jwt.verify(token, process.env.JWT_SECRET);
-
+    
     req.token = data.email;
     next();
   } catch (error) {

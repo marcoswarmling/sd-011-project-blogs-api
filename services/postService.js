@@ -5,7 +5,7 @@ const { findUserByEmail } = require('./userService');
 const categoryNotFound = new Error('categoryNotFound');
 
 async function checkAllCategoriesValid(categoryIds) {
-  const categoriesFound = await Promise.al(categoryIds.map(async (id) => getCategory(id)));
+  const categoriesFound = await Promise.all(categoryIds.map(async (id) => getCategory(id)));
 
   if (categoriesFound.some((category) => category === null)) {
     throw categoryNotFound;
@@ -16,16 +16,19 @@ async function checkAllCategoriesValid(categoryIds) {
 
 const postCreate = async ({ title, content, categoryIds }, email) => {
   const isAllCategoriesValid = await checkAllCategoriesValid(categoryIds);
+
   if (!isAllCategoriesValid) {
     // corrigir essa logica
     return categoryNotFound;
   }
 
   const result = await findUserByEmail(email);
+
+  if (!result) throw new Error('userNotExist');
+  
   const response = await BlogPost.create(
     { title, content, userId: result.dataValues.id },
-  );
-
+    );
   return {
     id: response.dataValues.id,
     userId: result.dataValues.id,
@@ -110,7 +113,7 @@ const getAllPost = async () => {
         { model: User, as: 'user', attributes: { exclude: ['password'] } },
         { model: Categories,
           as: 'categories',
-          through: { attributes: [] }, // Porque disso?
+          through: { attributes: [] }, // Porque disso?y
           attributes: { exclude: ['PostsCategories'] },
         },
       ],
