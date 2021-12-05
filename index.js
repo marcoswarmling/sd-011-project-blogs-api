@@ -42,7 +42,11 @@ app.post('/post',
 
 app.get('/post',
   user.validateJWT,
-  blogPost.getAllBlogPost);
+  blogPost.listAllBlogPost);
+
+  app.get('/post/:id',
+  user.validateJWT,
+  blogPost.listBlogPostById);
 
 app.get('/', (request, response) => {
   response.send();
