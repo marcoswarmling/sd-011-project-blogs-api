@@ -21,6 +21,10 @@ router.get('/', validateToken, (_req, res, next) => {
     .catch(next);
 });
 
+router.delete('/me', validateToken, (_req, res, next) => {
+  res.status(200).end();
+});
+
 router.get('/:id', validateToken, (req, res, next) => {
   Controller.getById(req.params.id)
     .then((user) => {
