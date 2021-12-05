@@ -1,4 +1,5 @@
-const { User } = require('../models');
+const { Users } = require('../models');
+require('dotenv');
 
 const validateDisplayName = (displayName) => {
   if (displayName.length < 8) return false;
@@ -11,14 +12,19 @@ const validateEmail = (email) => {
 };
 
 const validateUser = async (email) => {
-  const result = await User.findOne({ where: { email } });
+  const result = await Users.findOne({ where: { email } });
   if (result) return true;
   return false;
 };
 
 const addUser = async (user) => {
-  await User.create(user);
-  return User;
+  await Users.create(user);
+  return Users;
+};
+
+const getAllUsers = async () => {
+  const result = await Users.findAll();
+  return result;
 };
 
 module.exports = {
@@ -26,4 +32,5 @@ module.exports = {
   validateEmail,
   validateUser,
   addUser,
+  getAllUsers,
 };

@@ -10,4 +10,8 @@ userController.validatePass,
 userController.validateUser,
 userController.addUser);
 
+router.get('/',
+userController.validateToken,
+userController.getAllUsers);
+
 module.exports = router;
