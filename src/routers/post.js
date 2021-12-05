@@ -12,4 +12,8 @@ router.post('/', validateToken, (req, res, next) => {
     .catch(next);
 });
 
+router.get('/', validateToken, (req, res, next) => {
+  res.status(200).end();
+});
+
 module.exports = router;
