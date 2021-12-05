@@ -7,8 +7,9 @@ const MSG_MISSING_NAME = '"name" is required';
 const MSG_MISSING_EMAIL = '"email" is required';
 const MSG_MISSING_PASSW = '"password" is required';
 const MSG_EMPTY_NAME = '"name" is not allowed to be empty';
+const MSG_EMPTY_EMAIL = '"email" is not allowed to be empty';
 const MSG_INVALID_EMAIL = '"email" must be a valid email';
-const MSG_EMAIL_EXISTS = 'User already registered';
+const MSG_EXISTS_USER = 'User already registered';
 const MSG_LENGTH_NAME = '"displayName" length must be at least 8 characters long';
 const MSG_PASSW_LENGTH = '"password" length must be 6 characters long';
 
@@ -31,8 +32,12 @@ function nameValidator(name) {
 const emailValidator = async (email) => {
     const emailRegexp = new RegExp('\\S+@\\S+\\.\\S+');
 
-    if (!email) {
+    if (typeof email === 'undefined') {
       return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_EMAIL };
+    }
+
+    if (!email) {
+      return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_EMAIL };
     }
 
     if (!emailRegexp.test(email)) {
@@ -42,7 +47,7 @@ const emailValidator = async (email) => {
     const user = await User.findOne({ where: { email } });
 
     if (user !== null) {
-      return { status: STATUS_CONFLICT, message: MSG_EMAIL_EXISTS };
+      return { status: STATUS_CONFLICT, message: MSG_EXISTS_USER };
     }
 
   return {};
