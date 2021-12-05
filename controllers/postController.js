@@ -21,7 +21,7 @@ router.get('/post', valToken, async (_req, res) => {
 
   const data = await Promise.all(response).then((post) => post);
 
-  console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', response);
+  console.log('ESSE É O CONSOLE LOG DO DATA', data);
   res.status(200).json(data);
 });
 
