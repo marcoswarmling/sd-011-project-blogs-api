@@ -87,7 +87,7 @@ const validateJWT = async (token) => {
     }
 
     return null;
-  } catch (errrrrrrrrrrrr) {
+  } catch (err) {
     return { message: 'Expired or invalid token' };
   }
 };
