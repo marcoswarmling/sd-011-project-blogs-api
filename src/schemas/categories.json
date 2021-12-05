@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "errorMessage": {
+    "required": {
+      "name": "\"name\" is required"
+    }
+  },
+  "required": ["name"]
+}
