@@ -57,9 +57,12 @@ const login = (credentialsInput) => {
   });
 };
 
+const deleteById = (id) => User.destroy({ where: { id } });
+
 module.exports = {
   create,
   login,
   getAll,
   getById,
+  deleteById,
 };

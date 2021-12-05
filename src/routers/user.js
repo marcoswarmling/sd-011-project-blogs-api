@@ -22,7 +22,11 @@ router.get('/', validateToken, (_req, res, next) => {
 });
 
 router.delete('/me', validateToken, (_req, res, next) => {
-  res.status(200).end();
+  Controller.deleteById(res.locals.userId)
+    .then(() => {
+      res.status(204).end();
+    })
+    .catch(next);
 });
 
 router.get('/:id', validateToken, (req, res, next) => {
