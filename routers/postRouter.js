@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const {
   createPost,
+  getAllPosts,
 } = require('../controllers/postController');
 
 const {
@@ -23,6 +24,13 @@ router.post(
   validateTokenExistence,
   validateToken,
   createPost,
+);
+
+router.get(
+  '/post',
+  validateTokenExistence,
+  validateToken,
+  getAllPosts,
 );
 
 module.exports = router;

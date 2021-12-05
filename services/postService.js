@@ -1,4 +1,4 @@
-const { BlogPost, PostsCategorie } = require('../models');
+const { BlogPost, PostsCategorie, User, Categorie } = require('../models');
 
 const createPostCategoryAssociation = (postId, categoryIds) => {
   const result = categoryIds.map((categoryId) => ({
@@ -18,7 +18,7 @@ const createPost = async (title, content, userId, categoryIds) => {
     const postCategoryAssociation = createPostCategoryAssociation(id, categoryIds);
 
     await PostsCategorie.bulkCreate(postCategoryAssociation);
-    
+
     return {
       id,
       userId,
@@ -30,6 +30,19 @@ const createPost = async (title, content, userId, categoryIds) => {
   }
 };
 
+const getAllPosts = async () => {
+  const posts = await BlogPost
+    .findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Categorie, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+  return posts;
+};
+
 module.exports = { 
   createPost,
+  getAllPosts,
 };

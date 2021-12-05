@@ -28,6 +28,22 @@ const createPost = async (req, res) => {
   } 
 };
 
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await postService
+    .getAllPosts();
+    
+    res
+      .status(200)
+      .json(posts);
+  } catch (error) {
+    res
+      .status(500)
+      .json(ERROR_MESSAGE);
+  } 
+};
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
