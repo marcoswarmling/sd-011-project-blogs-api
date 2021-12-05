@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const validateUserName = (name) => {
   if (name && name.length < 8) {
     return {
@@ -72,10 +74,30 @@ const validateEmptyCredentials = (email, password) => {
   return null;
 };
 
+const SECRET = 'charmander>squirtle';
+
+const validateJWT = async (token) => {
+  if (!token) {
+    return { message: 'Token not found' };
+  }
+  try {
+    const jwtValid = jwt.verify(token, SECRET);
+
+    if (!jwtValid) {
+      return { message: 'token malformed' };
+    }
+
+    return null;
+  } catch (errrrrrrrrrrrr) {
+    return { message: 'Expired or invalid token' };
+  }
+};
+
 module.exports = {
   validateUserName,
   validateUserEmail,
   validateUserPassword,
   validateLoginCredentials,
   validateEmptyCredentials,
+  validateJWT,
 };

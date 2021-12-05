@@ -39,7 +39,7 @@ const validateRepetitiveEmail = async (req, res, next) => {
   next();
 };
 
-const tokenCreate = (req, res, next) => {
+const createToken = (req, res, next) => {
   const { email } = req.body;
 
   const token = jwt.sign(
@@ -76,11 +76,31 @@ const validateCredentials = async (req, res, next) => {
 
 const login = async (req, res) => res.status(200).json({ token: req.token });
 
+const listAllUsers = async (req, res) => {
+  const rest = await User.findAll({ attributes: { exclude: ['password'] } });
+
+  return res.status(200).json(rest);
+};
+
+const validateJWT = async (req, res, next) => {
+  const token = req.headers.authorization;
+
+  const validation = await userService.validateJWT(token);
+
+  if (validation) {
+    return res.status(401).json({ message: validation.message });
+  }
+
+  next();
+};
+
 module.exports = {
   validateUser,
-  tokenCreate,
+  createToken,
   validateRepetitiveEmail,
   createUser,
   validateCredentials,
   login,
+  listAllUsers,
+  validateJWT,
 };
