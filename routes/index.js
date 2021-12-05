@@ -8,4 +8,9 @@ router.post('/user',
   userValidate.validatePassword,
   userController.createUser);
 
+router.post('/login', 
+  userValidate.validateEmail,
+  userValidate.validatePassword,
+  userController.userLogin);
+
 module.exports = router;
