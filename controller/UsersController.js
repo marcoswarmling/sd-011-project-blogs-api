@@ -1,9 +1,11 @@
-const { User } = require('../models');
+const { create } = require('../services/UserService');
 
-const getAllUser = async (_req, res) => {
+const createUser = async (req, res) => {
   try {
-    const users = await User.findAll();
-    res.status(200).json(users);
+    const { displayName, email, password, image } = req.body;
+    const response = await create(displayName, email, password, image);
+    if (response.message) return res.status(response.status).json({ message: response.message });
+    res.status(201).json(response);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'server error' });
@@ -11,5 +13,5 @@ const getAllUser = async (_req, res) => {
 };
 
 module.exports = {
-  getAllUser,
+  createUser,
 };
