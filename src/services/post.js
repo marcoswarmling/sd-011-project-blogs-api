@@ -32,7 +32,7 @@ exports.createPost = async ({ categoryIds, ...newPost }) => {
   const isValid = validate({ categoryIds, ...newPost });
   if (isValid) {
     const t = await sequelize.transaction();
-    doCreatePost(newPost, categoryIds, t);
+    return doCreatePost(newPost, categoryIds, t);
   }
   throw new AppError(httpCodes.HTTP_BAD_REQUEST, validate.errors[0].message);
 };
