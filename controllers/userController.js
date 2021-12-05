@@ -23,8 +23,18 @@ const getAllUser = async (_req, res) => {
   return res.status(200).json(response);
 };
 
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const response = await serviceUser.findById(id);
+  if (response.message) {
+    return res.status(404).json(response);
+  }
+  return res.status(200).json(response);
+};
+
 module.exports = {
   create,
   login,
   getAllUser,
+  findById,
 };
