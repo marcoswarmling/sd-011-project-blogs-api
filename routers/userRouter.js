@@ -4,10 +4,10 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 
 router.post('/', 
-userController.verifyDisplayName,
-userController.verifyEmail,
-userController.verifyPassword,
-userController.verifyUser,
+userController.validateDisplayName,
+userController.validateEmail,
+userController.validatePass,
+userController.validateUser,
 userController.addUser);
 
-module.exports = router; 
+module.exports = router;
