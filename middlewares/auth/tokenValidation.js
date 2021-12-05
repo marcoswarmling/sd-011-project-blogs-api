@@ -27,10 +27,10 @@ const validateToken = async (req, res, next) => {
   const { authorization: token } = req.headers;
 
   try {
-    const { data: { email } } = jwt.verify(token, JWT_SECRET);
-    const user = await userService.emailExists(email);
+    const { data: { id, email } } = jwt.verify(token, JWT_SECRET);
+    const userExists = await userService.emailExists(email);
 
-    req.user = user;
+    if (userExists) req.userId = id;
 
     next();
   } catch (error) {

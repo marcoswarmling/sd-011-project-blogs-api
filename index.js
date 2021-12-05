@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const user = require('./routers/userRouter');
 const category = require('./routers/categoryRouter');
+const post = require('./routers/postRouter');
 
 const app = express();
 
@@ -17,3 +18,5 @@ app.use(bodyParser.json());
 app.use('/', user);
 
 app.use('/', category);
+
+app.use('/', post);
