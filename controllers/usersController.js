@@ -41,4 +41,18 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { createUser, login, getAllUsers };
+const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await Users.getUserById(id);
+    if (data.err) {
+      return res.status(data.err.code).json(data.err.message); 
+    }
+     return res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong. Try again later' });
+  }
+};
+
+module.exports = { createUser, login, getAllUsers, getUserById };
