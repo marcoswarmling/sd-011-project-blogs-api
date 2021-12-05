@@ -14,4 +14,8 @@ router.get('/',
 userController.validateToken,
 userController.getAllUsers);
 
+router.get('/:id',
+userController.validateToken,
+userController.getUserById);
+
 module.exports = router;
