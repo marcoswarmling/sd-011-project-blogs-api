@@ -11,6 +11,7 @@ async function postCreate(req, res) {
 async function getAllPost(req, res) {
   const post = await postService.getAllPost();
 
+  console.log('Retorno do post controller--->', post);
   return res.status(200).json(post);
 }
 
