@@ -1,10 +1,10 @@
-const express = require('express');
+require('dotenv').config();
+const app = require('./app');
 
-const app = express();
+const defaultPort = 3000;
+const PORT = process.env.PORT || defaultPort;
 
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
-
-// não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (request, response) => {
-  response.send();
+app.listen(PORT, () => {
+  console.log(`Servidor online na porta ${PORT}`);
 });
+
