@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { Conflict } = require('../errors/conflicts');
+const { Conflicts } = require('../errors');
 
 // user create & token validation
 const create = (userDataInput) => 
@@ -8,7 +8,7 @@ const create = (userDataInput) =>
     return { token, createdUser: dataValues };
   }).catch((err) => {
     if (err.name === 'SequelizeUniqueConstrainError') {
-      throw new Conflict('User already registered');
+      throw new Conflicts('User already registered');
     }
     throw err;
 });
