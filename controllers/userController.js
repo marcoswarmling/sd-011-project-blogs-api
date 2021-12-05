@@ -77,9 +77,9 @@ const validateCredentials = async (req, res, next) => {
 const login = async (req, res) => res.status(200).json({ token: req.token });
 
 const listAllUsers = async (req, res) => {
-  const rest = await User.findAll({ attributes: { exclude: ['password'] } });
+  const allUsersData = await User.findAll({ attributes: { exclude: ['password'] } });
 
-  return res.status(200).json(rest);
+  return res.status(200).json(allUsersData);
 };
 
 const validateJWT = async (req, res, next) => {
