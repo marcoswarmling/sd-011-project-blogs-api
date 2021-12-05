@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, // options:
   { tableName: 'BlogPosts', timestamps: false });
 
-    // associations:
+    // association:
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, { 
       foreignKey: 'userId',
