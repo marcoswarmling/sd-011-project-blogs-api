@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const userRoutes = require('./routes/userRouters');
 
 const app = express();
 
@@ -12,3 +13,7 @@ app.listen(3000, () => console.log('ouvindo porta 3000!'));
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.use(userRoutes);
+
+module.exports = app;
