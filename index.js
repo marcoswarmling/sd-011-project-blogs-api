@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 const userController = require('./controller/UsersController');
+const { validateJWT } = require('./middlewares/verifyJWT');
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
@@ -15,5 +16,6 @@ app.get('/', (request, response) => {
 
 app.post('/user', userController.createUser);
 app.post('/login', userController.login);
+app.get('/user', validateJWT, userController.getUser);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
