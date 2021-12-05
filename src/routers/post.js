@@ -20,17 +20,21 @@ router.get('/', validateToken, (_req, res, next) => {
     .catch(next);
 });
 
+router.get('/search', validateToken, (req, res, next) => {
+  const query = req.query || { q: '' };
+  Controller.searchByTitleOrContent(query.q || '')
+    .then((foundPosts) => {
+      res.status(200).json(foundPosts);
+    })
+    .catch(next);
+});
+
 router.get('/:id', validateToken, (req, res, next) => {
   Controller.getById(req.params.id)
     .then((post) => {
       res.status(200).json(post);
     })
     .catch(next);
-});
-
-router.get('/search', validateToken, (req, res, next) => {
-  console.log(req.query);
-  res.status(200).end();
 });
 
 router.put('/:id', validateToken, (req, res, next) => {

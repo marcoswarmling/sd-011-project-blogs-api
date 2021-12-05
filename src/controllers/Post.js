@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, User, Category } = require('../models');
 const { Schema } = require('../services/validation');
 const { ValidationError, InternalError, NotFoundError, AuthorizationError } = require('../errors');
@@ -64,6 +65,17 @@ const getById = (id) => BlogPost.findOne({
     return getDisplayResultFromModelResult(foundPost);
   });
 
+const searchByTitleOrContent = (searchTerm) => BlogPost.findAll({
+  include: includeUserAndCategories,
+  where: {
+    [Op.or]: [
+      { title: { [Op.substring]: searchTerm } },
+      { content: { [Op.substring]: searchTerm } },
+    ],
+  },  
+})
+  .then(mapModelResultToDisplayResult);
+
 async function getPostAndValidateAuthor(id, userId) {
   const targetPost = await getById(id);
 
@@ -99,4 +111,5 @@ module.exports = {
   getById,
   editById,
   deleteById,
+  searchByTitleOrContent,
 };
