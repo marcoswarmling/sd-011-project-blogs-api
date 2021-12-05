@@ -28,6 +28,11 @@ router.get('/:id', validateToken, (req, res, next) => {
     .catch(next);
 });
 
+router.get('/search', validateToken, (req, res, next) => {
+  console.log(req.query);
+  res.status(200).end();
+});
+
 router.put('/:id', validateToken, (req, res, next) => {
   Controller.editById({
     id: req.params.id,
