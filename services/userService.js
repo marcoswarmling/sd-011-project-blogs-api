@@ -39,7 +39,19 @@ const login = async (data) => {
   }
 };
 
+const getAllUser = async () => {
+  try {
+    const response = await Users.findAll({ attributes: { exclude: ['password'] } });
+    // { attributes: { exclude: ['password'] } } com essa objeto, o sequelize entende que eu não quero informa o campo de password.
+    return response;
+  } catch (error) {
+    return { error: 'Something went wrong' };
+  }
+};
+
 module.exports = {
   create,
   login,
+  findByEmail,
+  getAllUser,
 };
