@@ -94,6 +94,22 @@ const validateJWT = async (req, res, next) => {
   next();
 };
 
+const listById = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+
+  const isUser = await User.findOne({ where: { id } });
+
+  if (!isUser) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+
+  return res.status(200).json(isUser);
+};
+
 module.exports = {
   validateUser,
   createToken,
@@ -103,4 +119,5 @@ module.exports = {
   login,
   listAllUsers,
   validateJWT,
+  listById,
 };
