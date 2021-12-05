@@ -20,8 +20,10 @@ const password = (req, res, next) => {
 
 const login = async (req, res, next) => {
   const user = req.body;
-  const findUser = await Users.findOne({ where: { email: user.email, password: user.password } });
-  if (!findUser) return res.status(400).json({ message: 'Invalid fields' });
+  const response = await Users.findOne({ where: { email: user.email, password: user.password } });
+  // está retornando sempre vazio
+  // console.log('findUser', response);
+  if (!response) return res.status(400).json({ message: 'Invalid fields' });
   next();
 };
 

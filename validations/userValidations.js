@@ -20,9 +20,7 @@ const email = (req, res, next) => {
 const emailUnique = async (req, res, next) => {
   const { email: vEmail } = req.body;
   const users = await Users.findAll({ where: { email: vEmail } });
-  const userss = await Users.findAll({ where: { email: vEmail } });
-  console.log('users', users);
-  console.log('userss', userss);
+  // console.log('users', users);
   const message = 'User already registered';
   if (users.length > 0) return res.status(409).json({ message });
   next();
