@@ -8,6 +8,7 @@ const MSG_MISSING_EMAIL = '"email" is required';
 const MSG_MISSING_PASSW = '"password" is required';
 const MSG_EMPTY_NAME = '"name" is not allowed to be empty';
 const MSG_EMPTY_EMAIL = '"email" is not allowed to be empty';
+const MSG_EMPTY_PASSW = '"password" is not allowed to be empty';
 const MSG_INVALID_EMAIL = '"email" must be a valid email';
 const MSG_EXISTS_USER = 'User already registered';
 const MSG_LENGTH_NAME = '"displayName" length must be at least 8 characters long';
@@ -30,32 +31,36 @@ function nameValidator(name) {
 }
 
 const emailValidator = async (email) => {
-    const emailRegexp = new RegExp('\\S+@\\S+\\.\\S+');
+  const emailRegexp = new RegExp('\\S+@\\S+\\.\\S+');
 
-    if (typeof email === 'undefined') {
-      return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_EMAIL };
-    }
+  if (typeof email === 'undefined') {
+    return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_EMAIL };
+  }
 
-    if (!email) {
-      return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_EMAIL };
-    }
+  if (!email) {
+    return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_EMAIL };
+  }
 
-    if (!emailRegexp.test(email)) {
-      return { status: STATUS_BAD_REQUEST, message: MSG_INVALID_EMAIL };
-    }
+  if (!emailRegexp.test(email)) {
+    return { status: STATUS_BAD_REQUEST, message: MSG_INVALID_EMAIL };
+  }
 
-    const user = await User.findOne({ where: { email } });
+  const user = await User.findOne({ where: { email } });
 
-    if (user !== null) {
-      return { status: STATUS_CONFLICT, message: MSG_EXISTS_USER };
-    }
+  if (user !== null) {
+    return { status: STATUS_CONFLICT, message: MSG_EXISTS_USER };
+  }
 
   return {};
 };
 
 function passwordValidator(password) {
-  if (!password) {
+  if (typeof password === 'undefined') {
     return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_PASSW };
+  }
+
+  if (!password) {
+    return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_PASSW };
   }
 
   if (password.length !== 6) {
