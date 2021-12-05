@@ -1,7 +1,7 @@
 const express = require('express');
 const { valToken } = require('../middlewares/valUser');
 const { valPost, valCategoriesId } = require('../middlewares/valPost');
-const { create } = require('../services/postService');
+const { create, getAll } = require('../services/postService');
 
 const router = express.Router();
 
@@ -11,16 +11,18 @@ router.post('/post', valPost, valCategoriesId, valToken, async (req, res) => {
 
   const response = await create(title, content, categoryIds, userId);
 
-  console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', response);
+  /* console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', response); */
 
   res.status(201).json(response);
 });
 
-/* router.get('/post', valToken, async (_req, res) => {
+router.get('/post', valToken, async (_req, res) => {
   const response = await getAll();
 
+  const data = await Promise.all(response).then((post) => post);
+
   console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', response);
-  res.status(200).json(response);
-}); */
+  res.status(200).json(data);
+});
 
 module.exports = router;
