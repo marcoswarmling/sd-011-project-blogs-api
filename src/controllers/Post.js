@@ -1,12 +1,24 @@
 const Sequelize = require('sequelize');
 const { BlogPost, PostCategory, User, Category } = require('../models');
 const { Schema } = require('../services/validation');
-const { ValidationError, InternalError } = require('../errors');
+const { ValidationError, InternalError, NotFoundError } = require('../errors');
 const config = require('../config/config');
 
 const getDisplayResultFromModelResult = ({ dataValues }) => dataValues;
 
 const mapModelResultToDisplayResult = (result) => result.map(getDisplayResultFromModelResult);
+
+const includeUserAndCategories = [
+  {
+    model: User,
+    as: 'user',
+  },
+  {
+    model: Category,
+    as: 'categories',
+    through: { attributes: [] },
+  },
+];
 
 const rawCreatePost = (rawValidatedInput) => BlogPost.create({
   title: rawValidatedInput.title,
@@ -37,21 +49,22 @@ const create = async (postDataInput) => {
 };
 
 const getAll = () => BlogPost.findAll({
-  include: [
-    {
-      model: User,
-      as: 'user',
-    },
-    {
-      model: Category,
-      as: 'categories',
-      through: { attributes: [] },
-    },
-  ],
+  include: includeUserAndCategories,
 })
   .then(mapModelResultToDisplayResult);
+
+const getById = (id) => BlogPost.findOne({
+  where: { id },
+  include: includeUserAndCategories,
+})
+  .then((foundPost) => {
+    if (!foundPost) throw new NotFoundError('Post does not exist');
+
+    return getDisplayResultFromModelResult(foundPost);
+  });
 
 module.exports = {
   create,
   getAll,
+  getById,
 };

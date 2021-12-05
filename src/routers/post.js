@@ -21,7 +21,11 @@ router.get('/', validateToken, (_req, res, next) => {
 });
 
 router.get('/:id', validateToken, (req, res, next) => {
-  res.status(200).end();
+  Controller.getById(req.params.id)
+    .then((post) => {
+      res.status(200).json(post);
+    })
+    .catch(next);
 });
 
 module.exports = router;
