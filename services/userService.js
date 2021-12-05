@@ -1,3 +1,4 @@
+const SECRET = 'charmander>squirtle';
 const jwt = require('jsonwebtoken');
 
 const validateUserName = (name) => {
@@ -73,8 +74,6 @@ const validateEmptyCredentials = (email, password) => {
 
   return null;
 };
-
-const SECRET = 'charmander>squirtle';
 
 const validateJWT = async (token) => {
   if (!token) {
