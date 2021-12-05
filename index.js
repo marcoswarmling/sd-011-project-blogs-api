@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const user = require('./controllers/userController');
 const category = require('./controllers/categoryController');
+const blogPost = require('./controllers/blogPostController');
 
 const app = express();
 app.use(bodyParser.json());
@@ -34,6 +35,10 @@ app.post('/categories',
 app.get('/categories',
   user.validateJWT,
   category.listAllCategories);
+
+app.post('/post',
+  user.validateJWT,
+  blogPost.createCategory);
 
 app.get('/', (request, response) => {
   response.send();

@@ -16,6 +16,7 @@ const validateUser = async (req, res, next) => {
   if (validation) {
     return res.status(validation.status).json({ message: validation.message });
   }
+  
   next();
 };
 
@@ -87,10 +88,11 @@ const validateJWT = async (req, res, next) => {
 
   const validation = await userService.validateJWT(token);
 
-  if (validation) {
+  if (validation.message) {
     return res.status(validation.status).json({ message: validation.message });
   }
-
+  
+  req.decryptedData = validation.email;
   next();
 };
 

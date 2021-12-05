@@ -86,7 +86,7 @@ const validateJWT = async (token) => {
       return { message: 'token malformed', status: 401 };
     }
 
-    return null;
+    return jwtValid;
   } catch (err) {
     return { message: 'Expired or invalid token', status: 401 };
   }
