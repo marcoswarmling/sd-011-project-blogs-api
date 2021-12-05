@@ -14,4 +14,17 @@ const createCategory = async (req, res) => {
   }
 };
 
-module.exports = { createCategory };
+const getAllCategories = async (req, res) => {
+  try {
+    const data = await Category.getAllCategories();
+    if (data.err) {
+      return res.status(data.err.code).json(data.err.message); 
+    }
+     return res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong. Try again later' });
+  }
+};
+
+module.exports = { createCategory, getAllCategories };
