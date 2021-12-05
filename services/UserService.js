@@ -9,6 +9,12 @@ const jwtConfig = {
 
 const { User } = require('../models');
 
+const generateToken = (email, password) => {
+  const userWithoutPassword = { email, password };
+  const token = jwt.sign({ data: userWithoutPassword }, secret, jwtConfig);
+  return token;
+};
+
 const validateDataUser = (displayName, password) => {
   if (displayName.length < 8) {
     return {
@@ -28,22 +34,26 @@ const validateDataUser = (displayName, password) => {
   return false;
 };
 
-const validateEmail = async (email) => {
+const validateExistEmail = async (email) => {
+  const user = await User.findOne({ where: { email } });
+  if (user) {
+    return {
+      message: 'User already registered', status: 409,
+    };
+  }
+  return false;
+};
+
+const validateEmail = (email) => {
   const regexEmail = /\S+@\S+\.\S+/;
   if (!email) {
     return {
       message: '"email" is required', status: 400,
     };
   }
-  const user = await User.findOne({ where: { email } });
   if (!regexEmail.test(email)) {
     return {
       message: '"email" must be a valid email', status: 400,
-    };
-  }
-  if (user) {
-    return {
-      message: 'User already registered', status: 409,
     };
   }
   return false;
@@ -53,16 +63,19 @@ const create = async (displayName, email, password, image) => {
   if (validateDataUser(displayName, password)) {
     return validateDataUser(displayName, password);
   }
-  if (await validateEmail(email)) {
-    const response = await validateEmail(email);
+  if (validateEmail(email)) {
+    return validateEmail(email);
+  }
+  if (await validateExistEmail(email)) {
+    const response = await validateExistEmail(email);
     return response;
   }
   await User.create({ displayName, email, password, image });
-  const userWithoutPassword = { email, displayName };
-  const token = jwt.sign({ data: userWithoutPassword }, secret, jwtConfig);
+  const token = generateToken(email, password);
   return { token };
 };
 
 module.exports = {
   create,
+  generateToken,
 };

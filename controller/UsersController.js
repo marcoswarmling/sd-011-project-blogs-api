@@ -1,4 +1,5 @@
 const { create } = require('../services/UserService');
+const { signIn } = require('../services/Login');
 
 const createUser = async (req, res) => {
   try {
@@ -12,6 +13,19 @@ const createUser = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const response = await signIn(email, password);
+    if (response.message) return res.status(response.status).json({ message: response.message });
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    req.status(500).json({ message: 'server error' });
+  }
+};
+
 module.exports = {
   createUser,
+  login,
 };

@@ -13,6 +13,7 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', (userController.createUser));
+app.post('/user', userController.createUser);
+app.post('/login', userController.login);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
