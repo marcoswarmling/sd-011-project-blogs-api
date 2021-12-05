@@ -64,14 +64,19 @@ const getById = (id) => BlogPost.findOne({
     return getDisplayResultFromModelResult(foundPost);
   });
 
-const editById = async ({ id, userId, newContentInput }) => {
-  new Schema('editPost').validate(newContentInput);
-
+async function getPostAndValidateAuthor(id, userId) {
   const targetPost = await getById(id);
 
   if (targetPost.userId !== userId) {
     throw new AuthorizationError('Unauthorized user');
   }
+  return targetPost;
+}
+
+const editById = async ({ id, userId, newContentInput }) => {
+  new Schema('editPost').validate(newContentInput);
+
+  const targetPost = await getPostAndValidateAuthor(id, userId);
 
   await BlogPost.update(newContentInput, {
     where: { id },
