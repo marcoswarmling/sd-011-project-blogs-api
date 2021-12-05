@@ -28,6 +28,8 @@ app.post(
 
 app.post('/categories', validateJWT, validName, categoriesController.create);
 
+app.get('/categories', validateJWT, categoriesController.findAll);
+
 app.post(
   '/login',
   emailLoginValid,
