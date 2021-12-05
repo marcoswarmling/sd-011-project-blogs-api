@@ -1,6 +1,6 @@
 const express = require('express');
-const error = require('./src/middleware/error');
-const route = require('./src/routes')
+// const error = require('./src/middleware/error');
+const route = require('./src/routes');
 
 const app = express();
 
@@ -11,4 +11,5 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.use(error);
+route.route2User(app);
+// app.use(error);

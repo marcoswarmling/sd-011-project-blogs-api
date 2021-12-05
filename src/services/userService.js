@@ -1,13 +1,13 @@
-const model = require('../models/userModel');
 const validate = require('../middleware/validation');
+const { user } = require('../../models');
 
-const newUser = async (name, email, password) => {
-    validate.notNull(name, email, password);
-    await validate.alreadyExist(email, password);
-    const { password: _, ...result } = await model.newUser(name, email, password);
+const newUser = async (displayName, email, password, image) => {
+    validate.newUser(displayName, email, password);
+  //  await validate.alreadyExist(email);
+    const result = user.create({ displayName, email, password, image });
     return result;
 };
 
 module.exports = {
     newUser,
-}
+};
