@@ -1,7 +1,7 @@
 const db = require('../models');
 const jwtToken = require('../authorization/jwtToken');
 
-const getAllUsers = async (_req, res) => {
+const getAllUsers = async (req, res) => {
   try {
     const allUsers = await db.Users
     .findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
