@@ -1,5 +1,5 @@
 const { Users } = require('../models');
-const { createToken } = require('../api/auth/jwt');
+const { createToken, verifyToken } = require('../api/auth/jwt');
 
 const createUser = async (displayName, email, password, image) => {
   const token = createToken(email);
@@ -15,6 +15,17 @@ const createUser = async (displayName, email, password, image) => {
   return { token };
 };
 
+const getUsers = async (token) => {
+  try {
+    verifyToken(token);
+    const users = await Users.findAll();
+    return users;
+  } catch (error) {
+    return { message: 'Expired or invalid token' };
+  }
+};
+
 module.exports = {
   createUser,
+  getUsers,
 };
