@@ -38,7 +38,11 @@ app.get('/categories',
 
 app.post('/post',
   user.validateJWT,
-  blogPost.createCategory);
+  blogPost.createBlogPost);
+
+app.get('/post',
+  user.validateJWT,
+  blogPost.getAllBlogPost);
 
 app.get('/', (request, response) => {
   response.send();

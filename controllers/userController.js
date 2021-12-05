@@ -92,7 +92,8 @@ const validateJWT = async (req, res, next) => {
     return res.status(validation.status).json({ message: validation.message });
   }
   
-  req.decryptedData = validation.email;
+  req.decryptedData = await validation.email;
+
   next();
 };
 
