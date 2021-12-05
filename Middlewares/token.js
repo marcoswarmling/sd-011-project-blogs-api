@@ -6,11 +6,11 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 const newToken = (dataUser) => {
-  const generateToken = jwt.sign(dataUser, PASSWORD, jwtConfig);
-  return { token: generateToken };
+  const token = jwt.sign(dataUser, PASSWORD, jwtConfig);
+  return token;  
 };
 
-const tokenValidate = (request, response, next) => {
+const tokenValidate = async (request, response, next) => {
   try {  
   const tokenReceived = request.headers.authorization;
   if (!tokenReceived) {

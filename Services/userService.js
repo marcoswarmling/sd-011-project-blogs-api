@@ -29,21 +29,7 @@ const userLogin = async (user) => {
   }
 };
 
-const getUsers = async () => {
-  const users = await Users.findAll();
-  return users;
-};
-
-const getUserByID = async (id) => {
-  const user = await Users.findByPk(id);
-  if (!user) return undefined;
-  const { password, ...dataUser } = user.dataValues;
-  return dataUser;
-};
-
 module.exports = {
   createUser,
   userLogin,
-  getUserByID,
-  getUsers,
 };

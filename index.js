@@ -1,14 +1,22 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
+app.use(bodyParser.json());
+
+const PORT = process.env.PORT || 3000;
+
 const validateUser = require('./Validations/validateUser');
 const userController = require('./Controllers/userControllers');
 
 app.post('/user', validateUser, userController.createUser);
 
-app.listen(3000, () => console.log('ouvindo porta 3000!'));
+app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.send();
 });
+
+// requisito 1 e 2 reaproveitado do meu código do projeto turma 10-a

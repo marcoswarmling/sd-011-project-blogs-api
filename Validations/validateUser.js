@@ -1,4 +1,4 @@
-const { userJoi } = require('joi');
+const { userJoi } = require('../Middlewares/userJoi');
 
 const validateUser = (request, response, next) => {
   const user = request.body;
