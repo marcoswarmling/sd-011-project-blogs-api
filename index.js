@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.get('/user', validateJWT, userController.getAll);
 app.get('/user/:id', validateJWT, userController.getById);
+app.get('/categories', validateJWT, categoriesController.getAll);
 app.post('/categories', validateJWT, categoriesController.create);
 app.post('/user', userController.create);
 app.post('/login', userController.login);
