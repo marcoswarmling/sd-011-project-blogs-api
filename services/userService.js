@@ -77,7 +77,7 @@ const validateEmptyCredentials = (email, password) => {
 
 const validateJWT = async (token) => {
   if (!token) {
-    return { message: 'Token not found', status: 401 };
+    return { message: 'Token not found', statu: 401 };
   }
   try {
     const jwtValid = jwt.verify(token, SECRET);
