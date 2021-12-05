@@ -23,3 +23,12 @@ exports.createUser = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await userServices.getAllUsers();
+    return res.status(httpCodes.HTTP_OK).json(users);
+  } catch (error) {
+    next(error);
+  }
+};

@@ -9,3 +9,5 @@ exports.createUserSvc = async (user) => {
   if (isValid) return User.create({ ...user });
   throw new AppError(httpCodes.HTTP_BAD_REQUEST, validate.errors[0].message);
 };
+
+exports.getAllUsers = async () => User.findAll();
