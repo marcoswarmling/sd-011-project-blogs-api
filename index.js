@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const usersController = require('./controllers/usersController');
 const categoriesController = require('./controllers/categoriesController');
+const blogPostController = require('./controllers/blogPostsController');
 const {
   validDisplayName,
   validEmail,
@@ -13,6 +14,12 @@ const {
 } = require('./middlewares/usersValidations');
 const validateJWT = require('./auth/validateJWT');
 const { validName } = require('./middlewares/categoriesValidations');
+const {
+  validTitle,
+  validContent,
+  validCategoryId,
+  validCategoryExists,
+} = require('./middlewares/blogPostsValidations');
 
 const app = express();
 app.use(bodyParser.json());
@@ -41,6 +48,16 @@ app.post(
 app.get('/user', validateJWT, usersController.findAll);
 
 app.get('/user/:id', validateJWT, usersController.findByPk);
+
+app.post(
+  '/post',
+  validateJWT,
+  validTitle,
+  validContent,
+  validCategoryId,
+  validCategoryExists,
+  blogPostController.create,
+);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
