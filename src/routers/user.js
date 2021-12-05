@@ -4,7 +4,7 @@ const router = express.Router();
 const Controller = require('../controllers/User');
 
 router.post('/user', (req, res) => {
-  Controller.createUser(req.body)
+  Controller.create(req.body)
     .then(({ token }) => {
       res.status(201).json({ token });
   });

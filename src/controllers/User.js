@@ -1,6 +1,6 @@
 const { User } = require('../models');
 
-// user creat & token validation
+// user create & token validation
 const create = (userDataInput) => 
   User.create(userDataInput).then((_queryResult) => {
       console.log(_queryResult);
