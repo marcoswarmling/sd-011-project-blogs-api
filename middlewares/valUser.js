@@ -1,9 +1,8 @@
-/* const jwt = require('jsonwebtoken'); */
-const { validateToken } = require('../helpers/jwt');
+const jwt = require('jsonwebtoken');
 const { createUser } = require('../schema');
 const { User } = require('../models');
 
-/* const { JWT_SECRET } = process.env; */
+const { JWT_SECRET } = process.env;
 
 const valUser = async (req, res, next) => {
   const { displayName, email, password } = req.body;
@@ -34,13 +33,14 @@ const valToken = (req, res, next) => {
 
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
-  try {
-    const data = validateToken(token);
-
-    req.user = data;
-  } catch (error) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
-  }
+    // Dário Junior me ajudou no jwt.verify 
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) {
+      res.status(401).json({ message: 'Expired or invalid token' });
+    }
+    const { user: { id } } = decoded;
+    req.userId = id; 
+  });
 
   next();
 };
