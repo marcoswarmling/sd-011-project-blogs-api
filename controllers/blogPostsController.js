@@ -19,6 +19,13 @@ async function create(req, res) {
   return res.status(201).json(blogPost);
 }
 
+async function findAll(_req, res) {
+  const blogPosts = await blogPostsService.findAll();
+
+  return res.status(200).json(blogPosts);
+}
+
 module.exports = {
   create,
+  findAll,
 };
