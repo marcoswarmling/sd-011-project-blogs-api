@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { blogpost, category } = require('../services');
+const { post, category } = require('../services');
 const tokenValidMiddle = require('../validators/middlewares/tokenValidMiddle');
 const postValidMiddle = require('../validators/middlewares/postValidMiddle');
 const getByArrayIds = require('../utils/getByArrayIds');
@@ -8,15 +8,15 @@ const STATUS_CREATED = 201;
 const STATUS_OK = 200;
 
 router.get('/', tokenValidMiddle, async (_req, res, next) => {
-    const result = await blogpost.getAll();
+    const result = await post.getAll();
   
     if (result.message) return next(result);
   
     res.status(STATUS_OK).json(result);
   });
 
-const createPostsCategories = async (post, categories) => {
-  post.addCategories(categories);
+const createPostsCategories = async (createdPost, categories) => {
+  createdPost.addCategories(categories);
 };
 
 router.post('/', tokenValidMiddle, postValidMiddle, async (req, res, next) => {
@@ -26,7 +26,7 @@ router.post('/', tokenValidMiddle, postValidMiddle, async (req, res, next) => {
 
     const categories = await getByArrayIds(categoryIds, getAllByArrayIds); // aqui
     
-    const result = await blogpost.createIt({ body, user });
+    const result = await post.createIt({ body, user });
     if (result.message) return next(result);
     createPostsCategories(result, categories);
     

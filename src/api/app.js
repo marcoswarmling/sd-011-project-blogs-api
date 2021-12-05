@@ -1,5 +1,5 @@
 const express = require('express');
-const { user, login, category, blogpost } = require('../controllers');
+const { user, login, category, post } = require('../controllers');
 const errorMiddleware = require('../utils/errorMiddleware');
 
 const app = express();
@@ -23,7 +23,7 @@ app.get('/ping', (_req, res) => res.send('tá rodando de boa')); // Para teste d
 app.use('/user', user);
 app.use('/login', login);
 app.use('/categories', category);
-app.use('/post', blogpost);
+app.use('/post', post);
 
 app.all('*', (_req, res) => res.status(404).send('Router not found'));
 app.use(errorMiddleware);
