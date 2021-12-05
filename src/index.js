@@ -21,6 +21,7 @@ app.get('/', (request, response) => {
 app.use('/user', routes.user);
 app.use('/login', routes.login);
 app.use('/categories', routes.category);
+app.use('/post', routes.post);
 
 app.use(errorMiddleware);
 

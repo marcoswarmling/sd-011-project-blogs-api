@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "categoryIds": {
+      "type": "array",
+      "items": { "type": "integer" }
+    },
+    "userId": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false,
+  "errorMessage": {
+    "required": {
+      "title": "\"title\" is required",
+      "content": "\"content\" is required",
+      "categoryIds": "\"categoryIds\" is required"
+    }
+  },
+  "required": ["title", "content", "categoryIds"]
+}

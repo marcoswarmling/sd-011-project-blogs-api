@@ -4,7 +4,7 @@
   "BAD_JWT": "Expired or invalid token",
   "ADMIN_ONLY": "Only admins can register new admins",
   "MISSING_AUTH": "Token not found",
-  "RECIPE_NOT_FOUND": "recipe not found",
+  "CATEGORY_NOT_FOUND": "\"categoryIds\" not found",
   "USER_NOT_FOUND": "User does not exist",
   "INTERNAL_ERROR": "internal_error",
   "DATABASE_ERROR": "database_error",

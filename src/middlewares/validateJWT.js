@@ -14,7 +14,8 @@ const validateJWT = [
         throw new AppError(httpCodes.HTTP_UNAUTHORIZED, errorMessages.MISSING_AUTH);
       }
       if (userPayload !== null) {
-        req.user = userPayload.data;
+        const { id, email, displayName, image } = userPayload.data.dataValues;
+        req.user = { id, email, displayName, image };
         return next();
       }
       throw new AppError(httpCodes.HTTP_UNAUTHORIZED, errorMessages.BAD_JWT);
