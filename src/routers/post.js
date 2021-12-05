@@ -40,4 +40,8 @@ router.put('/:id', validateToken, (req, res, next) => {
     .catch(next);
 });
 
+router.delete('/:id', validateToken, (req, res, next) => {
+  res.status(200).end();
+});
+
 module.exports = router;
