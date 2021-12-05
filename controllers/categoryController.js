@@ -21,6 +21,22 @@ const createCategory = async (req, res) => {
   } 
 };
 
+const getAllCategories = async (req, res) => {
+  try {
+    const users = await categoryService
+    .getAllCategories();
+    
+    res
+      .status(200)
+      .json(users);
+  } catch (error) {
+    res
+      .status(500)
+      .json(ERROR_MESSAGE);
+  } 
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };

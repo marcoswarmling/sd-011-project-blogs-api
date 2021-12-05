@@ -5,6 +5,7 @@ const {
 
 const {
   createCategory,
+  getAllCategories,
 } = require('../controllers/categoryController');
 
 const { 
@@ -20,11 +21,11 @@ router.post(
   createCategory,
 );
 
-// router.get(
-//   '/categories',
-//   validateTokenExistence,
-//   validateToken,
-//   getAll,
-// );
+router.get(
+  '/categories',
+  validateTokenExistence,
+  validateToken,
+  getAllCategories,
+);
 
 module.exports = router;
