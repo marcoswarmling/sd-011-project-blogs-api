@@ -3,20 +3,24 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('BlogPosts', {
+
       id: {
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
         type: Sequelize.INTEGER,
       },
+
       title: {
         allowNull: false,
         type: Sequelize.STRING,
       },
+
       content: {
         allowNull: false,
         type: Sequelize.STRING,
       },
+
       userId: {
         // Foreign Key Constrains: https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html
         allowNull: false,
@@ -25,10 +29,12 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+
       published: {
         allowNull: false,
         type: Sequelize.DATE,
       },
+
       updated: {
         allowNull: false,
         type: Sequelize.DATE,
