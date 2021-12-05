@@ -2,7 +2,7 @@ function getAssociate(PostCategoryModel) {
   // associations
   return (models) => {
     models.BlogPost.belongsToMany(models.Category, {
-      as: 'posts',
+      as: 'blogPosts',
       through: PostCategoryModel,
       foreignKey: 'postId',
       otherKey: 'id',
