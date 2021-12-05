@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
-const { BlogPost, PostCategory } = require('../models');
+const { BlogPost, PostCategory, User, Category } = require('../models');
 const { Schema } = require('../services/validation');
 const { ValidationError, InternalError } = require('../errors');
 const config = require('../config/config');
 
-// const getDisplayResultFromModelResult = ({ dataValues }) => dataValues;
+const getDisplayResultFromModelResult = ({ dataValues }) => dataValues;
 
-// const mapModelResultToDisplayResult = (result) => result.map(getDisplayResultFromModelResult);
+const mapModelResultToDisplayResult = (result) => result.map(getDisplayResultFromModelResult);
 
 const rawCreatePost = (rawValidatedInput) => BlogPost.create({
   title: rawValidatedInput.title,
@@ -36,6 +36,22 @@ const create = async (postDataInput) => {
   }
 };
 
+const getAll = () => BlogPost.findAll({
+  include: [
+    {
+      model: User,
+      as: 'user',
+    },
+    {
+      model: Category,
+      as: 'categories',
+      through: { attributes: [] },
+    },
+  ],
+})
+  .then(mapModelResultToDisplayResult);
+
 module.exports = {
   create,
+  getAll,
 };

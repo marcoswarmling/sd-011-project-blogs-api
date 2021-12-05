@@ -12,8 +12,12 @@ router.post('/', validateToken, (req, res, next) => {
     .catch(next);
 });
 
-router.get('/', validateToken, (req, res, next) => {
-  res.status(200).end();
+router.get('/', validateToken, (_req, res, next) => {
+  Controller.getAll()
+    .then((allPosts) => {
+      res.status(200).json(allPosts);
+    })
+    .catch(next);
 });
 
 module.exports = router;
