@@ -1,9 +1,9 @@
-const { User } = require('../models');
+const { Users } = require('../models');
 
 const validateUser = async ({ email, password }) => {
-  const result = await User.findOne({ where: { email } });
+  const result = await Users.findOne({ where: { email } });
   if (result && result.password === password) {
-    return User;
+    return Users;
   }
   return null; 
 };
