@@ -18,7 +18,24 @@ const userLogin = async (request, response) => {
   return response.status(200).json(login);
 };
 
+const getUserByID = async (request, response) => {
+  const { id } = request.params;
+  const user = await userServices.getUserByID(id);
+  if (user === undefined) {
+    return response.status(404).json({ message: 'User does not exist' });
+  }
+
+  return response.status(200).json(user);
+};
+
+const getUsers = async (_request, response) => {
+  const users = await userServices.getUsers();
+  return response.status(200).json(users);
+};
+
 module.exports = {
   createUser,
   userLogin,
+  getUsers,
+  getUserByID,
 }; 

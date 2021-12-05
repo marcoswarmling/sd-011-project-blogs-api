@@ -6,8 +6,8 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 const newToken = (dataUser) => {
-  const token = jwt.sign(dataUser, PASSWORD, jwtConfig);
-  return token;  
+  const generateToken = jwt.sign(dataUser, PASSWORD, jwtConfig);
+  return { token: generateToken };
 };
 
 const tokenValidate = async (request, response, next) => {
@@ -28,3 +28,5 @@ module.exports = {
   newToken,
   tokenValidate,
 };
+
+// Consultei o repositório da colega Nathália Zebral para alteração da função newToken, para retornar um obj com a chave token onde o valor será o token gerado.

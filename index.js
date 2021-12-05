@@ -10,9 +10,12 @@ const PORT = process.env.PORT || 3000;
 const validateUser = require('./Validations/validateUser');
 const userController = require('./Controllers/userControllers');
 const validateLogin = require('./Validations/validateLogin');
+const token = require('./Middlewares/token');
 
 app.post('/user', validateUser, userController.createUser);
 app.post('/login', validateLogin, userController.userLogin);
+app.get('/user', token.tokenValidate, userController.getUsers);
+app.get('/user/:id', token.tokenValidate, userController.getUserByID);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
