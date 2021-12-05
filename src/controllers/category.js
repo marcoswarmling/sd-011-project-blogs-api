@@ -27,17 +27,4 @@ router.post('/', tokenValidMiddle, categoryValidMiddle, async (req, res) => {
   res.status(STATUS_CREATED).json(result);
 });
 
-// router.get('/:id', tokenValidMiddle, async (req, res) => {
-//   const { id } = req.params;
-
-//   const result = await category.getById(id);
-
-//   if (result.message) {
-//     const { status, message } = result;
-//     return res.status(status).json({ message });
-//   }
-
-//   res.status(200).json(result);
-// });
-
 module.exports = router;

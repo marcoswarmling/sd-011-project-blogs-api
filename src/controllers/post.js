@@ -7,6 +7,10 @@ const getByArrayIds = require('../utils/getByArrayIds');
 const STATUS_CREATED = 201;
 const STATUS_OK = 200;
 
+const createPostsCategories = async (createdPost, categories) => {
+  createdPost.addCategories(categories);
+};
+
 router.get('/', tokenValidMiddle, async (_req, res, next) => {
     const result = await post.getAll();
   
@@ -14,10 +18,6 @@ router.get('/', tokenValidMiddle, async (_req, res, next) => {
   
     res.status(STATUS_OK).json(result);
   });
-
-const createPostsCategories = async (createdPost, categories) => {
-  createdPost.addCategories(categories);
-};
 
 router.post('/', tokenValidMiddle, postValidMiddle, async (req, res, next) => {
     const { body, user } = req;
@@ -31,6 +31,16 @@ router.post('/', tokenValidMiddle, postValidMiddle, async (req, res, next) => {
     createPostsCategories(result, categories);
     
     res.status(STATUS_CREATED).json(result);
+});
+
+router.get('/:id', tokenValidMiddle, async (req, res, next) => {
+  const { id } = req.params;
+
+  const result = await post.getById(id);
+
+  if (result.message) return next(result);
+
+  res.status(STATUS_OK).json(result);
 });
 
 module.exports = router;
