@@ -7,6 +7,7 @@ const categoryValidator = require('../middlewares/validations/categoryValidator'
 
 const categoryRouter = express.Router();
 
+categoryRouter.get('/', authValidator, categoryController.getAll);
 categoryRouter.post('/', authValidator, categoryValidator, categoryController.create);
 
 module.exports = categoryRouter;
