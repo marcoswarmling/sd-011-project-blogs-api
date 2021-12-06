@@ -24,9 +24,15 @@ const getUser = async (id) => {
   return userId;
 };
 
+const excludeUser = async (id) => {
+    const user = await Users.destroy({ where: { id: Number(id) } });
+    return user;
+};
+
 module.exports = {
   createUser,
   createLogin,
   getUsers,
   getUser,
+  excludeUser,
 };

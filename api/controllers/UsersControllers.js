@@ -19,8 +19,15 @@ const getUserbyId = async (req, res) => {
   return res.status(200).json(userId);
 };
 
+const excludeUser = async (req, res) => { // req. 12
+    const { data: { id } } = req.info;
+    await usersServices.excludeUser(id);
+    return res.status(204).json();
+  };
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserbyId,
+  excludeUser,
 };

@@ -8,6 +8,9 @@ const middleware = require('../middlewares/validates');
 router.post('/', middleware.validateUser, rescue(usersController.createUser));
 
 router.get('/:id', middleware.userIsThere, rescue(usersController.getUserbyId));
+
 router.get('/', middleware.validateToken, rescue(usersController.getAllUsers));
+
+router.delete('/me', middleware.validateToken, rescue(usersController.excludeUser));
 
 module.exports = router;

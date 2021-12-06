@@ -214,15 +214,15 @@ const userIsThere = [
 ];
 
 const validateCategories = [
-  hasName, hasToken, isTokenValid,
+  hasToken, isTokenValid, hasName,
 ];
 
 const validatePosts = [
-  hasTitle, hasContent, hastCategoryId, hasToken, isTokenValid,
+  hasToken, isTokenValid, hasTitle, hasContent, hastCategoryId,
 ];
 
 const postsCanBeUpdate = [
-  updatePost, notCategories, hasToken, isTokenValid, userIsValid,
+  hasToken, isTokenValid, updatePost, notCategories, userIsValid,
 ];
 
 const validateExcludePost = [
