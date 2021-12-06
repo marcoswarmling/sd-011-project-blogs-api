@@ -54,10 +54,10 @@ router.put('/:id', tokenValidMiddle, postUpdateValidMiddle, async (req, res, nex
   // const { body, user: userId, categories } = req;
   const { body, user: userId } = req;
   try {
-    const result = await post.updateIt({ postId, body, userId });
+    const result = await post.updateIt({ postId, body, userId }); // ATIVA ISSO
     // updatePostsCategories(result, categories);
 
-    res.status(STATUS_OK).json(result);
+    res.status(STATUS_OK).json(result); // ATIVA ISSO
   } catch (error) {
     next(error);
   }

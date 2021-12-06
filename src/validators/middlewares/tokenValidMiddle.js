@@ -9,9 +9,14 @@ const segredo = process.env.JWT_SECRET; // << Chave "secreta"
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
-  if (!token) return res.status(STATUS_UNAUTHORIZED).json({ message: MSG_MISSING_TOKEN });
+  
+  // next(); // Aqui teste
   
   try {
+    if (!token) return res.status(STATUS_UNAUTHORIZED).json({ message: MSG_MISSING_TOKEN });
+    console.log('Retorno de TOKEN:');
+    console.log(token);
+
     const { data } = jwt.verify(token, segredo);
     req.user = data;
 

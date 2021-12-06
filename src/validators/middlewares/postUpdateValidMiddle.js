@@ -12,33 +12,33 @@ const MSG_MISSING_CATEGORY = '"categoryIds" is required';
 const MSG_EMPTY_CATEGORY = '"categoryIds" is not allowed to be empty';
 const MSG_CATEGORY_NOT_FOUND = '"categoryIds" not found';
 
-async function categoryIdsValidator(expressParams) {
-  const { req, res, next } = expressParams;
-  const { body } = req;
+// async function categoryIdsValidator(expressParams) {
+//   const { req, res, next } = expressParams;
+//   const { body } = req;
 
-  try {
-    if (typeof body.categoryIds === 'undefined') {
-      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_MISSING_CATEGORY });
-    }
+//   try {
+//     if (typeof body.categoryIds === 'undefined') {
+//       return res.status(STATUS_BAD_REQUEST).json({ message: MSG_MISSING_CATEGORY });
+//     }
   
-    if (!body.categoryIds) {
-      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_CATEGORY });
-    }
-    const categories = await getByArrayIds(body.categoryIds, getAllByArrayIds);
+//     if (!body.categoryIds) {
+//       return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_CATEGORY });
+//     }
+//     const categories = await getByArrayIds(body.categoryIds, getAllByArrayIds);
   
-    if (body.categoryIds.length !== categories.length) {
-      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_CATEGORY_NOT_FOUND });
-    }
+//     if (body.categoryIds.length !== categories.length) {
+//       return res.status(STATUS_BAD_REQUEST).json({ message: MSG_CATEGORY_NOT_FOUND });
+//     }
 
-    req.categories = categories;
-    next();
-  } catch (error) {
-    next(error);
-  }
-}
+//     req.categories = categories;
+//     next();
+//   } catch (error) {
+//     next(error);
+//   }
+// }
 
 function contentValidator(expressParams) {
-  const { req, res } = expressParams;
+  const { req, res, next } = expressParams;
   const { body } = req;
   const { content } = body;
 
@@ -49,8 +49,8 @@ function contentValidator(expressParams) {
     if (!content) {
       return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_CONTENT });
     }
-  
-    categoryIdsValidator(expressParams);
+
+    next(); // AQui teste
 }
 
 function titleValidator(expressParams) {
