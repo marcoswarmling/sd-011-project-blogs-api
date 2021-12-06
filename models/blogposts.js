@@ -20,3 +20,4 @@ module.exports = (sequelize, DataTypes) => {
 };
 
 // requisito 8 concluído com a ajuda do Vinicius Gouveia.
+// push novamente
