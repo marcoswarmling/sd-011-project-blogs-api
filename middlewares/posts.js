@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { findCategoryById } = require('../services/categories');
+const { getCategoryById } = require('../services/categories');
 
 const validateCreatePostWithJoi = async (req, _res, next) => {
   const { error } = Joi.object({
@@ -17,7 +17,7 @@ const validateRegisteredCategories = async (req, res, next) => {
   const { categoryIds } = req.body;
 
   const listCategories = await Promise.all(
-    categoryIds.map(async (id) => findCategoryById(id)),
+    categoryIds.map(async (id) => getCategoryById(id)),
   );
 
   if (listCategories.some((category) => !category)) {
