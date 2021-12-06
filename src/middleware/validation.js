@@ -16,11 +16,12 @@ const newUser = (displayName, email, password) => {
   }
 };
 
-const alreadyExist = (email) => {
-  const exists = user.findOne({ where: { email } });
+const alreadyExist = async (email) => {
+  const exists = await user.findOne({ where: { email } });
   if (exists) {
     const error = new Error('User already registered');
     error.code = 409;
+    console.log(exists)
     throw error;
   }
   return null;
