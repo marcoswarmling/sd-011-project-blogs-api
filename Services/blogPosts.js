@@ -16,9 +16,15 @@ const createPost = async (dataPost, userId = 1) => {
   return posted;
 };
 
+const getPosts = async () => {
+  const getPost = await BlogPosts.findAll({ include: [{ all: true }] });
+  return getPost;
+};
+
 module.exports = {
   createPost,
+  getPosts,
 };
 
 // Ref do requisito: repositório da colga Nathália Zebral
-// https://www.codegrepper.com/code-examples/whatever/op+in+sequelize
+// Ref: https://www.codegrepper.com/code-examples/whatever/op+in+sequelize

@@ -24,6 +24,7 @@ app.post('/categories', token.tokenValidate,
 validateCategories, categoriesController.createCategories);
 app.get('/categories', token.tokenValidate, categoriesController.getCategories);
 app.post('/post', token.tokenValidate, validateBlogPost, blogPostController.createPost);
+app.get('/post', token.tokenValidate, blogPostController.getPosts);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
