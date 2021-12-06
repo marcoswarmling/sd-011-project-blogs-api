@@ -66,13 +66,12 @@ router.put('/:id', tokenValidMiddle, postUpdateValidMiddle, async (req, res, nex
 });
 
 router.delete('/:id', tokenValidMiddle, async (req, res, next) => {
-  const { id } = req.params;
-  const { id: userId } = req.user;
+  const { id: postId } = req.params;
 
   try {
-    const result = await post.deleteIt(id, userId);
-    if (result.message) return next(result);
-    res.status(STATUS_NO_CONTENT).json(result);
+    await post.deleteIt({ req, res, next }, postId);
+  
+    res.status(STATUS_NO_CONTENT).end();
   } catch (error) {
     next(error);
   }
