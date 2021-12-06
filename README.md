@@ -29,7 +29,11 @@ Nesse projeto, doi contruido um back-end usando `ORM` com o pacote `sequelize` d
 
 
 
+
 ## Requisitos
+
+
+
 
 
 ## O que deverá ser desenvolvido
