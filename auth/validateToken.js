@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
     // Estou passando pelo parametro de data a informação do email e do id logo em baixo para o decoded, e assim consegui verifica se os dados estão corretos.
     const existToken = await findByEmail(decoded.data.email);
     if (!existToken) {
-      res.status(401).json({ message: 'Expired or invalid token' });
+      return res.status(401).json({ message: 'Expired or invalid token' });
     }
     const { id } = existToken;
     req.userData = { userId: id };
