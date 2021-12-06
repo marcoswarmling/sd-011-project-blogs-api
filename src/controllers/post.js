@@ -51,13 +51,13 @@ router.get('/:id', tokenValidMiddle, async (req, res, next) => {
 
 router.put('/:id', tokenValidMiddle, postUpdateValidMiddle, async (req, res, next) => {
   const { id: postId } = req.params;
-  // const { body, user: userId, categories } = req;
-  const { body, user: userId } = req;
+  const { body } = req;
+  // const { body, categories } = req;
   try {
-    const result = await post.updateIt({ postId, body, userId }); // ATIVA ISSO
+    const result = await post.updateIt({ postId, body });
     // updatePostsCategories(result, categories);
 
-    res.status(STATUS_OK).json(result); // ATIVA ISSO
+    res.status(STATUS_OK).json(result);
   } catch (error) {
     next(error);
   }

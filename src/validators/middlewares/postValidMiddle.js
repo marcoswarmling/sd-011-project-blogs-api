@@ -1,3 +1,4 @@
+// const { category: { getAllByArrayIds } } = require('../../services');
 const { category: { getAllByArrayIds } } = require('../../services');
 const getByArrayIds = require('../../utils/getByArrayIds');
 

@@ -10,8 +10,6 @@ const segredo = process.env.JWT_SECRET; // << Chave "secreta"
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
   
-  // next(); // Aqui teste
-  
   try {
     if (!token) return res.status(STATUS_UNAUTHORIZED).json({ message: MSG_MISSING_TOKEN });
     console.log('Retorno de TOKEN:');
