@@ -1,4 +1,4 @@
-const { Post } = require('../models');
+const { Post, User, Category } = require('../models');
 const { getCategoryById } = require('./CategoryService');
 
 const validatePost = async (content, categoriesIds) => {
@@ -34,6 +34,17 @@ const create = async (title, content, categoriesIds, userId) => {
   return response;
 };
 
+const getAll = async () => {
+  const response = await Post.findAll({
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return response;
+};
+
 module.exports = {
   create,
+  getAll,
 };

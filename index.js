@@ -23,6 +23,8 @@ app.get('/user/:id', validateJWT, userController.getById);
 app.post('/categories', validateJWT, CategoryController.createCategory);
 app.get('/categories', validateJWT, CategoryController.getCategories);
 app.post('/post', validateJWT, PostController.createPost);
+app.get('/post', validateJWT, PostController.getAllPosts);
+
 // app.delete('/post/id', validateJWT, PostController.deletePost);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

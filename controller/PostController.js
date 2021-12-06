@@ -1,4 +1,4 @@
-const { create } = require('../services/PostService');
+const { create, getAll } = require('../services/PostService');
 
 const createPost = async (req, res) => {
   try {
@@ -13,6 +13,15 @@ const createPost = async (req, res) => {
   }
 };
 
+const getAllPosts = async (req, res) => {
+  try {
+    const response = await getAll();
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'server error' });
+  }
+};
 // const deletePost = (req, res) => {
 //   try {
 //     const { id } = req.params;
@@ -24,5 +33,6 @@ const createPost = async (req, res) => {
 
 module.exports = {
   createPost,
+  getAllPosts,
   // deletePost,
 };
