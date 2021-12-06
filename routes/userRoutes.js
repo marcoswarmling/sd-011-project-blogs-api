@@ -1,6 +1,5 @@
 const Router = require('express').Router();
-const { validateJWT } = require('../middlewares/tokenManager');
-
+const { validateToken } = require('../middlewares/tokenManager');
 const { 
   validateDisplayName,
   validateEmail,
@@ -13,7 +12,7 @@ Router.post('/',
   validateEmail,
   validatePassword,
   create);
-Router.get('/', validateJWT, getAllUsers);
-Router.get('/:id', validateJWT, getUserById);
+Router.get('/', validateToken, getAllUsers);
+Router.get('/:id', validateToken, getUserById);
 
 module.exports = Router;

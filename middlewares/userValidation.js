@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const { User } = require('../models');
 
 const validateDisplayName = (req, res, next) => {
   const { displayName } = req.body;
