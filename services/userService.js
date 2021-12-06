@@ -3,7 +3,7 @@ const { User } = require('../models');
 require('dotenv').config();
 
 const generateToken = (user, email) => {
-  const secret = process.env.JWT_SECRET || 'secret';
+  const secret = 'secret';
   const jwtConfig = {
     expiresIn: '8h',
     algorithm: 'HS256',

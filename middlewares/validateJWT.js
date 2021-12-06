@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 require('dotenv').config();
 
-const secret = process.env.SECRET || 'secret';
+const secret = 'secret';
 // dei uma olhada aqui >> https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-node-js-2/
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
