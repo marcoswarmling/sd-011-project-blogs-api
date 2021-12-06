@@ -1,4 +1,4 @@
-const { verifyToken } = require('../utils/token');
+const { validateToken } = require('../utils/token');
 
 module.exports = (req, res, next) => {
   try {
@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
       return res.status(401).json({ message: 'token not found' });
     }
   
-    const { payload: { id } } = verifyToken(authorization);
+    const { payload: { id } } = validateToken(authorization);
     req.userId = id;
     next();
   } catch (error) {
