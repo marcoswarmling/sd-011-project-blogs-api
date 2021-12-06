@@ -19,5 +19,6 @@ app.get('/user/:id', Authentication, User.getById);
 app.get('/user', Authentication, User.getAll);
 
 app.post('/categories', Authentication, Categorie.create);
+app.get('/categories', Authentication, Categorie.getAll);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
