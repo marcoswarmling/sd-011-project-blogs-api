@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const userController = require('../controllers/userController');
+const categoriesController = require('../controllers/categoriesController');
 const userValidate = require('../middlewares/userValidate');
 
 router.post('/user',
@@ -20,5 +21,9 @@ router.get('/user',
 router.get('/user/:id', 
   userValidate.validateToken,
   userController.getById);
+
+router.post('/categories',
+  userValidate.validateToken,
+  categoriesController.createCategory);
 
 module.exports = router;

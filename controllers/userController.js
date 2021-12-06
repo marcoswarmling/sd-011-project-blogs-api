@@ -19,7 +19,7 @@ const createUser = rescue(async (req, res) => {
 
   const token = jwt.sign({ displayName, email }, process.env.JWT_SECRET);
 
-  res.status(201).json({ token });
+  return res.status(201).json({ token });
 });
 
 const userLogin = rescue(async (req, res) => {
