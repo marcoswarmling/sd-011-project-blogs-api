@@ -1,4 +1,8 @@
 module.exports = async (categoryIds, service) => {
-    const categories = await service(categoryIds);
-    return categories;
+    try {
+        const categories = await service(categoryIds);
+        return categories;
+    } catch (error) {
+        return error;
+    }
 };

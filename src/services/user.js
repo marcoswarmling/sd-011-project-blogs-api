@@ -9,7 +9,7 @@ const getAll = async () => { // For model test
 
     return result;
   } catch (error) {
-    return error;
+    return error.message;
   }
 };
 
@@ -19,7 +19,7 @@ const createIt = async (userData) => {
 
     return result;
   } catch (error) {
-    return error;
+    return error.message;
   }
 };
 

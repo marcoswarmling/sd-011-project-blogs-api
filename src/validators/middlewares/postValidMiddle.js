@@ -10,7 +10,17 @@ const MSG_MISSING_CATEGORY = '"categoryIds" is required';
 const MSG_EMPTY_CATEGORY = '"categoryIds" is not allowed to be empty';
 const MSG_CATEGORY_NOT_FOUND = '"categoryIds" not found';
 
-function titleValidator(title) {
+function titleValidator(expressParams, title) {
+  const { res } = expressParams;
+
+  // if (typeof title === 'undefined') {
+  //   return res.status(STATUS_BAD_REQUEST).json({ message: MSG_MISSING_TITLE });
+  // }
+
+  // if (!title) {
+  //   return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_TITLE });
+  // }
+  
   if (typeof title === 'undefined') {
     return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_TITLE };
   }
@@ -18,8 +28,9 @@ function titleValidator(title) {
   if (!title) {
     return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_TITLE };
   }
-  
+
   return {};
+  // return 'undefined';
 }
 
 function contentValidator(content) {
@@ -32,43 +43,57 @@ function contentValidator(content) {
   }
 
   return {};
+  // return 'undefined';
 }
 
 async function categoryIdsValidator(categoryIds) {
-  if (typeof categoryIds === 'undefined') {
-    return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_CATEGORY };
+  try {
+    if (typeof categoryIds === 'undefined') {
+      return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_CATEGORY };
+    }
+  
+    if (!categoryIds) {
+      return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_CATEGORY };
+    }
+    const categories = await getByArrayIds(categoryIds, getAllByArrayIds);
+  
+    if (categoryIds.length !== categories.length) {
+      return { status: STATUS_BAD_REQUEST, message: MSG_CATEGORY_NOT_FOUND };
+    }
+  
+    // return {};
+    return categories;
+  } catch (error) {
+    return error;
   }
-
-  if (!categoryIds) {
-    return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_CATEGORY };
-  }
-  const categories = await getByArrayIds(categoryIds, getAllByArrayIds);
-
-  if (categoryIds.length !== categories.length) {
-    return { status: STATUS_BAD_REQUEST, message: MSG_CATEGORY_NOT_FOUND };
-  }
-
-  return {};
 }
 
 module.exports = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
+  const titleResult = titleValidator({ res }, title);
+  // titleValidator({ res }, title);
+  const contentResult = contentValidator(content);
   
   try {
-    const titleResult = titleValidator(title);
+    // if (titleResult === 'undefined' && contentResult.status) {
+    //     return res.status(contentResult.status).json({ message: contentResult.message });
+    // }
+
     if (titleResult.status) {
       return res.status(titleResult.status).json({ message: titleResult.message });
     }
-  
-    const contentResult = contentValidator(content);
+
     if (contentResult.status) {
       return res.status(contentResult.status).json({ message: contentResult.message });
     }
-  
+
     const categoryIdsResult = await categoryIdsValidator(categoryIds);
+
     if (categoryIdsResult.status) {
       return res.status(categoryIdsResult.status).json({ message: categoryIdsResult.message });
     }
+    req.categories = categoryIdsResult;
+    
     next();
   } catch (error) {
     next(error);

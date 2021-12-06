@@ -7,13 +7,13 @@ const STATUS_OK = 200;
 router.post('/', loginValidMiddle, (req, res, next) => {
   const { user } = req;
 
-    const result = login(user);
+  try {
+    const token = login(user);  
 
-    if (result.status) return next(result);
-
-    const token = result;
-
-    res.status(STATUS_OK).json({ token });
+    res.status(STATUS_OK).json({ token });  
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

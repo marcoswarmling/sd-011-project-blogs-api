@@ -12,6 +12,6 @@ module.exports = function login(user) {
   try {
     return jwt.sign({ data: user }, segredo, jwtConfig);
   } catch (error) {
-    return { status: 500, message: error };
+    return error;
   }
 };
