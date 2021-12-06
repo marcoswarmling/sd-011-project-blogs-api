@@ -49,7 +49,7 @@ async function categoriesValidator(expressParams) {
   const { req, res, next } = expressParams;
 const { categoryIds } = req.body;
 
-    if (categoryIds !== 'undefined') {
+    if (categoryIds) {
       return res.status(STATUS_BAD_REQUEST).json({ message: MSG_CATEGORYIDS_FOUND });
     }
 
