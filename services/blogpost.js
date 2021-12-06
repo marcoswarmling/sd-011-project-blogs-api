@@ -36,7 +36,7 @@ const createPost = async (data, userId) => {
 
     await newBlogPost.addCategories(categories);
     return {
-      id: newBlogPost.blogPostId,
+      id: newBlogPost.id,
       title: newBlogPost.title,
       content: newBlogPost.content,
       userId: newBlogPost.userId,

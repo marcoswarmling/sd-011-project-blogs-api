@@ -2,9 +2,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('BlogPosts', {
-      blogPostId: {
+      id: {
         allowNull: false,
-        field: 'blog_post_id',
+        field: 'id',
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
@@ -20,18 +20,18 @@ module.exports = {
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        field: 'user_id',
+        field: 'userId',
         references: {
           model: 'Users',
           key: 'id',
         }
       },
-      createdAt: {
+      published: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
-      updatedAt: {
+      updated: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
