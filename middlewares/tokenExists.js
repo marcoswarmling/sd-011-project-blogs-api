@@ -15,6 +15,7 @@ const tokenExists = (req, res, next) => {
         const decoded = jwt.verify(token, secret);
         const { id } = decoded;
         req.body = { ...req.body, id };
+        console.log(req.body);
         next();
     } catch (error) {
         console.log(error);

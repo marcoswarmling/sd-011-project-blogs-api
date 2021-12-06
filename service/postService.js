@@ -34,7 +34,28 @@ const serviceDeleteId = async (idPost, id) => {
     }
 };
 
+const serviceUpdatePost = async (titulo, texto, idPost, idUser) => {
+    console.log('ID::', idPost, 'USER', idUser);
+    try {
+        const updateUser = await BlogPosts.update({
+            title: titulo, content: texto,
+        },
+        { where: { id: idPost } });
+        console.log(updateUser);
+        const findPost = await BlogPosts.findByPk(idPost,
+            { include: { model: Categories, as: 'categories' } });
+        if (findPost.userId !== idUser) {
+            return { error: 'Diferent User' };
+} 
+const { title, content, userId, categories: [{ id, name }] } = findPost;
+return { title, content, userId, categories: [{ id, name }] };
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 module.exports = {
     ServiceInsertPost,
     serviceDeleteId,
+    serviceUpdatePost,
 };

@@ -32,7 +32,22 @@ const controllerDeletePost = async (req, res) => {
     return res.status(204).send(deletePost);
 };
 
+const controllerUpdatePost = async (req, res) => {
+    const { id, title, content } = req.body;
+    const { idPost } = req.params;
+    const idUser = id;
+    
+    const updateUser = await post.serviceUpdatePost(title, content, idPost, idUser);
+    if (updateUser.error === 'Diferent User') {
+        return res.status(401).json({
+            message: 'Unauthorized user',
+        });
+    }
+    return res.status(200).send(updateUser);
+};
+
 module.exports = {
     postControllerInsert,
     controllerDeletePost,
+    controllerUpdatePost,
 };
