@@ -13,6 +13,7 @@ routes
     controllers.createUser)
   .get('/',
     tokenMiddleware,
-    controllers.getAllUsers);
+    controllers.getAllUsers)
+  .get('/:id', tokenMiddleware, controllers.getUserById);
 
 module.exports = routes;

@@ -12,8 +12,11 @@ const createUser = async (displayName, email, password, image) => Users.create({
 
 const getAllUsers = async () => Users.findAll({ raw: true });
 
+const getUserById = async (id) => Users.findOne({ where: { id }, raw: true });
+
 module.exports = {
   findUserByEmail,
   createUser,
   getAllUsers,
+  getUserById,
 };
