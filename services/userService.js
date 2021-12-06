@@ -1,8 +1,14 @@
-const { User } = require('../models/user');
+const { User } = require('../models');
 const generateToken = require('../auth/generateToken');
+const { validateUser } = require('../validations/users/userValidations');
 
 const addUser = async (user) => {
-  const foundUser = await User.find({ where: { email: user.email } });
+  const { displayName, email, password } = user;
+  const isNotValidUser = validateUser(displayName, email, password);
+
+  if (isNotValidUser) return isNotValidUser;
+
+  const foundUser = await User.findOne({ where: { email: user.email } });
   if (foundUser) return { code: 409, message: 'User already registered' };
 
   const token = generateToken(user);
