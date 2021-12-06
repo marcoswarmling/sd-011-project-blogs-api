@@ -1,6 +1,6 @@
-const { Categories } = require('../models');
+const model = require('../models');
 
-const createNewCategory = async ({ category }) => Categories.create({ category });
+const createNewCategory = async (category) => model.Categories.create(category);
 
 module.exports = {
   createNewCategory,
