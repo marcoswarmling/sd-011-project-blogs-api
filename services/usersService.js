@@ -4,9 +4,9 @@ const { Users } = require('../models');
 
 const secret = process.env.JWT_SECRET;   
 
-const create = async (displayName, email, password, image) => {
-  // {displayName, email, password, image} - se deixo desestruturado não consigo validar o email registrado. Crio o usuario e verifico se está autorizado (401)
-  const newUser = await Users.create(displayName, email, password, image);
+const create = async ({ displayName, email, password, image }) => {
+  // Crio o usuario e verifico se está autorizado (401)
+  const newUser = await Users.create({ displayName, email, password, image });
   // console.log('newUserService:', newUser);
   if (!newUser) {
     return {
@@ -16,20 +16,24 @@ const create = async (displayName, email, password, image) => {
       },
     };
   }
+  const { id } = newUser;
+  // console.log('createUserID', id);
 
   const jwtConfig = {
     expiresIn: '10d',
   };
  
   // gero o token e o retorno
-  const token = jwt.sign({ email, password }, secret, jwtConfig);
+  const token = jwt.sign({ email, password, id }, secret, jwtConfig);
   
-  return token;
+  // preciso desestruturar o token para acessar o id no decoded
+  return { token };
 };
 
-const login = async (email, password) => {
-  const newUser = await Users.create(email, password);
+const login = async ({ email, password }) => {
+  const newUser = await Users.findOne({ where: { email, password } });
   // console.log('newUserService:', newUser);
+  // passo o msm id encontrado
   if (!newUser) {
     return {
       err: {
@@ -38,6 +42,8 @@ const login = async (email, password) => {
       },
     };
   }
+  // console.log('login', newUser);
+  const { id } = newUser;
 
   // config com tempo e alg de assinatura
   const jwtConfig = {
@@ -45,7 +51,7 @@ const login = async (email, password) => {
   };
   
   // Assina com a secret e retorna o token, em caso de suceso.
-  const token = jwt.sign({ email, password }, secret, jwtConfig);
+  const token = jwt.sign({ email, password, id }, secret, jwtConfig);
   
   return { token };
 };
