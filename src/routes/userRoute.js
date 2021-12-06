@@ -1,27 +1,18 @@
 const express = require('express');
 const newUserMW = require('../middlewares/validateNewUser');
-const validateToken = require('../middlewares/validateToken');
 const UserController = require('../controllers/userController');
 
 const route = express.Router();
 
-route.post(
-  '/',
+route.post('/',
   newUserMW.verifyUser,
   newUserMW.verifyRegister,
-  UserController.create,
-);
+  UserController.create);
 
-route.get(
-  '/',
-  validateToken,
-  UserController.listAll,
-);
+route.get('/',
+  UserController.listAll);
 
-route.get(
-  '/:id',
-  validateToken,
-  UserController.findById,
-);
+route.get('/:id',
+  UserController.findById);
 
 module.exports = route;

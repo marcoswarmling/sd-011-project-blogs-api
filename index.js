@@ -3,9 +3,10 @@ const express = require('express');
 const userRoute = require('./src/routes/userRoute');
 
 const app = express();
+app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+// Routes
 app.use('/user', userRoute);
 
 // não remova esse endpoint, e para o avaliador funcionar
