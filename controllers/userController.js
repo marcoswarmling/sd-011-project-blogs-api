@@ -6,6 +6,8 @@ const getAllUsers = async (_req, res) => {
   try {
     const users = await User.findAll();
 
+    if (!users) return res.status(404).json({ message: 'User not found' });
+
     return res.status(200).json(users);
   } catch (e) {
     console.log(e.message);

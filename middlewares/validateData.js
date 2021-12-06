@@ -3,7 +3,7 @@ const validatDisplayname = (displayName, length) => {
     return {
       error: {
         code: 400,
-        message: 'displayNme lenght must be at least 8 characters long',
+        message: '"displayName" length must be at least 8 characters long',
       },
     };
   }
@@ -17,7 +17,7 @@ const validateEmail = (email) => {
     return {
       error: {
         code: 400,
-        message: 'email is required',
+        message: '"email" is required',
       },
     };
   }
@@ -26,7 +26,7 @@ const validateEmail = (email) => {
     return {
       error: {
         code: 400,
-        message: 'email must be a valid email',
+        message: '"email" must be a valid email',
       },
     };
   }
@@ -39,7 +39,7 @@ const validatePassWord = (email, length) => {
     return {
       error: {
         code: 400,
-        message: 'password is required',
+        message: '"password" is required',
       },
     };
   }
@@ -48,7 +48,7 @@ const validatePassWord = (email, length) => {
     return {
       error: {
         code: 400,
-        message: 'password lenght must be at least 8 characters long',
+        message: '"password" length must be 6 characters long',
       },
     };
   }
