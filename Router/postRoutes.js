@@ -1,6 +1,9 @@
 const router = require('express').Router();
 
-const { insertPostCtrl, getPostsCtrl } = require('../Controllers/posts');
+const { 
+  insertPostCtrl,
+  getPostsCtrl,
+  getPostByIdCtrl } = require('../Controllers/posts');
 
 const { 
   validateTitle,
@@ -17,5 +20,7 @@ router.post('/',
   insertPostCtrl);
 
 router.get('/', JWTValidate, getPostsCtrl);
+
+router.get('/:id', JWTValidate, getPostByIdCtrl);
 
 module.exports = router;

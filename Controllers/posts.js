@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
+
 require('dotenv').config();
 
-const { insertPostServ, getPostsServ } = require('../services/posts');
-// const { getUserById } = require('../services/user');
+const { insertPostServ, getPostsServ, getPostByIdServ } = require('../services/posts');
 
 const secret = process.env.JWT_SECRET;
 
@@ -15,11 +15,10 @@ async function insertPostCtrl(req, res) {
     const insertPost = await insertPostServ(bodyContent, decoded.data.email);
     return res.status(201).json(insertPost);
   } catch (error) {
-    return res.status(500).json({ error: 'error' });
+    return res.status(500).json(error.message);
   }
 }
 
-// a funçao abaixo ainda está em teste.
 async function getPostsCtrl(_req, res) {
   try {
     const postsData = await getPostsServ();
@@ -29,4 +28,15 @@ async function getPostsCtrl(_req, res) {
   }
 }
 
-module.exports = { insertPostCtrl, getPostsCtrl };
+async function getPostByIdCtrl(req, res) {
+  try {
+    const { id } = req.params;
+    const postIdData = await getPostByIdServ(id);
+    if (postIdData === null) return res.status(404).json({ message: 'Post does not exist' });
+    return res.status(200).json(postIdData);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
+module.exports = { insertPostCtrl, getPostsCtrl, getPostByIdCtrl };

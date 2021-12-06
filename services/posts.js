@@ -8,7 +8,6 @@ async function insertPostServ(postData, email) {
   const userData = await getUserEmailServ(email);
   const userId = userData.dataValues.id;
   const response = { id, title, content, userId };
-  console.log('service', response);
   return response;
 }
 async function getPostsServ() {
@@ -22,4 +21,18 @@ async function getPostsServ() {
   );
   return postsData;
 }
-module.exports = { insertPostServ, getPostsServ };
+
+async function getPostByIdServ(id) {
+  const postIdData = await BlogPosts.findOne(
+    { 
+      where: { id }, 
+      include: [
+        { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Categories, as: 'categories' },
+      ],
+    },
+  );
+  return postIdData;
+}
+
+module.exports = { insertPostServ, getPostsServ, getPostByIdServ };
