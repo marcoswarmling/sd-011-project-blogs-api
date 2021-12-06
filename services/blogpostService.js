@@ -29,7 +29,19 @@ const getPosts = async () => {
   });
   return posts;
 };
+
+const getPost = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    include: [{ model: Category, as: 'categories' }, { model: User, as: 'user' }],
+  });
+  if (!post) {
+    return { err: { code: 404, message: { message: 'Post does not exist' } } };
+  }
+  return post;
+};
+
 module.exports = {
   createPost,
   getPosts,
+  getPost,
 };

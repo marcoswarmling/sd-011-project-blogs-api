@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { createCategory, getCategories } = require('../controllers/categoryController');
+const categoryController = require('../controllers/categoryController');
 const validateToken = require('../middlewares/validateJWT');
 
-router.post('/', validateToken, createCategory);
-router.get('/', validateToken, getCategories);
+router.post('/', validateToken, categoryController.createCategory);
+router.get('/', validateToken, categoryController.getCategories);
 
 module.exports = router;

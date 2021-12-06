@@ -17,12 +17,24 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const data = await BlogPost.getPosts();
-    return res.status(200).json(data);
+    const dataPosts = await BlogPost.getPosts();
+    return res.status(200).json(dataPosts);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Something went wrong. Try again later' });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-module.exports = { createPost, getPosts };
+const getPost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dataPost = await BlogPost.getPost(id);
+    if (dataPost.err) return res.status(dataPost.err.code).json(dataPost.err.message);
+    return res.status(200).json(dataPost);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+module.exports = { createPost, getPosts, getPost };
