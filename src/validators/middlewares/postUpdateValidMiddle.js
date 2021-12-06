@@ -56,20 +56,32 @@ const { categoryIds } = req.body;
     next();
 }
 
-async function userValidator(expressParams) {
+async function userValidator(expressParams, post) {
   const { req, res, next } = expressParams;
   const { id: userId } = req.user;
-  const { id: postId } = req.params;
+
   try {
-    const result = await getByIdTwo(postId);
-    if (result === null) { // Not asked by Trybe "functional requirements", but I did implement it 
+    if (post.userId !== userId) {
+      return res.status(STATUS_UNAUTHORIZED).json({ message: MSG_UNAUTHORIZED_USER });
+    }
+
+    categoriesValidator(expressParams);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function postValidator(expressParams) {
+  const { req, res, next } = expressParams;
+  const { id: postId } = req.params;
+
+  try {
+    const post = await getByIdTwo(postId);
+    if (post === null) { // It's not asked by Trybe "functional requirements", but I did implement it 
       return res.status(STATUS_NOT_FOUND).json({ message: MSG_POST_NOT_FOUND });
     }
 
-    if (result.userId !== userId) {
-      return res.status(STATUS_UNAUTHORIZED).json({ message: MSG_UNAUTHORIZED_USER });
-    }
-    categoriesValidator(expressParams);
+    userValidator(expressParams, post);
   } catch (error) {
     next(error);
   }
@@ -87,8 +99,7 @@ function contentValidator(expressParams) {
     if (!content) {
       return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_CONTENT });
     }
-
-    userValidator(expressParams);
+    postValidator(expressParams);
 }
 
 function titleValidator(expressParams) {
