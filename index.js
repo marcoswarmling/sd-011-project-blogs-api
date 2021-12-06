@@ -9,6 +9,7 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/user', validateJWT, userController.getAll);
 app.get('/user/:id', validateJWT, userController.getById);
 app.get('/categories', validateJWT, categoriesController.getAll);
 app.get('/post', validateJWT, blogPostController.getAll);
@@ -16,6 +17,7 @@ app.get('/post/:id', validateJWT, blogPostController.getById);
 app.post('/user', userController.create);
 app.post('/categories', validateJWT, categoriesController.create);
 app.post('/login', userController.login);
+app.post('/post', validateJWT, blogPostController.create);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
