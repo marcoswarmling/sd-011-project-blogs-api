@@ -50,6 +50,31 @@ const verifyInfo = async (email, password, displayName) => {
   }
 };
 
+const verifyLogin = (email, password) => {
+  if (email === '') {
+    return { err: { code: 400, message: { message: '"email" is not allowed to be empty' } } };
+  }
+  if (!email) {
+    return { err: { code: 400, message: { message: '"email" is required' } } };
+  }
+  if (password === '') {
+    return { err: { code: 400, message: { message: '"password" is not allowed to be empty' } } };
+  }
+  if (!password) {
+    return { err: { code: 400, message: { message: '"password" is required' } } };
+  }
+};
+
+const login = async ({ email, password }) => {
+  if (verifyLogin(email, password)) return verifyLogin(email, password);
+  const user = await User.findOne({ where: { email } });
+  if (!user || user.password !== password) {
+    return { err: { code: 400, message: { message: 'Invalid fields' } } };
+  }
+  const token = generateToken(user, email);
+  return token;
+};
+
 const createUser = async ({ email, password, displayName, image }) => {
   if (await verifyInfo(email, password, displayName)) {
     return verifyInfo(email, password, displayName);
@@ -63,4 +88,4 @@ const createUser = async ({ email, password, displayName, image }) => {
   return token;
 };
 
-module.exports = { createUser };
+module.exports = { createUser, login };
