@@ -2,18 +2,24 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Categories', {
-      id: {
-        primaryKey: true,
-        allowNull: false,
-        autoIncrement: true,
-        type: Sequelize.INTEGER,
+    const Categories = await queryInterface.createTable(
+      'Categories',
+      {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER
+        },
+        name: {
+          allowNull: false,
+          type: Sequelize.STRING,
+        },
       },
-      name: { allowNull: false, type: Sequelize.STRING },
-    });
+    );
+
+    return Categories;
   },
 
-  down: async (queryInterface, _Sequelize) => {
-    return queryInterface.dropTable('Categories');
-  },
+  down: async (queryInterface, _Sequelize) => queryInterface.dropTable('Categories')
 };
