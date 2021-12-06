@@ -10,5 +10,6 @@ router.post('/',
 validateTitle,
 validateContent,
 validateCategory, tokenValidation, blogPostsController.createBlogPosts);
+router.get('/', tokenValidation, blogPostsController.getBlogPosts);
 
 module.exports = router;

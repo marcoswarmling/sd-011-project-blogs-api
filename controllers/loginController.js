@@ -7,8 +7,8 @@ const loginUser = async (req, res) => {
     const user = await db.Users.findOne({
       where: { email },
     });
-    const { id, displayName, image } = user;
-    const token = jwtToken({ id, displayName, email, image });
+    const { id, displayName } = user;
+    const token = jwtToken({ id, displayName, email });
     return res.status(200).json(token);
     } catch (error) {
       return res.status(400).json(error.message);
