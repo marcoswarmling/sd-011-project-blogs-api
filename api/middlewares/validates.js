@@ -1,5 +1,6 @@
 const { Users } = require('../models');
 const { verify } = require('../auth/jwtFunctions');
+const { findPostById } = require('../services/blogPostsServices');
 
 const displayNameIsValid = (req, res, next) => {
   const { displayName } = req.body;
@@ -102,7 +103,8 @@ const hasToken = (req, res, next) => {
 const isTokenValid = (req, res, next) => {
   const { authorization: token } = req.headers;
   try {
-    verify(token);
+    const userInfo = verify(token);
+    req.info = userInfo;
   } catch (error) {
     if (error) {
       return res.status(401).json({ message: 'Expired or invalid token' });
@@ -152,6 +154,36 @@ const hastCategoryId = async (req, res, next) => {
   next();
 };
 
+const updatePost = async (req, res, next) => {
+  const { title, content } = req.body;
+  if (!title) {
+    return res.status(400).json({ message: '"title" is required' });
+  }
+  if (!content) {
+    return res.status(400).json({ message: '"content" is required' });
+  }
+  next();
+};
+
+const notCategories = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  if (categoryIds) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+  next();
+};
+
+const userIsValid = async (req, res, next) => {
+  const { id: postId } = req.params;
+  const { data: { id: userId } } = req.info; // informação vinda do Token
+  const foundPost = await findPostById(postId);
+  // console.log(foundPost); // a propriedade userId está disponível no foundPost
+  if (userId !== foundPost.userId) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  next();
+};
+
 const validateUser = [
   displayNameIsValid,
   hasEmail,
@@ -192,6 +224,14 @@ const validatePosts = [
   isTokenValid,
 ];
 
+const postsCanBeUpdate = [
+  updatePost,
+  notCategories,
+  hasToken,
+  isTokenValid,
+  userIsValid,
+];
+
 module.exports = {
   validateUser,
   loginIsValid,
@@ -199,4 +239,5 @@ module.exports = {
   userIsThere,
   validateCategories,
   validatePosts,
+  postsCanBeUpdate,
 };

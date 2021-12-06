@@ -11,4 +11,6 @@ router.get('/', middleware.validateToken, rescue(blogPostsController.findAllPost
 
 router.get('/:id', middleware.validateToken, rescue(blogPostsController.findPostById));
 
+router.put('/:id', middleware.postsCanBeUpdate, rescue(blogPostsController.updatePost));
+
 module.exports = router;

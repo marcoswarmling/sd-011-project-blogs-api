@@ -8,8 +8,9 @@ const createUser = async ({ displayName, email, password, image }) => {
 };
 
 const createLogin = async ({ email, password }) => {
-  await Users.findOne({ where: { email, password } });
-  const validateTokenUser = responseToken.create(email);
+  const user = await Users.findOne({ where: { email, password } });
+  console.log(user);
+  const validateTokenUser = responseToken.create(user.id, email);
   return validateTokenUser;
 };
 
