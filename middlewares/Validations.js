@@ -15,15 +15,19 @@ const validateUser = (userData) => {
   return error;
 };
 
-const handleValidationError = (validation, data, res) => {
-  const error = validation(data);
+const validateCategorie = (data) => {
+  const { error } = Joi.object({
+    name: Joi.string().required(),
+  }).validate(data);
 
-  if (error) {
-    return res.status(400).json({ message: error.details[0].message });
+  if (!error) {
+    return null;
   }
+
+  return error;
 };
 
 module.exports = {
   validateUser,
-  handleValidationError,
+  validateCategorie,
 };
