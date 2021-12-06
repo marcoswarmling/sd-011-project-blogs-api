@@ -1,4 +1,4 @@
-const { BlogPost, Category } = require('../models');
+const { User, BlogPost, Category } = require('../models');
 
 const validateFields = (title, content) => {
   if (!title) return { err: { code: 400, message: { message: '"title" is required' } } };
@@ -23,6 +23,13 @@ const createPost = async ({ title, content, categoryIds, id }) => {
   return post;
 };
 
+const getPosts = async () => {
+  const posts = await BlogPost.findAll({
+    include: [{ model: Category, as: 'categories' }, { model: User, as: 'user' }],
+  });
+  return posts;
+};
 module.exports = {
   createPost,
- };
+  getPosts,
+};
