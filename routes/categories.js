@@ -9,6 +9,9 @@ const controllers = require('../controllers/categories');
 routes.post('/',
   tokenMiddleware,
   middlewares.validateNewCategoryWithJoi,
-  controllers.createNewCategory);
+  controllers.createNewCategory)
+  .get('/',
+  tokenMiddleware,
+  controllers.getAllCategories);
 
 module.exports = routes;
