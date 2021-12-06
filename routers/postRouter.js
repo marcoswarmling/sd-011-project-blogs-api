@@ -12,4 +12,8 @@ postController.validateCategoryId,
 validateJWT,
 postController.createPost);
 
+router.get('/',
+validateJWT,
+postController.getAllPosts);
+
 module.exports = router;

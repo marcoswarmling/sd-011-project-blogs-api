@@ -30,9 +30,15 @@ const createPost = async (req, res) => {
   return res.status(201).json({ id, title, content, userId });
 };
 
+const getAllPosts = async (req, res) => {
+  const result = await postService.getAllPosts();
+  return res.status(200).json(result);
+};
+
 module.exports = {
   createPost,
   validateTitle,
   validateContent,
   validateCategoryId,
+  getAllPosts,
 };

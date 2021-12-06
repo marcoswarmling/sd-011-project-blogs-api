@@ -6,10 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  Categories.associate = (models) => {
-    Categories.hasMany(models.BlogPosts, {
-      foreignKey: 'postId', as: 'posts',
-    });
-  };
+  // Categories.associate = (models) => {
+  //   Categories.hasMany(models.BlogPosts, {
+  //     foreignKey: 'postId', as: 'posts',
+  //   });
+  // };
   return Categories;
 };
