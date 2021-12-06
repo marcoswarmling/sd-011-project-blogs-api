@@ -12,12 +12,13 @@ const validateJWT = async (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        const { id } = payload;
+        req.user = id;
         next();
     } catch (e) {
         return res.status(401).json({ message: 'Expired or invalid token' });
     }
 };
 
-module.exports = validateJWT; 
+module.exports = validateJWT;

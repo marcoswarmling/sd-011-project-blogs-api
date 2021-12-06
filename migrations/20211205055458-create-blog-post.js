@@ -25,11 +25,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         field: 'published',
+        defaultValue: Sequelize.fn('now'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
         field: 'updated',
+        defaultValue: Sequelize.fn('now'),
       }
     });
   },

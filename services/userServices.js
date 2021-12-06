@@ -18,8 +18,8 @@ const validateUser = async (email) => {
 };
 
 const addUser = async (user) => {
-  await Users.create(user);
-  return Users;
+  const result = await Users.create(user);
+  return result;
 };
 
 const getAllUsers = async () => {
