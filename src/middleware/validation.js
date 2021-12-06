@@ -1,14 +1,19 @@
 const Joi = require('joi');
 const { user } = require('../../models');
 
-const newUser = (name, email, password) => {
+const newUser = (displayName, email, password) => {
   const { error } = Joi.object({
-    name: Joi.string().required(),
+    displayName: Joi.string()
+      .min(8)
+      .required(),
     email: Joi.string().email().required(),
-    password: Joi.string().required(),
-  }).validate({ name, email, password });
+    password: Joi.string().min(6).required(),
+  }).validate({ displayName, email, password });
   
-  if (error) throw error;
+  if (error) {
+    error.code = 400;
+    throw error;
+  }
 };
 
 const alreadyExist = (email) => {

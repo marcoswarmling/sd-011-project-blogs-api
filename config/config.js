@@ -11,8 +11,8 @@ module.exports = {
     dialect: 'mysql',
   },
   test: {
-    username: MYSQL_USER,
-    password: MYSQL_PASSWORD,
+    username: MYSQL_USER || 'root',
+    password: MYSQL_PASSWORD || 'root',
     database: 'blogs_api',
     host: HOSTNAME,
     dialect: 'mysql',
