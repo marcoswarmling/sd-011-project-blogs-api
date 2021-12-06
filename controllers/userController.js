@@ -1,28 +1,25 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { Users } = require('../models');
+const service = require('../services/userService');
 
 const jwtConfig = { expiresIn: '120m', algorithm: 'HS256' };
 
-// Vini Gouveia me ajudou com o raw: true para mostrar defaultValues 
+// Vini Gouveia me ajudou com o raw: true para mostrar dataValues / e com nomenclatura dos models 
 const getAll = async (_req, res) => {
   try {
-    const attributes = ['id', 'displayName', 'email', 'image'];
-    const users = await Users.findAll({ attributes, raw: true });
-    // console.log('getAll', users);
-    return res.status(200).json(users);
+    const response = await service.getAll();
+    if (response.message) return res.status(500).json(response);
+    return res.status(200).json(response);
   } catch (err) {
-    // console.log('getAll', err.message);
     return res.status(500).json({ message: err.message });
   }
 };
 
 const getById = async (req, res) => {
   try {
-    const response = await Users.findByPk(req.params.id);
+    const response = await service.getById(req.params.id);
     if (!response) return res.status(404).json({ message: 'User does not exist' });
-    const { id, displayName, email, image } = response;
-    return res.status(200).json({ id, displayName, email, image });
+    return res.status(200).json(response.user);
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -31,25 +28,16 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
   try {
     const { email, password, displayName, image } = req.body; 
-    const response = await Users.create({ email, password, displayName, image });
-    const { dataValues } = response;
-    const token = jwt.sign({ dataValues }, process.env.JWT_SECRET, jwtConfig);
+
+    const getUser = await service.getByEmail(email);
+    if (getUser) return res.status(409).json({ message: 'User already registered' });
+
+    const response = await service.create({ email, password, displayName, image });
+    const token = jwt.sign({ response }, process.env.JWT_SECRET, jwtConfig);
     return res.status(201).json({ token });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
 
-const login = async (req, res) => {
-  try {
-    // const users = await Users.findAll();
-    // console.log('users', users);
-    const { email, password } = req.body; 
-    const token = jwt.sign({ email, password }, process.env.JWT_SECRET, jwtConfig);
-    return res.status(200).json({ token });
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-};
-
-module.exports = { getAll, getById, create, login };
+module.exports = { getAll, getById, create };

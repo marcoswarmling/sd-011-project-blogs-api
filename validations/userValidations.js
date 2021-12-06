@@ -1,5 +1,3 @@
-const { Users } = require('../models');
-
 const name = (req, res, next) => {
   const { displayName } = req.body;
   const message = '"displayName" length must be at least 8 characters long';
@@ -17,14 +15,6 @@ const email = (req, res, next) => {
   next();
 };
 
-const emailUnique = async (req, res, next) => {
-  const user = req.body;
-  const users = await Users.findAll({ where: { email: user.email } });
-  const message = 'User already registered';
-  if (users.length > 0) return res.status(409).json({ message });
-  next();
-};
-
 const password = (req, res, next) => {
   const user = req.body;
   const messageRequired = '"password" is required';
@@ -37,6 +27,5 @@ const password = (req, res, next) => {
 module.exports = {
   name,
   email,
-  emailUnique,
   password,
 };

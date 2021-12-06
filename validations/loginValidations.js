@@ -1,4 +1,4 @@
-const { Users } = require('../models');
+// const { Users } = require('../models');
 
 const email = (req, res, next) => {
   const user = req.body;
@@ -18,17 +18,15 @@ const password = (req, res, next) => {
   next();
 };
 
-const login = async (req, res, next) => {
-  const user = req.body;
-  const response = await Users.findOne({ where: { email: user.email, password: user.password } });
-  // está retornando sempre vazio
-  // console.log('findUser', response);
-  if (!response) return res.status(400).json({ message: 'Invalid fields' });
-  next();
-};
+// const login = async (req, res, next) => {
+//   const user = req.body;
+//   const response = await Users.findOne({ where: { email: user.email, password: user.password } });
+//   if (!response) return res.status(400).json({ message: 'Invalid fields' });
+//   next();
+// };
 
 module.exports = {
   email,
   password,
-  login,
+  // login,
 };

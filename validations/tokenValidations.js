@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
    const token = req.headers.authorization;
    if (!token || token.length === 0) return res.status(401).json({ message: 'Token not found' });
    try {
-     jwt.verify(token, process.env.JWT_SECRET);
+    jwt.verify(token, process.env.JWT_SECRET);
     //  console.log('payload', payload);
      next();
    } catch (err) {
