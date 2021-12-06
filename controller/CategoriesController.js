@@ -1,4 +1,4 @@
-const { create } = require('../services/CategoryService');
+const { create, getAllCategories } = require('../services/CategoryService');
 
 const SERVER_ERROR = 'server error';
 
@@ -14,6 +14,17 @@ const createCategory = async (req, res) => {
   }
 };
 
+const getCategories = async (_req, res) => {
+  try {
+    const response = await getAllCategories();
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: SERVER_ERROR });
+  }
+};
+
 module.exports = {
   createCategory,
+  getCategories,
 };
