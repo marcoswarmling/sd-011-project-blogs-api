@@ -16,7 +16,7 @@ router.get('/',
 validateJWT,
 postController.getAllPosts);
 
-router.get('/',
+router.get('/:id',
 validateJWT,
 postController.getById);
 
