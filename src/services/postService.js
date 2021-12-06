@@ -1,4 +1,4 @@
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
 const createPost = async ({ title, content, categoryIds }) => {
   const newBlogPost = await BlogPost.create({ title, content, categoryIds });
@@ -11,9 +11,13 @@ const getPosts = async () => {
 };
 
 const getPostById = async (id) => {
-  const blogPosts = await BlogPost.findByPk(id);
-  console.log(`${id} id do service`);
-  return blogPosts;
+  const blogPost = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories' },
+    ] });
+  return blogPost;
 };
 
 const updatePost = async ({ id, title, content }) => {

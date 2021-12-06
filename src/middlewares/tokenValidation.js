@@ -24,7 +24,7 @@ module.exports = async (req, res, next) => {
         .status(401)
         .json({ message: 'Expired or invalid token' });
     }
-    // req.user = user;
+    req.user = user;
     // console.log(req.user);
     // const {password, ...userWithOutPassword} = req.user;
     // console.log(req.user.dataValues);
