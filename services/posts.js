@@ -1,4 +1,4 @@
-const { BlogPosts } = require('../models');
+const { BlogPosts, Users, Categories } = require('../models');
 const { getUserEmailServ } = require('./user');
 
 async function insertPostServ(postData, email) {
@@ -12,8 +12,14 @@ async function insertPostServ(postData, email) {
   return response;
 }
 async function getPostsServ() {
-  const postsData = await BlogPosts.findAll();
-  const response = postsData[0];
-  return response;
+  const postsData = await BlogPosts.findAll(
+    { 
+      include: [
+        { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Categories, as: 'categories' },
+      ],
+    },
+  );
+  return postsData;
 }
 module.exports = { insertPostServ, getPostsServ };
