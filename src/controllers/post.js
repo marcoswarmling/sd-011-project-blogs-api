@@ -6,6 +6,7 @@ const postUpdateValidMiddle = require('../validators/middlewares/postUpdateValid
 
 const STATUS_CREATED = 201;
 const STATUS_OK = 200;
+const STATUS_NO_CONTENT = 204;
 
 const createPostsCategories = async (createdPost, categories) => {
   createdPost.addCategories(categories);
@@ -59,6 +60,19 @@ router.put('/:id', tokenValidMiddle, postUpdateValidMiddle, async (req, res, nex
     // updatePostsCategories(result, categories);
 
     res.status(STATUS_OK).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete('/:id', tokenValidMiddle, async (req, res, next) => {
+  const { id } = req.params;
+  const { id: userId } = req.user;
+
+  try {
+    const result = await post.deleteIt(id, userId);
+    if (result.message) return next(result);
+    res.status(STATUS_NO_CONTENT).json(result);
   } catch (error) {
     next(error);
   }
