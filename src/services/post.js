@@ -55,7 +55,7 @@ const getById = async (id) => {
 
 const getByIdTwo = async (postId) => {
   try {
-    const result = await BlogPost.getByPk(postId);
+    const result = await BlogPost.findByPk(postId);
 
     return result;
   } catch (error) {

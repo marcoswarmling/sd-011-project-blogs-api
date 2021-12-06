@@ -1,4 +1,4 @@
-// const { category: { getAllByArrayIds } } = require('../../services'); // It's part of commented block to follow
+// const { post: { getByIdTwo }, category: { getAllByArrayIds } } = require('../../services'); // It's part of commented block to follow
 // const getByArrayIds = require('../../utils/getByArrayIds'); // It's part of commented block to follow
 const { post: { getByIdTwo } } = require('../../services');
 
@@ -12,6 +12,7 @@ const MSG_EMPTY_TITLE = '"title" is not allowed to be empty';
 const MSG_MISSING_CONTENT = '"content" is required';
 const MSG_EMPTY_CONTENT = '"content" is not allowed to be empty';
 const MSG_POST_NOT_FOUND = 'Post does not exist';
+const MSG_CATEGORYIDS_FOUND = 'Categories cannot be edited';
 
 /** This block is commented for Future implementation of 'categoryId updation' feature
 
@@ -44,26 +45,31 @@ async function categoryIdsValidator(expressParams) {
   }
 } */
 
+async function categoriesValidator(expressParams) {
+  const { req, res, next } = expressParams;
+const { categoryIds } = req.body;
+
+    if (categoryIds !== 'undefined') {
+      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_CATEGORYIDS_FOUND });
+    }
+
+    next();
+}
+
 async function userValidator(expressParams) {
   const { req, res, next } = expressParams;
   const { id: userId } = req.user;
   const { id: postId } = req.params;
-
   try {
     const result = await getByIdTwo(postId);
-
-    if (result === null) { // Not asked by Trybe "functional requirements", but I did implement it
-      return { 
-        status: STATUS_NOT_FOUND,
-        message: MSG_POST_NOT_FOUND,
-      };
+    if (result === null) { // Not asked by Trybe "functional requirements", but I did implement it 
+      return res.status(STATUS_NOT_FOUND).json({ message: MSG_POST_NOT_FOUND });
     }
 
     if (result.userId !== userId) {
       return res.status(STATUS_UNAUTHORIZED).json({ message: MSG_UNAUTHORIZED_USER });
     }
-
-    next();
+    categoriesValidator(expressParams);
   } catch (error) {
     next(error);
   }
@@ -102,9 +108,5 @@ function titleValidator(expressParams) {
 }
 
 module.exports = (req, res, next) => {
-  try {
     titleValidator({ req, res, next });
-  } catch (error) {
-    next(error);
-  }
 };
