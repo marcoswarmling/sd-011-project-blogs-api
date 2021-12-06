@@ -10,91 +10,66 @@ const MSG_MISSING_CATEGORY = '"categoryIds" is required';
 const MSG_EMPTY_CATEGORY = '"categoryIds" is not allowed to be empty';
 const MSG_CATEGORY_NOT_FOUND = '"categoryIds" not found';
 
-function titleValidator(expressParams, title) {
-  const { res } = expressParams;
+async function categoryIdsValidator(expressParams) {
+  const { req, res, next } = expressParams;
+  const { body } = req;
 
-  // if (typeof title === 'undefined') {
-  //   return res.status(STATUS_BAD_REQUEST).json({ message: MSG_MISSING_TITLE });
-  // }
-
-  // if (!title) {
-  //   return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_TITLE });
-  // }
-  
-  if (typeof title === 'undefined') {
-    return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_TITLE };
-  }
-
-  if (!title) {
-    return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_TITLE };
-  }
-
-  return {};
-  // return 'undefined';
-}
-
-function contentValidator(content) {
-  if (typeof content === 'undefined') {
-    return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_CONTENT };
-  }
-
-  if (!content) {
-    return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_CONTENT };
-  }
-
-  return {};
-  // return 'undefined';
-}
-
-async function categoryIdsValidator(categoryIds) {
   try {
-    if (typeof categoryIds === 'undefined') {
-      return { status: STATUS_BAD_REQUEST, message: MSG_MISSING_CATEGORY };
+    if (typeof body.categoryIds === 'undefined') {
+      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_MISSING_CATEGORY });
     }
   
-    if (!categoryIds) {
-      return { status: STATUS_BAD_REQUEST, message: MSG_EMPTY_CATEGORY };
+    if (!body.categoryIds) {
+      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_CATEGORY });
     }
-    const categories = await getByArrayIds(categoryIds, getAllByArrayIds);
+    const categories = await getByArrayIds(body.categoryIds, getAllByArrayIds);
   
-    if (categoryIds.length !== categories.length) {
-      return { status: STATUS_BAD_REQUEST, message: MSG_CATEGORY_NOT_FOUND };
-    }
-  
-    // return {};
-    return categories;
-  } catch (error) {
-    return error;
-  }
-}
-
-module.exports = async (req, res, next) => {
-  const { title, content, categoryIds } = req.body;
-  const titleResult = titleValidator({ res }, title);
-  // titleValidator({ res }, title);
-  const contentResult = contentValidator(content);
-  
-  try {
-    // if (titleResult === 'undefined' && contentResult.status) {
-    //     return res.status(contentResult.status).json({ message: contentResult.message });
-    // }
-
-    if (titleResult.status) {
-      return res.status(titleResult.status).json({ message: titleResult.message });
+    if (body.categoryIds.length !== categories.length) {
+      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_CATEGORY_NOT_FOUND });
     }
 
-    if (contentResult.status) {
-      return res.status(contentResult.status).json({ message: contentResult.message });
-    }
-
-    const categoryIdsResult = await categoryIdsValidator(categoryIds);
-
-    if (categoryIdsResult.status) {
-      return res.status(categoryIdsResult.status).json({ message: categoryIdsResult.message });
-    }
-    req.categories = categoryIdsResult;
-    
+    req.categories = categories;
     next();
+  } catch (error) {
+    next(error);
+  }
+}
+
+function contentValidator(expressParams) {
+  const { req, res } = expressParams;
+  const { body } = req;
+  const { content } = body;
+
+    if (typeof content === 'undefined') {
+      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_MISSING_CONTENT });
+    }
+  
+    if (!content) {
+      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_CONTENT });
+    }
+  
+    categoryIdsValidator(expressParams);
+}
+
+function titleValidator(expressParams) {
+  const { req, res } = expressParams;
+  const { body } = req;
+  const { title } = body;
+
+    if (typeof title === 'undefined') {
+      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_MISSING_TITLE });
+    }
+  
+    if (!title) {
+      return res.status(STATUS_BAD_REQUEST).json({ message: MSG_EMPTY_TITLE });
+    }
+    
+    contentValidator(expressParams);
+}
+
+module.exports = (req, res, next) => {
+  try {
+    titleValidator({ req, res, next });
   } catch (error) {
     next(error);
   }

@@ -9,8 +9,6 @@ const STATUS_OK = 200;
 router.get('/', tokenValidMiddle, async (_req, res, next) => {
   try {
     const result = await user.getAll();
-
-    // if (result.message) return next(result);
   
     res.status(STATUS_OK).json(result);
   } catch (error) {
@@ -23,8 +21,6 @@ router.post('/', userValidMiddle, async (req, res, next) => {
 
   try {
     const result = await user.createIt(body);
-
-    // if (result.message) return next(result);
   
     res.status(STATUS_CREATED).json(result);
   } catch (error) {

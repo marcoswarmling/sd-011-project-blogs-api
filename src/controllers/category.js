@@ -9,10 +9,6 @@ const STATUS_OK = 200;
 router.get('/', tokenValidMiddle, async (_req, res, next) => {
   try {
     const result = await category.getAll();
-
-  // if (result.message) {
-  //   return res.status(500).json({ message: `Error in Controller. Error.msg: ${result.message}` });
-  // }
   
     res.status(STATUS_OK).json(result);
   } catch (error) {
@@ -25,10 +21,6 @@ router.post('/', tokenValidMiddle, categoryValidMiddle, async (req, res, next) =
 
   try {
     const result = await category.createIt(body);
-
-    // if (result.message) {
-    //   return res.status(500).json({ message: `Error in Controller. Error.msg: ${result.message}` });
-    // }
   
     res.status(STATUS_CREATED).json(result);
   } catch (error) {

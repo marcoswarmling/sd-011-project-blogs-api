@@ -2,9 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const STATUS_UNAUTHORIZED = 401;
-
 const MSG_MISSING_TOKEN = 'Token not found';
-
 const MSG_INVALID_TOKEN = 'Expired or invalid token';
 
 const segredo = process.env.JWT_SECRET; // << Chave "secreta"

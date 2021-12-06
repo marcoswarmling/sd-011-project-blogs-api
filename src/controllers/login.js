@@ -4,7 +4,7 @@ const loginValidMiddle = require('../validators/middlewares/loginValidMiddle');
 
 const STATUS_OK = 200;
 
-router.post('/', loginValidMiddle, (req, res, next) => {
+router.post('/', loginValidMiddle, async (req, res, next) => {
   const { user } = req;
 
   try {
