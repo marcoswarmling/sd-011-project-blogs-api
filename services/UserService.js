@@ -9,8 +9,9 @@ const jwtConfig = {
 
 const { User } = require('../models');
 
-const generateToken = (email, password) => {
-  const userWithoutPassword = { email, password };
+const generateToken = async (email) => {
+  const { dataValues: { password: pass, image, ...userWithoutPassword } } = await User
+    .findOne({ where: { email } });
   const token = jwt.sign({ data: userWithoutPassword }, secret, jwtConfig);
   return token;
 };
@@ -71,7 +72,7 @@ const create = async (displayName, email, password, image) => {
     return response;
   }
   await User.create({ displayName, email, password, image });
-  const token = generateToken(email, password);
+  const token = await generateToken(email);
   return { token };
 };
 

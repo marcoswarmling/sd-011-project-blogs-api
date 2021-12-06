@@ -22,7 +22,7 @@ const signIn = async (email, password) => {
   const response = await User.findOne({ where: { email, password } });
   console.log(response);
   if (!response) return { message: 'Invalid fields', status: 400 };
-  const token = generateToken(email, password);
+  const token = await generateToken(email);
   return { token };
 };
 

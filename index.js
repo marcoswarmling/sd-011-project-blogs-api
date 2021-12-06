@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 
 const userController = require('./controller/UsersController');
 const CategoryController = require('./controller/CategoriesController');
+const PostController = require('./controller/PostController');
 const { validateJWT } = require('./middlewares/verifyJWT');
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -21,5 +22,7 @@ app.get('/user', validateJWT, userController.getUser);
 app.get('/user/:id', validateJWT, userController.getById);
 app.post('/categories', validateJWT, CategoryController.createCategory);
 app.get('/categories', validateJWT, CategoryController.getCategories);
+app.post('/post', validateJWT, PostController.createPost);
+// app.delete('/post/id', validateJWT, PostController.deletePost);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
