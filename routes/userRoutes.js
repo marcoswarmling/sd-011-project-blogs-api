@@ -1,6 +1,8 @@
 const router = require('express').Router();
-const { createUser } = require('../controllers/usersController');
+const userController = require('../controllers/usersController');
+const validateJWT = require('../middlewares/validateJWT');
 
-router.post('/', createUser);
+router.post('/', userController.createUser);
+router.get('/', validateJWT, userController.getUsers);
 
 module.exports = router;

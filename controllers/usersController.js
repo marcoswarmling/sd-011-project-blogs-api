@@ -25,4 +25,15 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { createUser, login };
+const getUsers = async (req, res) => {
+  try {
+    const users = await userService.getUsers();
+    if (users.err) return res.status(users.err.code).json(users.err);
+    return res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+module.exports = { createUser, login, getUsers };
