@@ -26,7 +26,7 @@ const getAll = async (req, res) => {
   if (!response) return res.status(200).json([]);
   if (response.message) return res.status(500).json(response);
 
-  console.log('response', response);
+  // console.log('response', response);
   
   return res.status(200).json(response);
 };
