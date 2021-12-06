@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { Users } = require('../models');
 
 const validateName = (req, res, next) => {
   const { displayName } = req.body;
@@ -31,7 +31,7 @@ const validateEmail = async (req, res, next) => {
 const emailExists = async (req, res, next) => {
   const { email } = req.body;
 
-  const getAllEmails = await User.findAll();
+  const getAllEmails = await Users.findAll();
 
   const emailFinded = getAllEmails.some((a) => a.dataValues.email === email);
   if (emailFinded) {
@@ -61,7 +61,7 @@ const validatePassword = (req, res, next) => {
 const userExists = async (req, res, next) => {
   const { id } = req.params;
 
-  const verifyUser = await User.findByPk(id);
+  const verifyUser = await Users.findByPk(id);
 
   if (verifyUser === null) {
     return res.status(404).json({

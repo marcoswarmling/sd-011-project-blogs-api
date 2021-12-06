@@ -1,10 +1,10 @@
-const { User } = require('../models');
+const { Users } = require('../models');
 const { newToken } = require('../auth/token');
 
 const addNewUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
-    const { userData } = await User.create({
+    const { userData } = await Users.create({
       displayName,
       email,
       password,
@@ -19,7 +19,7 @@ const addNewUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  const userExist = await User.findOne({ where: { email } });
+  const userExist = await Users.findOne({ where: { email } });
 
   if (!userExist || password !== userExist.dataValues.password) {
     return res.status(400).json({
@@ -33,7 +33,7 @@ const loginUser = async (req, res) => {
 };
 
 const listAllUsers = async (_req, res) => {
-  const getUsers = await User.findAll();
+  const getUsers = await Users.findAll();
 
   return res.status(200).json(getUsers);
 };
@@ -41,7 +41,7 @@ const listAllUsers = async (_req, res) => {
 const listUserById = async (req, res) => {
   const { id } = req.params;
 
-  const getUserId = await User.findByPk(id);
+  const getUserId = await Users.findByPk(id);
 
   res.status(200).json(getUserId);
 };

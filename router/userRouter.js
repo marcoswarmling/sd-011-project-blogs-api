@@ -1,6 +1,15 @@
 const express = require('express');
 
 const {
+  createPost,
+} = require('../controllers/post-controller');
+
+const {
+  validatefields,
+  getCategories,
+} = require('../middleware/validatePost');
+
+const {
   createCategory,
   listCategories,
 } = require('../controllers/category-controllers');
@@ -39,6 +48,12 @@ listUserById);
 router.get('/user',
 validToken,
 listAllUsers);
+
+router.post('/post',
+validatefields,
+getCategories,
+validToken,
+createPost);
 
 router.post('/user',
 validateName,
