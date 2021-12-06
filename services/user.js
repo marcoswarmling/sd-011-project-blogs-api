@@ -31,7 +31,7 @@ const createUser = async (data) => {
 
     const newUser = await User.create({ displayName, email, password, image });
 
-    return { token: generateToken({ email: newUser.email }) };
+    return { token: generateToken({ email: newUser.email, user_id: newUser.id }) };
   } catch (error) {
     console.log(error.message);
 
@@ -43,20 +43,29 @@ const validateLogin = async (data) => {
   try {
     const { email, password } = data;
 
-    const user = await User.findOne({ where: {
+    const users = await User.findAll({ where: 
+      {
         email,
         password,
-    } });
+      },
+      raw: true, 
+    });
 
-    if (!user) {
+    if (users.length === 0) {
       return { message: 'Invalid fields', status: 400 };
     }
-
-    return { token: generateToken({ email: user.email, user_id: user.id }) };
+    return { 
+      token: generateToken({
+        email: users[0].email,
+        user_id: users[0].id,
+      }),
+    };
   } catch (error) {
     console.log(error.message);
-
-    return { message: 'Algo deu errado', status: 500 };
+    return { 
+      message: 'Algo deu errado',
+      status: 500, 
+    };
   }
 };
 

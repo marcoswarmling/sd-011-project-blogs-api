@@ -11,11 +11,8 @@ const createPost = async (req, res) => {
     return res.status(result.status).json({ message: result.message });
   }
 
-  // const resultFiltered = { id: result.id, name: result.name };
-
    return res.status(201).json(result);
 };
-
 
 module.exports = {
   createPost,

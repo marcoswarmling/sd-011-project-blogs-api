@@ -1,13 +1,19 @@
-const BlogPost = (sequelize, DataTypes) => {
-  const blogPost = sequelize.define('BlogPost', {
+module.exports = (sequelize, DataTypes) => {
+  const BlogPost = sequelize.define('BlogPost', {
     blogPostId: { 
       type: DataTypes.INTEGER,
+      field: 'blog_post_id',
       primaryKey: true,
       autoIncrement: true,
-      allowNull: false
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      field: 'user_id',
+      allowNull: true,
     },
     title: DataTypes.STRING,
-    content: DataTypes.STRING
+    content: DataTypes.STRING,
   },
   {
     timestamps: false,
@@ -15,15 +21,13 @@ const BlogPost = (sequelize, DataTypes) => {
     underscored: true,
   });
 
-  blogPost.associate = (models) => {
-    blogPost.belongsTo(models.User, {
+  BlogPost.associate = (models) => {
+    BlogPost.belongsTo(models.User, {
       foreignKey: {
-        name: 'id'
-      }
+        name: 'user_id',
+      },
     });
   };
 
-  return blogPost;
+  return BlogPost;
 };
-
-module.exports = BlogPost;
