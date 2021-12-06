@@ -1,9 +1,9 @@
 const service = require('../services/userService');
 
 const newUser = async (req, res) => {
-    const { name, email, password } = req.body;
-    const result = await service.newUser(name, email, password);
-    return res.status(201).json({ result });
+    const { name, email, password, image } = req.body;
+    const token = await service.newUser(name, email, password, image);
+    return res.status(201).json({ token });
 };
 
 module.exports = {
