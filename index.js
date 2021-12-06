@@ -14,7 +14,7 @@ app.use(express.json());
 app.get('/', (request, response) => {
   response.send();
 });
-// test
+// teste
 app.use('/user', user);
 app.use('/login', login);
 app.use('/categories', categories);
