@@ -4,8 +4,12 @@ const Users = function Users(sequelize, DataTypes) {
   email: DataTypes.STRING,
   password: DataTypes.STRING,
   image: DataTypes.STRING,
+  },
+  {    
+    timestamps: false, 
   });
+  
   return users;
 };
 
-module.exports = Users; 
+module.exports = Users;

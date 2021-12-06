@@ -1,8 +1,8 @@
 const { Users } = require('../models');
 
 const createNewUser = async (body) => {
-  const { email } = body;
-  const user = await Users.findOne({ where: { email } });
+  const { email } = body;  
+  const user = await Users.findOne({ where: { email } });  
 
   if (user) return { message: 'User already registered' };
   
@@ -33,8 +33,18 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getUserById = async (id) => {
+  const user = await Users.findOne({ where: { id } });
+  console.log(user);
+  
+  if (!user) return { message: 'User does not exist' };
+
+  return user;
+};
+
 module.exports = {
   createNewUser,
   loginUser,
   getAllUsers,
+  getUserById,
 };

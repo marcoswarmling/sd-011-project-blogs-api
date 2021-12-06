@@ -10,7 +10,7 @@ const createNewUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   const user = { displayName, email, password, image };
 
-  const newUser = await userService.createNewUser(user);
+  const newUser = await userService.createNewUser(user);  
   if (newUser.message) {
     return res.status(409).json({ message: newUser.message });
   }
@@ -35,7 +35,8 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = { email, password };
 
-  const doesUserExists = await userService.loginUser(user);    
+  const doesUserExists = await userService.loginUser(user);
+  console.log(doesUserExists);  
   
   if (doesUserExists.message) {
     return res.status(400).json({ message: doesUserExists.message });
@@ -63,8 +64,25 @@ const getAllUsers = async (req, res) => {
 }
 };
 
+const getUserById = async (req, res) => {
+  try {
+  const { id } = req.params;
+  const user = await userService.getUserById(id);  
+  
+  if (user.message) {
+    return res.status(404).json({ message: user.message });
+  }   
+  
+  return res.status(200).json(user);
+ } catch (e) {
+  console.log(e);
+  return res.status(500).json({ message: 'algo deu errado!' });
+}
+};
+
 module.exports = {
   createNewUser,
   loginUser,
   getAllUsers,
+  getUserById,
 };
