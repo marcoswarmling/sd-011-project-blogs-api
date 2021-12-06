@@ -17,11 +17,11 @@ app.get('/categories', validateJWT, categoriesController.getAll);
 
 app.get('/post', validateJWT, blogPostController.getAll);
 
+app.post('/post', validateJWT, blogPostController.create);
+
 app.post('/categories', validateJWT, categoriesController.create);
 
 app.post('/user', userController.create);
-
-app.post('/post', validateJWT, blogPostController.create);
 
 app.post('/login', userController.login);
 
