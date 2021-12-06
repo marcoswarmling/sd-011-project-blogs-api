@@ -35,4 +35,8 @@ router.get('/post',
   userValidate.validateToken,
   postsController.getAll);
 
+router.get('/post/:id', 
+  userValidate.validateToken,
+  postsController.getById);
+
 module.exports = router;
