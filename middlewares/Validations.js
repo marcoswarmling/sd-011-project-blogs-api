@@ -27,7 +27,22 @@ const validateCategorie = (data) => {
   return error;
 };
 
+const validatePost = (postData) => {
+  const { error } = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+    categoryIds: Joi.array().required(),
+  }).validate(postData);
+
+  if (!error) {
+    return null;
+  }
+
+  return error;
+};
+
 module.exports = {
   validateUser,
   validateCategorie,
+  validatePost,
 };

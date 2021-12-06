@@ -1,7 +1,8 @@
 const express = require('express');
 
 const User = require('./controllers/User');
-const Categorie = require('./controllers/Categorie.js');
+const Categorie = require('./controllers/Categorie');
+const Post = require('./controllers/Post');
 
 const Authentication = require('./middlewares/Authenticate');
 
@@ -20,5 +21,7 @@ app.get('/user', Authentication, User.getAll);
 
 app.post('/categories', Authentication, Categorie.create);
 app.get('/categories', Authentication, Categorie.getAll);
+
+app.post('/post', Authentication, Post.create);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
