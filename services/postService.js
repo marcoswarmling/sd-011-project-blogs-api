@@ -1,9 +1,8 @@
-const { BlogPosts, Users, Categories, PostCategories } = require('../models');
+const { BlogPosts, Users, Categories, PostsCategories } = require('../models');
 const category = require('./categoryService');
 
 const createPostCategory = async (categoryId, postId) => {
-  const response = await PostCategories.create({ categoryId, postId });
-  console.log(response);
+  const response = await PostsCategories.create({ categoryId, postId });
   return response;
 };
 
@@ -14,7 +13,7 @@ const create = async (post) => {
     const response = await BlogPosts.create(data);
     const { id, userId, title, content } = response.dataValues;
 
-    categoryIds.forEach(async (categoryId) => {
+    await categoryIds.forEach(async (categoryId) => {
       await createPostCategory(categoryId, id);
     });
     return { id, userId, title, content };
@@ -46,6 +45,7 @@ const getAll = async () => {
         { model: Users, as: 'user', attributes: { exclude: ['password'] } }, 
         { model: Categories, as: 'categories', through: { attributes: [] } },
       ] });
+    console.log(response);
     if (!response) return null;
     return response;
   } catch (err) {
