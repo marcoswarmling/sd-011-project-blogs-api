@@ -173,7 +173,7 @@ const notCategories = async (req, res, next) => {
   next();
 };
 
-const userIsValid = async (req, res, next) => {
+const userIsValid = async (req, res, next) => { // req. 10
   const { id: postId } = req.params;
   const { data: { id: userId } } = req.info; // informação vinda do Token
   const foundPost = await findPostById(postId);
@@ -184,52 +184,49 @@ const userIsValid = async (req, res, next) => {
   next();
 };
 
+const postCanBeExcluded = async (req, res, next) => { // req. 11
+  const { id: postId } = req.params;
+  const { data: { id: userId } } = req.info;
+  const foundPost = await findPostById(postId);
+  if (!foundPost) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  if (userId !== foundPost.userId) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  next();
+};
+
 const validateUser = [
-  displayNameIsValid,
-  hasEmail,
-  isValidEmail,
-  hasPassword,
-  isPasswordValid,
-  isUnicEmail,
+  displayNameIsValid, hasEmail, isValidEmail, hasPassword, isPasswordValid, isUnicEmail,
 ];
 
 const loginIsValid = [
-  emailNotNull,
-  passwordNotNull,
-  isNotEmail,
+  emailNotNull, passwordNotNull, isNotEmail,
 ];
 
 const validateToken = [
-  hasToken,
-  isTokenValid,
+  hasToken, isTokenValid,
 ];
 
 const userIsThere = [
-  hasToken,
-  isTokenValid,
-  userExists,
+  hasToken, isTokenValid, userExists,
 ];
 
 const validateCategories = [
-  hasName,
-  hasToken,
-  isTokenValid,
+  hasName, hasToken, isTokenValid,
 ];
 
 const validatePosts = [
-  hasTitle,
-  hasContent,
-  hastCategoryId,
-  hasToken,
-  isTokenValid,
+  hasTitle, hasContent, hastCategoryId, hasToken, isTokenValid,
 ];
 
 const postsCanBeUpdate = [
-  updatePost,
-  notCategories,
-  hasToken,
-  isTokenValid,
-  userIsValid,
+  updatePost, notCategories, hasToken, isTokenValid, userIsValid,
+];
+
+const validateExcludePost = [
+  hasToken, isTokenValid, postCanBeExcluded,
 ];
 
 module.exports = {
@@ -240,4 +237,5 @@ module.exports = {
   validateCategories,
   validatePosts,
   postsCanBeUpdate,
+  validateExcludePost,
 };

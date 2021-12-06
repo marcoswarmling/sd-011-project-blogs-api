@@ -13,4 +13,8 @@ router.get('/:id', middleware.validateToken, rescue(blogPostsController.findPost
 
 router.put('/:id', middleware.postsCanBeUpdate, rescue(blogPostsController.updatePost));
 
+// router.delete('/:id', middleware.validateExcludePost, rescue(blogPostsController.deletePostUser));
+
+router.delete('/:id', middleware.validateExcludePost, rescue(blogPostsController.deletePostUser));
+
 module.exports = router;
