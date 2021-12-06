@@ -1,14 +1,17 @@
 // const { category: { getAllByArrayIds } } = require('../../services'); // It's part of commented block to follow
 // const getByArrayIds = require('../../utils/getByArrayIds'); // It's part of commented block to follow
-const { category: { checkPostUserId } } = require('../../services');
+const { post: { getByIdTwo } } = require('../../services');
 
 const STATUS_UNAUTHORIZED = 401;
 const STATUS_BAD_REQUEST = 400;
+const STATUS_NOT_FOUND = 404;
+
 const MSG_UNAUTHORIZED_USER = 'Unauthorized user';
 const MSG_MISSING_TITLE = '"title" is required';
 const MSG_EMPTY_TITLE = '"title" is not allowed to be empty';
 const MSG_MISSING_CONTENT = '"content" is required';
 const MSG_EMPTY_CONTENT = '"content" is not allowed to be empty';
+const MSG_POST_NOT_FOUND = 'Post does not exist';
 
 /** This block is commented for Future implementation of 'categoryId updation' feature
 
@@ -43,13 +46,20 @@ async function categoryIdsValidator(expressParams) {
 
 async function userValidator(expressParams) {
   const { req, res, next } = expressParams;
-  const { user: userId } = req.body;
+  const { id: userId } = req.user;
   const { id: postId } = req.params;
 
   try {
-    const result = await checkPostUserId(postId, userId);
+    const result = await getByIdTwo(postId);
 
-    if (result === null) {
+    if (result === null) { // Not asked by Trybe "functional requirements", but I did implement it
+      return { 
+        status: STATUS_NOT_FOUND,
+        message: MSG_POST_NOT_FOUND,
+      };
+    }
+
+    if (result.userId !== userId) {
       return res.status(STATUS_UNAUTHORIZED).json({ message: MSG_UNAUTHORIZED_USER });
     }
 

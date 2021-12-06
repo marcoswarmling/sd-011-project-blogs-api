@@ -55,6 +55,7 @@ router.put('/:id', tokenValidMiddle, postUpdateValidMiddle, async (req, res, nex
   // const { body, categories } = req;
   try {
     const result = await post.updateIt({ postId, body });
+    if (result.message) return next(result);
     // updatePostsCategories(result, categories);
 
     res.status(STATUS_OK).json(result);

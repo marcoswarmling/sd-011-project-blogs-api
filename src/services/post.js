@@ -53,4 +53,14 @@ const getById = async (id) => {
   }
 };
 
-module.exports = { createIt, getAll, getById };
+const getByIdTwo = async (postId) => {
+  try {
+    const result = await BlogPost.getByPk(postId);
+
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = { createIt, getAll, getById, getByIdTwo };
