@@ -12,6 +12,7 @@ const createBlogPosts = async (req, res) => {
     try {
       const blogPostsCreated = await db.BlogPosts.create(blogPosts);
       await postCategory(blogPostsCreated.id, categoryIds);
+      console.log(blogPostsCreated.id);
       return res.status(201).json(blogPostsCreated);
     } catch (error) {
       return res.status(400).json(error.message);
