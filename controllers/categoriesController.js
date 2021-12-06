@@ -13,6 +13,12 @@ const createCategory = rescue(async (req, res) => {
   return res.status(201).json(category);
 });
 
+const getAll = rescue(async (req, res) => {
+  const users = await Category.findAll();
+  return res.status(200).json(users);
+});
+
 module.exports = {
   createCategory,
+  getAll,
 };
