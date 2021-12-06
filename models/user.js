@@ -4,8 +4,9 @@ const User = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     image: DataTypes.STRING,
-  }, 
-  { timestamps: false });
+  }, {
+    timestamps: false,
+  });
 
   user.associate = (models) => {
     user.hasMany(models.BlogPost,

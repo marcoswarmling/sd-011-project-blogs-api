@@ -1,28 +1,20 @@
 const express = require('express');
-const validateJWT = require('./auth/validateJWT');
 
 const userController = require('./controllers/userController');
+const validateJWT = require('./auth/validateJWT');
 const categoriesController = require('./controllers/categoriesController');
-const blogPostController = require('./controllers/blogPost.Controller');
+const blogPostController = require('./controllers/blogPostController');
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/user', validateJWT, userController.getAll);
-
 app.get('/user/:id', validateJWT, userController.getById);
-
 app.get('/categories', validateJWT, categoriesController.getAll);
-
 app.get('/post', validateJWT, blogPostController.getAll);
-
-app.post('/post', validateJWT, blogPostController.create);
-
-app.post('/categories', validateJWT, categoriesController.create);
-
+app.get('/post/:id', validateJWT, blogPostController.getById);
 app.post('/user', userController.create);
-
+app.post('/categories', validateJWT, categoriesController.create);
 app.post('/login', userController.login);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));

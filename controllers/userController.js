@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const service = require('../service/userService');
 
 const secret = 'JWT_SECRET';
+
 const jwtConfig = {
   expiresIn: '7d',
   algorithm: 'HS256',
