@@ -30,4 +30,18 @@ const signin = async ({ email, password }) => {
   return token;
 };
 
-module.exports = { create, signin };
+const getAll = async () => {
+  const users = await User.findAll();
+
+  return users;
+};
+
+const getById = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) throw errors.user.notFound;
+
+  return user;
+};
+
+module.exports = { create, signin, getAll, getById };
