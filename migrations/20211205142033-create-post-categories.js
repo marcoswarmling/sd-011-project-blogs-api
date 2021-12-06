@@ -5,7 +5,6 @@ module.exports = {
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'user_id',
         references: { model: 'Users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -13,7 +12,6 @@ module.exports = {
       categoryId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'category_id',
         references: { model: 'Categories', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
