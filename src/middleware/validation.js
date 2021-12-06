@@ -21,7 +21,6 @@ const alreadyExist = async (email) => {
   if (exists) {
     const error = new Error('User already registered');
     error.code = 409;
-    console.log(exists)
     throw error;
   }
   return null;
