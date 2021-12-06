@@ -13,9 +13,9 @@ const create = async (req, res) => {
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const { user } = await getByEmail(payload.email);
-    // console.log(user);
 
-    const response = await service.create(title, content, categoryIds, user.id);
+    const response = await service.create({ title, content, categoryIds, userId: user.id });
+    return res.status(201).json(response);
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -25,6 +25,9 @@ const getAll = async (req, res) => {
   const response = await service.getAll();
   if (!response) return res.status(200).json([]);
   if (response.message) return res.status(500).json(response);
+
+  console.log('response', response);
+  
   return res.status(200).json(response);
 };
 

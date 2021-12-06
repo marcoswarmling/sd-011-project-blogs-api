@@ -15,7 +15,6 @@ const login = async (req, res) => {
 
     return res.status(200).json({ token });
   } catch (err) {
-    // console.log('login', err.message);
     return res.status(500).json({ message: err.message });
   }
 };
