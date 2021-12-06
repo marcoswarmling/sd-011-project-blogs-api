@@ -1,7 +1,8 @@
-const bodyParser = require('body-parser');
+// const routes = require('../routes');
 const app = require('../index');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.get('/users', (req, res) => {
+  res.json('oi');
+});
 
-module.exports = app;
+// app.use(routes);
