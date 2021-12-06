@@ -1,4 +1,4 @@
-const { createToken } = require('../helpers/jwt');
+// const { createToken } = require('../helpers/jwt');
 const userService = require('../services/userService');
 const statusCodes = require('../schemas/statusCodes');
 
@@ -7,9 +7,11 @@ module.exports = {
     const { displayName, email, password, image } = request.body;
 
     try {
-      await userService.create({ displayName, email, password, image });
+      /* await userService.create({ displayName, email, password, image });
 
-      const token = createToken({ displayName, email });
+      const token = createToken({ displayName, email }); */
+
+      const token = await userService.create({ displayName, email, password, image });
 
       return response.status(statusCodes.created).json({ token });
     } catch (error) {

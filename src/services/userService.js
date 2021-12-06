@@ -8,7 +8,7 @@ const getByEmail = async (email) => {
   return user;
 };
 
-const createUserToken = ({ displayName, email }) => createToken({ displayName, email });
+const createUserToken = ({ id, displayName, email }) => createToken({ id, displayName, email });
 
 const create = async (user) => {
   const userExists = await getByEmail(user.email);
@@ -17,7 +17,9 @@ const create = async (user) => {
 
   const newUser = await User.create(user);
 
-  return newUser;
+  const token = createUserToken(newUser);
+
+  return token;
 };
 
 const signin = async ({ email, password }) => {
