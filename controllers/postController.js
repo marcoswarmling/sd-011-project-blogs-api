@@ -26,7 +26,26 @@ const getAllPost = async (req, res) => {
   }  
 };
 
+const findByIdPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await BlogPosts.findByPk(id, {
+      include: [
+        { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Categories, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    if (!response) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+};
+
 module.exports = {
   create,
   getAllPost,
+  findByIdPost,
 };
