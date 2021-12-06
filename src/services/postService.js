@@ -1,5 +1,21 @@
-const { BlogPosts, Categories } = require('../models');
+const { BlogPosts, Categories, Users } = require('../models');
 const { verifyToken } = require('../api/auth/jwt');
+
+const getAll = async (token) => {
+  try {
+    verifyToken(token);
+    const posts = await BlogPosts.findAll({
+      include: [{
+        model: Categories, as: 'categories', through: { attributes: [] },
+      }, {
+        model: Users, as: 'user',
+      }],
+    });
+    return posts;
+  } catch (error) {
+    return { message: 'Expired or invalid token' };
+  }
+};
 
 const validCategory = async (categoryIds) => {
     const categories = await Categories.findAll();
@@ -22,6 +38,7 @@ const createPost = async (title, content, token) => {
 };
 
 module.exports = {
+  getAll,
   createPost,
   validCategory,
 };

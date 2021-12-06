@@ -1,5 +1,22 @@
 const postService = require('../services/postService');
 
+const getAll = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+
+  const posts = await postService.getAll(token);
+
+  if (posts.message) {
+    return res.status(401).json(posts);
+  }
+
+  return res.status(200).json(posts);
+};
+
 const createPost = async (req, res) => {
   const { authorization } = req.headers;
   const token = authorization;
@@ -26,4 +43,5 @@ const createPost = async (req, res) => {
 
 module.exports = {
   createPost,
+  getAll,
 };
