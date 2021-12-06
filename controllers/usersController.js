@@ -36,4 +36,18 @@ const getUsers = async (req, res) => {
   }
 };
 
-module.exports = { createUser, login, getUsers };
+const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await userService.getUserById(id);
+    if (user.err) {
+      return res.status(user.err.code).json(user.err.message); 
+    }
+     return res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong. Try again later' });
+  }
+};
+
+module.exports = { createUser, login, getUsers, getUserById };
