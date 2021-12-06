@@ -1,4 +1,4 @@
-const { Users } = require('../models');
+const { User } = require('../models');
 
 const validateEmail = (req, res, next) => {
   const { email } = req.body;
@@ -20,10 +20,26 @@ const emailExists = (req, res, next) => {
   next();
 };
 
+const emailNotEmpty = (req, res, next) => {
+  const { email } = req.body;
+  if (email === '') { 
+    return res.status(400).json({ message: '"email" is not allowed to be empty' });
+  }
+  next();
+};
+
 const passwordExists = (req, res, next) => {
   const { password } = req.body;
   if (!password) {
     return res.status(400).json({ message: '"password" is required' });
+  }
+  next();
+};
+
+const passwordNotEmpty = (req, res, next) => {
+  const { password } = req.body;
+  if (password === '') {
+    return res.status(400).json({ message: '"password" is not allowed to be empty' });
   }
   next();
 };
@@ -45,9 +61,19 @@ const checkDisplayName = (req, res, next) => {
   next();
 };
 
+const checkEmailonDataBase = async (req, res, next) => {
+  const { email } = req.body;
+  const emailUser = await User.findOne({ where: { email } });
+  // console.log(user.dataValues.email);
+  if (emailUser.dataValues.email) {
+    return res.status(400).json({ message: 'Invalid fields' });
+  }
+  next();
+};
+
 const checkUniqueUser = async (req, res, next) => {
   const { email } = req.body;
- const findByEmail = await Users.findOne({ where: { email } });
+  const findByEmail = await User.findOne({ where: { email } });
  if (findByEmail) {
   return res.status(409).json({ message: 'User already registered' });
  }
@@ -59,4 +85,7 @@ module.exports = { validateEmail,
 validPassword,
 emailExists,
 passwordExists,
-checkDisplayName };
+checkDisplayName,
+checkEmailonDataBase,
+passwordNotEmpty,
+emailNotEmpty };
