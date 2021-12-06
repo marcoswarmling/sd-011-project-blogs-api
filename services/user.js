@@ -31,7 +31,7 @@ const createUser = async (data) => {
 
     const newUser = await User.create({ displayName, email, password, image });
 
-    return { token: generateToken({ email: newUser.email, user_id: newUser.id }) };
+    return { token: generateToken({ email: newUser.email, userId: newUser.id }) };
   } catch (error) {
     console.log(error.message);
 
@@ -42,22 +42,12 @@ const createUser = async (data) => {
 const validateLogin = async (data) => {
   try {
     const { email, password } = data;
-
-    const users = await User.findAll({ where: 
-      {
-        email,
-        password,
-      },
-      raw: true, 
-    });
-
-    if (users.length === 0) {
-      return { message: 'Invalid fields', status: 400 };
-    }
+    const users = await User.findAll({ where: { email, password }, raw: true });
+    if (users.length === 0) return { message: 'Invalid fields', status: 400 };
     return { 
       token: generateToken({
         email: users[0].email,
-        user_id: users[0].id,
+        userId: users[0].id,
       }),
     };
   } catch (error) {
