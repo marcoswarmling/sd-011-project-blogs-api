@@ -6,7 +6,10 @@ const createPost = async ({ title, content, categoryIds }) => {
 };
 
 const getPosts = async () => {
-  const blogPosts = await BlogPost.findAll();
+  const blogPosts = await BlogPost.findAll({ include: [
+    { model: User, as: 'user' },
+    { model: Category, as: 'categories' },
+  ] });
   return blogPosts;
 };
 

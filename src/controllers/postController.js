@@ -4,6 +4,7 @@ const postService = require('../services/postService');
 const createPost = rescue(async (req, res) => {
   const { title, content, categoryIds } = req.body;
   // const { id } = req.user;
+  // console.log(id);
   const newPost = await postService.createPost({ title, content, categoryIds });
   if (!categoryIds) return res.status(400).json({ message: '"categoryIds" not found' });
   return res.status(201).json(newPost);
@@ -26,6 +27,8 @@ const updatePost = rescue(async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
   const updatedPost = await postService.updatePost({ id, title, content });
+  if (!content) return res.status(400).json({ message: '"content" is required' });
+  if (!title) return res.status(400).json({ message: '"title" is required' });
   return res.status(200).json(updatedPost);
 });
 
