@@ -8,6 +8,7 @@ const errors = require('./errors/errors');
 app.use(express.json());
 app.use('/user', routes.users);
 app.use('/login', routes.login);
+app.use('/categories', routes.categories);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
