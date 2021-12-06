@@ -8,11 +8,13 @@ const {
   validateEmail,
   validatePassword,
   validateDisplayName,
+  validateIdUserExists,
 } = require('../middlewares/userMiddlewares');
 
 router.post('/user',
   validateDisplayName, validateEmail, validatePassword, userController.createUser);
 router.post('/login', validateFields, validateUserExists, login);
+router.get('/user/:id', authToken, validateIdUserExists, userController.getUserById);
 router.get('/user', authToken, userController.getUsers);
 
 module.exports = router;

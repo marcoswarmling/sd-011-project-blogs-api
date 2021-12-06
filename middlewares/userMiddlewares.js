@@ -48,8 +48,27 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+const validateIdUserExists = async (req, res, next) => {
+  /* Para que o sequelize retornasse o usuário buscado precisava configurar o timestamps 
+  como false no model e deletar as colunas updatedAt e createdAt nas migrations. 
+  Resolvi esse problema com a solução no mesmo problema, da Ana Clara Kyotoku pelo slack:
+  https://trybecourse.slack.com/archives/C01PLFW7347/p1638664013027100 */
+  const { id } = req.params;
+
+  const user = await User.findOne(
+    { where: { id: { [Op.eq]: id } } },
+  );
+   
+  if (!id || !user) {
+    return res.status(404).json({ message: 'User does not exist' });
+  }
+
+  next();
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
   validatePassword,
+  validateIdUserExists,
 };
