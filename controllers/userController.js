@@ -10,7 +10,7 @@ const addUser = async (req, res) => {
     
     return user.token
       ? res.status(user.code).json(user.token)
-      : res.status(user.code).json(user.message);
+      : res.status(user.code).json({ message: user.message });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: 'Algo deu errado' });  

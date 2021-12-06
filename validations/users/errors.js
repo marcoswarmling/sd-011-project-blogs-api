@@ -13,11 +13,11 @@ const errors = {
   },
   passwordLength: {
     code: '400',
-    message: '"password" length must be at least 6 characters long',
+    message: '"password" length must be 6 characters long',
   },
   missingPassword: {
     code: '400',
-    message: '"password is required',
+    message: '"password" is required',
   },
 };
 
