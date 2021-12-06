@@ -8,5 +8,6 @@ const postValidator = require('../middlewares/validations/postValidator');
 const postRouter = express.Router();
 
 postRouter.post('/', authValidator, postValidator, postController.create);
+postRouter.get('/', authValidator, postController.getAll);
 
 module.exports = postRouter;
