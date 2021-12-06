@@ -65,7 +65,7 @@ const checkEmailonDataBase = async (req, res, next) => {
   const { email } = req.body;
   const emailUser = await User.findOne({ where: { email } });
   // console.log(user.dataValues.email);
-  if (emailUser.dataValues.email) {
+  if (!emailUser) {
     return res.status(400).json({ message: 'Invalid fields' });
   }
   next();
@@ -73,7 +73,7 @@ const checkEmailonDataBase = async (req, res, next) => {
 
 const checkUniqueUser = async (req, res, next) => {
   const { email } = req.body;
-  const findByEmail = await User.findOne({ where: { email } });
+const findByEmail = await User.findOne({ where: { email } });
  if (findByEmail) {
   return res.status(409).json({ message: 'User already registered' });
  }
