@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const userController = require('../controllers/userController');
 const categoriesController = require('../controllers/categoriesController');
+const postsController = require('../controllers/postsController');
 const userValidate = require('../middlewares/userValidate');
 
 router.post('/user',
@@ -29,5 +30,9 @@ router.post('/categories',
 router.get('/categories',
   userValidate.validateToken,
   categoriesController.getAll);
+
+router.get('/post',
+  userValidate.validateToken,
+  postsController.getAll);
 
 module.exports = router;
