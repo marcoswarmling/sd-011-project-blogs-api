@@ -22,3 +22,4 @@ app.get('/user/:id', Middleware.validateToken, ControllerUser.getUserById);
 app.post('/categories', Middleware.validateToken, ControllerCategories.createCategory);
 app.get('/categories', Middleware.validateToken, ControllerCategories.getAllCategories);
 app.post('/post', Middleware.validateToken, ControllerBlogPost.createPost);
+app.get('/post', Middleware.validateToken, ControllerBlogPost.getAllPosts);

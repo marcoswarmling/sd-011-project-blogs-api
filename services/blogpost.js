@@ -1,6 +1,6 @@
 const { BlogPost } = require('../models');
 const { Categories } = require('../models');
-const { blogCategories } = require('../models');
+const { User } = require('../models');
 
 const createPost = async (data, userId) => {
   const { title, categoryIds, content } = data;
@@ -48,6 +48,37 @@ const createPost = async (data, userId) => {
   }
 };
 
+const getAllPosts = async () => {
+  try {
+    return await BlogPost.findAll({
+      attributes: [
+        'id', 
+        'title', 
+        'content', 
+        'userId', 
+        'published', 
+        'updated'
+      ],
+      include: [
+        {
+          model: User, as: 'user',
+          attributes: ['id', 'displayName', 'email', 'image']
+        },
+        {
+          model: Categories, as: 'categories',
+          attributes: ['id', 'name']
+        }
+      ]
+    });
+    
+  } catch (error) {
+    console.log(error.message);
+
+    return { message: 'Algo deu errado', status: 500 };
+  }
+};
+
 module.exports = {
   createPost,
+  getAllPosts,
 };
