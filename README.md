@@ -22,7 +22,7 @@
 
 # Habilidades 
 
-Nesse projeto, doi contruido um back-end usando `ORM` com o pacote `sequelize` do `npm`, e foi verificado que o aluno é capaz de:
+Nesse projeto, foi contruido um back-end usando `ORM` com o pacote `sequelize` do `npm`, e foi verificado que o aluno é capaz de:
  - Criar e associar tabelas usando `models` do `sequelize`
  - Construir endpoints para consumir os models que criar 
  - Fazer um `CRUD` com o `ORM`
